@@ -1,0 +1,21 @@
+// =========================================================
+// CTPG Global Styles
+// =========================================================
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ctpg-container-narrow {
+  max-width: 960px;
+  margin-inline: auto;
+}

@@ -1,0 +1,75 @@
+// =========================================================
+// CTPG Bootstrap Extended Maps
+// Extends Bootstrap utility scales from 1–100
+// =========================================================
+
+// Spacing scale
+// 1 = .25rem = 4px
+// 4 = 1rem = 16px
+// 25 = 6.25rem = 100px
+// 100 = 25rem = 400px
+
+$spacer: 1rem;
+
+$spacers: (
+  0: 0
+);
+
+@for $i from 1 through 100 {
+  $spacers: map-merge(
+    $spacers,
+    (
+      $i: $i * .25rem
+    )
+  );
+}
+
+// Percentage scale
+// Used for width, height, max-width, viewport helpers if enabled
+
+$ctpg-percentages: (
+  0: 0%
+);
+
+@for $i from 1 through 100 {
+  $ctpg-percentages: map-merge(
+    $ctpg-percentages,
+    (
+      $i: $i * 1%
+    )
+  );
+}
+
+// Opacity scale
+// opacity-1 = .01
+// opacity-50 = .5
+// opacity-100 = 1
+
+$ctpg-opacity-values: (
+  0: 0
+);
+
+@for $i from 1 through 100 {
+  $ctpg-opacity-values: map-merge(
+    $ctpg-opacity-values,
+    (
+      $i: $i * .01
+    )
+  );
+}
+
+// Z-index scale
+// z-1 through z-100
+
+$ctpg-zindex-values: (
+  0: 0
+);
+
+@for $i from 1 through 100 {
+  $ctpg-zindex-values: map-merge(
+    $ctpg-zindex-values,
+    (
+      $i: $i
+    )
+  );
+}

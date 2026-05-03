@@ -1,0 +1,21 @@
+{
+  "name": "ctpg-media-server",
+  "version": "1.0.0",
+  "description": "Cruise & Theme Park Guide media asset server and Bootstrap 5 design system.",
+  "scripts": {
+    "clean": "rimraf dist",
+    "copy:assets": "copyfiles -u 1 \"public/**/*\" dist",
+    "build:css": "sass src/scss/main.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps",
+    "build:js": "terser src/js/main.js -o dist/js/ctpg-main.min.js -c -m",
+    "build": "npm-run-all clean copy:assets build:css build:js",
+    "watch:css": "sass --watch src/scss/main.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps"
+  },
+  "devDependencies": {
+    "bootstrap": "latest",
+    "copyfiles": "latest",
+    "npm-run-all": "latest",
+    "rimraf": "latest",
+    "sass": "latest",
+    "terser": "latest"
+  }
+}

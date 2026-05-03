@@ -1,0 +1,72 @@
+// =========================================================
+// Bootstrap 5 Extended Build
+// =========================================================
+
+@import "../../../node_modules/bootstrap/scss/functions";
+
+// CTPG custom values before Bootstrap variables
+@import "../brand/tokens";
+@import "bootstrap-extended-maps";
+
+// Bootstrap core variables/maps
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/variables-dark";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/utilities";
+
+// Extend Bootstrap utility API maps
+$utilities: map-merge(
+  $utilities,
+  (
+    "width": map-merge(
+      map-get($utilities, "width"),
+      (
+        values: $ctpg-percentages
+      )
+    ),
+    "height": map-merge(
+      map-get($utilities, "height"),
+      (
+        values: $ctpg-percentages
+      )
+    ),
+    "opacity": map-merge(
+      map-get($utilities, "opacity"),
+      (
+        values: $ctpg-opacity-values
+      )
+    ),
+    "z-index": map-merge(
+      map-get($utilities, "z-index"),
+      (
+        values: $ctpg-zindex-values
+      )
+    )
+  )
+);
+
+// Bootstrap base
+@import "../../../node_modules/bootstrap/scss/root";
+@import "../../../node_modules/bootstrap/scss/reboot";
+@import "../../../node_modules/bootstrap/scss/type";
+@import "../../../node_modules/bootstrap/scss/images";
+@import "../../../node_modules/bootstrap/scss/containers";
+@import "../../../node_modules/bootstrap/scss/grid";
+
+// Bootstrap components
+@import "../../../node_modules/bootstrap/scss/buttons";
+@import "../../../node_modules/bootstrap/scss/card";
+@import "../../../node_modules/bootstrap/scss/dropdown";
+@import "../../../node_modules/bootstrap/scss/nav";
+@import "../../../node_modules/bootstrap/scss/navbar";
+@import "../../../node_modules/bootstrap/scss/forms";
+@import "../../../node_modules/bootstrap/scss/modal";
+@import "../../../node_modules/bootstrap/scss/accordion";
+@import "../../../node_modules/bootstrap/scss/alert";
+@import "../../../node_modules/bootstrap/scss/badge";
+@import "../../../node_modules/bootstrap/scss/offcanvas";
+
+// Bootstrap helpers and utility generator
+@import "../../../node_modules/bootstrap/scss/helpers";
+@import "../../../node_modules/bootstrap/scss/utilities/api";
