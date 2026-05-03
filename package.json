@@ -8,11 +8,14 @@
     "build:css": "sass src/scss/main.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps",
     "build:js": "terser src/js/main.js -o dist/js/ctpg-main.min.js -c -m",
     "build": "npm-run-all clean copy:assets build:css build:js",
-    "watch:css": "sass --watch src/scss/main.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps"
+    "watch:css": "sass --watch src/scss/main.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps",
+    "deploy:r2": "node scripts/upload-to-r2.js"
   },
   "devDependencies": {
+    "@aws-sdk/client-s3": "^3.1041.0",
     "bootstrap": "latest",
     "copyfiles": "latest",
+    "mime-types": "^3.0.2",
     "npm-run-all": "latest",
     "rimraf": "latest",
     "sass": "latest",
