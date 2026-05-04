@@ -4866,6 +4866,15 @@
   
   <!-- Initialize Bootstrap Components -->
   <script>
+    // Initialize all carousels with auto-cycle
+    const carouselElements = document.querySelectorAll('.carousel');
+    carouselElements.forEach(carousel => {
+      new bootstrap.Carousel(carousel, {
+        interval: 5000,
+        ride: 'carousel'
+      });
+    });
+    
     // Initialize all tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
