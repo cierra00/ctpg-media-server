@@ -3,324 +3,893 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CTPG Design System</title>
+  <title>CTPG Design System - Component Library</title>
   <link rel="stylesheet" href="https://media.cruiseandthemeparkguide.com/css/ctpg-bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --navy: #0a1e3d;
+      --teal: #2596be;
+      --gold: #f4b223;
+      --orange: #ff8c42;
+      --coral: #ff6b6b;
+      --light-blue: #4a90a4;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
+    /* Navigation */
+    .top-bar {
+      background: var(--navy);
+      color: white;
+      padding: 0.5rem 0;
+      font-size: 0.875rem;
+    }
+    
+    .main-nav {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .nav-link {
+      color: #333;
+      font-weight: 500;
+      padding: 1rem 1.25rem;
+    }
+    
+    .nav-link:hover {
+      color: var(--teal);
+    }
+    
+    /* Component Preview Boxes */
+    .component-section {
+      margin-bottom: 4rem;
+    }
+    
+    .component-preview {
+      background: #f8f9fa;
+      border-radius: 1rem;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .component-preview-dark {
+      background: var(--navy);
+      color: white;
+      padding: 2rem;
+      border-radius: 1rem;
+    }
+    
+    /* Color Swatches */
     .color-swatch {
       height: 120px;
-      border-radius: 1rem;
+      border-radius: 0.75rem;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: white;
       font-weight: 600;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    .component-preview {
+    
+    .color-name {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .color-hex {
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+    
+    /* Cards */
+    .post-card {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      height: 100%;
+    }
+    
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+    
+    .post-card-img {
+      position: relative;
+      overflow: hidden;
+      height: 200px;
+    }
+    
+    .post-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .post-card-content {
+      padding: 1.5rem;
+    }
+    
+    .post-category {
+      display: inline-block;
+      background: var(--coral);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    
+    .post-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+    
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    .post-meta i {
+      margin-right: 0.25rem;
+    }
+    
+    /* Badge Styles */
+    .badge-ctpg {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+    }
+    
+    /* Buttons */
+    .btn-ctpg-primary {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .btn-ctpg-primary:hover {
+      background: #d69b1f;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(244, 178, 35, 0.4);
+    }
+    
+    .btn-ctpg-secondary {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+    }
+    
+    .btn-ctpg-outline {
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+    }
+    
+    /* Newsletter */
+    .newsletter-box {
+      background: var(--navy);
+      color: white;
       padding: 2rem;
-      background: #f8f9fa;
-      border-radius: 1rem;
-      margin-bottom: 2rem;
+      border-radius: 0.75rem;
+    }
+    
+    /* Sidebar Components */
+    .sidebar-widget {
+      background: white;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      margin-bottom: 1.5rem;
+    }
+    
+    .sidebar-widget-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--gold);
+    }
+    
+    /* Author Card */
+    .author-card {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--teal), var(--light-blue));
+      border-radius: 0.75rem;
+      color: white;
+    }
+    
+    .author-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 4px solid white;
+      margin: 0 auto 1rem;
+    }
+    
+    /* Social Buttons */
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: white;
+      margin: 0 0.25rem;
+      transition: transform 0.3s;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+    }
+    
+    .social-btn.facebook { background: #1877f2; }
+    .social-btn.twitter { background: #1da1f2; }
+    .social-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .social-btn.youtube { background: #ff0000; }
+    
+    /* Typography Examples */
+    .type-sample {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    /* Hero Section */
+    .hero-overlay {
+      position: relative;
+      height: 400px;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--teal) 100%);
+    }
+    
+    .hero-content {
+      position: absolute;
+      bottom: 2rem;
+      left: 2rem;
+      right: 2rem;
+      color: white;
+    }
+    
+    /* Table of Contents */
+    .toc {
+      position: sticky;
+      top: 2rem;
+      background: white;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    .toc-link {
+      display: block;
+      padding: 0.5rem 0;
+      color: #6b7280;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .toc-link:hover {
+      color: var(--teal);
     }
   </style>
 </head>
 <body>
 
-  <!-- Hero Section -->
-  <section class="ctpg-hero text-center">
+  <!-- Top Bar -->
+  <div class="top-bar">
     <div class="container">
-      <h1 class="display-1 fw-bold mb-4 text-shadow">CTPG Design System</h1>
-      <p class="lead mb-4">Cruise & Theme Park Guide Brand & Component Library</p>
-      <button class="ctpg-btn-gold me-3">Get Started</button>
-      <button class="ctpg-btn-outline-gold">Learn More</button>
-    </div>
-  </section>
-
-  <!-- Brand Colors -->
-  <section class="container py-5">
-    <h2 class="ctpg-heading-display mb-5">Brand Colors</h2>
-    
-    <div class="row g-4 mb-5">
-      <div class="col-md-3">
-        <div class="color-swatch" style="background: #0a1e3d;">
-          Navy<br>#0a1e3d
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-3">
+          <span><i class="fas fa-envelope"></i> hello@ctpg.com</span>
+          <span><i class="fas fa-phone"></i> (555) 123-4567</span>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="color-swatch" style="background: #2596be;">
-          Teal<br>#2596be
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="color-swatch" style="background: #f4b223;">
-          Gold<br>#f4b223
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="color-swatch" style="background: #ff8c42;">
-          Orange<br>#ff8c42
+        <div class="d-flex gap-2">
+          <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
     </div>
+  </div>
 
-    <h3 class="h4 mb-4 ctpg-text-gold">Gradient Combinations</h3>
-    <div class="row g-4">
-      <div class="col-md-6">
-        <div class="color-swatch ctpg-gradient-sunset">
-          Sunset Gradient
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="color-swatch ctpg-gradient-ocean">
-          Ocean Gradient
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Typography -->
-  <section class="bg-light py-5">
+  <!-- Main Navigation Example -->
+  <nav class="main-nav py-3">
     <div class="container">
-      <h2 class="ctpg-heading-display mb-5">Typography</h2>
-      
-      <h1 class="display-1">Display 1 Heading</h1>
-      <h2 class="display-2">Display 2 Heading</h2>
-      <h3 class="h1">Heading 1</h3>
-      <h4 class="h2">Heading 2</h4>
-      <h5 class="h3">Heading 3</h5>
-      
-      <p class="lead mt-4">
-        This is lead text. Perfect for introductory paragraphs and important messages.
-      </p>
-      
-      <p>
-        Regular body text. We share real cruise and theme park experiences, plus news, 
-        honest planning tips, dining and resort recommendations, and weekly livestream 
-        reminders so you can plan trips with more confidence.
-      </p>
-    </div>
-  </section>
-
-  <!-- Buttons -->
-  <section class="container py-5">
-    <h2 class="ctpg-heading-display mb-5">Buttons</h2>
-    
-    <div class="component-preview">
-      <h4 class="mb-4">Primary Buttons</h4>
-      <button class="btn btn-primary me-2 mb-2">Primary</button>
-      <button class="btn btn-secondary me-2 mb-2">Secondary</button>
-      <button class="btn btn-info me-2 mb-2">Info</button>
-      <button class="btn btn-warning me-2 mb-2">Warning</button>
-      <button class="btn btn-success me-2 mb-2">Success</button>
-      <button class="btn btn-danger me-2 mb-2">Danger</button>
-    </div>
-
-    <div class="component-preview">
-      <h4 class="mb-4">Outline Buttons</h4>
-      <button class="btn btn-outline-primary me-2 mb-2">Primary</button>
-      <button class="btn btn-outline-secondary me-2 mb-2">Secondary</button>
-      <button class="btn btn-outline-info me-2 mb-2">Info</button>
-    </div>
-
-    <div class="component-preview">
-      <h4 class="mb-4">Custom Brand Buttons</h4>
-      <button class="ctpg-btn-gold me-2 mb-2">Gold CTA</button>
-      <button class="ctpg-btn-outline-gold me-2 mb-2">Gold Outline</button>
-    </div>
-
-    <div class="component-preview">
-      <h4 class="mb-4">Button Sizes</h4>
-      <button class="btn btn-primary btn-lg me-2 mb-2">Large</button>
-      <button class="btn btn-primary me-2 mb-2">Default</button>
-      <button class="btn btn-primary btn-sm me-2 mb-2">Small</button>
-    </div>
-  </section>
-
-  <!-- Cards -->
-  <section class="bg-light py-5">
-    <div class="container">
-      <h2 class="ctpg-heading-display mb-5">Cards</h2>
-      
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="ctpg-card bg-white p-4">
-            <h4 class="mb-3">Basic Card</h4>
-            <p class="mb-3">This is a standard card with hover effects and rounded corners.</p>
-            <button class="btn btn-primary">Learn More</button>
-          </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="fw-bold" style="font-size: 1.5rem; color: var(--navy);">
+          CTPG <span style="color: var(--gold);">Travel</span>
         </div>
-        
-        <div class="col-md-4">
-          <div class="ctpg-card ctpg-card-gradient p-4">
-            <h4 class="mb-3">Gradient Card</h4>
-            <p class="mb-3">Cards can use gradient backgrounds for visual interest.</p>
-            <button class="ctpg-btn-gold">Explore</button>
-          </div>
+        <div class="d-flex gap-4 align-items-center">
+          <a href="#" class="nav-link">Home</a>
+          <a href="#" class="nav-link">Cruises</a>
+          <a href="#" class="nav-link">Theme Parks</a>
+          <a href="#" class="nav-link">Dining</a>
+          <a href="#" class="nav-link">Contact</a>
         </div>
-        
-        <div class="col-md-4">
-          <div class="ctpg-card bg-white p-0">
-            <div class="ctpg-gradient-sunset p-4 text-white">
-              <h4 class="mb-0">Sunset Header</h4>
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-search"></i></button>
+          <button class="btn btn-sm btn-ctpg-primary">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <h1 class="display-3 fw-bold mb-3" style="color: var(--navy);">CTPG Design System</h1>
+      <p class="lead text-muted">Complete Component Library for Cruise & Theme Park Guide</p>
+      <p class="text-muted">Last updated: May 3, 2026</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container pb-5">
+    <div class="row">
+      <!-- Sidebar TOC -->
+      <div class="col-lg-3">
+        <div class="toc">
+          <h6 class="fw-bold mb-3" style="color: var(--navy);">Contents</h6>
+          <a href="#colors" class="toc-link">Brand Colors</a>
+          <a href="#typography" class="toc-link">Typography</a>
+          <a href="#buttons" class="toc-link">Buttons</a>
+          <a href="#badges" class="toc-link">Badges & Labels</a>
+          <a href="#cards" class="toc-link">Content Cards</a>
+          <a href="#forms" class="toc-link">Form Elements</a>
+          <a href="#navigation" class="toc-link">Navigation</a>
+          <a href="#sidebar" class="toc-link">Sidebar Widgets</a>
+          <a href="#hero" class="toc-link">Hero Sections</a>
+          <a href="#footer" class="toc-link">Footer</a>
+        </div>
+      </div>
+
+      <!-- Component Library -->
+      <div class="col-lg-9">
+
+        <!-- Brand Colors -->
+        <section id="colors" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Brand Colors</h2>
+          
+          <h4 class="mb-3">Primary Palette</h4>
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <div class="color-swatch" style="background: #0a1e3d;">
+                <div class="color-name">Navy</div>
+                <div class="color-hex">#0a1e3d</div>
+              </div>
             </div>
-            <div class="p-4">
-              <p class="mb-3">Cards with gradient headers create visual hierarchy.</p>
-              <button class="btn btn-outline-primary">Read More</button>
+            <div class="col-md-4">
+              <div class="color-swatch" style="background: #2596be;">
+                <div class="color-name">Teal</div>
+                <div class="color-hex">#2596be</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="color-swatch" style="background: #f4b223;">
+                <div class="color-name">Gold</div>
+                <div class="color-hex">#f4b223</div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Badges & Labels -->
-  <section class="container py-5">
-    <h2 class="ctpg-heading-display mb-5">Badges & Labels</h2>
-    
-    <div class="component-preview">
-      <h4 class="mb-4">Badge Styles</h4>
-      <span class="badge bg-primary me-2 mb-2">Primary</span>
-      <span class="badge bg-secondary me-2 mb-2">Secondary</span>
-      <span class="badge bg-success me-2 mb-2">Success</span>
-      <span class="badge bg-warning text-dark me-2 mb-2">Warning</span>
-      <span class="badge bg-danger me-2 mb-2">Danger</span>
-      <span class="badge bg-info me-2 mb-2">Info</span>
-    </div>
+          <h4 class="mb-3">Accent Colors</h4>
+          <div class="row g-3">
+            <div class="col-md-3">
+              <div class="color-swatch" style="background: #ff8c42;">
+                <div class="color-name">Orange</div>
+                <div class="color-hex">#ff8c42</div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="color-swatch" style="background: #ff6b6b;">
+                <div class="color-name">Coral</div>
+                <div class="color-hex">#ff6b6b</div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="color-swatch" style="background: #4a90a4;">
+                <div class="color-name">Light Blue</div>
+                <div class="color-hex">#4a90a4</div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="color-swatch" style="background: #28a745;">
+                <div class="color-name">Success</div>
+                <div class="color-hex">#28a745</div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-    <div class="component-preview">
-      <h4 class="mb-4">Custom Badge</h4>
-      <div class="ctpg-badge">
-        <h5 class="mb-0">CTPG Travel</h5>
-        <small>Cruise Planning • Tips • Reviews</small>
-      </div>
-    </div>
-  </section>
-
-  <!-- Forms -->
-  <section class="bg-light py-5">
-    <div class="container">
-      <h2 class="ctpg-heading-display mb-5">Form Elements</h2>
-      
-      <div class="row">
-        <div class="col-lg-6">
+        <!-- Typography -->
+        <section id="typography" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Typography</h2>
+          
           <div class="component-preview bg-white">
-            <h4 class="mb-4">Newsletter Signup</h4>
-            <form>
-              <div class="mb-3">
-                <label for="firstName" class="form-label">First name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="First name">
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Email address">
-              </div>
-              <div class="mb-3">
-                <label class="form-label">I want:</label>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="monthly">
-                  <label class="form-check-label" for="monthly">
-                    Monthly newsletter
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="weekly">
-                  <label class="form-check-label" for="weekly">
-                    Weekly digest (livestreams, news, and updates)
-                  </label>
-                </div>
-              </div>
-              <button type="submit" class="ctpg-btn-gold w-100">GET COMMUNITY UPDATES</button>
-            </form>
+            <div class="type-sample">
+              <h1 class="display-1">Display 1 - Hero Heading</h1>
+              <p class="text-muted small">font-size: 6rem | font-weight: 700</p>
+            </div>
+            
+            <div class="type-sample">
+              <h2 class="display-4">Display 4 - Section Title</h2>
+              <p class="text-muted small">font-size: 3.5rem | font-weight: 700</p>
+            </div>
+            
+            <div class="type-sample">
+              <h3 class="h2">Heading 2 - Subsection</h3>
+              <p class="text-muted small">font-size: 2rem | font-weight: 700</p>
+            </div>
+            
+            <div class="type-sample">
+              <h4 class="h4">Heading 4 - Card Title</h4>
+              <p class="text-muted small">font-size: 1.5rem | font-weight: 700</p>
+            </div>
+            
+            <div class="type-sample">
+              <p class="lead">Lead paragraph text for introductions and important content</p>
+              <p class="text-muted small">font-size: 1.25rem | font-weight: 400</p>
+            </div>
+            
+            <div class="type-sample">
+              <p>Regular body text. We share real cruise and theme park experiences, plus news, honest planning tips, dining and resort recommendations, and weekly livestream reminders so you can plan trips with more confidence.</p>
+              <p class="text-muted small">font-size: 1rem | font-weight: 400</p>
+            </div>
+            
+            <div>
+              <small class="text-muted">Small text for metadata, captions, and secondary information</small>
+              <p class="text-muted small mb-0">font-size: 0.875rem | font-weight: 400</p>
+            </div>
           </div>
-        </div>
-        
-        <div class="col-lg-6">
+        </section>
+
+        <!-- Buttons -->
+        <section id="buttons" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Buttons</h2>
+          
+          <div class="component-preview">
+            <h5 class="mb-3">Primary Buttons</h5>
+            <button class="btn-ctpg-primary me-2 mb-2">Primary Button</button>
+            <button class="btn-ctpg-secondary me-2 mb-2">Secondary Button</button>
+            <button class="btn-ctpg-outline me-2 mb-2">Outline Button</button>
+          </div>
+
+          <div class="component-preview">
+            <h5 class="mb-3">Bootstrap Button Variants</h5>
+            <button class="btn btn-primary me-2 mb-2">Primary</button>
+            <button class="btn btn-secondary me-2 mb-2">Secondary</button>
+            <button class="btn btn-success me-2 mb-2">Success</button>
+            <button class="btn btn-danger me-2 mb-2">Danger</button>
+            <button class="btn btn-warning me-2 mb-2">Warning</button>
+            <button class="btn btn-info me-2 mb-2">Info</button>
+          </div>
+
+          <div class="component-preview">
+            <h5 class="mb-3">Outline Variants</h5>
+            <button class="btn btn-outline-primary me-2 mb-2">Primary</button>
+            <button class="btn btn-outline-secondary me-2 mb-2">Secondary</button>
+            <button class="btn btn-outline-success me-2 mb-2">Success</button>
+          </div>
+
+          <div class="component-preview">
+            <h5 class="mb-3">Button Sizes</h5>
+            <button class="btn btn-primary btn-lg me-2 mb-2">Large</button>
+            <button class="btn btn-primary me-2 mb-2">Default</button>
+            <button class="btn btn-primary btn-sm me-2 mb-2">Small</button>
+          </div>
+
+          <div class="component-preview">
+            <h5 class="mb-3">Button with Icons</h5>
+            <button class="btn-ctpg-primary me-2 mb-2"><i class="fas fa-play me-2"></i>Watch Stream</button>
+            <button class="btn-ctpg-secondary me-2 mb-2"><i class="fas fa-ship me-2"></i>Browse Cruises</button>
+            <button class="btn-ctpg-outline me-2 mb-2"><i class="fas fa-bell me-2"></i>Get Updates</button>
+          </div>
+        </section>
+
+        <!-- Badges & Labels -->
+        <section id="badges" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Badges & Labels</h2>
+          
+          <div class="component-preview">
+            <h5 class="mb-3">Category Badges</h5>
+            <span class="post-category me-2 mb-2" style="background: var(--coral);">CRUISES</span>
+            <span class="post-category me-2 mb-2" style="background: var(--teal);">THEME PARKS</span>
+            <span class="post-category me-2 mb-2" style="background: var(--orange);">DINING</span>
+            <span class="post-category me-2 mb-2" style="background: var(--gold); color: var(--navy);">FEATURED</span>
+            <span class="post-category me-2 mb-2" style="background: var(--navy);">NEWS</span>
+          </div>
+
+          <div class="component-preview">
+            <h5 class="mb-3">Bootstrap Badges</h5>
+            <span class="badge bg-primary me-2 mb-2">Primary</span>
+            <span class="badge bg-secondary me-2 mb-2">Secondary</span>
+            <span class="badge bg-success me-2 mb-2">Success</span>
+            <span class="badge bg-danger me-2 mb-2">Danger</span>
+            <span class="badge bg-warning text-dark me-2 mb-2">Warning</span>
+            <span class="badge bg-info me-2 mb-2">Info</span>
+          </div>
+
+          <div class="component-preview">
+            <h5 class="mb-3">Pill Badges</h5>
+            <span class="badge rounded-pill bg-primary me-2 mb-2">NEW</span>
+            <span class="badge rounded-pill bg-success me-2 mb-2">Updated</span>
+            <span class="badge rounded-pill badge-ctpg me-2 mb-2">Popular</span>
+          </div>
+        </section>
+
+        <!-- Content Cards -->
+        <section id="cards" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Content Cards</h2>
+          
+          <h5 class="mb-3">Post Cards</h5>
+          <div class="row g-4 mb-4">
+            <div class="col-md-4">
+              <div class="post-card">
+                <div class="post-card-img">
+                  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400" alt="Cruise ship">
+                </div>
+                <div class="post-card-content">
+                  <span class="post-category" style="background: var(--coral);">CRUISES</span>
+                  <h3 class="post-title">Top 10 Caribbean Cruise Destinations for 2026</h3>
+                  <div class="post-meta">
+                    <span><i class="far fa-user"></i>Cierra Ray</span>
+                    <span><i class="far fa-calendar"></i>May 3, 2026</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="post-card">
+                <div class="post-card-img">
+                  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" alt="Theme park">
+                </div>
+                <div class="post-card-content">
+                  <span class="post-category" style="background: var(--teal);">THEME PARKS</span>
+                  <h3 class="post-title">Walt Disney World Planning Guide: Everything You Need</h3>
+                  <div class="post-meta">
+                    <span><i class="far fa-user"></i>Cierra Ray</span>
+                    <span><i class="far fa-clock"></i>8 mins read</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="post-card">
+                <div class="post-card-img">
+                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400" alt="Dining">
+                </div>
+                <div class="post-card-content">
+                  <span class="post-category" style="background: var(--orange);">DINING</span>
+                  <h3 class="post-title">Best Restaurants at Universal Orlando Resort</h3>
+                  <div class="post-meta">
+                    <span><i class="far fa-eye"></i>2.5k views</span>
+                    <span><i class="far fa-clock"></i>5 mins read</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h5 class="mb-3">Horizontal Card Layout</h5>
           <div class="component-preview bg-white">
-            <h4 class="mb-4">Search & Filters</h4>
-            <div class="mb-3">
-              <input type="search" class="form-control form-control-lg" placeholder="Search destinations...">
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=400" class="rounded" style="width: 100%; height: 200px; object-fit: cover;" alt="Travel">
+              </div>
+              <div class="col-md-8">
+                <span class="post-category" style="background: var(--gold); color: var(--navy);">FEATURED</span>
+                <h4 class="post-title mt-2">How to Plan Your First Disney Cruise: Complete Beginner's Guide</h4>
+                <p class="text-muted">Everything you need to know about booking, planning, and enjoying your first Disney Cruise vacation with your family.</p>
+                <div class="post-meta">
+                  <span><i class="far fa-user"></i>Cierra Ray</span>
+                  <span><i class="far fa-calendar"></i>May 1, 2026</span>
+                  <span><i class="far fa-clock"></i>12 mins read</span>
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-              <select class="form-select">
-                <option>All Cruise Lines</option>
-                <option>Disney Cruise Line</option>
-                <option>Royal Caribbean</option>
-                <option>Carnival</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <select class="form-select">
-                <option>All Theme Parks</option>
-                <option>Walt Disney World</option>
-                <option>Universal Orlando</option>
-                <option>Disneyland</option>
-              </select>
-            </div>
-            <button class="btn btn-primary w-100">Search</button>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        </section>
 
-  <!-- Layout Examples -->
-  <section class="container py-5">
-    <h2 class="ctpg-heading-display mb-5">Layout Patterns</h2>
-    
-    <div class="ctpg-card bg-white p-5 mb-4">
-      <div class="row align-items-center">
-        <div class="col-md-8">
-          <h3 class="mb-3">ADVENTURE UPDATES, ALL IN ONE PLACE</h3>
-          <p class="lead mb-0">
-            We share real cruise and theme park experiences, plus news, honest planning tips, 
-            dining and resort recommendations, and weekly livestream reminders so you can plan 
-            trips with more confidence.
-          </p>
-        </div>
-        <div class="col-md-4 text-center">
-          <button class="ctpg-btn-gold">Join Community</button>
-        </div>
-      </div>
-    </div>
+        <!-- Forms -->
+        <section id="forms" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Form Elements</h2>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="component-preview bg-white">
+                <h5 class="mb-3">Newsletter Signup</h5>
+                <form>
+                  <div class="mb-3">
+                    <label for="name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Your name">
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" placeholder="your@email.com">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">I want:</label>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="monthly">
+                      <label class="form-check-label" for="monthly">
+                        Monthly newsletter
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="weekly">
+                      <label class="form-check-label" for="weekly">
+                        Weekly digest (livestreams, news, updates)
+                      </label>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn-ctpg-primary w-100">GET COMMUNITY UPDATES</button>
+                </form>
+              </div>
+            </div>
 
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="ctpg-card bg-white text-center p-4">
-          <div class="display-4 mb-3">🚢</div>
-          <h4 class="mb-3">Cruises</h4>
-          <p>Expert cruise reviews, tips, and planning guides</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="ctpg-card bg-white text-center p-4">
-          <div class="display-4 mb-3">🎢</div>
-          <h4 class="mb-3">Theme Parks</h4>
-          <p>Insider theme park tips and attraction guides</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="ctpg-card bg-white text-center p-4">
-          <div class="display-4 mb-3">🍽️</div>
-          <h4 class="mb-3">Dining</h4>
-          <p>Restaurant reviews and dining recommendations</p>
-        </div>
-      </div>
-    </div>
-  </section>
+            <div class="col-md-6">
+              <div class="component-preview bg-white">
+                <h5 class="mb-3">Search & Filters</h5>
+                <div class="mb-3">
+                  <label class="form-label">Search</label>
+                  <div class="input-group">
+                    <input type="search" class="form-control" placeholder="Search destinations...">
+                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Category</label>
+                  <select class="form-select">
+                    <option>All Categories</option>
+                    <option>Cruises</option>
+                    <option>Theme Parks</option>
+                    <option>Dining</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Sort By</label>
+                  <select class="form-select">
+                    <option>Most Recent</option>
+                    <option>Most Popular</option>
+                    <option>Editor's Pick</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-  <!-- Footer -->
-  <footer class="ctpg-gradient-ocean text-white py-5 mt-5">
-    <div class="container text-center">
-      <h3 class="mb-4">Cruise & Theme Park Guide</h3>
-      <p class="mb-4">CRUISES • THEME PARKS • DINING</p>
-      <div class="mb-4">
-        <button class="btn btn-light me-2">Facebook</button>
-        <button class="btn btn-light me-2">Instagram</button>
-        <button class="btn btn-light me-2">YouTube</button>
+        <!-- Navigation -->
+        <section id="navigation" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Navigation Components</h2>
+          
+          <div class="component-preview-dark">
+            <h5 class="mb-3">Top Bar Example</h5>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex gap-3">
+                <span><i class="fas fa-envelope me-2"></i>contact@ctpg.com</span>
+                <span><i class="fas fa-phone me-2"></i>(555) 123-4567</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-btn twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white mt-4">
+            <h5 class="mb-3">Breadcrumb Navigation</h5>
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Cruises</a></li>
+                <li class="breadcrumb-item active">Caribbean Destinations</li>
+              </ol>
+            </nav>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Pagination</h5>
+            <nav>
+              <ul class="pagination">
+                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
+            </nav>
+          </div>
+        </section>
+
+        <!-- Sidebar Widgets -->
+        <section id="sidebar" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Sidebar Widgets</h2>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <div class="sidebar-widget">
+                <h5 class="sidebar-widget-title">Popular Posts</h5>
+                <div class="d-flex mb-3">
+                  <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=80" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;" alt="">
+                  <div>
+                    <h6 class="mb-1" style="font-size: 0.9rem;">Planning Your First Cruise</h6>
+                    <small class="text-muted"><i class="far fa-calendar me-1"></i>May 1, 2026</small>
+                  </div>
+                </div>
+                <div class="d-flex mb-3">
+                  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=80" class="rounded me-3" style="width: 80px; height: 80px; object-fit: cover;" alt="">
+                  <div>
+                    <h6 class="mb-1" style="font-size: 0.9rem;">Top Theme Park Tips</h6>
+                    <small class="text-muted"><i class="far fa-calendar me-1"></i>Apr 28, 2026</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="newsletter-box">
+                <h5 class="mb-3">Daily Newsletter</h5>
+                <p class="small mb-3">Get all the top stories from CTPG ready to view.</p>
+                <input type="email" class="form-control mb-2" placeholder="Your email">
+                <button class="btn-ctpg-primary w-100">Subscribe</button>
+              </div>
+            </div>
+
+            <div class="col-md-6 mt-4">
+              <div class="author-card">
+                <div class="author-avatar" style="background: url('https://i.pravatar.cc/100') center/cover;"></div>
+                <h5 class="mb-2">Cierra Ray</h5>
+                <p class="small mb-3">Travel Expert & Content Creator</p>
+                <div class="d-flex justify-content-center gap-2">
+                  <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="social-btn twitter"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="social-btn instagram"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 mt-4">
+              <div class="sidebar-widget">
+                <h5 class="sidebar-widget-title">Follow Us On</h5>
+                <a href="#" class="d-flex align-items-center text-decoration-none mb-3 text-dark">
+                  <div class="social-btn facebook me-3"><i class="fab fa-facebook-f"></i></div>
+                  <div>
+                    <div class="fw-bold">Facebook</div>
+                    <small class="text-muted">25.5k Followers</small>
+                  </div>
+                </a>
+                <a href="#" class="d-flex align-items-center text-decoration-none mb-3 text-dark">
+                  <div class="social-btn twitter me-3"><i class="fab fa-twitter"></i></div>
+                  <div>
+                    <div class="fw-bold">Twitter</div>
+                    <small class="text-muted">18.2k Followers</small>
+                  </div>
+                </a>
+                <a href="#" class="d-flex align-items-center text-decoration-none text-dark">
+                  <div class="social-btn youtube me-3"><i class="fab fa-youtube"></i></div>
+                  <div>
+                    <div class="fw-bold">YouTube</div>
+                    <small class="text-muted">42.1k Subscribers</small>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Hero Sections -->
+        <section id="hero" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Hero Sections</h2>
+          
+          <div class="hero-overlay mb-4">
+            <div class="hero-content">
+              <span class="post-category mb-3 d-inline-block" style="background: var(--gold); color: var(--navy);">FEATURED</span>
+              <h2 class="display-5 fw-bold mb-3">Explore the Best Caribbean Cruise Destinations</h2>
+              <div class="post-meta">
+                <span class="text-white"><i class="far fa-user me-1"></i>Cierra Ray</span>
+                <span class="text-white"><i class="far fa-calendar me-1"></i>May 3, 2026</span>
+                <span class="text-white"><i class="far fa-clock me-1"></i>10 mins read</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center py-5 px-4 rounded" style="background: linear-gradient(135deg, var(--teal), var(--light-blue));">
+            <h2 class="display-4 fw-bold text-white mb-3">Join Our Community</h2>
+            <p class="lead text-white mb-4">Get weekly trip planning tips and livestream reminders</p>
+            <button class="btn-ctpg-primary btn-lg">Subscribe Now</button>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <section id="footer" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Footer</h2>
+          
+          <div class="component-preview-dark">
+            <div class="row">
+              <div class="col-md-4 mb-4">
+                <h5 class="mb-3">About CTPG</h5>
+                <p class="small">Your complete guide for cruise and theme park travel. We share real experiences, honest tips, and planning advice.</p>
+                <div class="d-flex gap-2 mt-3">
+                  <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="social-btn twitter"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="social-btn instagram"><i class="fab fa-instagram"></i></a>
+                  <a href="#" class="social-btn youtube"><i class="fab fa-youtube"></i></a>
+                </div>
+              </div>
+              <div class="col-md-2 mb-4">
+                <h6 class="mb-3">Company</h6>
+                <ul class="list-unstyled small">
+                  <li class="mb-2"><a href="#" class="text-white text-decoration-none">About Us</a></li>
+                  <li class="mb-2"><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                  <li class="mb-2"><a href="#" class="text-white text-decoration-none">Advertise</a></li>
+                  <li class="mb-2"><a href="#" class="text-white text-decoration-none">Careers</a></li>
+                </ul>
+              </div>
+              <div class="col-md-2 mb-4">
+                <h6 class="mb-3">Get Help</h6>
+                <ul class="list-unstyled small">
+                  <li class="mb-2"><a href="#" class="text-white text-decoration-none">Support</a></li>
+                  <li class="mb-2"><a href="#" class="text-white text-decoration-none">FAQs</a></li>
+                  <li class="mb-2"><a href="#" class="text-white text-decoration-none">Privacy</a></li>
+                  <li class="mb-2"><a href="#" class="text-white text-decoration-none">Terms</a></li>
+                </ul>
+              </div>
+              <div class="col-md-4 mb-4">
+                <h6 class="mb-3">Newsletter</h6>
+                <p class="small mb-3">Subscribe for updates and tips</p>
+                <input type="email" class="form-control mb-2" placeholder="Your email">
+                <button class="btn-ctpg-primary w-100">Subscribe</button>
+              </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="text-center small">
+              <p class="mb-0">© 2026 Cruise & Theme Park Guide. All rights reserved.</p>
+            </div>
+          </div>
+        </section>
+
       </div>
-      <p class="small mb-0">© 2026 Cruise & Theme Park Guide. All rights reserved.</p>
     </div>
-  </footer>
+  </div>
 
 </body>
 </html>
