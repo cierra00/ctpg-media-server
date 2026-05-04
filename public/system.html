@@ -1,13 +1,326 @@
-<section class="container py-5">
-  <h2 class="mb-4">Buttons</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTPG Design System</title>
+  <link rel="stylesheet" href="https://media.cruiseandthemeparkguide.com/css/ctpg-bootstrap.min.css">
+  <style>
+    .color-swatch {
+      height: 120px;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .component-preview {
+      padding: 2rem;
+      background: #f8f9fa;
+      border-radius: 1rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
 
-  <button class="btn btn-primary me-2">Primary</button>
-  <button class="btn btn-outline-primary">Outline</button>
+  <!-- Hero Section -->
+  <section class="ctpg-hero text-center">
+    <div class="container">
+      <h1 class="display-1 fw-bold mb-4 text-shadow">CTPG Design System</h1>
+      <p class="lead mb-4">Cruise & Theme Park Guide Brand & Component Library</p>
+      <button class="ctpg-btn-gold me-3">Get Started</button>
+      <button class="ctpg-btn-outline-gold">Learn More</button>
+    </div>
+  </section>
 
-  <h2 class="mt-5 mb-4">Cards</h2>
+  <!-- Brand Colors -->
+  <section class="container py-5">
+    <h2 class="ctpg-heading-display mb-5">Brand Colors</h2>
+    
+    <div class="row g-4 mb-5">
+      <div class="col-md-3">
+        <div class="color-swatch" style="background: #0a1e3d;">
+          Navy<br>#0a1e3d
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="color-swatch" style="background: #2596be;">
+          Teal<br>#2596be
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="color-swatch" style="background: #f4b223;">
+          Gold<br>#f4b223
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="color-swatch" style="background: #ff8c42;">
+          Orange<br>#ff8c42
+        </div>
+      </div>
+    </div>
 
-  <div class="card p-4 shadow-sm rounded-3">
-    <h4>Card Title</h4>
-    <p>Card content example</p>
-  </div>
-</section>
+    <h3 class="h4 mb-4 ctpg-text-gold">Gradient Combinations</h3>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="color-swatch ctpg-gradient-sunset">
+          Sunset Gradient
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="color-swatch ctpg-gradient-ocean">
+          Ocean Gradient
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <h2 class="ctpg-heading-display mb-5">Typography</h2>
+      
+      <h1 class="display-1">Display 1 Heading</h1>
+      <h2 class="display-2">Display 2 Heading</h2>
+      <h3 class="h1">Heading 1</h3>
+      <h4 class="h2">Heading 2</h4>
+      <h5 class="h3">Heading 3</h5>
+      
+      <p class="lead mt-4">
+        This is lead text. Perfect for introductory paragraphs and important messages.
+      </p>
+      
+      <p>
+        Regular body text. We share real cruise and theme park experiences, plus news, 
+        honest planning tips, dining and resort recommendations, and weekly livestream 
+        reminders so you can plan trips with more confidence.
+      </p>
+    </div>
+  </section>
+
+  <!-- Buttons -->
+  <section class="container py-5">
+    <h2 class="ctpg-heading-display mb-5">Buttons</h2>
+    
+    <div class="component-preview">
+      <h4 class="mb-4">Primary Buttons</h4>
+      <button class="btn btn-primary me-2 mb-2">Primary</button>
+      <button class="btn btn-secondary me-2 mb-2">Secondary</button>
+      <button class="btn btn-info me-2 mb-2">Info</button>
+      <button class="btn btn-warning me-2 mb-2">Warning</button>
+      <button class="btn btn-success me-2 mb-2">Success</button>
+      <button class="btn btn-danger me-2 mb-2">Danger</button>
+    </div>
+
+    <div class="component-preview">
+      <h4 class="mb-4">Outline Buttons</h4>
+      <button class="btn btn-outline-primary me-2 mb-2">Primary</button>
+      <button class="btn btn-outline-secondary me-2 mb-2">Secondary</button>
+      <button class="btn btn-outline-info me-2 mb-2">Info</button>
+    </div>
+
+    <div class="component-preview">
+      <h4 class="mb-4">Custom Brand Buttons</h4>
+      <button class="ctpg-btn-gold me-2 mb-2">Gold CTA</button>
+      <button class="ctpg-btn-outline-gold me-2 mb-2">Gold Outline</button>
+    </div>
+
+    <div class="component-preview">
+      <h4 class="mb-4">Button Sizes</h4>
+      <button class="btn btn-primary btn-lg me-2 mb-2">Large</button>
+      <button class="btn btn-primary me-2 mb-2">Default</button>
+      <button class="btn btn-primary btn-sm me-2 mb-2">Small</button>
+    </div>
+  </section>
+
+  <!-- Cards -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <h2 class="ctpg-heading-display mb-5">Cards</h2>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="ctpg-card bg-white p-4">
+            <h4 class="mb-3">Basic Card</h4>
+            <p class="mb-3">This is a standard card with hover effects and rounded corners.</p>
+            <button class="btn btn-primary">Learn More</button>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="ctpg-card ctpg-card-gradient p-4">
+            <h4 class="mb-3">Gradient Card</h4>
+            <p class="mb-3">Cards can use gradient backgrounds for visual interest.</p>
+            <button class="ctpg-btn-gold">Explore</button>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="ctpg-card bg-white p-0">
+            <div class="ctpg-gradient-sunset p-4 text-white">
+              <h4 class="mb-0">Sunset Header</h4>
+            </div>
+            <div class="p-4">
+              <p class="mb-3">Cards with gradient headers create visual hierarchy.</p>
+              <button class="btn btn-outline-primary">Read More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Badges & Labels -->
+  <section class="container py-5">
+    <h2 class="ctpg-heading-display mb-5">Badges & Labels</h2>
+    
+    <div class="component-preview">
+      <h4 class="mb-4">Badge Styles</h4>
+      <span class="badge bg-primary me-2 mb-2">Primary</span>
+      <span class="badge bg-secondary me-2 mb-2">Secondary</span>
+      <span class="badge bg-success me-2 mb-2">Success</span>
+      <span class="badge bg-warning text-dark me-2 mb-2">Warning</span>
+      <span class="badge bg-danger me-2 mb-2">Danger</span>
+      <span class="badge bg-info me-2 mb-2">Info</span>
+    </div>
+
+    <div class="component-preview">
+      <h4 class="mb-4">Custom Badge</h4>
+      <div class="ctpg-badge">
+        <h5 class="mb-0">CTPG Travel</h5>
+        <small>Cruise Planning • Tips • Reviews</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forms -->
+  <section class="bg-light py-5">
+    <div class="container">
+      <h2 class="ctpg-heading-display mb-5">Form Elements</h2>
+      
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="component-preview bg-white">
+            <h4 class="mb-4">Newsletter Signup</h4>
+            <form>
+              <div class="mb-3">
+                <label for="firstName" class="form-label">First name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="First name">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Email address">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">I want:</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="monthly">
+                  <label class="form-check-label" for="monthly">
+                    Monthly newsletter
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="weekly">
+                  <label class="form-check-label" for="weekly">
+                    Weekly digest (livestreams, news, and updates)
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="ctpg-btn-gold w-100">GET COMMUNITY UPDATES</button>
+            </form>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="component-preview bg-white">
+            <h4 class="mb-4">Search & Filters</h4>
+            <div class="mb-3">
+              <input type="search" class="form-control form-control-lg" placeholder="Search destinations...">
+            </div>
+            <div class="mb-3">
+              <select class="form-select">
+                <option>All Cruise Lines</option>
+                <option>Disney Cruise Line</option>
+                <option>Royal Caribbean</option>
+                <option>Carnival</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <select class="form-select">
+                <option>All Theme Parks</option>
+                <option>Walt Disney World</option>
+                <option>Universal Orlando</option>
+                <option>Disneyland</option>
+              </select>
+            </div>
+            <button class="btn btn-primary w-100">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Layout Examples -->
+  <section class="container py-5">
+    <h2 class="ctpg-heading-display mb-5">Layout Patterns</h2>
+    
+    <div class="ctpg-card bg-white p-5 mb-4">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h3 class="mb-3">ADVENTURE UPDATES, ALL IN ONE PLACE</h3>
+          <p class="lead mb-0">
+            We share real cruise and theme park experiences, plus news, honest planning tips, 
+            dining and resort recommendations, and weekly livestream reminders so you can plan 
+            trips with more confidence.
+          </p>
+        </div>
+        <div class="col-md-4 text-center">
+          <button class="ctpg-btn-gold">Join Community</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="ctpg-card bg-white text-center p-4">
+          <div class="display-4 mb-3">🚢</div>
+          <h4 class="mb-3">Cruises</h4>
+          <p>Expert cruise reviews, tips, and planning guides</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="ctpg-card bg-white text-center p-4">
+          <div class="display-4 mb-3">🎢</div>
+          <h4 class="mb-3">Theme Parks</h4>
+          <p>Insider theme park tips and attraction guides</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="ctpg-card bg-white text-center p-4">
+          <div class="display-4 mb-3">🍽️</div>
+          <h4 class="mb-3">Dining</h4>
+          <p>Restaurant reviews and dining recommendations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="ctpg-gradient-ocean text-white py-5 mt-5">
+    <div class="container text-center">
+      <h3 class="mb-4">Cruise & Theme Park Guide</h3>
+      <p class="mb-4">CRUISES • THEME PARKS • DINING</p>
+      <div class="mb-4">
+        <button class="btn btn-light me-2">Facebook</button>
+        <button class="btn btn-light me-2">Instagram</button>
+        <button class="btn btn-light me-2">YouTube</button>
+      </div>
+      <p class="small mb-0">© 2026 Cruise & Theme Park Guide. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

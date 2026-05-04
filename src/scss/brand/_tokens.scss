@@ -2,18 +2,47 @@
 // CTPG Brand Tokens
 // =========================================================
 
-$primary: #0057ff;
-$secondary: #00a7ff;
+// Primary Brand Colors
+$navy: #0a1e3d;           // Primary navy blue
+$teal: #2596be;           // Secondary teal/ocean blue  
+$gold: #f4b223;           // Accent gold/yellow
+$orange: #ff8c42;         // Sunset orange
+$coral: #ff6b6b;          // Coral/red accent
+$light-blue: #4a90a4;     // Supporting light blue
+$sky-blue: #5eb3d6;       // Sky blue
+
+// Bootstrap Mapped Colors
+$primary: $navy;
+$secondary: $teal;
+$info: $light-blue;
+$warning: $gold;
 $dark: #07111f;
 $light: #f8fbff;
 
+// Semantic Colors
+$success: #28a745;
+$danger: #dc3545;
+
+// Body Defaults
 $body-bg: #ffffff;
-$body-color: #111827;
+$body-color: #1f2937;
 
-$font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+// Typography
+$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+$headings-font-weight: 700;
+$headings-color: $navy;
 
+// Border Radius
 $border-radius: .75rem;
 $border-radius-sm: .5rem;
 $border-radius-lg: 1rem;
 $border-radius-xl: 1.5rem;
 $border-radius-xxl: 2rem;
+
+// Spacing
+$spacer: 1rem;
+
+// Shadows
+$box-shadow-sm: 0 .125rem .25rem rgba(0, 0, 0, .075);
+$box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+$box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, .175);

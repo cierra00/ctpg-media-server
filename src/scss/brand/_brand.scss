@@ -1,17 +1,113 @@
 // =========================================================
 // CTPG Brand Styles
 // =========================================================
+@import "tokens";
 
+// Sections
 .ctpg-section {
   padding-block: 4rem;
 }
 
+.ctpg-hero {
+  background: linear-gradient(135deg, $navy 0%, darken($teal, 15%) 100%);
+  color: white;
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+// Cards
 .ctpg-card {
   border-radius: 1.5rem;
   box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, .08);
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, .15);
+  }
 }
 
-.ctpg-btn-glow {
-  box-shadow: 0 0 24px rgba(0, 87, 255, .35);
+.ctpg-card-gradient {
+  background: linear-gradient(135deg, $teal 0%, $light-blue 100%);
+  color: white;
+}
+
+// Buttons
+.ctpg-btn-gold {
+  background: linear-gradient(135deg, $gold 0%, darken($gold, 10%) 100%);
+  border: none;
+  color: $navy;
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 15px rgba($gold, 0.4);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($gold, 0.5);
+    color: $navy;
+  }
+}
+
+.ctpg-btn-outline-gold {
+  border: 2px solid $gold;
+  color: $gold;
+  background: transparent;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: $gold;
+    color: $navy;
+  }
+}
+
+// Badge/Logo Style
+.ctpg-badge {
+  display: inline-block;
+  border-radius: 1.5rem;
+  padding: 1.5rem 2.5rem;
+  background: $navy;
+  color: white;
+  box-shadow: 0 8px 25px rgba($navy, 0.3);
+}
+
+// Gradient Overlays
+.ctpg-gradient-sunset {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8c42 50%, $gold 100%);
+}
+
+.ctpg-gradient-ocean {
+  background: linear-gradient(135deg, $navy 0%, $teal 50%, $light-blue 100%);
+}
+
+// Text Styles
+.ctpg-text-gold {
+  color: $gold;
+  font-weight: 700;
+}
+
+.ctpg-heading-display {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: $navy;
+}
+
+// Utility Classes
+.text-shadow-sm {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.text-shadow {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
