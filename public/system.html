@@ -106,6 +106,36 @@
       transform: rotateY(180deg);
     }
     
+    /* Gallery Item Hover */
+    .gallery-item .gallery-overlay {
+      background: rgba(0,0,0,0);
+      transition: all 0.3s;
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+      background: rgba(0,0,0,0.6);
+    }
+    
+    .gallery-item .gallery-overlay i {
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    
+    .gallery-item:hover .gallery-overlay i {
+      opacity: 1;
+    }
+    
+    /* Thumbnail Navigation */
+    .thumbnail-nav:hover {
+      opacity: 1 !important;
+      border-color: var(--teal) !important;
+    }
+    
+    .thumbnail-nav.active {
+      opacity: 1 !important;
+      border-color: var(--gold) !important;
+    }
+    
     .post-card-img {
       position: relative;
       overflow: hidden;
@@ -1537,10 +1567,12 @@
                 </div>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#destinationCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
               </button>
               <button class="carousel-control-next" type="button" data-bs-target="#destinationCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
               </button>
             </div>
           </div>
@@ -1578,10 +1610,12 @@
                 </div>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
+                <span class="carousel-control-prev-icon" style="filter: invert(1);" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
               </button>
               <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" style="filter: invert(1);"></span>
+                <span class="carousel-control-next-icon" style="filter: invert(1);" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
               </button>
             </div>
           </div>
@@ -1654,10 +1688,12 @@
                 </div>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#cardCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
+                <span class="carousel-control-prev-icon" style="filter: invert(1);" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
               </button>
               <button class="carousel-control-next" type="button" data-bs-target="#cardCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" style="filter: invert(1);"></span>
+                <span class="carousel-control-next-icon" style="filter: invert(1);" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
               </button>
             </div>
           </div>
@@ -1677,9 +1713,9 @@
                 </div>
               </div>
               <div class="d-flex gap-2 justify-content-center">
-                <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=100&h=60&fit=crop" class="rounded" data-bs-target="#thumbnailCarousel" data-bs-slide-to="0" style="cursor: pointer; opacity: 1;" alt="">
-                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=100&h=60&fit=crop" class="rounded" data-bs-target="#thumbnailCarousel" data-bs-slide-to="1" style="cursor: pointer; opacity: 0.6;" alt="">
-                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=100&h=60&fit=crop" class="rounded" data-bs-target="#thumbnailCarousel" data-bs-slide-to="2" style="cursor: pointer; opacity: 0.6;" alt="">
+                <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=100&h=60&fit=crop" class="rounded thumbnail-nav active" data-bs-target="#thumbnailCarousel" data-bs-slide-to="0" style="cursor: pointer; opacity: 1; border: 2px solid var(--gold); transition: all 0.3s;" alt="Caribbean beach sunset">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=100&h=60&fit=crop" class="rounded thumbnail-nav" data-bs-target="#thumbnailCarousel" data-bs-slide-to="1" style="cursor: pointer; opacity: 0.6; border: 2px solid transparent; transition: all 0.3s;" alt="Cruise ship at sea">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=100&h=60&fit=crop" class="rounded thumbnail-nav" data-bs-target="#thumbnailCarousel" data-bs-slide-to="2" style="cursor: pointer; opacity: 0.6; border: 2px solid transparent; transition: all 0.3s;" alt="Fine dining experience">
               </div>
             </div>
           </div>
@@ -1903,7 +1939,7 @@
             <h5 class="mb-3">Flip Cards (Hover to Flip)</h5>
             <div class="row g-4">
               <div class="col-md-4">
-                <div class="flip-card" style="perspective: 1000px; height: 300px;">
+                <div class="flip-card" style="perspective: 1000px; height: 300px; cursor: pointer;">
                   <div class="flip-card-inner" style="position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;">
                     <div class="flip-card-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden;">
                       <div class="card h-100" style="background: linear-gradient(135deg, var(--teal), var(--light-blue)); color: white;">
@@ -1931,7 +1967,7 @@
                 </div>
               </div>
               <div class="col-md-4">
-                <div class="flip-card" style="perspective: 1000px; height: 300px;">
+                <div class="flip-card" style="perspective: 1000px; height: 300px; cursor: pointer;">
                   <div class="flip-card-inner" style="position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;">
                     <div class="flip-card-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden;">
                       <div class="card h-100" style="background: linear-gradient(135deg, var(--orange), var(--coral)); color: white;">
@@ -1959,7 +1995,7 @@
                 </div>
               </div>
               <div class="col-md-4">
-                <div class="flip-card" style="perspective: 1000px; height: 300px;">
+                <div class="flip-card" style="perspective: 1000px; height: 300px; cursor: pointer;">
                   <div class="flip-card-inner" style="position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;">
                     <div class="flip-card-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden;">
                       <div class="card h-100" style="background: linear-gradient(135deg, var(--gold), var(--orange)); color: white;">
@@ -2430,7 +2466,7 @@
           <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Hero Section Variations</h2>
           
           <div class="component-preview mb-4" style="background: linear-gradient(135deg, var(--navy), var(--teal)); padding: 0;">
-            <div class="text-center py-5 px-3" style="min-height: 500px; display: flex; flex-column; align-items: center; justify-content: center;">
+            <div class="text-center py-5 px-3" style="min-height: 500px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
               <div class="mb-4">
                 <img src="https://cruiseandthemeparkguide.com/ctpg-assets/logo.png" alt="CTPG Badge" style="width: 150px; height: 150px; filter: brightness(0) invert(1);">
               </div>
@@ -2778,33 +2814,33 @@
             <h5 class="mb-3">Lightbox Gallery Grid</h5>
             <div class="row g-2">
               <div class="col-md-3 col-6">
-                <div class="position-relative" style="cursor: pointer;">
-                  <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=300" class="rounded w-100" alt="">
-                  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0); transition: all 0.3s;" onmouseover="this.style.background='rgba(0,0,0,0.5)'" onmouseout="this.style.background='rgba(0,0,0,0)'">
-                    <i class="fas fa-search-plus fa-2x text-white" style="opacity: 0; transition: all 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 col-6">
-                <div class="position-relative" style="cursor: pointer;">
-                  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300" class="rounded w-100" alt="">
-                  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0); transition: all 0.3s;">
+                <div class="position-relative gallery-item" style="cursor: pointer;">
+                  <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=300" class="rounded w-100" alt="Caribbean Beach Sunset">
+                  <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
                     <i class="fas fa-search-plus fa-2x text-white"></i>
                   </div>
                 </div>
               </div>
               <div class="col-md-3 col-6">
-                <div class="position-relative" style="cursor: pointer;">
-                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300" class="rounded w-100" alt="">
-                  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0); transition: all 0.3s;">
+                <div class="position-relative gallery-item" style="cursor: pointer;">
+                  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300" class="rounded w-100" alt="Theme Park Castle">
+                  <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
                     <i class="fas fa-search-plus fa-2x text-white"></i>
                   </div>
                 </div>
               </div>
               <div class="col-md-3 col-6">
-                <div class="position-relative" style="cursor: pointer;">
-                  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300" class="rounded w-100" alt="">
-                  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0); transition: all 0.3s;">
+                <div class="position-relative gallery-item" style="cursor: pointer;">
+                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300" class="rounded w-100" alt="Fine Dining">
+                  <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-search-plus fa-2x text-white"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="position-relative gallery-item" style="cursor: pointer;">
+                  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300" class="rounded w-100" alt="Cruise Ship">
+                  <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center">
                     <i class="fas fa-search-plus fa-2x text-white"></i>
                   </div>
                 </div>
@@ -2813,16 +2849,29 @@
           </div>
 
           <div class="component-preview bg-white">
-            <h5 class="mb-3">Before/After Slider</h5>
-            <div class="position-relative" style="max-width: 600px; margin: 0 auto;">
-              <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=600&h=400&fit=crop" class="rounded w-100" alt="Before">
-              <div class="position-absolute top-50 start-50 translate-middle">
-                <button class="btn btn-light rounded-circle" style="width: 50px; height: 50px;">
-                  <i class="fas fa-arrows-alt-h"></i>
-                </button>
+            <h5 class="mb-3">Before/After Comparison</h5>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=600&h=400&fit=crop" class="rounded w-100" alt="Caribbean Before Planning">
+                  <div class="position-absolute top-0 start-0 p-2">
+                    <span class="badge bg-dark">Before</span>
+                  </div>
+                  <div class="position-absolute bottom-0 start-0 end-0 p-3" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                    <p class="text-white small mb-0">Without proper planning: Long wait times, missed experiences, overspending</p>
+                  </div>
+                </div>
               </div>
-              <div class="position-absolute bottom-0 start-0 p-2">
-                <span class="badge bg-dark">Before</span>
+              <div class="col-md-6">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&h=400&fit=crop" class="rounded w-100" alt="Caribbean After Planning">
+                  <div class="position-absolute top-0 start-0 p-2">
+                    <span class="badge" style="background: var(--gold); color: var(--navy);">After</span>
+                  </div>
+                  <div class="position-absolute bottom-0 start-0 end-0 p-3" style="background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);">
+                    <p class="text-white small mb-0">With CTPG guides: Optimized itinerary, money saved, unforgettable memories</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -3136,7 +3185,7 @@
                   <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
                     <strong class="fs-3">4</strong>
                   </div>
-                  <h5">Enjoy Your Trip</h5>
+                  <h5>Enjoy Your Trip</h5>
                   <p class="text-muted small">Have an amazing vacation with our tried-and-true strategies</p>
                 </div>
               </div>
