@@ -100,6 +100,11 @@
       transform: translateY(-4px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
+
+    /* Flip Cards */
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
     
     .post-card-img {
       position: relative;
@@ -393,6 +398,7 @@
           <a href="#comments" class="toc-link">Comment Sections</a>
           <a href="#author-bio" class="toc-link">Author Bio Boxes</a>
           <a href="#related-posts" class="toc-link">Related Posts</a>
+          <a href="#advanced-cards" class="toc-link">Advanced Card Styles</a>
           <a href="#cookie-consent" class="toc-link">Cookie Consent</a>
           <a href="#skeletons" class="toc-link">Loading Skeletons</a>
           <a href="#empty-states" class="toc-link">Empty States</a>
@@ -400,6 +406,11 @@
           <a href="#back-to-top" class="toc-link">Back to Top</a>
           <a href="#card-variations" class="toc-link">More Card Styles</a>
           <a href="#grid-system" class="toc-link">Grid & Spacing</a>
+          <a href="#hero-variations" class="toc-link">Hero Variations</a>
+          <a href="#navigation-menus" class="toc-link">Nav Menu Styles</a>
+          <a href="#sidebar-advanced" class="toc-link">Advanced Sidebars</a>
+          <a href="#image-grids" class="toc-link">Image Grids</a>
+          <a href="#content-blocks" class="toc-link">Content Blocks</a>
           <a href="#mega-menu" class="toc-link">Mega Menu</a>
           <a href="#sticky-header" class="toc-link">Sticky Header</a>
           <a href="#welcome-components" class="toc-link">Welcome Page</a>
@@ -1533,6 +1544,145 @@
               </button>
             </div>
           </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Testimonial Carousel</h5>
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="text-center p-5">
+                    <i class="fas fa-quote-left fa-3x mb-4" style="color: var(--gold);"></i>
+                    <p class="lead mb-4">"This guide helped us plan the perfect Disney cruise! The tips saved us hundreds of dollars and so much stress."</p>
+                    <img src="https://i.pravatar.cc/80?img=5" class="rounded-circle mb-2" alt="Reviewer">
+                    <div><strong>Sarah Johnson</strong></div>
+                    <small class="text-muted">Verified Cruiser</small>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="text-center p-5">
+                    <i class="fas fa-quote-left fa-3x mb-4" style="color: var(--gold);"></i>
+                    <p class="lead mb-4">"The Universal Orlando touring plans are spot on! We rode everything with minimal wait times."</p>
+                    <img src="https://i.pravatar.cc/80?img=8" class="rounded-circle mb-2" alt="Reviewer">
+                    <div><strong>Michael Chen</strong></div>
+                    <small class="text-muted">Theme Park Enthusiast</small>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="text-center p-5">
+                    <i class="fas fa-quote-left fa-3x mb-4" style="color: var(--gold);"></i>
+                    <p class="lead mb-4">"Best dining recommendations! We found hidden gems we would have never discovered on our own."</p>
+                    <img src="https://i.pravatar.cc/80?img=10" class="rounded-circle mb-2" alt="Reviewer">
+                    <div><strong>Emily Rodriguez</strong></div>
+                    <small class="text-muted">Foodie Traveler</small>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" style="filter: invert(1);"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Card Carousel - Multiple Items</h5>
+            <div id="cardCarousel" class="carousel slide">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <div class="card">
+                        <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=400" class="card-img-top" alt="">
+                        <div class="card-body">
+                          <h6 class="card-title">Caribbean Cruise Tips</h6>
+                          <p class="card-text small text-muted">Essential planning guide</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" class="card-img-top" alt="">
+                        <div class="card-body">
+                          <h6 class="card-title">Universal Guide</h6>
+                          <p class="card-text small text-muted">Complete touring plan</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400" class="card-img-top" alt="">
+                        <div class="card-body">
+                          <h6 class="card-title">Best Dining</h6>
+                          <p class="card-text small text-muted">Restaurant reviews</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <div class="card">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400" class="card-img-top" alt="">
+                        <div class="card-body">
+                          <h6 class="card-title">Packing Lists</h6>
+                          <p class="card-text small text-muted">What to bring</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                        <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=400" class="card-img-top" alt="">
+                        <div class="card-body">
+                          <h6 class="card-title">Shore Excursions</h6>
+                          <p class="card-text small text-muted">Port adventures</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                        <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=400" class="card-img-top" alt="">
+                        <div class="card-body">
+                          <h6 class="card-title">Money Saving Tips</h6>
+                          <p class="card-text small text-muted">Budget hacks</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#cardCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" style="filter: invert(1);"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#cardCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" style="filter: invert(1);"></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Thumbnail Navigation Carousel</h5>
+            <div id="thumbnailCarousel" class="carousel slide">
+              <div class="carousel-inner rounded mb-3">
+                <div class="carousel-item active">
+                  <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=800&h=400&fit=crop" class="d-block w-100" alt="">
+                </div>
+                <div class="carousel-item">
+                  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop" class="d-block w-100" alt="">
+                </div>
+                <div class="carousel-item">
+                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=400&fit=crop" class="d-block w-100" alt="">
+                </div>
+              </div>
+              <div class="d-flex gap-2 justify-content-center">
+                <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=100&h=60&fit=crop" class="rounded" data-bs-target="#thumbnailCarousel" data-bs-slide-to="0" style="cursor: pointer; opacity: 1;" alt="">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=100&h=60&fit=crop" class="rounded" data-bs-target="#thumbnailCarousel" data-bs-slide-to="1" style="cursor: pointer; opacity: 0.6;" alt="">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=100&h=60&fit=crop" class="rounded" data-bs-target="#thumbnailCarousel" data-bs-slide-to="2" style="cursor: pointer; opacity: 0.6;" alt="">
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- Tooltips & Popovers -->
@@ -1740,6 +1890,299 @@
                   <h6 class="mb-1">Best Dining at Disney Springs</h6>
                   <small class="text-muted">Apr 25, 2026</small>
                 </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Advanced Card Styles -->
+        <section id="advanced-cards" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Advanced Card Styles</h2>
+          
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Flip Cards (Hover to Flip)</h5>
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="flip-card" style="perspective: 1000px; height: 300px;">
+                  <div class="flip-card-inner" style="position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;">
+                    <div class="flip-card-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden;">
+                      <div class="card h-100" style="background: linear-gradient(135deg, var(--teal), var(--light-blue)); color: white;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                          <i class="fas fa-ship fa-4x mb-3"></i>
+                          <h5>Disney Cruise Line</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flip-card-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                      <div class="card h-100" style="background: var(--navy); color: white;">
+                        <div class="card-body">
+                          <h6 class="mb-3">What We Love:</h6>
+                          <ul class="small">
+                            <li>Character experiences</li>
+                            <li>Rotational dining</li>
+                            <li>Castaway Cay</li>
+                            <li>Broadway shows</li>
+                          </ul>
+                          <button class="btn btn-sm btn-light mt-3">Learn More</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="flip-card" style="perspective: 1000px; height: 300px;">
+                  <div class="flip-card-inner" style="position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;">
+                    <div class="flip-card-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden;">
+                      <div class="card h-100" style="background: linear-gradient(135deg, var(--orange), var(--coral)); color: white;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                          <i class="fas fa-castle fa-4x mb-3"></i>
+                          <h5>Disney World</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flip-card-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                      <div class="card h-100" style="background: var(--navy); color: white;">
+                        <div class="card-body">
+                          <h6 class="mb-3">Best Features:</h6>
+                          <ul class="small">
+                            <li>4 amazing parks</li>
+                            <li>Fireworks shows</li>
+                            <li>Character dining</li>
+                            <li>Genie+ system</li>
+                          </ul>
+                          <button class="btn btn-sm btn-light mt-3">Explore</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="flip-card" style="perspective: 1000px; height: 300px;">
+                  <div class="flip-card-inner" style="position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d;">
+                    <div class="flip-card-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden;">
+                      <div class="card h-100" style="background: linear-gradient(135deg, var(--gold), var(--orange)); color: white;">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                          <i class="fas fa-utensils fa-4x mb-3"></i>
+                          <h5>Dining Guide</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="flip-card-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; transform: rotateY(180deg);">
+                      <div class="card h-100" style="background: var(--navy); color: white;">
+                        <div class="card-body">
+                          <h6 class="mb-3">Top Picks:</h6>
+                          <ul class="small">
+                            <li>Victoria & Albert's</li>
+                            <li>Le Cellier</li>
+                            <li>Topolino's</li>
+                            <li>Mythos</li>
+                          </ul>
+                          <button class="btn btn-sm btn-light mt-3">See Menu</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Team Member Cards</h5>
+            <div class="row g-4">
+              <div class="col-md-3">
+                <div class="card border-0 text-center">
+                  <img src="https://i.pravatar.cc/200?img=1" class="card-img-top rounded-circle mx-auto mt-3" style="width: 120px; height: 120px;" alt="">
+                  <div class="card-body">
+                    <h6 class="mb-1">Cierra Ray</h6>
+                    <small class="text-muted d-block mb-3">Founder & Lead Planner</small>
+                    <p class="small">Cruise expert with 50+ sailings and theme park enthusiast.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-facebook"></i></a>
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-instagram"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card border-0 text-center">
+                  <img src="https://i.pravatar.cc/200?img=5" class="card-img-top rounded-circle mx-auto mt-3" style="width: 120px; height: 120px;" alt="">
+                  <div class="card-body">
+                    <h6 class="mb-1">Sarah Johnson</h6>
+                    <small class="text-muted d-block mb-3">Travel Writer</small>
+                    <p class="small">Specializes in Disney destinations and family travel tips.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-facebook"></i></a>
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-instagram"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card border-0 text-center">
+                  <img src="https://i.pravatar.cc/200?img=8" class="card-img-top rounded-circle mx-auto mt-3" style="width: 120px; height: 120px;" alt="">
+                  <div class="card-body">
+                    <h6 class="mb-1">Michael Chen</h6>
+                    <small class="text-muted d-block mb-3">Theme Park Guru</small>
+                    <p class="small">Universal Orlando expert and thrill ride enthusiast.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-facebook"></i></a>
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-instagram"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card border-0 text-center">
+                  <img src="https://i.pravatar.cc/200?img=10" class="card-img-top rounded-circle mx-auto mt-3" style="width: 120px; height: 120px;" alt="">
+                  <div class="card-body">
+                    <h6 class="mb-1">Emily Rodriguez</h6>
+                    <small class="text-muted d-block mb-3">Food Critic</small>
+                    <p class="small">Restaurant reviewer and culinary adventure seeker.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-twitter"></i></a>
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-facebook"></i></a>
+                      <a href="#" class="btn btn-sm btn-outline-primary"><i class="fab fa-instagram"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Stat Cards / Counter Cards</h5>
+            <div class="row g-4">
+              <div class="col-md-3">
+                <div class="card border-0 shadow-sm text-center p-4">
+                  <i class="fas fa-users fa-3x mb-3" style="color: var(--teal);"></i>
+                  <h2 class="display-4 fw-bold mb-0" style="color: var(--navy);">50K+</h2>
+                  <p class="text-muted mb-0">Community Members</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card border-0 shadow-sm text-center p-4">
+                  <i class="fas fa-newspaper fa-3x mb-3" style="color: var(--gold);"></i>
+                  <h2 class="display-4 fw-bold mb-0" style="color: var(--navy);">500+</h2>
+                  <p class="text-muted mb-0">Articles Published</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card border-0 shadow-sm text-center p-4">
+                  <i class="fas fa-ship fa-3x mb-3" style="color: var(--coral);"></i>
+                  <h2 class="display-4 fw-bold mb-0" style="color: var(--navy);">200+</h2>
+                  <p class="text-muted mb-0">Cruises Reviewed</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card border-0 shadow-sm text-center p-4">
+                  <i class="fas fa-star fa-3x mb-3" style="color: var(--orange);"></i>
+                  <h2 class="display-4 fw-bold mb-0" style="color: var(--navy);">4.9</h2>
+                  <p class="text-muted mb-0">Average Rating</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Icon Feature Cards</h5>
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="card-body">
+                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px; background: rgba(37, 150, 190, 0.1);">
+                      <i class="fas fa-map-marked-alt fa-2x" style="color: var(--teal);"></i>
+                    </div>
+                    <h5 class="card-title">Expert Planning Guides</h5>
+                    <p class="card-text text-muted">Detailed itineraries and insider tips from experienced travelers who've been there dozens of times.</p>
+                    <a href="#" class="text-decoration-none fw-bold" style="color: var(--teal);">Learn More <i class="fas fa-arrow-right ms-1"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="card-body">
+                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px; background: rgba(244, 178, 35, 0.1);">
+                      <i class="fas fa-dollar-sign fa-2x" style="color: var(--gold);"></i>
+                    </div>
+                    <h5 class="card-title">Money-Saving Tips</h5>
+                    <p class="card-text text-muted">Discover proven strategies to save hundreds on your vacation without sacrificing the experience.</p>
+                    <a href="#" class="text-decoration-none fw-bold" style="color: var(--gold);">Learn More <i class="fas fa-arrow-right ms-1"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="card-body">
+                    <div class="rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px; background: rgba(255, 140, 66, 0.1);">
+                      <i class="fas fa-video fa-2x" style="color: var(--orange);"></i>
+                    </div>
+                    <h5 class="card-title">Weekly Livestreams</h5>
+                    <p class="card-text text-muted">Join our live shows every week for Q&A, trip reports, and the latest cruise and park news.</p>
+                    <a href="#" class="text-decoration-none fw-bold" style="color: var(--orange);">Learn More <i class="fas fa-arrow-right ms-1"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Portfolio / Project Cards</h5>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="card border-0 shadow-sm overflow-hidden">
+                  <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=600&h=400&fit=crop" class="card-img-top" alt="">
+                    <div class="position-absolute top-0 end-0 m-3">
+                      <span class="badge" style="background: var(--gold);">FEATURED</span>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="d-flex gap-2 mb-2">
+                      <span class="badge bg-secondary">GUIDE</span>
+                      <span class="badge bg-secondary">CRUISES</span>
+                    </div>
+                    <h5 class="card-title">Complete Caribbean Cruise Planning</h5>
+                    <p class="card-text text-muted">Everything you need to know to plan the perfect Caribbean cruise vacation, from booking to disembarkation.</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2">
+                        <img src="https://i.pravatar.cc/40?img=1" class="rounded-circle" alt="">
+                        <small>Cierra Ray</small>
+                      </div>
+                      <a href="#" class="btn btn-sm btn-primary">Read Guide</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card border-0 shadow-sm overflow-hidden">
+                  <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" class="card-img-top" alt="">
+                    <div class="position-absolute top-0 end-0 m-3">
+                      <span class="badge bg-danger">POPULAR</span>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="d-flex gap-2 mb-2">
+                      <span class="badge bg-secondary">TIPS</span>
+                      <span class="badge bg-secondary">PARKS</span>
+                    </div>
+                    <h5 class="card-title">Universal Orlando Ultimate Guide</h5>
+                    <p class="card-text text-muted">Maximize your time at Universal Orlando with our comprehensive touring plans, tips, and insider secrets.</p>
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="d-flex align-items-center gap-2">
+                        <img src="https://i.pravatar.cc/40?img=8" class="rounded-circle" alt="">
+                        <small>Michael Chen</small>
+                      </div>
+                      <a href="#" class="btn btn-sm btn-primary">Read Guide</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1982,6 +2425,421 @@
           </div>
         </section>
 
+        <!-- Multiple Hero Sections -->
+        <section id="hero-variations" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Hero Section Variations</h2>
+          
+          <div class="component-preview mb-4" style="background: linear-gradient(135deg, var(--navy), var(--teal)); padding: 0;">
+            <div class="text-center py-5 px-3" style="min-height: 500px; display: flex; flex-column; align-items: center; justify-content: center;">
+              <div class="mb-4">
+                <img src="https://cruiseandthemeparkguide.com/ctpg-assets/logo.png" alt="CTPG Badge" style="width: 150px; height: 150px; filter: brightness(0) invert(1);">
+              </div>
+              <div class="mb-3">
+                <span class="badge bg-white text-dark px-4 py-2 fs-5 text-uppercase" style="letter-spacing: 3px;">Cruises • Theme Parks • Dining</span>
+              </div>
+              <h1 class="display-3 fw-bold text-white mb-4">Adventure Updates, All in One Place</h1>
+              <p class="lead text-white mb-4" style="max-width: 700px;">We share real cruise and theme park experiences, plus news, honest planning tips, dining and resort recommendations, and weekly livestream reminders so you can plan trips with more confidence.</p>
+              <div style="max-width: 500px; width: 100%;">
+                <div class="card shadow-lg border-0">
+                  <div class="card-body p-4">
+                    <h5 class="mb-4" style="color: var(--navy);">Stay Connected</h5>
+                    <form>
+                      <div class="mb-3">
+                        <input type="text" class="form-control form-control-lg" placeholder="First Name">
+                      </div>
+                      <div class="mb-3">
+                        <input type="email" class="form-control form-control-lg" placeholder="Email Address">
+                      </div>
+                      <div class="mb-3">
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="checkbox" id="monthlyCheck" checked>
+                          <label class="form-check-label" for="monthlyCheck">
+                            Monthly Newsletter
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="weeklyCheck">
+                          <label class="form-check-label" for="weeklyCheck">
+                            Weekly Digest (livestreams, news, and updates)
+                          </label>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn-ctpg-primary btn-lg w-100 mb-3">GET COMMUNITY UPDATES</button>
+                      <a href="https://www.facebook.com/groups/cruiseandthemeparkguide" class="btn btn-outline-primary btn-lg w-100">
+                        <i class="fab fa-facebook me-2"></i>Join The Facebook Group Now
+                      </a>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview mb-4" style="background: url('https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=1600') center/cover; padding: 0;">
+            <div style="background: rgba(10, 30, 61, 0.85); min-height: 600px; display: flex; align-items: center;">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-6 text-white py-5">
+                    <span class="badge bg-warning text-dark mb-3 px-3 py-2">PLAN YOUR DREAM VACATION</span>
+                    <h1 class="display-2 fw-bold mb-4">Sail Away to Paradise</h1>
+                    <p class="lead mb-4">Discover the world's most beautiful destinations with expert cruise planning guides, money-saving tips, and insider secrets.</p>
+                    <div class="d-flex gap-3">
+                      <button class="btn btn-lg btn-warning">Browse Cruises</button>
+                      <button class="btn btn-lg btn-outline-light">Watch Video</button>
+                    </div>
+                    <div class="mt-5 d-flex gap-4">
+                      <div>
+                        <h3 class="fw-bold mb-0">200+</h3>
+                        <small>Cruises Reviewed</small>
+                      </div>
+                      <div>
+                        <h3 class="fw-bold mb-0">50K+</h3>
+                        <small>Happy Travelers</small>
+                      </div>
+                      <div>
+                        <h3 class="fw-bold mb-0">4.9★</h3>
+                        <small>Average Rating</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview mb-4" style="padding: 0;">
+            <div class="row g-0">
+              <div class="col-lg-6" style="background: linear-gradient(135deg, var(--teal), var(--light-blue)); min-height: 500px; display: flex; align-items: center;">
+                <div class="p-5 text-white">
+                  <span class="badge bg-white text-dark mb-3">THEME PARK EXPERTS</span>
+                  <h1 class="display-4 fw-bold mb-4">Master the Parks Like a Pro</h1>
+                  <p class="lead mb-4">Get insider tips, touring plans, and strategies to maximize your theme park experience.</p>
+                  <form class="row g-2">
+                    <div class="col-md-8">
+                      <input type="email" class="form-control form-control-lg" placeholder="Enter your email">
+                    </div>
+                    <div class="col-md-4">
+                      <button class="btn btn-warning btn-lg w-100">Get Started</button>
+                    </div>
+                  </form>
+                  <small class="d-block mt-3 opacity-75">Join 50,000+ smart travelers</small>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop" class="w-100 h-100" style="object-fit: cover; min-height: 500px;" alt="">
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview" style="background: white; padding: 0;">
+            <div class="container py-5 text-center">
+              <h1 class="display-5 fw-bold mb-3" style="color: var(--navy);">Start Planning Your Adventure Today</h1>
+              <p class="lead text-muted mb-4">Simple, straightforward cruise and theme park guides</p>
+              <button class="btn btn-primary btn-lg me-2">Explore Guides</button>
+              <button class="btn btn-outline-secondary btn-lg">Learn More</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mobile & Desktop Navigation Menus -->
+        <section id="navigation-menus" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Navigation Menu Variations</h2>
+          
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Desktop Horizontal Navigation</h5>
+            <nav class="navbar navbar-expand-lg" style="background: var(--navy);">
+              <div class="container-fluid">
+                <a class="navbar-brand text-white fw-bold" href="#">
+                  <i class="fas fa-anchor me-2" style="color: var(--gold);"></i>
+                  CTPG
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarMain">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Cruises</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Theme Parks</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Dining</a></li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">Guides</a>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Planning Guides</a></li>
+                        <li><a class="dropdown-item" href="#">Money Saving Tips</a></li>
+                        <li><a class="dropdown-item" href="#">Packing Lists</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <form class="d-flex me-3">
+                    <input class="form-control" type="search" placeholder="Search">
+                  </form>
+                  <button class="btn btn-warning">Subscribe</button>
+                </div>
+              </div>
+            </nav>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Mobile Bottom Navigation</h5>
+            <div class="position-relative" style="height: 300px; background: #f5f5f5; border-radius: 8px; overflow: hidden;">
+              <div class="position-absolute bottom-0 w-100" style="background: white; border-top: 1px solid #ddd;">
+                <div class="d-flex justify-content-around py-2">
+                  <a href="#" class="text-center text-decoration-none" style="color: var(--teal); flex: 1;">
+                    <i class="fas fa-home fa-lg d-block mb-1"></i>
+                    <small>Home</small>
+                  </a>
+                  <a href="#" class="text-center text-decoration-none text-muted" style="flex: 1;">
+                    <i class="fas fa-search fa-lg d-block mb-1"></i>
+                    <small>Search</small>
+                  </a>
+                  <a href="#" class="text-center text-decoration-none text-muted" style="flex: 1;">
+                    <i class="fas fa-bookmark fa-lg d-block mb-1"></i>
+                    <small>Saved</small>
+                  </a>
+                  <a href="#" class="text-center text-decoration-none text-muted" style="flex: 1;">
+                    <i class="fas fa-user fa-lg d-block mb-1"></i>
+                    <small>Profile</small>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Vertical Sidebar Navigation</h5>
+            <div class="row">
+              <div class="col-md-3" style="background: var(--navy); min-height: 400px;">
+                <div class="p-3">
+                  <div class="text-white mb-4">
+                    <h5 class="fw-bold"><i class="fas fa-anchor me-2" style="color: var(--gold);"></i>CTPG</h5>
+                  </div>
+                  <nav class="nav flex-column">
+                    <a class="nav-link text-white active" style="background: rgba(255,255,255,0.1); border-radius: 4px;" href="#">
+                      <i class="fas fa-home me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link text-white" href="#"><i class="fas fa-ship me-2"></i>Cruises</a>
+                    <a class="nav-link text-white" href="#"><i class="fas fa-castle me-2"></i>Theme Parks</a>
+                    <a class="nav-link text-white" href="#"><i class="fas fa-utensils me-2"></i>Dining</a>
+                    <a class="nav-link text-white" href="#"><i class="fas fa-bookmark me-2"></i>Saved</a>
+                    <hr style="border-color: rgba(255,255,255,0.2);">
+                    <a class="nav-link text-white" href="#"><i class="fas fa-cog me-2"></i>Settings</a>
+                    <a class="nav-link text-white" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+                  </nav>
+                </div>
+              </div>
+              <div class="col-md-9 p-4">
+                <h4>Main Content Area</h4>
+                <p class="text-muted">Your page content goes here alongside the sidebar navigation.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Hamburger Menu (Mobile)</h5>
+            <nav class="navbar navbar-dark" style="background: var(--navy);">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="#">CTPG</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              </div>
+            </nav>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav">
+              <div class="offcanvas-header" style="background: var(--navy); color: white;">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="nav flex-column">
+                  <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-ship me-2"></i>Cruises</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-castle me-2"></i>Theme Parks</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-utensils me-2"></i>Dining</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-book me-2"></i>Guides</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-video me-2"></i>Livestreams</a></li>
+                </ul>
+                <hr>
+                <button class="btn btn-primary w-100 mb-2">Subscribe</button>
+                <button class="btn btn-outline-secondary w-100">Login</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Advanced Sidebar Widgets -->
+        <section id="sidebar-advanced" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Advanced Sidebar Widgets</h2>
+          
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="component-preview bg-white mb-4">
+                <h5>Main Content Area</h5>
+                <p>This represents your main blog post or page content. The sidebar widgets appear on the right.</p>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                  <h6 class="fw-bold mb-3">Filter by Category</h6>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="cat1" checked>
+                    <label class="form-check-label d-flex justify-content-between" for="cat1">
+                      <span>Cruises</span>
+                      <span class="badge bg-secondary">156</span>
+                    </label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="cat2">
+                    <label class="form-check-label d-flex justify-content-between" for="cat2">
+                      <span>Theme Parks</span>
+                      <span class="badge bg-secondary">234</span>
+                    </label>
+                  </div>
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="cat3">
+                    <label class="form-check-label d-flex justify-content-between" for="cat3">
+                      <span>Dining</span>
+                      <span class="badge bg-secondary">89</span>
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="cat4">
+                    <label class="form-check-label d-flex justify-content-between" for="cat4">
+                      <span>Planning Tips</span>
+                      <span class="badge bg-secondary">178</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                  <h6 class="fw-bold mb-3">Popular Tags</h6>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a href="#" class="badge bg-light text-dark text-decoration-none">Disney Cruise</a>
+                    <a href="#" class="badge bg-light text-dark text-decoration-none">Caribbean</a>
+                    <a href="#" class="badge bg-light text-dark text-decoration-none">Universal</a>
+                    <a href="#" class="badge bg-light text-dark text-decoration-none">Planning</a>
+                    <a href="#" class="badge bg-light text-dark text-decoration-none">Tips</a>
+                    <a href="#" class="badge bg-light text-dark text-decoration-none">Budget</a>
+                    <a href="#" class="badge bg-light text-dark text-decoration-none">Family Travel</a>
+                    <a href="#" class="badge bg-light text-dark text-decoration-none">Dining</a>
+                    <a href="#" class="badge bg-light text-dark text-decoration-none">Reviews</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body">
+                  <h6 class="fw-bold mb-3">Archives</h6>
+                  <ul class="list-unstyled small">
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-dark"><i class="far fa-calendar me-2"></i>May 2026 (12)</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-dark"><i class="far fa-calendar me-2"></i>April 2026 (18)</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-dark"><i class="far fa-calendar me-2"></i>March 2026 (15)</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-dark"><i class="far fa-calendar me-2"></i>February 2026 (20)</a></li>
+                    <li><a href="#" class="text-decoration-none text-dark"><i class="far fa-calendar me-2"></i>January 2026 (16)</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, var(--orange), var(--coral)); color: white;">
+                <div class="card-body text-center">
+                  <i class="fas fa-ad fa-3x mb-3"></i>
+                  <h6 class="mb-2">Sponsored Content</h6>
+                  <p class="small mb-3">Check out our partner's amazing cruise deals!</p>
+                  <button class="btn btn-light btn-sm">Learn More</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Image Grids & Galleries -->
+        <section id="image-grids" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Image Grids & Galleries</h2>
+          
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Masonry Grid</h5>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=400&h=300&fit=crop" class="rounded w-100" alt="">
+              </div>
+              <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=500&fit=crop" class="rounded w-100 mb-3" alt="">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=200&fit=crop" class="rounded w-100" alt="">
+              </div>
+              <div class="col-md-4">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop" class="rounded w-100 mb-3" alt="">
+                <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=400&h=300&fit=crop" class="rounded w-100" alt="">
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Lightbox Gallery Grid</h5>
+            <div class="row g-2">
+              <div class="col-md-3 col-6">
+                <div class="position-relative" style="cursor: pointer;">
+                  <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=300" class="rounded w-100" alt="">
+                  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0); transition: all 0.3s;" onmouseover="this.style.background='rgba(0,0,0,0.5)'" onmouseout="this.style.background='rgba(0,0,0,0)'">
+                    <i class="fas fa-search-plus fa-2x text-white" style="opacity: 0; transition: all 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="position-relative" style="cursor: pointer;">
+                  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300" class="rounded w-100" alt="">
+                  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0); transition: all 0.3s;">
+                    <i class="fas fa-search-plus fa-2x text-white"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="position-relative" style="cursor: pointer;">
+                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300" class="rounded w-100" alt="">
+                  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0); transition: all 0.3s;">
+                    <i class="fas fa-search-plus fa-2x text-white"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-6">
+                <div class="position-relative" style="cursor: pointer;">
+                  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300" class="rounded w-100" alt="">
+                  <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0); transition: all 0.3s;">
+                    <i class="fas fa-search-plus fa-2x text-white"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Before/After Slider</h5>
+            <div class="position-relative" style="max-width: 600px; margin: 0 auto;">
+              <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=600&h=400&fit=crop" class="rounded w-100" alt="Before">
+              <div class="position-absolute top-50 start-50 translate-middle">
+                <button class="btn btn-light rounded-circle" style="width: 50px; height: 50px;">
+                  <i class="fas fa-arrows-alt-h"></i>
+                </button>
+              </div>
+              <div class="position-absolute bottom-0 start-0 p-2">
+                <span class="badge bg-dark">Before</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-3">Instagram-Style Grid</h5>
+            <div class="row g-1">
+              <div class="col-4"><img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=300&h=300&fit=crop" class="w-100" alt=""></div>
+              <div class="col-4"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=300&h=300&fit=crop" class="w-100" alt=""></div>
+              <div class="col-4"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&h=300&fit=crop" class="w-100" alt=""></div>
+              <div class="col-4"><img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop" class="w-100" alt=""></div>
+              <div class="col-4"><img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=300&h=300&fit=crop" class="w-100" alt=""></div>
+              <div class="col-4"><img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=300&h=300&fit=crop" class="w-100" alt=""></div>
+            </div>
+          </div>
+        </section>
+
         <!-- Mega Menu -->
         <section id="mega-menu" class="component-section">
           <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Mega Menu Navigation</h2>
@@ -2040,6 +2898,342 @@
                 </ul>
               </div>
             </nav>
+          </div>
+        </section>
+
+        <!-- Content Blocks Library -->
+        <section id="content-blocks" class="component-section">
+          <h2 class="display-6 fw-bold mb-4" style="color: var(--navy);">Content Blocks Library</h2>
+          
+          <div class="component-preview bg-white">
+            <h5 class="mb-4">Feature Blocks - Icon Grid</h5>
+            <div class="row g-4">
+              <div class="col-md-6 col-lg-3">
+                <div class="text-center">
+                  <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-map-marked-alt fa-2x text-primary"></i>
+                  </div>
+                  <h5>Expert Itineraries</h5>
+                  <p class="text-muted">Detailed day-by-day plans optimized for maximum fun</p>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3">
+                <div class="text-center">
+                  <div class="rounded-circle bg-warning bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-dollar-sign fa-2x text-warning"></i>
+                  </div>
+                  <h5>Budget Friendly</h5>
+                  <p class="text-muted">Money-saving tips that don't sacrifice quality</p>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3">
+                <div class="text-center">
+                  <div class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-users fa-2x text-success"></i>
+                  </div>
+                  <h5>Community Support</h5>
+                  <p class="text-muted">Active Facebook group with 50K+ members</p>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-3">
+                <div class="text-center">
+                  <div class="rounded-circle bg-danger bg-opacity-10 d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+                    <i class="fas fa-video fa-2x text-danger"></i>
+                  </div>
+                  <h5>Weekly Shows</h5>
+                  <p class="text-muted">Live Q&A sessions every week with experts</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview" style="background: linear-gradient(135deg, var(--navy), var(--teal));">
+            <div class="text-center py-5 text-white">
+              <h2 class="display-5 fw-bold mb-4">Testimonials Showcase</h2>
+              <div class="row g-4">
+                <div class="col-md-4">
+                  <div class="card bg-white border-0 shadow">
+                    <div class="card-body p-4">
+                      <div class="rating-display mb-3" style="color: var(--gold);">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <p class="mb-3">"This guide saved us so much money! The tips were practical and easy to follow. Highly recommend!"</p>
+                      <div class="d-flex align-items-center">
+                        <img src="https://i.pravatar.cc/50?img=5" class="rounded-circle me-3" alt="">
+                        <div class="text-start">
+                          <strong class="d-block" style="color: var(--navy);">Sarah M.</strong>
+                          <small class="text-muted">Orlando, FL</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card bg-white border-0 shadow">
+                    <div class="card-body p-4">
+                      <div class="rating-display mb-3" style="color: var(--gold);">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <p class="mb-3">"Best cruise planning resource I've found. The community is incredibly helpful and supportive."</p>
+                      <div class="d-flex align-items-center">
+                        <img src="https://i.pravatar.cc/50?img=8" class="rounded-circle me-3" alt="">
+                        <div class="text-start">
+                          <strong class="d-block" style="color: var(--navy);">Michael C.</strong>
+                          <small class="text-muted">Tampa, FL</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card bg-white border-0 shadow">
+                    <div class="card-body p-4">
+                      <div class="rating-display mb-3" style="color: var(--gold);">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                      </div>
+                      <p class="mb-3">"The touring plans are spot-on! We did everything at Universal with minimal wait times."</p>
+                      <div class="d-flex align-items-center">
+                        <img src="https://i.pravatar.cc/50?img=10" class="rounded-circle me-3" alt="">
+                        <div class="text-start">
+                          <strong class="d-block" style="color: var(--navy);">Emily R.</strong>
+                          <small class="text-muted">Miami, FL</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-4">FAQ / Accordion Block</h5>
+            <div class="accordion" id="faqAccordion">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                    When should I book my cruise for the best price?
+                  </button>
+                </h2>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    The best time to book a cruise is typically 6-9 months in advance. This gives you the best selection of cabins and sailing dates while still allowing you to take advantage of early booking discounts. However, last-minute deals can also offer significant savings if you're flexible with dates and cabin selection.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                    What's included in my cruise fare?
+                  </button>
+                </h2>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    Most cruise fares include your stateroom, main dining room meals, buffet meals, select beverages, entertainment, and most onboard activities. Extras typically include specialty dining, alcoholic beverages, spa services, shore excursions, and gratuities.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                    Do I need a passport to cruise?
+                  </button>
+                </h2>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    For closed-loop cruises (starting and ending at the same U.S. port), U.S. citizens can travel with just a birth certificate and government-issued photo ID. However, we strongly recommend having a passport for all cruises as it provides more flexibility and is required for fly-cruise vacations.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-light">
+            <h5 class="mb-4">Logo Cloud / Partner Brands</h5>
+            <div class="text-center mb-3">
+              <h3 style="color: var(--navy);">Trusted By Leading Brands</h3>
+              <p class="text-muted">Partnering with the best in travel and entertainment</p>
+            </div>
+            <div class="row g-4 align-items-center justify-content-center">
+              <div class="col-6 col-md-3 text-center">
+                <div class="p-3 bg-white rounded">
+                  <i class="fab fa-disney fa-3x" style="color: var(--navy);"></i>
+                </div>
+              </div>
+              <div class="col-6 col-md-3 text-center">
+                <div class="p-3 bg-white rounded">
+                  <i class="fas fa-ship fa-3x" style="color: var(--teal);"></i>
+                </div>
+              </div>
+              <div class="col-6 col-md-3 text-center">
+                <div class="p-3 bg-white rounded">
+                  <i class="fas fa-hotel fa-3x" style="color: var(--gold);"></i>
+                </div>
+              </div>
+              <div class="col-6 col-md-3 text-center">
+                <div class="p-3 bg-white rounded">
+                  <i class="fas fa-plane fa-3x" style="color: var(--coral);"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview" style="background: linear-gradient(135deg, var(--gold), var(--orange));">
+            <div class="text-center py-5 text-white">
+              <h2 class="display-5 fw-bold mb-3">Ready to Start Planning?</h2>
+              <p class="lead mb-4">Join 50,000+ travelers who trust CTPG for their vacation planning</p>
+              <div class="d-flex gap-3 justify-content-center">
+                <button class="btn btn-light btn-lg">Get Started Free</button>
+                <button class="btn btn-outline-light btn-lg">Watch Demo</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-4">Process / Steps Block</h5>
+            <div class="row g-4">
+              <div class="col-md-3">
+                <div class="text-center">
+                  <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <strong class="fs-3">1</strong>
+                  </div>
+                  <h5>Choose Destination</h5>
+                  <p class="text-muted small">Browse our curated list of amazing cruise and theme park destinations</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="text-center">
+                  <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <strong class="fs-3">2</strong>
+                  </div>
+                  <h5>Get Expert Guide</h5>
+                  <p class="text-muted small">Access detailed planning guides with insider tips and strategies</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="text-center">
+                  <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <strong class="fs-3">3</strong>
+                  </div>
+                  <h5>Book with Confidence</h5>
+                  <p class="text-muted small">Use our recommendations to book the perfect vacation package</p>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="text-center">
+                  <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <strong class="fs-3">4</strong>
+                  </div>
+                  <h5">Enjoy Your Trip</h5>
+                  <p class="text-muted small">Have an amazing vacation with our tried-and-true strategies</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-4">Comparison Table Block</h5>
+            <div class="table-responsive">
+              <table class="table table-bordered align-middle">
+                <thead style="background: var(--navy); color: white;">
+                  <tr>
+                    <th>Feature</th>
+                    <th class="text-center">Free</th>
+                    <th class="text-center" style="background: var(--teal);">Premium</th>
+                    <th class="text-center">VIP</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Basic Guides</td>
+                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td>Detailed Itineraries</td>
+                    <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td>Livestream Access</td>
+                    <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td>1-on-1 Consulting</td>
+                    <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                    <td class="text-center"><i class="fas fa-times text-danger"></i></td>
+                    <td class="text-center"><i class="fas fa-check text-success"></i></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Price</strong></td>
+                    <td class="text-center"><strong>Free</strong></td>
+                    <td class="text-center" style="background: rgba(37, 150, 190, 0.1);"><strong>$9.99/mo</strong></td>
+                    <td class="text-center"><strong>$24.99/mo</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="component-preview bg-white">
+            <h5 class="mb-4">Newsletter Signup Block</h5>
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <h3 style="color: var(--navy);">Get Travel Tips in Your Inbox</h3>
+                <p class="text-muted">Join 50,000+ subscribers receiving weekly cruise tips, park updates, and exclusive deals.</p>
+              </div>
+              <div class="col-md-6">
+                <form class="row g-2">
+                  <div class="col-md-8">
+                    <input type="email" class="form-control form-control-lg" placeholder="Enter your email">
+                  </div>
+                  <div class="col-md-4">
+                    <button class="btn-ctpg-primary btn-lg w-100">Subscribe</button>
+                  </div>
+                </form>
+                <small class="text-muted d-block mt-2">No spam. Unsubscribe anytime.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="component-preview" style="background: var(--navy); color: white;">
+            <div class="text-center py-5">
+              <h2 class="display-5 fw-bold mb-4">Our Numbers Speak</h2>
+              <div class="row g-4">
+                <div class="col-md-3">
+                  <div class="display-3 fw-bold mb-2" style="color: var(--gold);">50K+</div>
+                  <p class="mb-0">Community Members</p>
+                </div>
+                <div class="col-md-3">
+                  <div class="display-3 fw-bold mb-2" style="color: var(--gold);">500+</div>
+                  <p class="mb-0">Articles Published</p>
+                </div>
+                <div class="col-md-3">
+                  <div class="display-3 fw-bold mb-2" style="color: var(--gold);">200+</div>
+                  <p class="mb-0">Cruises Reviewed</p>
+                </div>
+                <div class="col-md-3">
+                  <div class="display-3 fw-bold mb-2" style="color: var(--gold);">4.9★</div>
+                  <p class="mb-0">Average Rating</p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
