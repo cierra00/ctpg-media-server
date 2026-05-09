@@ -2529,6 +2529,33 @@
     .size-70x70 { width: 70px; height: 70px; }
     .size-80x80 { width: 80px; height: 80px; object-fit: cover; }
     .size-200-height { width: 100%; height: 200px; object-fit: cover; }
+
+    /* Horizontal card tweaks */
+    .hcard-badge {
+      padding: 0.2rem 0.6rem;
+      font-size: 0.65rem;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      margin: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+    .hcard-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--coral) !important;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-decoration: none !important;
+      letter-spacing: 0.01em;
+      transition: gap var(--tx-fast), color var(--tx-fast);
+    }
+    .hcard-cta:hover {
+      color: var(--navy) !important;
+      gap: 0.55rem;
+      text-decoration: none !important;
+    }
     
     /* Code block */
     .code-ocean-gradient { background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; }
@@ -4913,7 +4940,7 @@
               <div class="col-12 col-md-4">
                 <div class="position-relative">
                   <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=400" class="rounded size-200-height" alt="Travel">
-                  <span class="post-category badge-gold-navy position-absolute bottom-0 start-0 m-2">FEATURED</span>
+                  <span class="post-category badge-gold-navy hcard-badge">FEATURED</span>
                 </div>
               </div>
               <div class="col-12 col-md-8">
@@ -4924,7 +4951,7 @@
                   <span><i class="far fa-calendar"></i>May 1, 2026</span>
                   <span><i class="far fa-clock"></i>12 mins read</span>
                 </div>
-                <a href="#" class="btn-ctpg-secondary d-inline-block">Read Guide</a>
+                <a href="#" class="hcard-cta">Read Guide <i class="fas fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
