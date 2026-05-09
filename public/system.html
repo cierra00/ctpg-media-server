@@ -668,7 +668,7 @@
       color: var(--coral);
       border: 2px solid var(--coral);
       padding: 0.75rem 2rem;
-      border-radius: 0;
+      border-radius: 4px;
       font-weight: 700;
       font-size: 0.95rem;
       transition: all 0.25s ease;
@@ -784,12 +784,12 @@
     
     /* Rounded Buttons */
     .btn-rounded {
-      border-radius: 50px;
+      border-radius: 8px;
     }
     
     /* Pill Buttons */
     .btn-pill {
-      border-radius: 25px;
+      border-radius: 50px;
       padding: 0.75rem 2.5rem;
     }
     
@@ -1209,9 +1209,13 @@
     }
     
     .brand-title {
-      font-size: 1.2rem;
+      font-size: clamp(0.8rem, 3vw, 1.2rem);
       color: var(--navy);
       line-height: 1.2;
+      overflow-wrap: break-word;
+    }
+    @media (max-width: 400px) {
+      .brand-title { max-width: 180px; }
     }
     
     .brand-tagline {
@@ -1641,7 +1645,7 @@
     }
     
     /* Remove any remaining Bootstrap-style defaults */
-    .badge:not([class*="bg-"]) {
+    .badge:not([class*="bg-"]):not([class*="-bg"]) {
       background: transparent !important;
     }
     
@@ -1728,7 +1732,7 @@
     
     /* Decoration blobs */
     .decoration-blob { position: absolute; border-radius: 50%; }
-    .decoration-blob-teal { position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: var(--teal); opacity: 0.08; border-radius: 50%; filter: blur(60px); }
+    .decoration-blob-teal { position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: var(--teal); opacity: 0.18; border-radius: 50%; filter: blur(60px); }
     
     /* Flex utilities */
     .min-height-450 { min-height: 450px; }
@@ -1766,13 +1770,294 @@
       box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
     }
     
-    /* Masthead */
-    .masthead-navy-gradient {
-      background: linear-gradient(135deg, var(--navy) 0%, #051426 100%);
+    /* ============================================
+       MASTHEAD v2 — Editorial Redesign
+       ============================================ */
+
+    /* Outer wrapper */
+    .mh2-wrapper {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.45);
+    }
+
+    /* Top accent strip — mirrors logo's warm sunset palette */
+    .mh2-accent-bar {
+      height: 5px;
+      background: linear-gradient(90deg, var(--coral) 0%, var(--gold) 35%, var(--teal) 68%, var(--light-blue) 100%);
+    }
+
+    /* Main dark body */
+    .mh2-body {
+      background: linear-gradient(155deg, #0a1628 0%, #152847 55%, #0d1e35 100%);
+      padding: 2.25rem 2rem 0;
       position: relative;
       overflow: hidden;
-      border-radius: 12px;
+      text-align: center;
     }
+
+    /* Background glow blobs */
+    .mh2-deco-coral {
+      position: absolute;
+      width: 320px; height: 320px;
+      background: var(--coral);
+      opacity: 0.055;
+      border-radius: 50%;
+      filter: blur(90px);
+      top: -120px; left: -90px;
+      pointer-events: none;
+    }
+    .mh2-deco-gold {
+      position: absolute;
+      width: 260px; height: 260px;
+      background: var(--gold);
+      opacity: 0.055;
+      border-radius: 50%;
+      filter: blur(80px);
+      top: -80px; right: -70px;
+      pointer-events: none;
+    }
+
+    /* Hero logo */
+    .mh2-logo {
+      height: 150px;
+      width: auto;
+      filter: drop-shadow(0 6px 24px rgba(0,0,0,0.55));
+      position: relative;
+      display: block;
+      margin: 0 auto;
+    }
+    @media (max-width: 575.98px) { .mh2-logo { height: 115px; } }
+
+    /* Tagline — .mh2-body .mh2-tagline (0,2,0) beats .component-preview-dark p (0,1,1) */
+    .mh2-tagline {
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      margin: 0.6rem auto 0;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .mh2-body .mh2-tagline { color: rgba(255,255,255,0.82) !important; }
+
+    /* Stats strip */
+    .mh2-stats {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-top: 0.9rem;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      padding: 0.3rem 0.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .mh2-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.75);
+      padding: 0.2rem 0.65rem;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+    .mh2-stat + .mh2-stat {
+      border-left: 1px solid rgba(255,255,255,0.15);
+    }
+    .mh2-stat-num {
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+    .mh2-stat-num-teal  { color: var(--teal); }
+    .mh2-stat-num-coral { color: var(--coral); }
+    .mh2-stat-num-gold  { color: var(--gold); }
+
+    /* ---- Light mode variant ---- */
+    .mh2-body-light {
+      background: #ffffff;
+      padding: 2.25rem 2rem 0;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .mh2-deco-teal-light {
+      position: absolute;
+      width: 280px; height: 280px;
+      background: var(--teal);
+      opacity: 0.06;
+      border-radius: 50%;
+      filter: blur(80px);
+      top: -100px; left: -60px;
+      pointer-events: none;
+    }
+    .mh2-deco-gold-light {
+      position: absolute;
+      width: 240px; height: 240px;
+      background: var(--gold);
+      opacity: 0.08;
+      border-radius: 50%;
+      filter: blur(70px);
+      top: -80px; right: -50px;
+      pointer-events: none;
+    }
+    .mh2-body-light .mh2-tagline { color: var(--text-secondary) !important; }
+    /* Stats strip — light mode */
+    .mh2-stats-light {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-top: 0.9rem;
+      background: #f1f5f9;
+      border-radius: 100px;
+      padding: 0.3rem 0.5rem;
+      border: 1px solid var(--border-color);
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .mh2-stats-light .mh2-stat {
+      color: var(--text-secondary);
+    }
+    .mh2-stats-light .mh2-stat + .mh2-stat {
+      border-left: 1px solid var(--border-color);
+    }
+    /* Nav strip — light mode */
+    .mh2-nav-strip-light {
+      display: flex;
+      align-items: stretch;
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      background: #f8fafc;
+    }
+    .mh2-nav-strip-light .mh2-nav-item {
+      color: var(--text-secondary);
+      border-right: 1px solid var(--border-color);
+    }
+    .mh2-nav-strip-light .mh2-nav-item:hover { background: #f1f5f9; }
+    .mh2-nav-strip-light .mh2-cruise:hover  { color: var(--teal); }
+    .mh2-nav-strip-light .mh2-parks:hover   { color: var(--coral); }
+    .mh2-nav-strip-light .mh2-dining:hover  { color: var(--gold); }
+    .mh2-nav-strip-light .mh2-travel:hover  { color: var(--light-blue); }
+    .mh2-nav-strip-light .mh2-resorts:hover { color: var(--orange); }
+
+    /* ---- Light mode variant ---- */
+    .mh2-body-light {
+      background: #ffffff;
+      padding: 2.25rem 2rem 0;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .mh2-deco-teal-light {
+      position: absolute;
+      width: 280px; height: 280px;
+      background: var(--teal);
+      opacity: 0.06;
+      border-radius: 50%;
+      filter: blur(80px);
+      top: -100px; left: -60px;
+      pointer-events: none;
+    }
+    .mh2-deco-gold-light {
+      position: absolute;
+      width: 240px; height: 240px;
+      background: var(--gold);
+      opacity: 0.08;
+      border-radius: 50%;
+      filter: blur(70px);
+      top: -80px; right: -50px;
+      pointer-events: none;
+    }
+    .mh2-body-light .mh2-tagline { color: var(--text-secondary) !important; }
+    /* Stats strip — light mode */
+    .mh2-stats-light {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-top: 0.9rem;
+      background: #f1f5f9;
+      border-radius: 100px;
+      padding: 0.3rem 0.5rem;
+      border: 1px solid var(--border-color);
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .mh2-stats-light .mh2-stat { color: var(--text-secondary); }
+    .mh2-stats-light .mh2-stat + .mh2-stat { border-left: 1px solid var(--border-color); }
+    /* Nav strip — light mode */
+    .mh2-nav-strip-light {
+      display: flex;
+      align-items: stretch;
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      background: #f8fafc;
+    }
+    .mh2-nav-strip-light .mh2-nav-item { color: var(--text-secondary); border-right: 1px solid var(--border-color); }
+    .mh2-nav-strip-light .mh2-nav-item:hover { background: #f1f5f9; }
+    .mh2-nav-strip-light .mh2-cruise:hover  { color: var(--teal); }
+    .mh2-nav-strip-light .mh2-parks:hover   { color: var(--coral); }
+    .mh2-nav-strip-light .mh2-dining:hover  { color: var(--gold); }
+    .mh2-nav-strip-light .mh2-travel:hover  { color: var(--light-blue); }
+    .mh2-nav-strip-light .mh2-resorts:hover { color: var(--orange); }
+
+    /* Category nav strip */
+    .mh2-nav-strip {
+      display: flex;
+      align-items: stretch;
+      margin-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .mh2-nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      padding: 0.85rem 0.4rem;
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.22s ease, background 0.22s ease;
+      position: relative;
+    }
+    .mh2-nav-item:last-child { border-right: none; }
+    .mh2-nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.22s ease;
+    }
+    .mh2-nav-item:hover { background: rgba(255,255,255,0.04); }
+    .mh2-nav-item:hover::after { opacity: 1; }
+    .mh2-nav-icon { font-size: 1.05rem; }
+    /* Per-category accent colors */
+    .mh2-cruise::after  { background: var(--teal); }
+    .mh2-parks::after   { background: var(--coral); }
+    .mh2-dining::after  { background: var(--gold); }
+    .mh2-travel::after  { background: var(--light-blue); }
+    .mh2-resorts::after { background: var(--orange); }
+    .mh2-cruise:hover  { color: var(--teal); }
+    .mh2-parks:hover   { color: var(--coral); }
+    .mh2-dining:hover  { color: var(--gold); }
+    .mh2-travel:hover  { color: var(--light-blue); }
+    .mh2-resorts:hover { color: var(--orange); }
     
     /* Icon badge containers */
     .icon-badge-teal {
@@ -2113,11 +2398,11 @@
     }
     
     /* Category badges */
-    .badge-coral-bg { background: var(--coral); }
-    .badge-teal-bg { background: var(--teal); }
-    .badge-orange-bg { background: var(--orange); }
+    .badge-coral-bg { background: var(--coral); color: #fff; }
+    .badge-teal-bg { background: var(--teal); color: #fff; }
+    .badge-orange-bg { background: var(--orange); color: #fff; }
     .badge-gold-navy { background: var(--gold); color: var(--navy); }
-    .badge-navy-bg { background: var(--navy); }
+    .badge-navy-bg { background: var(--navy); color: #fff; }
     
     /* Underline labels */
     .underline-label-navy { border-bottom: 3px solid var(--navy); padding-bottom: 4px; font-weight: 600; color: var(--navy); font-size: 0.9rem; letter-spacing: 0.5px; }
@@ -2163,12 +2448,7 @@
     /* Code block */
     .code-ocean-gradient { background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; }
     
-    /* Masthead icon box */
-    .masthead-icon-box { width: 70px; height: 70px; background: linear-gradient(135deg, var(--gold), #e6a520); border-radius: 14px; box-shadow: 0 6px 20px rgba(244,178,35,0.3); }
-    
-    /* Masthead title */
-    .masthead-title { font-size: 2rem; letter-spacing: -0.01em; }
-    .masthead-subtitle { color: white; font-size: 0.95rem; letter-spacing: 0.12em; opacity: 0.9; }
+    /* (masthead v1 classes removed — see mh2-* classes above) */
     
     /* Form controls */
     .form-email-input { max-width: 320px; padding: 0.85rem 1.25rem; border-radius: 8px; border: none; }
@@ -2556,7 +2836,25 @@
     .error-500 { color: var(--coral); }
     
     /* Back to top */
-    .back-to-top-btn { width: 50px; height: 50px; bottom: 2rem; right: 2rem; background: var(--teal); color: white; z-index: 1000; }
+    .back-to-top-btn {
+      width: 50px; height: 50px;
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      background: var(--teal);
+      color: white;
+      z-index: 1050;
+      border: none;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .back-to-top-btn.back-to-top-visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .back-to-top-btn:hover { background: var(--navy); color: white; }
     
     /* Grid demos */
     .grid-demo-box { background: var(--teal); color: white; }
@@ -2630,6 +2928,56 @@
     .table-header-navy {
       background: var(--navy);
       color: white;
+    }
+
+    /* Responsive Table - Mobile Card Stack */
+    @media (max-width: 767.98px) {
+      .table-responsive-stack {
+        border: none;
+      }
+      .table-responsive-stack thead {
+        display: none;
+      }
+      .table-responsive-stack tbody tr {
+        display: block;
+        border: 1px solid var(--border-color);
+        border-left: 3px solid var(--teal);
+        margin-bottom: 1rem;
+        background: #fff;
+      }
+      .table-responsive-stack tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.6rem 1rem !important;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+        text-align: right !important;
+        font-size: 0.9rem;
+      }
+      .table-responsive-stack tbody td:last-child {
+        border-bottom: none;
+      }
+      .table-responsive-stack tbody td::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--navy);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        text-align: left;
+        padding-right: 1rem;
+        flex-shrink: 0;
+        min-width: 90px;
+      }
+      .table-responsive > .table-responsive-stack {
+        min-width: unset;
+      }
+      /* Stepper horizontal scroll */
+      .stepper-horizontal-scroll {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+      .stepper-min-width { min-width: 360px; }
     }
     
     /* CTA Section Styles */
@@ -3070,17 +3418,8 @@
       color: var(--coral);
     }
     
-    /* Back to Top Button */
-    .back-to-top-btn {
-      width: 50px;
-      height: 50px;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--teal);
-      color: white;
-      z-index: 1000;
-    }
-    
+    /* Back to Top Button — see primary definition near line 2839 */
+
     /* Card Overlay */
     .card-overlay-gradient {
       background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
@@ -3332,16 +3671,7 @@
       transition: all 0.3s;
     }
     
-    /* Back to Top Button */
-    .back-to-top-btn {
-      width: 50px;
-      height: 50px;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--teal);
-      color: white;
-      z-index: 1000;
-    }
+    /* Back to Top Button — see primary definition near line 2839 */
     
     /* Gallery Overlays */
     .gallery-overlay-dark {
@@ -3785,8 +4115,8 @@
     <div class="container">
       <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex gap-3">
-          <span><i class="fas fa-map-marker-alt me-1"></i> Travel Planning Guides</span>
-          <span><i class="fas fa-newspaper me-1"></i> Latest Travel News</span>
+          <span class="d-none d-sm-inline"><i class="fas fa-map-marker-alt me-1"></i> Travel Planning Guides</span>
+          <span class="d-none d-sm-inline"><i class="fas fa-newspaper me-1"></i> Latest Travel News</span>
         </div>
         <div class="d-flex gap-2">
           <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
@@ -4308,23 +4638,107 @@
 
           <h5 class="mb-3 mt-5">Editorial Masthead</h5>
           <div class="component-preview-dark">
-            <div class="text-center py-5 masthead-navy-gradient">
-              <div class="decoration-blob-teal"></div>
-              <div class="position-relative">
-                <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap mb-3">
-                  <div class="d-inline-flex align-items-center justify-content-center masthead-icon-box">
-                    <i class="fas fa-ship icon-navy-2x"></i>
-                  </div>
-                  <div class="text-start">
-                    <h3 class="fw-bold mb-0 text-white masthead-title">Cruise & Theme Park Guide</h3>
-                    <p class="mb-0 fw-semibold masthead-subtitle">TRAVEL • CRUISES • THEME PARKS • DINING</p>
+            <div class="mh2-wrapper">
+              <div class="mh2-accent-bar"></div>
+              <div class="mh2-body">
+                <div class="mh2-deco-coral"></div>
+                <div class="mh2-deco-gold"></div>
+                <div class="position-relative">
+                  <img src="images/ctpg_logo_cutout.png" alt="Cruise &amp; Theme Park Guide" class="mh2-logo">
+                  <p class="mh2-tagline">Your #1 guide to cruises, theme parks &amp; dining worldwide</p>
+                  <div class="mh2-stats">
+                    <div class="mh2-stat">
+                      <span class="mh2-stat-num mh2-stat-num-teal">250+</span>
+                      <span>Cruise Reviews</span>
+                    </div>
+                    <div class="mh2-stat">
+                      <span class="mh2-stat-num mh2-stat-num-coral">150+</span>
+                      <span>Park Guides</span>
+                    </div>
+                    <div class="mh2-stat">
+                      <span class="mh2-stat-num mh2-stat-num-gold">50K+</span>
+                      <span>Monthly Readers</span>
+                    </div>
                   </div>
                 </div>
+                <nav class="mh2-nav-strip">
+                  <a href="#" class="mh2-nav-item mh2-cruise">
+                    <i class="fas fa-ship mh2-nav-icon"></i>
+                    Cruises
+                  </a>
+                  <a href="#" class="mh2-nav-item mh2-parks">
+                    <i class="fas fa-ticket mh2-nav-icon"></i>
+                    Theme Parks
+                  </a>
+                  <a href="#" class="mh2-nav-item mh2-dining">
+                    <i class="fas fa-utensils mh2-nav-icon"></i>
+                    Dining
+                  </a>
+                  <a href="#" class="mh2-nav-item mh2-travel">
+                    <i class="fas fa-compass mh2-nav-icon"></i>
+                    Travel Tips
+                  </a>
+                  <a href="#" class="mh2-nav-item mh2-resorts">
+                    <i class="fas fa-umbrella-beach mh2-nav-icon"></i>
+                    Resorts
+                  </a>
+                </nav>
               </div>
             </div>
           </div>
 
-          <h5 class="mb-3 mt-5">Stats & Highlights</h5>
+          <h5 class="mb-3 mt-5">Editorial Masthead — Light</h5>
+          <div class="component-preview">
+            <div class="mh2-wrapper">
+              <div class="mh2-accent-bar"></div>
+              <div class="mh2-body-light">
+                <div class="mh2-deco-teal-light"></div>
+                <div class="mh2-deco-gold-light"></div>
+                <div class="position-relative">
+                  <img src="images/ctpg_logo_cutout.png" alt="Cruise &amp; Theme Park Guide" class="mh2-logo">
+                  <p class="mh2-tagline">Your #1 guide to cruises, theme parks &amp; dining worldwide</p>
+                  <div class="mh2-stats-light">
+                    <div class="mh2-stat">
+                      <span class="mh2-stat-num mh2-stat-num-teal">250+</span>
+                      <span>Cruise Reviews</span>
+                    </div>
+                    <div class="mh2-stat">
+                      <span class="mh2-stat-num mh2-stat-num-coral">150+</span>
+                      <span>Park Guides</span>
+                    </div>
+                    <div class="mh2-stat">
+                      <span class="mh2-stat-num mh2-stat-num-gold">50K+</span>
+                      <span>Monthly Readers</span>
+                    </div>
+                  </div>
+                </div>
+                <nav class="mh2-nav-strip-light">
+                  <a href="#" class="mh2-nav-item mh2-cruise">
+                    <i class="fas fa-ship mh2-nav-icon"></i>
+                    Cruises
+                  </a>
+                  <a href="#" class="mh2-nav-item mh2-parks">
+                    <i class="fas fa-ticket mh2-nav-icon"></i>
+                    Theme Parks
+                  </a>
+                  <a href="#" class="mh2-nav-item mh2-dining">
+                    <i class="fas fa-utensils mh2-nav-icon"></i>
+                    Dining
+                  </a>
+                  <a href="#" class="mh2-nav-item mh2-travel">
+                    <i class="fas fa-compass mh2-nav-icon"></i>
+                    Travel Tips
+                  </a>
+                  <a href="#" class="mh2-nav-item mh2-resorts">
+                    <i class="fas fa-umbrella-beach mh2-nav-icon"></i>
+                    Resorts
+                  </a>
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          <h5 class="mb-3 mt-5">Stats &amp; Highlights</h5>
           <div class="row g-4">
             <div class="col-12 col-sm-6 col-md-3">
               <div class="text-center p-4 stat-card-white">
@@ -4503,7 +4917,7 @@
           
           <div class="component-preview-dark">
             <h5 class="mb-3">Top Bar Example</h5>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
               <div class="d-flex gap-3">
                 <span><i class="fas fa-envelope me-2"></i>contact@ctpg.com</span>
                 <span><i class="fas fa-phone me-2"></i>(555) 123-4567</span>
@@ -4909,7 +5323,7 @@
           <div class="component-preview bg-white">
             <h5 class="mb-3">Cruise Comparison Table</h5>
             <div class="table-responsive">
-              <table class="table table-hover align-middle mb-3">
+              <table class="table table-hover align-middle mb-3 table-responsive-stack">
                 <thead class="table-header-navy">
                   <tr>
                     <th class="py-3 px-4"><i class="fas fa-ship me-2"></i>Cruise Line</th>
@@ -4921,25 +5335,25 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="py-3 px-4 table-icon-teal"><i class="fas fa-anchor me-2"></i><strong>Disney Cruise Line</strong></td>
-                    <td class="py-3 px-4">Disney Wish</td>
-                    <td class="py-3 px-4"><span class="badge table-badge-coral">Caribbean</span></td>
-                    <td class="py-3 px-4">7 nights</td>
-                    <td class="py-3 px-4 text-end"><strong class="table-price">$2,499</strong><br><small class="text-muted">per person</small></td>
+                    <td class="py-3 px-4 table-icon-teal" data-label="Cruise Line"><i class="fas fa-anchor me-2"></i><strong>Disney Cruise Line</strong></td>
+                    <td class="py-3 px-4" data-label="Ship">Disney Wish</td>
+                    <td class="py-3 px-4" data-label="Destination"><span class="badge badge-coral-bg">Caribbean</span></td>
+                    <td class="py-3 px-4" data-label="Duration">7 nights</td>
+                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$2,499</strong><br><small class="text-muted">per person</small></td>
                   </tr>
                   <tr>
-                    <td class="py-3 px-4 table-icon-teal"><i class="fas fa-anchor me-2"></i><strong>Royal Caribbean</strong></td>
-                    <td class="py-3 px-4">Wonder of the Seas</td>
-                    <td class="py-3 px-4"><span class="badge table-badge-coral">Caribbean</span></td>
-                    <td class="py-3 px-4">7 nights</td>
-                    <td class="py-3 px-4 text-end"><strong class="table-price">$1,899</strong><br><small class="text-muted">per person</small></td>
+                    <td class="py-3 px-4 table-icon-teal" data-label="Cruise Line"><i class="fas fa-anchor me-2"></i><strong>Royal Caribbean</strong></td>
+                    <td class="py-3 px-4" data-label="Ship">Wonder of the Seas</td>
+                    <td class="py-3 px-4" data-label="Destination"><span class="badge badge-coral-bg">Caribbean</span></td>
+                    <td class="py-3 px-4" data-label="Duration">7 nights</td>
+                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,899</strong><br><small class="text-muted">per person</small></td>
                   </tr>
                   <tr>
-                    <td class="py-3 px-4 table-icon-teal"><i class="fas fa-anchor me-2"></i><strong>Carnival</strong></td>
-                    <td class="py-3 px-4">Mardi Gras</td>
-                    <td class="py-3 px-4"><span class="badge badge-orange-bg">Mexico</span></td>
-                    <td class="py-3 px-4">6 nights</td>
-                    <td class="py-3 px-4 text-end"><strong class="table-price">$1,299</strong><br><small class="text-muted">per person</small></td>
+                    <td class="py-3 px-4 table-icon-teal" data-label="Cruise Line"><i class="fas fa-anchor me-2"></i><strong>Carnival</strong></td>
+                    <td class="py-3 px-4" data-label="Ship">Mardi Gras</td>
+                    <td class="py-3 px-4" data-label="Destination"><span class="badge badge-orange-bg">Mexico</span></td>
+                    <td class="py-3 px-4" data-label="Duration">6 nights</td>
+                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,299</strong><br><small class="text-muted">per person</small></td>
                   </tr>
                 </tbody>
               </table>
@@ -5042,7 +5456,7 @@
           <div class="component-preview bg-white">
             <h5 class="mb-3">Review Card</h5>
             <div class="border rounded p-3">
-              <div class="d-flex justify-content-between align-items-start mb-2">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
                 <div class="d-flex align-items-center">
                   <img src="https://i.pravatar.cc/40" class="rounded-circle me-2" alt="User">
                   <div>
@@ -5070,7 +5484,7 @@
           
           <div class="component-preview bg-white">
             <h5 class="mb-3">Share This Article</h5>
-            <div class="d-flex gap-2 mb-3">
+            <div class="d-flex gap-2 mb-3 flex-wrap">
               <button class="btn btn-facebook">
                 <i class="fab fa-facebook-f me-2"></i>Share
               </button>
@@ -5200,7 +5614,7 @@
                   <p class="text-muted mb-0">Get destination guides, cruise deals, and insider tips delivered every week</p>
                 </div>
               </div>
-              <div class="col-md-4 text-center p-4">
+              <div class="col-12 col-md-4 text-center p-4">
                 <i class="fas fa-envelope-open fa-3x mb-3 icon-color-teal"></i>
                 <a href="#" class="d-inline-block text-decoration-none hero-cta-subscribe">SUBSCRIBE NOW</a>
               </div>
@@ -5737,7 +6151,7 @@
                     <option>Highest Rated</option>
                   </select>
                 </div>
-                <div class="col-md-3 d-flex align-items-end">
+                <div class="col-12 col-sm-6 col-md-3 d-flex align-items-end">
                   <button class="btn btn-sm btn-primary w-100">Apply Filters</button>
                 </div>
               </div>
@@ -6185,7 +6599,7 @@
           <h2 class="display-6 fw-bold mb-4 text-navy">Cookie Consent Banner</h2>
           
           <div class="component-preview bg-white">
-            <div class="border rounded p-3 d-flex align-items-center justify-content-between gap-3 modal-header-navy">
+            <div class="border rounded p-3 d-flex align-items-center justify-content-between flex-wrap gap-3 modal-header-navy">
               <div>
                 <strong class="d-block mb-1">We use cookies</strong>
                 <small>We use cookies to improve your experience. By continuing, you accept our cookie policy.</small>
@@ -6475,7 +6889,7 @@
                     <span class="badge bg-warning text-dark mb-3 px-3 py-2">PLAN YOUR DREAM VACATION</span>
                     <h1 class="display-2 fw-bold mb-4">Sail Away to Paradise</h1>
                     <p class="lead mb-4">Discover the world's most beautiful destinations with expert cruise planning guides, money-saving tips, and insider secrets.</p>
-                    <div class="d-flex gap-3">
+                    <div class="d-flex gap-3 flex-wrap">
                       <button class="btn btn-lg btn-warning">Browse Cruises</button>
                       <button class="btn btn-lg btn-outline-light">Watch Video</button>
                     </div>
@@ -7632,7 +8046,7 @@
 
           <div class="component-preview bg-white">
             <h5 class="mb-3">Large Pagination with Info</h5>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
               <div class="text-muted">Showing 1-10 of 127 results</div>
               <nav aria-label="Page navigation">
                 <ul class="pagination pagination-lg mb-0">
@@ -7941,7 +8355,8 @@
           
           <div class="component-preview bg-white">
             <h5 class="mb-4">Booking Progress</h5>
-            <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="stepper-horizontal-scroll">
+            <div class="d-flex align-items-center justify-content-between mb-4 stepper-min-width">
               <div class="text-center flex-1">
                 <div class="rounded-circle d-inline-flex align-items-center justify-content-center shadow mb-2 icon-circle-50 bg-teal text-white fw-bold">
                   <i class="fas fa-check"></i>
@@ -7969,6 +8384,7 @@
                 </div>
                 <div class="small text-muted">Payment</div>
               </div>
+            </div>
             </div>
           </div>
 
@@ -8648,8 +9064,14 @@
     });
     
     // Back to top button functionality
-    const backToTopBtn = document.querySelector('[style*="bottom: 2rem"]');
+    const backToTopBtn = document.querySelector('.back-to-top-btn');
     if (backToTopBtn) {
+      // Show after scrolling down 300px, hide near top
+      const toggleBackToTop = () => {
+        backToTopBtn.classList.toggle('back-to-top-visible', window.scrollY > 300);
+      };
+      window.addEventListener('scroll', toggleBackToTop, { passive: true });
+      toggleBackToTop();
       backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       });
