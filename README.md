@@ -2,7 +2,7 @@
 
 Static asset build system for Cruise & Theme Park Guide.
 
-This project compiles a custom Bootstrap-based design system, bundles global JavaScript, and copies public assets into a deployable `dist/` folder for Netlify.
+This project compiles a custom Bootstrap-based design system, bundles global JavaScript, and copies public assets into a deployable `dist/` folder for Cloudflare R2.
 
 Production URL:
 
@@ -20,8 +20,8 @@ https://media.cruiseandthemeparkguide.com
 
 ```text
 media-server/
-	netlify.toml
 	package.json
+	.env
 	public/
 		images/
 	src/
@@ -64,17 +64,20 @@ This runs:
 npm run watch:css
 ```
 
-## Netlify
+## Deploy to Cloudflare R2
 
-Configured in `netlify.toml`:
+Credentials are stored in `.env` (never commit this file).
 
-- Build command: `npm run build`
-- Publish directory: `dist`
+```bash
+npm run build
+npm run deploy:r2
+```
+
+This uploads everything in `dist/` to the `ctpg-media` R2 bucket.
 
 ## Documentation
 
 - `docs/QUICKSTART.md`
-- `docs/NETLIFY_DEPLOYMENT.md`
 - `docs/BOOTSTRAP_EXTENSION_GUIDE.md`
 - `docs/SITE_ASSET_PATHS.md`
 - `docs/THEMING_AND_BRANDING.md`

@@ -3,6 +3,20 @@ const path = require("path");
 const mime = require("mime-types");
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
+// Load .env file if present
+const envPath = path.join(process.cwd(), ".env");
+if (fs.existsSync(envPath)) {
+  fs.readFileSync(envPath, "utf-8").split("\n").forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) return;
+    const eqIdx = trimmed.indexOf("=");
+    if (eqIdx === -1) return;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const val = trimmed.slice(eqIdx + 1).trim();
+    if (key && !(key in process.env)) process.env[key] = val;
+  });
+}
+
 const requiredEnvVars = [
   "R2_ACCOUNT_ID",
   "R2_ACCESS_KEY_ID",
