@@ -68,6 +68,7 @@
       --gold: #ffd93d;
       --orange: #ff6b9d;
       --light-blue: #00a8e8;
+      --palm-green: #00D9A3;
       --gray-light: #f8f9fa;
       --gray-medium: #e9ecef;
       --gray-dark: #6c757d;
@@ -2892,6 +2893,7 @@
     .color-swatch-lightblue{ background: #00a8e8; }  /* --light-blue */
     .color-swatch-blueacc  { background: #0077be; }  /* --blue-accent */
     .color-swatch-navydark { background: #1e293b; }  /* --navy-dark */
+    .color-swatch-palm     { background: #00D9A3; color: #fff; }  /* --palm-green */
     
     /* Gradient headers for category cards */
     .card-header-teal-gradient { background: linear-gradient(135deg, var(--teal), var(--light-blue)); padding: 2rem; text-align: center; }
@@ -3723,6 +3725,21 @@
     /* Newsletter styling */
     .newsletter-badge-gold { background: var(--gold); color: var(--navy); padding: 4px 12px; font-weight: 700; font-size: 0.75rem; letter-spacing: 1px; }
     .newsletter-cta-box { background: linear-gradient(to right, rgba(37,150,190,0.08), rgba(244,178,35,0.08)); border-left: 5px solid var(--gold) !important; padding: 2rem; }
+    /* Newsletter dark mode */
+    .nl-dark-card { border-radius: 0; }
+    .nl-dark-left-panel { background: rgba(78,205,196,0.08); border-right: 1px solid rgba(78,205,196,0.15); }
+    .nl-dark-right-panel { background: rgba(255,255,255,0.03); }
+    .nl-dark-input { background: rgba(255,255,255,0.07) !important; border-color: rgba(255,255,255,0.15) !important; color: #fff !important; }
+    .nl-dark-input::placeholder { color: rgba(255,255,255,0.4) !important; }
+    .nl-dark-input:focus { border-color: var(--teal) !important; box-shadow: 0 0 0 3px rgba(78,205,196,0.15) !important; }
+    .nl-dark-submit-btn { background: var(--teal); color: var(--navy-dark); font-weight: 700; border: none; }
+    .nl-dark-submit-btn:hover { background: #3db5ad; color: var(--navy-dark); }
+    .nl-dark-privacy-text { color: rgba(255,255,255,0.45); }
+    .nl-dark-banner { background: linear-gradient(135deg, rgba(255,94,94,0.25) 0%, rgba(255,107,157,0.2) 100%); border-top: 1px solid rgba(255,94,94,0.2); }
+    .nl-dark-banner-sub { color: rgba(255,255,255,0.7); }
+    .nl-dark-inline-input { background: rgba(255,255,255,0.1) !important; border: none !important; color: #fff !important; }
+    .nl-dark-inline-input::placeholder { color: rgba(255,255,255,0.45) !important; }
+    .nl-dark-inline-btn { background: var(--teal); color: var(--navy-dark); font-weight: 700; }
     
     /* Specific heading color */
     .h4-navy { color: var(--navy); font-weight: 700; }
@@ -12298,18 +12315,18 @@
         <!-- Newsletter Forms -->
         <section id="newsletter-forms" class="component-section">
           <h2 class="display-6 fw-bold mb-4 text-navy">Newsletter Forms</h2>
-          
+
           <div class="component-preview p-0">
             <div class="card border-0 overflow-hidden shadow-lg">
               <div class="row g-0">
-                <div class="col-md-6 hero-gradient-teal min-height-300 d-flex align-items-center">
+                <div class="col-12 col-md-6 hero-gradient-teal min-height-300 d-flex align-items-center">
                   <div class="p-5 text-white">
                     <i class="fas fa-envelope-open-text fa-3x mb-3"></i>
                     <h3 class="fw-bold mb-3">Join Our Newsletter</h3>
                     <p class="mb-0">Get weekly cruise deals, theme park tips, and exclusive content delivered to your inbox.</p>
                   </div>
                 </div>
-                <div class="col-md-6 bg-white">
+                <div class="col-12 col-md-6 bg-white">
                   <div class="p-5">
                     <h5 class="mb-3 text-navy">Subscribe Today</h5>
                     <form>
@@ -12329,7 +12346,7 @@
                           <label class="form-check-label" for="deals">Exclusive Deals</label>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-lg w-100 grid-demo-box">Subscribe Now</button>
+                      <button type="submit" class="btn btn-lg w-100 btn-teal-white">Subscribe Now</button>
                       <small class="d-block mt-2 text-muted text-center">Unsubscribe anytime. We respect your privacy.</small>
                     </form>
                   </div>
@@ -12343,12 +12360,67 @@
             <h3 class="text-white fw-bold mb-3">Never Miss a Deal!</h3>
             <p class="text-white mb-4">Sign up for cruise alerts and be the first to know about special offers.</p>
             <div class="row justify-content-center">
-              <div class="col-12 col-lg-6">
+              <div class="col-12 col-md-8 col-lg-6">
                 <div class="input-group input-group-lg shadow">
                   <input type="email" class="form-control" placeholder="Enter your email address">
                   <button class="btn btn-light fw-bold text-navy">Subscribe</button>
                 </div>
-                <small class="d-block mt-2 text-white">Join 50,000+ subscribers • No spam, ever</small>
+                <small class="d-block mt-2 text-white">Join 50,000+ subscribers &bull; No spam, ever</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dark Mode -->
+          <div class="component-preview-dark mt-4 mb-5 p-0">
+            <div class="card border-0 overflow-hidden nl-dark-card">
+              <div class="row g-0">
+                <div class="col-12 col-md-6 d-flex align-items-center nl-dark-left-panel">
+                  <div class="p-5">
+                    <i class="fas fa-envelope-open-text fa-3x mb-3 text-teal"></i>
+                    <h3 class="fw-bold mb-3 text-white">Join Our Newsletter</h3>
+                    <p class="mb-0 nl-dark-banner-sub">Get weekly cruise deals, theme park tips, and exclusive content delivered to your inbox.</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 nl-dark-right-panel">
+                  <div class="p-5">
+                    <h5 class="mb-3 text-teal">Subscribe Today</h5>
+                    <form>
+                      <div class="mb-3">
+                        <input type="text" class="form-control form-control-lg nl-dark-input" placeholder="First Name">
+                      </div>
+                      <div class="mb-3">
+                        <input type="email" class="form-control form-control-lg nl-dark-input" placeholder="Email Address">
+                      </div>
+                      <div class="mb-3">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="weekly-dark">
+                          <label class="form-check-label text-white" for="weekly-dark">Weekly Newsletter</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="deals-dark">
+                          <label class="form-check-label text-white" for="deals-dark">Exclusive Deals</label>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-lg w-100 nl-dark-submit-btn">Subscribe Now</button>
+                      <small class="d-block mt-2 text-center nl-dark-privacy-text">Unsubscribe anytime. We respect your privacy.</small>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-center p-5 mt-4 nl-dark-banner">
+              <i class="fas fa-paper-plane fa-3x text-teal mb-3"></i>
+              <h3 class="text-white fw-bold mb-3">Never Miss a Deal!</h3>
+              <p class="mb-4 nl-dark-banner-sub">Sign up for cruise alerts and be the first to know about special offers.</p>
+              <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                  <div class="input-group input-group-lg shadow">
+                    <input type="email" class="form-control nl-dark-inline-input" placeholder="Enter your email address">
+                    <button class="btn fw-bold nl-dark-inline-btn">Subscribe</button>
+                  </div>
+                  <small class="d-block mt-2 nl-dark-privacy-text">Join 50,000+ subscribers &bull; No spam, ever</small>
+                </div>
               </div>
             </div>
           </div>
