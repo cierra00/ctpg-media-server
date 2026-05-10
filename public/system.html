@@ -2705,6 +2705,14 @@
     .filter-chip:hover {
       background: rgba(37,150,190,0.25);
     }
+    .component-preview-dark .filter-chip {
+      background: rgba(78,205,196,0.15);
+      border-left-color: var(--teal);
+      color: #fff;
+    }
+    .component-preview-dark .filter-chip:hover {
+      background: rgba(78,205,196,0.28);
+    }
     
     .filter-clear {
       background: transparent;
@@ -2718,6 +2726,15 @@
     }
     .filter-clear:hover {
       color: var(--navy);
+    }
+    .component-preview-dark .filter-clear {
+      color: rgba(255,255,255,0.5);
+    }
+    .component-preview-dark .filter-clear:hover {
+      color: var(--teal);
+    }
+    .component-preview-dark h6.text-muted {
+      color: rgba(255,255,255,0.45) !important;
     }
     
     /* Star ratings */
@@ -3558,9 +3575,41 @@
     .table-head-navy { background: var(--navy); color: white; }
     .table-icon-teal i { color: var(--teal); }
     .table-badge-coral { background: var(--coral); }
-    .table-price { color: var(--navy); font-size: 1.1rem; }
+    .table-price { color: var(--navy); font-size: 1.1rem; white-space: nowrap; }
+    .table-price-note { font-size: 0.75rem; color: var(--text-secondary); white-space: nowrap; }
+    .component-preview-dark .table-price { color: #fff; }
+    .component-preview-dark .table-price-note { color: rgba(255,255,255,0.5); }
     
     /* Stats card styles */
+    .stat-card {
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.75rem 0.75rem;
+      min-height: 180px;
+      width: 100%;
+    }
+    .stat-number {
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1;
+      white-space: nowrap;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    @media (max-width: 767px) {
+      .stat-number { font-size: 2.75rem; }
+    }
+    @media (min-width: 768px) and (max-width: 991px) {
+      .stat-number { font-size: 2rem; }
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      text-align: center;
+      line-height: 1.3;
+    }
     .stats-card-transparent { background: rgba(255,255,255,0.1); }
     .stats-icon-gold { color: var(--gold); }
     .stats-number-gold { color: var(--gold); }
@@ -3870,6 +3919,8 @@
         flex-shrink: 0;
         min-width: 90px;
       }
+      .table-responsive-stack .table-price,
+      .table-responsive-stack .table-price-note { white-space: nowrap; }
       .table-responsive > .table-responsive-stack {
         min-width: unset;
       }
@@ -3880,6 +3931,56 @@
       }
       .stepper-min-width { min-width: 360px; }
     }
+
+    /* Force stacked layout inside preview panels (always, not just mobile) */
+    .component-preview .table-responsive-stack thead,
+    .component-preview-dark .table-responsive-stack thead { display: none; }
+    .component-preview .table-responsive-stack,
+    .component-preview-dark .table-responsive-stack { border: none; }
+    .component-preview .table-responsive-stack tbody tr,
+    .component-preview-dark .table-responsive-stack tbody tr {
+      display: block;
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--teal);
+      margin-bottom: 0.75rem;
+      background: #fff;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .component-preview-dark .table-responsive-stack tbody tr {
+      background: rgba(255,255,255,0.04);
+      border-color: rgba(255,255,255,0.08);
+    }
+    .component-preview .table-responsive-stack tbody td,
+    .component-preview-dark .table-responsive-stack tbody td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.9rem !important;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      font-size: 0.875rem;
+      text-align: right !important;
+    }
+    .component-preview-dark .table-responsive-stack tbody td {
+      border-bottom-color: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.85);
+    }
+    .component-preview .table-responsive-stack tbody td:last-child,
+    .component-preview-dark .table-responsive-stack tbody td:last-child { border-bottom: none; }
+    .component-preview .table-responsive-stack tbody td::before,
+    .component-preview-dark .table-responsive-stack tbody td::before {
+      content: attr(data-label);
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-align: left;
+      padding-right: 0.75rem;
+      flex-shrink: 0;
+      min-width: 80px;
+      color: var(--navy);
+    }
+    .component-preview-dark .table-responsive-stack tbody td::before { color: rgba(255,255,255,0.45); }
     
     /* CTA Section Styles */
     .cta-gradient-coral-orange {
@@ -5165,9 +5266,32 @@
     .ca-flush { border: none !important; border-radius: 0 !important; }
     .ca-flush .accordion-item { border-left: none !important; border-right: none !important; border-radius: 0 !important; }
     .ca-flush .accordion-button { padding-left: 0 !important; padding-right: 0 !important; }
-    .ca-flush .accordion-body { margin-left: 0 !important; margin-right: 0 !important; }
+    .ca-flush .accordion-body { margin-left: 0 !important; margin-right: 0 !important; border-radius: 0 4px 4px 0 !important; }
+    /* dark + flush: transparent background so it sits inside component-preview-dark */
+    .ca-dark.ca-flush { background: transparent !important; border: none !important; }
 
     /* === End Tab & Accordion System ========================================= */
+
+    /* Bootstrap collapse — local fallback (ctpg-bootstrap.min.css omits this) */
+    .collapse:not(.show) { display: none !important; }
+    .collapsing { height: 0; overflow: hidden; transition: height 0.35s ease; }
+
+    /* Tab Slider */
+    .ct-tab-slider { display: flex; align-items: center; gap: 0.4rem; }
+    .ct-tab-slider .ct-boxed.nav,
+    .ct-tab-slider .ct-underline.nav,
+    .ct-tab-slider .ct-pill-bar { flex: 1; min-width: 0; }
+    .ct-tab-slider-arrow {
+      flex-shrink: 0; width: 1.6rem; height: 1.6rem; border: none; cursor: pointer; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; transition: opacity 0.15s;
+      color: var(--navy); opacity: 0.4; border-radius: 50%;
+    }
+    .ct-tab-slider-arrow:hover { opacity: 0.85; background: rgba(0,0,0,0.06); }
+    .ct-tab-slider-arrow[hidden] { display: none; }
+    .ct-tab-slider-arrow svg { width: 13px; height: 13px; pointer-events: none; }
+    .ct-wrap-dark .ct-tab-slider-arrow { color: var(--teal); opacity: 0.75; }
+    .ct-wrap-dark .ct-tab-slider-arrow:hover { opacity: 1; background: rgba(255,255,255,0.08); }
   </style>
 </head>
 <body>
@@ -7747,6 +7871,43 @@
 
           </div>
 
+          <!-- Flush Accordion — Dark -->
+          <div class="component-preview-dark mt-4">
+            <p class="text-white-50 small text-uppercase fw-bold mb-3">Flush — Dark (no outer border, full-width)</p>
+            <div class="accordion ca ca-dark ca-flush" id="ctac4">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ctac4-1" aria-expanded="true" aria-controls="ctac4-1">
+                    <i class="fas fa-ship me-2"></i>What cruise line is best for families?
+                  </button>
+                </h2>
+                <div id="ctac4-1" class="accordion-collapse collapse show">
+                  <div class="accordion-body">Disney Cruise Line consistently tops our family ranking for its kid-friendly programming, character experiences, and rotational dining system. Royal Caribbean is a close second for its onboard entertainment and activities for teens.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ctac4-2" aria-expanded="false" aria-controls="ctac4-2">
+                    <i class="fas fa-ticket-alt me-2"></i>Should I buy Disney World tickets in advance?
+                  </button>
+                </h2>
+                <div id="ctac4-2" class="accordion-collapse collapse">
+                  <div class="accordion-body">Yes — always. Disney World requires both a valid ticket and a Park Pass Reservation for park entry. Popular dates and parks sell out well in advance. Buying tickets early also locks in better pricing.</div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ctac4-3" aria-expanded="false" aria-controls="ctac4-3">
+                    <i class="fas fa-suitcase me-2"></i>What should I pack for a cruise?
+                  </button>
+                </h2>
+                <div id="ctac4-3" class="accordion-collapse collapse">
+                  <div class="accordion-body">Formal night attire, comfortable walking shoes, sunscreen, a reusable water bottle, and seasickness medication are the most common items guests wish they had packed. Full packing list available in our Cruise Planning Guide.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Flush Accordion — Light -->
           <p class="text-muted small text-uppercase fw-bold mb-2">Flush — Light (no outer border, full-width)</p>
           <div class="accordion ca ca-flush" id="ctac3">
@@ -7877,16 +8038,16 @@
             </div>
 
             <h6 class="text-muted mb-3">Loading Buttons</h6>
-            <div class="d-flex flex-wrap gap-3">
-              <button class="btn-ctpg-primary d-flex align-items-center gap-2" disabled>
+            <div class="d-flex flex-nowrap gap-3">
+              <button class="btn-ctpg-secondary d-flex align-items-center gap-2 text-nowrap" disabled>
                 <div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div>
                 Booking...
               </button>
-              <button class="btn-ctpg-secondary d-flex align-items-center gap-2" disabled>
+              <button class="btn btn-secondary d-flex align-items-center gap-2 text-nowrap" disabled>
                 <div class="spinner-grow spinner-grow-sm" role="status"><span class="visually-hidden">Loading...</span></div>
                 Searching
               </button>
-              <button class="btn btn-outline-secondary d-flex align-items-center gap-2" disabled>
+              <button class="btn btn-outline-secondary d-flex align-items-center gap-2 text-nowrap" disabled>
                 <div class="spinner-border spinner-border-sm text-secondary" role="status"><span class="visually-hidden">Loading...</span></div>
                 Loading results
               </button>
@@ -7894,7 +8055,7 @@
           </div>
 
           <div class="component-preview-dark mt-4">
-            <h5 class="mb-4">Progress & Spinners — Dark</h5>
+            <h5 class="mb-4">Progress Bars</h5>
             <div class="mb-3">
               <div class="d-flex justify-content-between mb-1">
                 <span class="small">Trip Planning Progress</span>
@@ -7904,7 +8065,7 @@
                 <div class="progress-bar progress-bar-teal" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
-            <div class="mb-4">
+            <div class="mb-3">
               <div class="d-flex justify-content-between mb-1">
                 <span class="small">Budget Allocated</span>
                 <span class="small fw-semibold">60%</span>
@@ -7913,20 +8074,31 @@
                 <div class="progress-bar progress-bar-gold" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <span class="small">Itinerary Complete</span>
+                <span class="small fw-semibold">45%</span>
+              </div>
+              <div class="progress progress-height-8">
+                <div class="progress-bar progress-bar-coral" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
 
-            <h6 class="mb-3">Border Spinners</h6>
+            <h5 class="mt-5 mb-4">Spinners</h5>
+
+            <h6 class="text-white-50 mb-3">Border Spinners</h6>
             <div class="d-flex flex-wrap gap-4 align-items-end mb-4">
               <div class="text-center">
                 <div class="spinner-border icon-color-teal" role="status"><span class="visually-hidden">Loading...</span></div>
                 <div class="small text-muted mt-2">Teal</div>
               </div>
               <div class="text-center">
-                <div class="spinner-border icon-color-gold" role="status"><span class="visually-hidden">Loading...</span></div>
-                <div class="small text-muted mt-2">Gold</div>
-              </div>
-              <div class="text-center">
                 <div class="spinner-border text-white" role="status"><span class="visually-hidden">Loading...</span></div>
                 <div class="small text-muted mt-2">White</div>
+              </div>
+              <div class="text-center">
+                <div class="spinner-border icon-color-gold" role="status"><span class="visually-hidden">Loading...</span></div>
+                <div class="small text-muted mt-2">Gold</div>
               </div>
               <div class="text-center">
                 <div class="spinner-border text-coral" role="status"><span class="visually-hidden">Loading...</span></div>
@@ -7936,21 +8108,25 @@
                 <div class="spinner-border icon-color-palm" role="status"><span class="visually-hidden">Loading...</span></div>
                 <div class="small text-muted mt-2">Palm</div>
               </div>
+              <div class="text-center">
+                <div class="spinner-border spinner-border-sm icon-color-teal" role="status"><span class="visually-hidden">Loading...</span></div>
+                <div class="small text-muted mt-2">Small</div>
+              </div>
             </div>
 
-            <h6 class="mb-3">Grow Spinners</h6>
+            <h6 class="text-white-50 mb-3">Grow Spinners</h6>
             <div class="d-flex flex-wrap gap-4 align-items-end mb-4">
               <div class="text-center">
                 <div class="spinner-grow icon-color-teal" role="status"><span class="visually-hidden">Loading...</span></div>
                 <div class="small text-muted mt-2">Teal</div>
               </div>
               <div class="text-center">
-                <div class="spinner-grow icon-color-gold" role="status"><span class="visually-hidden">Loading...</span></div>
-                <div class="small text-muted mt-2">Gold</div>
-              </div>
-              <div class="text-center">
                 <div class="spinner-grow text-white" role="status"><span class="visually-hidden">Loading...</span></div>
                 <div class="small text-muted mt-2">White</div>
+              </div>
+              <div class="text-center">
+                <div class="spinner-grow icon-color-gold" role="status"><span class="visually-hidden">Loading...</span></div>
+                <div class="small text-muted mt-2">Gold</div>
               </div>
               <div class="text-center">
                 <div class="spinner-grow text-coral" role="status"><span class="visually-hidden">Loading...</span></div>
@@ -7960,17 +8136,25 @@
                 <div class="spinner-grow icon-color-palm" role="status"><span class="visually-hidden">Loading...</span></div>
                 <div class="small text-muted mt-2">Palm</div>
               </div>
+              <div class="text-center">
+                <div class="spinner-grow spinner-grow-sm icon-color-gold" role="status"><span class="visually-hidden">Loading...</span></div>
+                <div class="small text-muted mt-2">Small</div>
+              </div>
             </div>
 
-            <h6 class="mb-3">Loading Buttons</h6>
-            <div class="d-flex flex-wrap gap-3">
-              <button class="btn-ctpg-primary d-flex align-items-center gap-2" disabled>
+            <h6 class="text-white-50 mb-3">Loading Buttons</h6>
+            <div class="d-flex flex-nowrap gap-3">
+              <button class="btn-ctpg-secondary d-flex align-items-center gap-2 text-nowrap" disabled>
                 <div class="spinner-border spinner-border-sm" role="status"><span class="visually-hidden">Loading...</span></div>
                 Booking...
               </button>
-              <button class="btn-ctpg-secondary d-flex align-items-center gap-2" disabled>
+              <button class="btn btn-light d-flex align-items-center gap-2 text-nowrap" disabled>
                 <div class="spinner-grow spinner-grow-sm" role="status"><span class="visually-hidden">Loading...</span></div>
                 Searching
+              </button>
+              <button class="btn btn-outline-light d-flex align-items-center gap-2 text-nowrap" disabled>
+                <div class="spinner-border spinner-border-sm text-white" role="status"><span class="visually-hidden">Loading...</span></div>
+                Loading results
               </button>
             </div>
           </div>
@@ -7999,21 +8183,21 @@
                     <td class="py-3 px-4" data-label="Ship">Disney Wish</td>
                     <td class="py-3 px-4" data-label="Destination"><span class="badge badge-coral-bg">Caribbean</span></td>
                     <td class="py-3 px-4" data-label="Duration">7 nights</td>
-                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$2,499</strong><br><small class="text-muted">per person</small></td>
+                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$2,499</strong> <span class="table-price-note">/ person</span></td>
                   </tr>
                   <tr>
                     <td class="py-3 px-4 table-icon-teal" data-label="Cruise Line"><i class="fas fa-anchor me-2"></i><strong>Royal Caribbean</strong></td>
                     <td class="py-3 px-4" data-label="Ship">Wonder of the Seas</td>
                     <td class="py-3 px-4" data-label="Destination"><span class="badge badge-coral-bg">Caribbean</span></td>
                     <td class="py-3 px-4" data-label="Duration">7 nights</td>
-                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,899</strong><br><small class="text-muted">per person</small></td>
+                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,899</strong> <span class="table-price-note">/ person</span></td>
                   </tr>
                   <tr>
                     <td class="py-3 px-4 table-icon-teal" data-label="Cruise Line"><i class="fas fa-anchor me-2"></i><strong>Carnival</strong></td>
                     <td class="py-3 px-4" data-label="Ship">Mardi Gras</td>
                     <td class="py-3 px-4" data-label="Destination"><span class="badge badge-orange-bg">Mexico</span></td>
                     <td class="py-3 px-4" data-label="Duration">6 nights</td>
-                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,299</strong><br><small class="text-muted">per person</small></td>
+                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,299</strong> <span class="table-price-note">/ person</span></td>
                   </tr>
                 </tbody>
               </table>
@@ -8022,10 +8206,10 @@
           </div>
 
           <div class="component-preview-dark mt-4">
-            <h5 class="mb-3">Tables — Dark</h5>
+            <h5 class="mb-3">Cruise Comparison Table</h5>
             <div class="table-responsive">
-              <table class="table table-hover align-middle mb-3">
-                <thead>
+              <table class="table table-hover align-middle mb-3 table-responsive-stack">
+                <thead class="table-header-navy">
                   <tr>
                     <th class="py-3 px-4"><i class="fas fa-ship me-2"></i>Cruise Line</th>
                     <th class="py-3 px-4">Ship</th>
@@ -8040,21 +8224,21 @@
                     <td class="py-3 px-4" data-label="Ship">Disney Wish</td>
                     <td class="py-3 px-4" data-label="Destination"><span class="badge badge-coral-bg">Caribbean</span></td>
                     <td class="py-3 px-4" data-label="Duration">7 nights</td>
-                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$2,499</strong><br><small class="text-muted">per person</small></td>
+                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$2,499</strong> <span class="table-price-note">/ person</span></td>
                   </tr>
                   <tr>
                     <td class="py-3 px-4 table-icon-teal" data-label="Cruise Line"><i class="fas fa-anchor me-2"></i><strong>Royal Caribbean</strong></td>
                     <td class="py-3 px-4" data-label="Ship">Wonder of the Seas</td>
                     <td class="py-3 px-4" data-label="Destination"><span class="badge badge-coral-bg">Caribbean</span></td>
                     <td class="py-3 px-4" data-label="Duration">7 nights</td>
-                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,899</strong><br><small class="text-muted">per person</small></td>
+                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,899</strong> <span class="table-price-note">/ person</span></td>
                   </tr>
                   <tr>
                     <td class="py-3 px-4 table-icon-teal" data-label="Cruise Line"><i class="fas fa-anchor me-2"></i><strong>Carnival</strong></td>
                     <td class="py-3 px-4" data-label="Ship">Mardi Gras</td>
                     <td class="py-3 px-4" data-label="Destination"><span class="badge badge-orange-bg">Mexico</span></td>
                     <td class="py-3 px-4" data-label="Duration">6 nights</td>
-                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,299</strong><br><small class="text-muted">per person</small></td>
+                    <td class="py-3 px-4 text-end" data-label="Price"><strong class="table-price">$1,299</strong> <span class="table-price-note">/ person</span></td>
                   </tr>
                 </tbody>
               </table>
@@ -8357,38 +8541,38 @@
             <h5 class="mb-3">Stats — Light</h5>
             <div class="row text-center g-4">
               <div class="col-12 col-sm-6 col-md-3">
-                <div class="card border-0 shadow-sm">
-                  <div class="card-body py-4">
-                    <i class="fas fa-ship fa-3x mb-3 text-gold"></i>
-                    <div class="display-4 fw-bold mb-2 text-navy">500+</div>
-                    <div class="text-muted">Cruise Reviews</div>
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="stat-card card-body">
+                    <i class="fas fa-ship fa-2x mb-3 text-gold"></i>
+                    <div class="stat-number text-navy">500+</div>
+                    <div class="stat-label text-muted">Cruise Reviews</div>
                   </div>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3">
-                <div class="card border-0 shadow-sm">
-                  <div class="card-body py-4">
-                    <i class="fas fa-users fa-3x mb-3 text-teal"></i>
-                    <div class="display-4 fw-bold mb-2 text-navy">1.2M+</div>
-                    <div class="text-muted">Monthly Readers</div>
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="stat-card card-body">
+                    <i class="fas fa-users fa-2x mb-3 text-teal"></i>
+                    <div class="stat-number text-navy">1.2M+</div>
+                    <div class="stat-label text-muted">Monthly Readers</div>
                   </div>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3">
-                <div class="card border-0 shadow-sm">
-                  <div class="card-body py-4">
-                    <i class="fas fa-map-marked-alt fa-3x mb-3 text-coral"></i>
-                    <div class="display-4 fw-bold mb-2 text-navy">250+</div>
-                    <div class="text-muted">Destinations Covered</div>
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="stat-card card-body">
+                    <i class="fas fa-map-marked-alt fa-2x mb-3 text-coral"></i>
+                    <div class="stat-number text-navy">250+</div>
+                    <div class="stat-label text-muted">Destinations</div>
                   </div>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3">
-                <div class="card border-0 shadow-sm">
-                  <div class="card-body py-4">
-                    <i class="fas fa-heart fa-3x mb-3 text-orange"></i>
-                    <div class="display-4 fw-bold mb-2 text-navy">10k+</div>
-                    <div class="text-muted">Community Members</div>
+                <div class="card border-0 shadow-sm h-100">
+                  <div class="stat-card card-body">
+                    <i class="fas fa-heart fa-2x mb-3 text-orange"></i>
+                    <div class="stat-number text-navy">10k+</div>
+                    <div class="stat-label text-muted">Community Members</div>
                   </div>
                 </div>
               </div>
@@ -8399,37 +8583,37 @@
             <div class="row text-center g-4">
               <div class="col-12 col-sm-6 col-md-3">
                 <div class="card border-0 h-100 stats-card-transparent">
-                  <div class="card-body py-4">
-                    <i class="fas fa-ship fa-3x mb-3 stats-icon-gold"></i>
-                    <div class="display-4 fw-bold mb-2 stats-number-gold">500+</div>
-                    <div class="text-white">Cruise Reviews</div>
+                  <div class="stat-card card-body">
+                    <i class="fas fa-ship fa-2x mb-3 stats-icon-gold"></i>
+                    <div class="stat-number stats-number-gold">500+</div>
+                    <div class="stat-label text-white">Cruise Reviews</div>
                   </div>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3">
                 <div class="card border-0 h-100 stats-card-transparent">
-                  <div class="card-body py-4">
-                    <i class="fas fa-users fa-3x mb-3 stats-icon-gold"></i>
-                    <div class="display-4 fw-bold mb-2 stats-number-gold">1.2M+</div>
-                    <div class="text-white">Monthly Readers</div>
+                  <div class="stat-card card-body">
+                    <i class="fas fa-users fa-2x mb-3 stats-icon-gold"></i>
+                    <div class="stat-number stats-number-gold">1.2M+</div>
+                    <div class="stat-label text-white">Monthly Readers</div>
                   </div>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3">
                 <div class="card border-0 h-100 stats-card-transparent">
-                  <div class="card-body py-4">
-                    <i class="fas fa-map-marked-alt fa-3x mb-3 stats-icon-gold"></i>
-                    <div class="display-4 fw-bold mb-2 stats-number-gold">250+</div>
-                    <div class="text-white">Destinations Covered</div>
+                  <div class="stat-card card-body">
+                    <i class="fas fa-map-marked-alt fa-2x mb-3 stats-icon-gold"></i>
+                    <div class="stat-number stats-number-gold">250+</div>
+                    <div class="stat-label text-white">Destinations</div>
                   </div>
                 </div>
               </div>
               <div class="col-12 col-sm-6 col-md-3">
                 <div class="card border-0 h-100 stats-card-transparent">
-                  <div class="card-body py-4">
-                    <i class="fas fa-heart fa-3x mb-3 stats-icon-gold"></i>
-                    <div class="display-4 fw-bold mb-2 stats-number-gold">10k+</div>
-                    <div class="text-white">Community Members</div>
+                  <div class="stat-card card-body">
+                    <i class="fas fa-heart fa-2x mb-3 stats-icon-gold"></i>
+                    <div class="stat-number stats-number-gold">10k+</div>
+                    <div class="stat-label text-white">Community Members</div>
                   </div>
                 </div>
               </div>
@@ -12931,6 +13115,56 @@
       });
     }
     
+    // ── Tab Slider ───────────────────────────────────────────────────────────
+    (function () {
+      const SELECTORS = '.ct-boxed.nav, .ct-underline.nav, .ct-pill-bar';
+      const SCROLL_AMT = 160;
+
+      function arrowSVG(dir) {
+        const d = dir === 'prev'
+          ? 'M15 8H1m0 0 7 7M1 8l7-7'
+          : 'M1 8h14m0 0-7-7m7 7-7 7';
+        return `<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="${d}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon" stroke="currentColor"/></svg>`;
+      }
+
+      document.querySelectorAll(SELECTORS).forEach(nav => {
+        // Wrap in slider container
+        const wrapper = document.createElement('div');
+        wrapper.className = 'ct-tab-slider';
+        nav.parentNode.insertBefore(wrapper, nav);
+        wrapper.appendChild(nav);
+
+        const btnPrev = document.createElement('button');
+        btnPrev.className = 'ct-tab-slider-arrow arrow-prev';
+        btnPrev.setAttribute('aria-label', 'Scroll tabs left');
+        btnPrev.innerHTML = arrowSVG('prev');
+        btnPrev.hidden = true;
+
+        const btnNext = document.createElement('button');
+        btnNext.className = 'ct-tab-slider-arrow arrow-next';
+        btnNext.setAttribute('aria-label', 'Scroll tabs right');
+        btnNext.innerHTML = arrowSVG('next');
+        btnNext.hidden = true;
+
+        wrapper.insertBefore(btnPrev, nav);
+        wrapper.appendChild(btnNext);
+
+        function update() {
+          const canPrev = nav.scrollLeft > 4;
+          const canNext = nav.scrollLeft + nav.clientWidth < nav.scrollWidth - 4;
+          btnPrev.hidden = !canPrev;
+          btnNext.hidden = !canNext;
+        }
+
+        nav.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update, { passive: true });
+        update();
+
+        btnPrev.addEventListener('click', () => { nav.scrollBy({ left: -SCROLL_AMT, behavior: 'smooth' }); });
+        btnNext.addEventListener('click', () => { nav.scrollBy({ left:  SCROLL_AMT, behavior: 'smooth' }); });
+      });
+    })();
+
     // Theme switcher
     const themeSwitch = document.getElementById('themeSwitch');
     if (themeSwitch) {
