@@ -3193,7 +3193,7 @@
     .hs-blob-gold { top: 15%;      left: 40%;     background: var(--gold);  opacity: 0.07; }
 
     /* --- 1. Article / Featured Hero --- */
-    .hs-article { padding: 3rem 2rem; text-align: center; }
+    .hs-article { padding: 3rem 2rem; text-align: left; }
     @media (min-width: 768px) { .hs-article { padding: 4rem 3rem; } }
 
     .hs-kicker {
@@ -3208,19 +3208,19 @@
 
     .hs-h1 {
       font-family: var(--font-display); font-weight: 800; line-height: 1.2;
-      margin: 0 auto 0.9rem; font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+      margin: 0 0 0.9rem; font-size: clamp(1.75rem, 4.5vw, 2.75rem);
     }
     .hs-light .hs-h1 { color: var(--navy); }
     .hs-dark  .hs-h1 { color: #ffffff; }
 
     .hs-excerpt {
-      font-size: 1rem; line-height: 1.7; max-width: 560px; margin: 0 auto 1.5rem;
+      font-size: 1rem; line-height: 1.7; max-width: 560px; margin: 0 0 1.5rem;
     }
     .hs-light .hs-excerpt { color: var(--text-secondary); }
     .hs-dark  .hs-excerpt { color: rgba(255,255,255,0.62) !important; }
 
     .hs-meta {
-      display: flex; flex-wrap: wrap; justify-content: center;
+      display: flex; flex-wrap: wrap; justify-content: flex-start;
       align-items: center; gap: 0.65rem; font-size: 0.78rem; margin-bottom: 1.75rem;
     }
     .hs-meta i { margin-right: 0.22rem; }
@@ -3228,7 +3228,7 @@
     .hs-light .hs-meta { color: var(--text-secondary); }
     .hs-dark  .hs-meta { color: rgba(255,255,255,0.42); }
 
-    .hs-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem; }
+    .hs-actions { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 0.7rem; }
 
     /* Buttons */
     .hs-btn {
@@ -3281,7 +3281,7 @@
     }
     .hs-overlay-body { position: relative; z-index: 2; padding: 2rem 1.75rem; width: 100%; }
     @media (min-width: 768px) { .hs-overlay-body { padding: 2.5rem 2.5rem; } }
-    .hs-overlay-body .hs-h1 { color: #fff; text-align: left; max-width: 620px; font-size: clamp(1.5rem,3.8vw,2.5rem); text-shadow: 0 2px 12px rgba(0,0,0,0.65), 0 1px 3px rgba(0,0,0,0.5); }
+    .hs-overlay-body .hs-h1 { color: #fff; text-align: left; max-width: 620px; margin-left: 0; font-size: clamp(1.5rem,3.8vw,2.5rem); text-shadow: 0 2px 12px rgba(0,0,0,0.65), 0 1px 3px rgba(0,0,0,0.5); }
     .hs-overlay-body .hs-meta { justify-content: flex-start; color: rgba(255,255,255,0.5); }
     .hs-overlay-body .hs-actions { justify-content: flex-start; }
 
