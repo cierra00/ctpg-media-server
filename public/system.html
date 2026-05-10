@@ -221,7 +221,7 @@
     .component-preview-dark .text-navy,.component-preview-dark .text-dark { color: #fff !important; }
     .component-preview-dark .text-muted,
     .component-preview-dark small,
-    .component-preview-dark .text-secondary { color: rgba(255,255,255,0.52) !important; }
+    .component-preview-dark .text-secondary { color: rgba(255,255,255,0.72) !important; }
     .component-preview-dark .border { border-color: rgba(255,255,255,0.14) !important; }
     .component-preview-dark .border-bottom { border-color: rgba(255,255,255,0.1) !important; }
     .component-preview-dark .border-top { border-color: rgba(255,255,255,0.1) !important; }
@@ -234,6 +234,7 @@
     .component-preview-dark .card { background: rgba(255,255,255,0.07) !important; border-color: rgba(255,255,255,0.12) !important; }
     .component-preview-dark .card-body { background: transparent !important; }
     .component-preview-dark .card-header { background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.1) !important; }
+    .component-preview-dark .card-header.bg-gradient-gold-orange { background: linear-gradient(135deg, var(--gold), var(--orange)) !important; }
     .component-preview-dark .list-group-item { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.85) !important; }
     .component-preview-dark .table { color: rgba(255,255,255,0.85) !important; --bs-table-bg: transparent; }
     .component-preview-dark .table thead { background: rgba(255,255,255,0.12) !important; }
@@ -1640,16 +1641,12 @@
     }
     
     .timeline-badge-orange {
-      width: 40px;
-      height: 40px;
       background: var(--orange);
       color: white;
       font-weight: bold;
     }
     
     .timeline-badge-gold {
-      width: 40px;
-      height: 40px;
       background: var(--gold);
       color: var(--navy);
       font-weight: bold;
@@ -2091,7 +2088,7 @@
     }
     
     /* Remove any remaining Bootstrap-style defaults */
-    .badge:not([class*="bg-"]):not([class*="-bg"]) {
+    .badge:not([class*="bg-"]):not([class*="-bg"]):not([class*="timeline-badge-"]) {
       background: transparent !important;
     }
     
@@ -3641,10 +3638,13 @@
     .timeline-circle-teal { width: 40px; height: 40px; background: var(--teal); color: white; font-weight: bold; }
     .timeline-circle-orange { width: 40px; height: 40px; background: var(--orange); color: white; font-weight: bold; }
     .timeline-circle-gold { width: 40px; height: 40px; background: var(--gold); color: var(--navy); font-weight: bold; }
-    .timeline-badge-teal { background: var(--teal); }
-    .timeline-badge-light-blue { background: var(--light-blue); }
-    .timeline-badge-orange { background: var(--orange); }
-    .timeline-badge-gold { background: var(--gold); color: var(--navy); }
+    .timeline-circle-coral { width: 40px; height: 40px; background: var(--coral); color: white; font-weight: bold; }
+    .timeline-badge-teal { background-color: var(--teal) !important; color: #fff !important; flex-shrink: 0; white-space: nowrap; margin-left: 0.5rem; }
+    .timeline-badge-light-blue { background-color: var(--light-blue) !important; color: #fff !important; flex-shrink: 0; white-space: nowrap; margin-left: 0.5rem; }
+    .timeline-badge-orange { background-color: var(--orange) !important; color: #fff !important; flex-shrink: 0; white-space: nowrap; margin-left: 0.5rem; }
+    .timeline-badge-gold { background-color: var(--gold) !important; color: var(--navy) !important; flex-shrink: 0; white-space: nowrap; margin-left: 0.5rem; }
+    .timeline-card-header { flex-wrap: wrap; gap: 0.5rem; }
+    .timeline-card-title { min-width: 0; }
     .timeline-text-navy { color: var(--navy); }
     .timeline-check-palm { color: #00D9A3; }
     
@@ -3668,6 +3668,31 @@
       color: white;
       transform: translateY(-2px);
     }
+    .component-preview-dark .btn-book-now {
+      border-color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.85);
+      white-space: nowrap;
+      letter-spacing: 0;
+    }
+    .component-preview-dark .btn-book-now:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: white;
+      color: white;
+    }
+    .component-preview-dark .pricing-btn-outline-navy {
+      border-color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.85);
+    }
+    .component-preview-dark .pricing-btn-outline-navy:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: white;
+      color: white;
+    }
+    .pricing-price { white-space: nowrap; font-size: clamp(1.8rem, 4vw, 3.5rem); }
+    .pricing-features { font-size: 0.875rem; }
+    .component-preview-dark .card.pricing-card { }
+    .component-preview-dark .pricing-card .card-body { padding: 1.25rem !important; }
+    .component-preview-dark .pricing-price { color: white !important; }
     
     /* Dropdown button styles */
     .dropdown-btn-teal { background: var(--teal); color: white; border: none; }
@@ -4156,6 +4181,39 @@
       color: white;
     }
     
+    /* Carousel */
+    .carousel-item { position: relative; }
+    .carousel-img .carousel-item img {
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      object-fit: cover;
+      display: block;
+    }
+    .carousel-caption {
+      position: absolute;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0;
+      padding: 2.5rem 1.25rem 2rem;
+      text-align: left;
+      z-index: 2;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+    }
+    .carousel-caption h5 {
+      font-weight: 700;
+      font-size: clamp(0.9rem, 3vw, 1.15rem);
+      margin-bottom: 0.15rem;
+      color: #fff !important;
+      line-height: 1.3;
+    }
+    .carousel-caption p {
+      font-size: clamp(0.75rem, 2vw, 0.875rem);
+      margin-bottom: 0;
+      color: rgba(255,255,255,0.95) !important;
+    }
+    .carousel-indicators { z-index: 3; bottom: 0.35rem; margin-bottom: 0; }
+    .carousel-control-prev, .carousel-control-next { z-index: 3; }
+
     /* Carousel Icons */
     .carousel-control-inverted {
       filter: invert(1);
@@ -8808,8 +8866,8 @@
                 </div>
                 <div class="card border-0 shadow-sm">
                   <div class="card-body p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                      <h6 class="fw-bold mb-0 timeline-text-navy">9 Months Before: Book Your Cruise</h6>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6 class="fw-bold mb-0 timeline-text-navy timeline-card-title">9 Months Before: Book Your Cruise</h6>
                       <span class="badge timeline-badge-light-blue">Booking</span>
                     </div>
                     <p class="text-muted mb-0 small">Book early for best cabin selection and pricing. Secure your preferred sailing date and stateroom.</p>
@@ -8823,8 +8881,8 @@
                 </div>
                 <div class="card border-0 shadow-sm">
                   <div class="card-body p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                      <h6 class="fw-bold mb-0 timeline-text-navy">3 Months Before: Plan Excursions</h6>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6 class="fw-bold mb-0 timeline-text-navy timeline-card-title">3 Months Before: Plan Excursions</h6>
                       <span class="badge timeline-badge-orange">Activities</span>
                     </div>
                     <p class="text-muted mb-0 small">Research and book shore excursions, specialty dining, and onboard activities like spa treatments.</p>
@@ -8838,8 +8896,8 @@
                 </div>
                 <div class="card border-0 shadow-sm timeline-card-highlight">
                   <div class="card-body p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                      <h6 class="fw-bold mb-0 timeline-text-navy">1 Week Before: Final Prep</h6>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6 class="fw-bold mb-0 timeline-text-navy timeline-card-title">1 Week Before: Final Prep</h6>
                       <span class="badge timeline-badge-gold">Ready!</span>
                     </div>
                     <p class="text-muted mb-2 small">Check in online, pack bags, and review cruise documentation. Print boarding passes and luggage tags.</p>
@@ -8854,45 +8912,64 @@
             <h5 class="mb-4">Cruise Booking Timeline — Dark</h5>
             <div class="position-relative timeline-wrapper">
               <div class="position-absolute top-0 bottom-0 timeline-gradient-line"></div>
+
               <div class="mb-4 position-relative">
                 <div class="position-abs-left-neg40-top5">
                   <div class="rounded-circle d-flex align-items-center justify-content-center shadow timeline-circle-teal">1</div>
                 </div>
-                <div class="card border-0">
+                <div class="card border-0 shadow-sm">
                   <div class="card-body p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                      <h6 class="fw-bold mb-0">6–12 Months Out: Research</h6>
-                      <span class="badge badge-coral-bg">Start Here</span>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6 class="fw-bold mb-0 timeline-card-title">12 Months Before: Research &amp; Plan</h6>
+                      <span class="badge timeline-badge-teal">Planning</span>
                     </div>
-                    <p class="text-muted mb-0 small">Browse cruise lines, compare itineraries, and set your budget. Read expert reviews on CTPG for insights.</p>
+                    <p class="text-muted mb-0 small">Start researching destinations, cruise lines, and itineraries. Compare prices and read reviews.</p>
                   </div>
                 </div>
               </div>
+
               <div class="mb-4 position-relative">
                 <div class="position-abs-left-neg40-top5">
-                  <div class="rounded-circle d-flex align-items-center justify-content-center shadow timeline-circle-coral">2</div>
+                  <div class="rounded-circle d-flex align-items-center justify-content-center shadow timeline-circle-teal">2</div>
                 </div>
-                <div class="card border-0">
+                <div class="card border-0 shadow-sm">
                   <div class="card-body p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                      <h6 class="fw-bold mb-0">3–6 Months Out: Book</h6>
-                      <span class="badge badge-teal-bg">Important</span>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6 class="fw-bold mb-0 timeline-card-title">9 Months Before: Book Your Cruise</h6>
+                      <span class="badge timeline-badge-light-blue">Booking</span>
                     </div>
-                    <p class="text-muted mb-0 small">Reserve your cabin, book flights, and purchase travel insurance. Early booking saves up to 30%.</p>
+                    <p class="text-muted mb-0 small">Book early for best cabin selection and pricing. Secure your preferred sailing date and stateroom.</p>
                   </div>
                 </div>
               </div>
+
+              <div class="mb-4 position-relative">
+                <div class="position-abs-left-neg40-top5">
+                  <div class="rounded-circle d-flex align-items-center justify-content-center shadow timeline-circle-orange">3</div>
+                </div>
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body p-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6 class="fw-bold mb-0 timeline-card-title">3 Months Before: Plan Excursions</h6>
+                      <span class="badge timeline-badge-orange">Activities</span>
+                    </div>
+                    <p class="text-muted mb-0 small">Research and book shore excursions, specialty dining, and onboard activities like spa treatments.</p>
+                  </div>
+                </div>
+              </div>
+
               <div class="position-relative">
                 <div class="position-abs-left-neg40-top5">
-                  <div class="rounded-circle d-flex align-items-center justify-content-center shadow timeline-circle-gold">3</div>
+                  <div class="rounded-circle d-flex align-items-center justify-content-center shadow timeline-circle-gold">4</div>
                 </div>
-                <div class="card border-0">
+                <div class="card border-0 shadow-sm timeline-card-highlight">
                   <div class="card-body p-3">
-                    <div class="d-flex justify-content-between align-items-start mb-2">
-                      <h6 class="fw-bold mb-0">1 Week Before: Final Prep</h6>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <h6 class="fw-bold mb-0 timeline-card-title">1 Week Before: Final Prep</h6>
                       <span class="badge timeline-badge-gold">Ready!</span>
                     </div>
-                    <p class="text-muted mb-0 small">Check in online, pack bags, and review cruise documentation. Print boarding passes and luggage tags.</p>
+                    <p class="text-muted mb-2 small">Check in online, pack bags, and review cruise documentation. Print boarding passes and luggage tags.</p>
+                    <div class="small timeline-check-palm"><i class="fas fa-check-circle me-1"></i> You're all set for an amazing cruise!</div>
                   </div>
                 </div>
               </div>
@@ -8973,13 +9050,13 @@
             <h5 class="mb-4">Pricing Tables — Dark</h5>
             <div class="row g-4">
               <div class="col-12 col-md-4">
-                <div class="card border-0 h-100">
+                <div class="card border-0 h-100 pricing-card">
                   <div class="card-body text-center p-4">
                     <div class="mb-3"><i class="fas fa-bed fa-2x pricing-icon-light-blue"></i></div>
                     <h5 class="card-title mb-3">Basic Cabin</h5>
-                    <div class="display-4 fw-bold mb-1">$899</div>
+                    <div class="display-4 fw-bold mb-1 pricing-price">$899</div>
                     <p class="text-muted mb-4">per person</p>
-                    <ul class="list-unstyled mb-4 text-start">
+                    <ul class="list-unstyled mb-4 text-start pricing-features">
                       <li class="mb-2"><i class="fas fa-check icon-color-palm me-2"></i>Interior Cabin</li>
                       <li class="mb-2"><i class="fas fa-check icon-color-palm me-2"></i>All Meals Included</li>
                       <li class="mb-2"><i class="fas fa-check icon-color-palm me-2"></i>Entertainment</li>
@@ -8990,16 +9067,16 @@
                 </div>
               </div>
               <div class="col-12 col-md-4">
-                <div class="card border-0 h-100 border-gold-highlight">
+                <div class="card border-0 h-100 border-gold-highlight pricing-card">
                   <div class="card-header text-center py-3 bg-gradient-gold-orange border-0">
                     <span class="badge-popular"><i class="fas fa-crown me-1"></i>MOST POPULAR</span>
                   </div>
                   <div class="card-body text-center p-4">
                     <div class="mb-3"><i class="fas fa-water fa-2x pricing-icon-teal"></i></div>
                     <h5 class="card-title mb-3">Oceanview</h5>
-                    <div class="display-4 fw-bold mb-1">$1,299</div>
+                    <div class="display-4 fw-bold mb-1 pricing-price">$1,299</div>
                     <p class="text-muted mb-4">per person</p>
-                    <ul class="list-unstyled mb-4 text-start">
+                    <ul class="list-unstyled mb-4 text-start pricing-features">
                       <li class="mb-2"><i class="fas fa-check icon-color-palm me-2"></i>Oceanview Cabin</li>
                       <li class="mb-2"><i class="fas fa-check icon-color-palm me-2"></i>All Meals Included</li>
                       <li class="mb-2"><i class="fas fa-check icon-color-palm me-2"></i>Entertainment</li>
@@ -9010,13 +9087,13 @@
                 </div>
               </div>
               <div class="col-12 col-md-4">
-                <div class="card border-0 h-100">
+                <div class="card border-0 h-100 pricing-card">
                   <div class="card-body text-center p-4">
                     <div class="mb-3"><i class="fas fa-star fa-2x pricing-icon-gold"></i></div>
                     <h5 class="card-title mb-3">Balcony Suite</h5>
-                    <div class="display-4 fw-bold mb-1">$1,899</div>
+                    <div class="display-4 fw-bold mb-1 pricing-price">$1,899</div>
                     <p class="text-muted mb-4">per person</p>
-                    <ul class="list-unstyled mb-4 text-start">
+                    <ul class="list-unstyled mb-4 text-start pricing-features">
                       <li class="mb-2"><i class="fas fa-check icon-color-palm me-2"></i>Balcony Cabin</li>
                       <li class="mb-2"><i class="fas fa-check icon-color-palm me-2"></i>All Meals Included</li>
                       <li class="mb-2"><i class="fas fa-check icon-color-palm me-2"></i>Premium Entertainment</li>
@@ -9103,6 +9180,18 @@
                   <li><a class="dropdown-item" href="#"><i class="fas fa-star me-2 star-gold"></i>Highest Rated</a></li>
                 </ul>
               </div>
+              <div class="dropdown">
+                <button class="btn dropdown-toggle shadow-sm dropdown-btn-gold" type="button" data-bs-toggle="dropdown">
+                  <i class="fas fa-user-circle me-2"></i>Account
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>My Profile</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-bookmark me-2"></i>Saved Items</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
@@ -9116,11 +9205,13 @@
             <button class="btn btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Launch Modal</button>
             <button class="btn btn-outline-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#newsletterModal">Newsletter Popup</button>
             <button class="btn btn-outline-secondary mb-2" data-bs-toggle="modal" data-bs-target="#videoModal">Video Modal</button>
+            <p class="text-muted small mt-2 mb-0"><i class="fas fa-info-circle me-1"></i>Modals render in the page overlay — the same modal instances launch here</p>
           </div>
 
           <div class="component-preview-dark mt-4">
             <h5 class="mb-3">Modals — Dark</h5>
             <button class="btn btn-primary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Launch Modal</button>
+            <button class="btn btn-outline-secondary me-2 mb-2" data-bs-toggle="modal" data-bs-target="#newsletterModal">Newsletter Popup</button>
             <button class="btn btn-outline-secondary mb-2" data-bs-toggle="modal" data-bs-target="#videoModal">Video Modal</button>
             <p class="text-muted small mt-2 mb-0"><i class="fas fa-info-circle me-1"></i>Modals render in the page overlay — the same modal instances launch here</p>
           </div>
@@ -9157,7 +9248,7 @@
           
           <div class="component-preview bg-white">
             <h5 class="mb-3">Featured Destinations Carousel</h5>
-            <div id="destinationCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div id="destinationCarousel" class="carousel slide carousel-img" data-bs-ride="carousel">
               <div class="carousel-indicators">
                 <button type="button" data-bs-target="#destinationCarousel" data-bs-slide-to="0" class="active"></button>
                 <button type="button" data-bs-target="#destinationCarousel" data-bs-slide-to="1"></button>
@@ -9320,7 +9411,7 @@
 
           <div class="component-preview bg-white">
             <h5 class="mb-3">Thumbnail Navigation Carousel</h5>
-            <div id="thumbnailCarousel" class="carousel slide">
+            <div id="thumbnailCarousel" class="carousel slide carousel-img">
               <div class="carousel-inner rounded mb-3">
                 <div class="carousel-item active">
                   <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=800&h=400&fit=crop" class="d-block w-100" alt="Beautiful Caribbean beach at sunset">
@@ -9342,42 +9433,184 @@
 
           <div class="component-preview-dark mt-4">
             <h5 class="mb-3">Carousels — Dark</h5>
-            <div id="darkCarousel" class="carousel slide" data-bs-ride="carousel">
+
+            <h6 class="mb-3">Featured Destinations Carousel</h6>
+            <div id="darkDestCarousel" class="carousel slide carousel-img mb-4" data-bs-ride="carousel">
               <div class="carousel-indicators">
-                <button type="button" data-bs-target="#darkCarousel" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#darkCarousel" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#darkCarousel" data-bs-slide-to="2"></button>
+                <button type="button" data-bs-target="#darkDestCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#darkDestCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#darkDestCarousel" data-bs-slide-to="2"></button>
               </div>
-              <div class="carousel-inner">
+              <div class="carousel-inner rounded">
                 <div class="carousel-item active">
-                  <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=800&h=300&fit=crop" class="d-block w-100" alt="Caribbean">
+                  <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=800&h=400&fit=crop" class="d-block w-100" alt="Caribbean">
                   <div class="carousel-caption">
-                    <h5>Caribbean Escape</h5>
-                    <p class="d-none d-md-block">Sun, sand, and endless adventure await</p>
+                    <h5>Caribbean Adventures</h5>
+                    <p>Explore tropical paradise destinations</p>
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=300&fit=crop" class="d-block w-100" alt="Ocean">
+                  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=400&fit=crop" class="d-block w-100" alt="Theme Parks">
                   <div class="carousel-caption">
-                    <h5>Ocean Voyage</h5>
-                    <p class="d-none d-md-block">Luxury sailing on the open seas</p>
+                    <h5>Theme Park Magic</h5>
+                    <p>Experience world-class attractions</p>
                   </div>
                 </div>
                 <div class="carousel-item">
-                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=300&fit=crop" class="d-block w-100" alt="Dining">
+                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=400&fit=crop" class="d-block w-100" alt="Dining">
                   <div class="carousel-caption">
-                    <h5>Fine Dining</h5>
-                    <p class="d-none d-md-block">World-class cuisine at every meal</p>
+                    <h5>Culinary Excellence</h5>
+                    <p>Discover amazing dining experiences</p>
                   </div>
                 </div>
               </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#darkCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
+              <button class="carousel-control-prev" type="button" data-bs-target="#darkDestCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
               </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#darkCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
+              <button class="carousel-control-next" type="button" data-bs-target="#darkDestCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
               </button>
             </div>
+
+            <h6 class="mb-3">Testimonial Carousel</h6>
+            <div id="darkTestimonialCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="text-center p-5">
+                    <i class="fas fa-quote-left fa-3x mb-4 text-gold"></i>
+                    <p class="lead mb-4">"This guide helped us plan the perfect Disney cruise! The tips saved us hundreds of dollars and so much stress."</p>
+                    <img src="https://i.pravatar.cc/80?img=5" class="rounded-circle mb-2" alt="Reviewer">
+                    <div><strong>Sarah Johnson</strong></div>
+                    <small class="text-muted">Verified Cruiser</small>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="text-center p-5">
+                    <i class="fas fa-quote-left fa-3x mb-4 text-gold"></i>
+                    <p class="lead mb-4">"The Universal Orlando touring plans are spot on! We rode everything with minimal wait times."</p>
+                    <img src="https://i.pravatar.cc/80?img=8" class="rounded-circle mb-2" alt="Reviewer">
+                    <div><strong>Michael Chen</strong></div>
+                    <small class="text-muted">Theme Park Enthusiast</small>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="text-center p-5">
+                    <i class="fas fa-quote-left fa-3x mb-4 text-gold"></i>
+                    <p class="lead mb-4">"Best dining recommendations! We found hidden gems we would have never discovered on our own."</p>
+                    <img src="https://i.pravatar.cc/80?img=10" class="rounded-circle mb-2" alt="Reviewer">
+                    <div><strong>Emily Rodriguez</strong></div>
+                    <small class="text-muted">Foodie Traveler</small>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#darkTestimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#darkTestimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
+            <h6 class="mb-3">Card Carousel - Multiple Items</h6>
+            <div id="darkCardCarousel" class="carousel slide mb-4">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="row g-3">
+                    <div class="col-12 col-md-4">
+                      <div class="card border-0">
+                        <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=400" class="card-img-top rounded" alt="Caribbean beach sunset with palm trees">
+                        <div class="card-body">
+                          <h6 class="card-title">Caribbean Cruise Tips</h6>
+                          <p class="card-text small text-muted">Essential planning guide</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <div class="card border-0">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400" class="card-img-top rounded" alt="Universal theme park castle">
+                        <div class="card-body">
+                          <h6 class="card-title">Universal Guide</h6>
+                          <p class="card-text small text-muted">Complete touring plan</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <div class="card border-0">
+                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400" class="card-img-top rounded" alt="Fine dining restaurant food">
+                        <div class="card-body">
+                          <h6 class="card-title">Best Dining</h6>
+                          <p class="card-text small text-muted">Restaurant reviews</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class="row g-3">
+                    <div class="col-12 col-md-4">
+                      <div class="card border-0">
+                        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400" class="card-img-top rounded" alt="Cruise ship at sea">
+                        <div class="card-body">
+                          <h6 class="card-title">Packing Lists</h6>
+                          <p class="card-text small text-muted">What to bring</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <div class="card border-0">
+                        <img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=400" class="card-img-top rounded" alt="Tropical beach shore excursion">
+                        <div class="card-body">
+                          <h6 class="card-title">Shore Excursions</h6>
+                          <p class="card-text small text-muted">Port adventures</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <div class="card border-0">
+                        <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=400" class="card-img-top rounded" alt="Vacation savings planning">
+                        <div class="card-body">
+                          <h6 class="card-title">Money Saving Tips</h6>
+                          <p class="card-text small text-muted">Budget hacks</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#darkCardCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#darkCardCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
+            <h6 class="mb-3">Thumbnail Navigation Carousel</h6>
+            <div id="darkThumbnailCarousel" class="carousel slide carousel-img">
+              <div class="carousel-inner rounded mb-3">
+                <div class="carousel-item active">
+                  <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=800&h=400&fit=crop" class="d-block w-100" alt="Beautiful Caribbean beach at sunset">
+                </div>
+                <div class="carousel-item">
+                  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=400&fit=crop" class="d-block w-100" alt="Luxury cruise ship sailing">
+                </div>
+                <div class="carousel-item">
+                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=400&fit=crop" class="d-block w-100" alt="Gourmet dining experience">
+                </div>
+              </div>
+              <div class="d-flex gap-2 justify-content-center">
+                <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=100&h=60&fit=crop" class="rounded thumbnail-nav active" data-bs-target="#darkThumbnailCarousel" data-bs-slide-to="0" alt="Caribbean beach sunset">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=100&h=60&fit=crop" class="rounded thumbnail-nav" data-bs-target="#darkThumbnailCarousel" data-bs-slide-to="1" alt="Cruise ship at sea">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=100&h=60&fit=crop" class="rounded thumbnail-nav" data-bs-target="#darkThumbnailCarousel" data-bs-slide-to="2" alt="Fine dining experience">
+              </div>
+            </div>
+
           </div>
         </section>
 
