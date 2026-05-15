@@ -1,7 +1,15 @@
 # CTPG Media Server — Copilot Instructions
 
 ## Project Overview
-This is the **Cruise & Theme Park Guide Design System** — a single-file Bootstrap 5 component library at `public/system.html`. It is ~13,000+ lines and contains every brand component, pattern, and style for CTPG.
+The CTPG media server hosts two active front-end files and serves as the **CDN source** for the WordPress site (future). All CSS and JS remain inline in these files during the prototype phase. Do NOT extract to `src/scss/` or `src/js/` yet — that happens during the componentization phase (see `docs/COMPONENTIZATION_PLAN.md`).
+
+### Active Files
+| File | Role | Live URL |
+|------|------|----------|
+| `public/system.html` | **Component library** — every reusable component with light + dark previews, markup, and class names | `https://media.cruiseandthemeparkguide.com/system.html` |
+| `public/home-sample.html` | **Demo page** — full editorial home page prototype using those components | `https://media.cruiseandthemeparkguide.com/home-sample.html` |
+
+**Workflow:** Build and document new components in `system.html` first. Use those components (same class names, same markup) in `home-sample.html`. Both files are standalone — CSS and JS inline only, no imports.
 
 ## Tech Stack
 - **Framework**: Bootstrap 5.3.3 (CDN JS + custom CSS from R2)
@@ -20,8 +28,10 @@ This is the **Cruise & Theme Park Guide Design System** — a single-file Bootst
 - This rule has ZERO exceptions
 
 ## CSS Architecture
-- **Single `<style>` block** at the top of `public/system.html` — all custom CSS lives here
-- **CSS Variables** (defined in `:root`):
+- **`system.html`**: Single `<style>` block at the top — all component CSS lives here
+- **`home-sample.html`**: Single `<style>` block at the top — all page-level and component CSS lives here
+- Do NOT use `src/scss/` until the componentization phase begins
+- **CSS Variables** (defined in `:root` in both files):
   - `--navy: #334155`
   - `--navy-dark: #1e293b`
   - `--teal: #4ecdc4`
