@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cruise &amp; Theme Park Guide — Travel Planning, Cruises &amp; Theme Parks</title>
+  <meta name="description" content="Your complete guide to cruise and theme park travel. Expert reviews, planning guides, dining tips, and destination advice.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cruise &amp; Theme Park Guide">
+  <meta property="og:description" content="Expert cruise reviews, theme park guides, dining tips and travel planning.">
+  <meta property="og:image" content="https://media.cruiseandthemeparkguide.com/images/og-design-system.svg">
+  <link rel="stylesheet" href="https://media.cruiseandthemeparkguide.com/css/ctpg-bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --navy: #334155;
+      --navy-dark: #1e293b;
+      --coral: #ff5e5e;
+      --coral-light: #ff6b6b;
+      --blue-accent: #0077be;
+      --blue-light: #00a8e8;
+      --teal: #4ecdc4;
+      --gold: #ffd93d;
+      --orange: #ff6b9d;
+      --light-blue: #00a8e8;
+      --palm-green: #00D9A3;
+      --gray-light: #f8f9fa;
+      --gray-medium: #e9ecef;
+      --gray-dark: #6c757d;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --text-muted: #6c757d;
+      --border-color: #e2e8f0;
+      --link-color: #0077be;
+      --link-hover: #ff5e5e;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 2px 4px rgba(0,0,0,0.08);
+      --shadow-lg: 0 4px 8px rgba(0,0,0,0.1);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-heading: 'Montserrat', system-ui, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --tx-fast: 0.15s ease;
+      --tx-base: 0.25s ease;
+      --tx-slow: 0.35s ease;
+      --lift-btn: translateY(-2px);
+      --lift-card: translateY(-4px);
+      --focus-ring: 0 0 0 3px rgba(78,205,196,0.38);
+    }
+
+    /* ── Base ── */
+    html, body { overflow-x: hidden; }
+    body {
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background: #fafbfc;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--navy);
+    }
+    .display-1,.display-2,.display-3,.display-4,.display-5,.display-6 { font-weight: 700; color: var(--navy); }
+    p { font-weight: 400; color: #1e293b; }
+    a { color: var(--link-color); text-decoration: none; transition: color var(--tx-fast); }
+    a:hover { color: var(--link-hover); }
+    .text-muted { color: #64748b !important; }
+    .text-navy { color: var(--navy) !important; }
+    .text-teal { color: var(--teal) !important; }
+    .text-coral { color: var(--coral) !important; }
+    .text-gold { color: var(--gold) !important; }
+    .bg-navy { background-color: var(--navy) !important; }
+    .bg-navy-dark { background-color: var(--navy-dark) !important; }
+    *:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; box-shadow: var(--focus-ring); border-radius: 4px; }
+
+    /* ── Top Bar ── */
+    .top-bar {
+      background: var(--coral);
+      color: white;
+      padding: 0.5rem 0;
+      font-size: 0.875rem;
+    }
+    .top-bar a { color: white; }
+    .top-bar a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── Navigation ── */
+    .main-nav {
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      position: relative;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+      text-decoration: none;
+      flex-shrink: 0;
+      padding: 0.375rem 0;
+    }
+    .nav-brand:hover { text-decoration: none; }
+    .brand-text-block { line-height: 1; }
+    .brand-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .brand-tagline {
+      color: var(--coral);
+      font-weight: 600;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    .logo-icon-small { width: 48px; height: 48px; object-fit: contain; }
+    .navbar-toggler {
+      border: none;
+      background: transparent;
+      padding: 0.5rem;
+      font-size: 1.25rem;
+      color: var(--navy);
+      cursor: pointer;
+    }
+    .navbar-toggler:hover { color: var(--coral); }
+    .nav-main-links {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
+    .nav-main-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
+    .nav-link {
+      color: var(--navy);
+      font-weight: 600;
+      padding: 1rem 1.25rem;
+      transition: color var(--tx-base);
+      position: relative;
+      text-decoration: none !important;
+      font-size: 0.925rem;
+    }
+    .nav-link:hover { color: var(--coral); text-decoration: none !important; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 3px;
+      background: var(--coral);
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 80%; }
+    @media (min-width: 992px) and (max-width: 1199px) {
+      .main-nav .nav-link { padding: 1rem 0.75rem; font-size: 0.875rem; }
+      .brand-tagline { display: none; }
+    }
+    @media (max-width: 991px) {
+      .navbar-collapse {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        z-index: 1000;
+      }
+      .nav-main-links {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .nav-main-links .nav-link {
+        padding: 0.875rem 1.25rem;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .nav-main-links .nav-link:last-child { border-bottom: none; }
+      .nav-main-links .nav-link::after { display: none; }
+      .nav-main-actions {
+        flex-direction: column;
+        padding: 1rem 1.25rem;
+        gap: 0.5rem;
+      }
+      .nav-main-actions .btn-search,
+      .nav-main-actions .btn-ctpg-secondary { width: 100%; justify-content: center; text-align: center; }
+    }
+    .btn-search {
+      background: transparent;
+      border: 2px solid var(--navy);
+      color: var(--navy);
+      padding: 0.5rem 1rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      border-radius: 0;
+      cursor: pointer;
+    }
+    .btn-search:hover { background: var(--navy); color: white; }
+    .collapse:not(.show) { display: none; }
+    .collapsing { height: 0; overflow: hidden; transition: height 0.35s ease; }
+
+    /* ── Buttons ── */
+    .btn-ctpg-primary {
+      background: transparent;
+      color: var(--navy);
+      border: none;
+      border-bottom: 2px solid var(--navy);
+      padding: 0.75rem 0;
+      border-radius: 0;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .btn-ctpg-primary:hover { color: var(--coral); border-bottom-color: var(--coral); }
+    .btn-ctpg-secondary {
+      background: var(--coral);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+    }
+    .btn-ctpg-secondary:hover { background: var(--coral-light); color: white; transform: var(--lift-btn); box-shadow: var(--shadow-md); }
+    .btn-ctpg-outline {
+      background: white;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      padding: 0.75rem 2rem;
+      border-radius: 0;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .btn-ctpg-outline:hover { background: var(--coral); color: white; border-color: var(--coral); transform: var(--lift-btn); }
+    .btn-teal {
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 0;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-teal:hover { background: #3db5ad; transform: var(--lift-btn); }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 0;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-gold:hover { background: #ffc107; transform: var(--lift-btn); }
+
+    /* ── Hero ── */
+    .hero-home {
+      background: linear-gradient(135deg, #003d5c 0%, #005a8a 40%, #0077be 100%);
+      padding: 5rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-home-blob-1 {
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--coral) 0%, var(--coral-light) 100%);
+      opacity: 0.12;
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+    .hero-home-blob-2 {
+      position: absolute;
+      bottom: -150px; left: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--teal) 0%, #5dade2 100%);
+      opacity: 0.1;
+      border-radius: 50%;
+      filter: blur(100px);
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-home-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .hero-home-title span { color: var(--gold); }
+    .hero-home-sub {
+      color: rgba(255,255,255,0.85);
+      font-size: 1.15rem;
+      font-weight: 500;
+      max-width: 540px;
+      line-height: 1.7;
+    }
+    .hero-search-bar {
+      background: white;
+      border-radius: 8px;
+      padding: 0.5rem 0.5rem 0.5rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      max-width: 520px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    .hero-search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--navy);
+      background: transparent;
+    }
+    .hero-search-input::placeholder { color: #94a3b8; }
+    .hero-stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+    }
+    .hero-stat-pill strong { color: var(--gold); }
+    @media (max-width: 767px) {
+      .hero-home { padding: 3rem 0 2.5rem; }
+      .hero-search-bar { flex-direction: column; padding: 0.75rem; border-radius: 8px; }
+      .hero-search-bar .btn-ctpg-secondary { width: 100%; }
+    }
+
+    /* ── Category Strip ── */
+    .cat-strip { background: var(--navy-dark); padding: 0; }
+    .cat-strip-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 1.4rem 1rem;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .cat-strip-link:last-child { border-right: none; }
+    .cat-strip-link i { font-size: 1.4rem; }
+    .cat-strip-link:hover { background: rgba(255,255,255,0.07); color: white; text-decoration: none; }
+    .cat-strip-link.active { color: var(--gold); border-bottom: 3px solid var(--gold); }
+    .cat-strip-link.cat-cruises i { color: var(--coral); }
+    .cat-strip-link.cat-parks i { color: var(--teal); }
+    .cat-strip-link.cat-dining i { color: var(--gold); }
+    .cat-strip-link.cat-travel i { color: var(--light-blue); }
+
+    /* ── Post Cards ── */
+    .post-card {
+      border-radius: 0;
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--border-color);
+      box-shadow: none;
+      transition: all 0.3s ease;
+      height: 100%;
+      position: relative;
+    }
+    .post-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 0;
+      background: var(--teal);
+      transition: height 0.3s ease;
+    }
+    .post-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: var(--teal); }
+    .post-card:hover::after { height: 3px; }
+    .post-card-img { position: relative; overflow: hidden; height: 220px; }
+    .post-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .post-card:hover .post-card-img img { transform: scale(1.05); }
+    .post-card-content { padding: 1.5rem; }
+    .post-category {
+      display: inline-block;
+      color: white;
+      padding: 0.3rem 0.85rem;
+      border-radius: 0;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.85rem;
+    }
+    .badge-coral-bg { background: var(--coral); color: #fff; }
+    .badge-teal-bg { background: var(--teal); color: #fff; }
+    .badge-orange-bg { background: var(--orange); color: #fff; }
+    .badge-gold-navy { background: var(--gold); color: var(--navy); }
+    .badge-navy-bg { background: var(--navy); color: #fff; }
+    .badge-blue-bg { background: var(--blue-accent); color: #fff; }
+    .post-title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.75rem;
+      line-height: 1.45;
+      transition: color 0.2s ease;
+    }
+    .post-card:hover .post-title { color: var(--teal); }
+    .post-excerpt {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 0.85rem;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      flex-wrap: wrap;
+    }
+    .post-meta i { margin-right: 0.3rem; color: var(--teal); }
+    .post-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--coral);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: gap 0.2s ease;
+    }
+    .post-read-more:hover { color: var(--coral); gap: 0.6rem; text-decoration: none; }
+
+    /* ── HC2 Horizontal Card ── */
+    .hc2 {
+      display: flex;
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+      transition: box-shadow var(--tx-slow), transform var(--tx-slow);
+    }
+    .hc2:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 16px 40px rgba(0,0,0,0.1); transform: var(--lift-card); }
+    .hc2-media { position: relative; flex: 0 0 42%; align-self: stretch; }
+    .hc2-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hc2-badge {
+      position: absolute;
+      bottom: 0.75rem; left: 0.75rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+    }
+    .hc2-body { flex: 1; padding: 1.75rem 2rem; display: flex; flex-direction: column; gap: 0.65rem; }
+    .hc2-cat {
+      display: inline-block;
+      align-self: flex-start;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.65rem;
+      border-radius: 2px;
+    }
+    .hc2-cat-cruise { background: rgba(255,94,94,0.12); color: var(--coral); }
+    .hc2-cat-parks  { background: rgba(78,205,196,0.12); color: var(--teal); }
+    .hc2-cat-dining { background: rgba(255,217,61,0.18); color: #b8860b; }
+    .hc2-cat-travel { background: rgba(0,168,232,0.12); color: var(--light-blue); }
+    .hc2-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--navy);
+      margin: 0;
+    }
+    .hc2-excerpt { font-size: 0.9rem; line-height: 1.65; color: var(--text-secondary); margin: 0; }
+    .hc2-meta { display: flex; flex-wrap: wrap; gap: 0.75rem; font-size: 0.775rem; color: var(--text-secondary); }
+    .hc2-meta i { margin-right: 0.3rem; }
+    .hc2-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      align-self: flex-start;
+      margin-top: 0.25rem;
+      color: var(--coral) !important;
+      border: 1.5px solid var(--coral);
+      background: transparent;
+      padding: 0.45rem 1.1rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border-radius: 4px;
+      text-decoration: none !important;
+      cursor: pointer;
+      transition: background var(--tx-fast), color var(--tx-fast), gap var(--tx-fast);
+    }
+    .hc2-btn:hover { background: var(--coral); color: white !important; gap: 0.6rem; }
+    @media (max-width: 767.98px) {
+      .hc2 { flex-direction: column; }
+      .hc2-media { flex: none; aspect-ratio: 16/9; }
+      .hc2-body { padding: 1.25rem; }
+    }
+
+    /* ── Stats Strip ── */
+    .stats-strip { background: var(--navy-dark); padding: 3.5rem 0; }
+    .stat-block { text-align: center; }
+    .stat-number-home {
+      font-family: var(--font-heading);
+      font-size: 2.75rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .stat-label-home {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.04em;
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+    }
+    .stat-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.12);
+      align-self: stretch;
+    }
+
+    /* ── Section Headers ── */
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .section-title span { color: var(--teal); }
+    .section-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--coral);
+      margin: 0.75rem 0 0;
+    }
+    .section-divider-teal { background: var(--teal); }
+
+    /* ── Destination Cards (image overlay) ── */
+    .dest-card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      display: block;
+      text-decoration: none;
+    }
+    .dest-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .dest-card:hover img { transform: scale(1.07); }
+    .dest-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+    }
+    .dest-card-body {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 1.25rem;
+    }
+    .dest-card-label {
+      display: inline-block;
+      background: var(--coral);
+      color: white;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      margin-bottom: 0.5rem;
+    }
+    .dest-card-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.3;
+      margin: 0;
+    }
+    .dest-card-sub { font-size: 0.78rem; color: rgba(255,255,255,0.75); margin-top: 0.25rem; }
+
+    /* ── Newsletter CTA ── */
+    .newsletter-cta {
+      background: linear-gradient(135deg, var(--navy) 0%, #253348 100%);
+      padding: 4.5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-cta-blob {
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, var(--teal) 0%, transparent 70%);
+      opacity: 0.08;
+      border-radius: 50%;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 480px;
+    }
+    .newsletter-input {
+      flex: 1;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: 4px 0 0 4px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.45); }
+    .newsletter-input:focus { border-color: var(--teal); }
+    .newsletter-submit {
+      background: var(--coral);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.75rem;
+      border-radius: 0 4px 4px 0;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .newsletter-submit:hover { background: var(--coral-light); transform: var(--lift-btn); }
+    @media (max-width: 575px) {
+      .newsletter-form { flex-direction: column; }
+      .newsletter-input { border-radius: 4px; }
+      .newsletter-submit { border-radius: 4px; }
+    }
+
+    /* ── Social Buttons ── */
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      color: white;
+      margin: 0 0.2rem;
+      transition: transform 0.3s;
+      text-decoration: none;
+    }
+    .social-btn:hover { transform: translateY(-3px); color: white; }
+    .social-btn.facebook { background: #1877f2; }
+    .social-btn.twitter { background: #1da1f2; }
+    .social-btn.instagram { background: linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+    .social-btn.youtube { background: #ff0000; }
+    .social-btn.pinterest { background: #e60023; }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--navy-dark);
+      color: rgba(255,255,255,0.78);
+      padding: 4rem 0 2rem;
+    }
+    .footer-brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 0.25rem;
+    }
+    .footer-brand-sub { font-size: 0.75rem; color: var(--teal); letter-spacing: 0.06em; font-weight: 600; }
+    .footer-heading {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-link {
+      display: block;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.875rem;
+      padding: 0.3rem 0;
+      text-decoration: none;
+      transition: color var(--tx-fast), padding-left var(--tx-fast);
+    }
+    .footer-link:hover { color: var(--teal); padding-left: 4px; }
+    .footer-hr { border-color: rgba(255,255,255,0.08); margin: 2rem 0 1.5rem; }
+    .footer-bottom { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+    .footer-email-input {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+      font-size: 0.85rem;
+      font-family: var(--font-body);
+      width: 100%;
+    }
+    .footer-email-input::placeholder { color: rgba(255,255,255,0.38); }
+    .footer-email-input:focus { border-color: var(--teal); }
+    .footer-sub-btn {
+      background: var(--coral);
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 0 4px 4px 0;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .footer-sub-btn:hover { background: var(--coral-light); }
+
+    /* ── Sidebar Widgets ── */
+    .sw {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-top: 3px solid var(--coral);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+    .sw-title {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.7rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .sw-post {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border-color);
+      text-decoration: none !important;
+      transition: opacity var(--tx-fast);
+    }
+    .sw-post:last-of-type { border-bottom: none; padding-bottom: 0; }
+    .sw-post:hover { opacity: 0.72; }
+    .sw-post-img { flex: 0 0 60px; width: 60px; height: 60px; border-radius: 6px; object-fit: cover; }
+    .sw-post-cat { display: block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--coral); margin-bottom: 0.2rem; }
+    .sw-post-title { font-size: 0.85rem; font-weight: 600; line-height: 1.4; color: var(--navy); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .sw-post-meta { font-size: 0.7rem; color: #64748b; margin-top: 0.2rem; }
+
+    /* ── Promo Banner ── */
+    .promo-banner {
+      background: linear-gradient(135deg, var(--teal) 0%, #3aafa9 100%);
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .promo-banner-glow {
+      position: absolute;
+      top: -50px; right: -50px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+    }
+
+    /* ── Trending Tag Pills ── */
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--gray-light);
+      border: 1px solid var(--border-color);
+      color: var(--navy);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .tag-pill:hover { background: var(--navy); color: white; border-color: var(--navy); }
+
+    /* ── Back to top ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 44px; height: 44px;
+      background: var(--navy);
+      color: white;
+      border: none;
+      border-radius: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      z-index: 999;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .back-to-top.visible { display: flex; }
+    .back-to-top:hover { background: var(--coral); transform: translateY(-2px); }
+
+    /* === Inline-style replacements === */
+    .icon-muted { color: #94a3b8; }
+    .dest-card-label-teal { background: var(--teal); }
+    .dest-card-label-gold { background: var(--gold); color: var(--navy); }
+    .promo-banner-eyebrow { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+    .promo-banner-title { color: white; font-family: var(--font-display); font-weight: 700; line-height: 1.3; }
+    .promo-banner-text { color: rgba(255,255,255,0.82); font-size: 0.85rem; margin-bottom: 1.25rem; }
+    .sw-teal { border-top-color: var(--teal); }
+    .sw-intro { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem; }
+    .bg-light-section { background: #f8f9fa; }
+    .nl-eyebrow { display: inline-block; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem; }
+    .nl-title { font-family: var(--font-heading); font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; color: white; line-height: 1.2; margin-bottom: 1rem; }
+    .nl-text { color: rgba(255,255,255,0.72); font-size: 1rem; max-width: 460px; line-height: 1.7; }
+    .nl-check-item { color: rgba(255,255,255,0.6); font-size: 0.83rem; }
+    .nl-check-icon { color: var(--teal); }
+    .nl-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 2rem; }
+    .nl-box-title { color: white; font-weight: 700; margin-bottom: 1.25rem; font-size: 1.05rem; }
+    .nl-label { color: rgba(255,255,255,0.65); font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.4rem; }
+    .nl-input-full { border-radius: 4px; width: 100%; }
+    .nl-privacy { color: rgba(255,255,255,0.35); font-size: 0.75rem; margin: 0; }
+    .footer-about { font-size: 0.875rem; line-height: 1.7; color: rgba(255,255,255,0.55); max-width: 280px; }
+    .footer-newsletter-text { font-size: 0.82rem; color: rgba(255,255,255,0.48); margin-bottom: 0.85rem; }
+    .footer-link-sm { padding: 0; font-size: 0.78rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex gap-3">
+          <span class="d-none d-sm-inline"><i class="fas fa-map-marker-alt me-1"></i>Travel Planning Guides</span>
+          <span class="d-none d-md-inline"><i class="fas fa-newspaper me-1"></i>Latest Travel News</span>
+        </div>
+        <div class="d-flex gap-2">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <nav class="main-nav navbar navbar-expand-lg">
+    <div class="container">
+      <a class="nav-brand" href="#">
+        <img src="images/ctpg_logo_cutout.png" alt="CTPG Logo" class="logo-icon-small">
+        <div class="brand-text-block d-none d-sm-block">
+          <div class="brand-title">Cruise &amp; Theme Park Guide</div>
+          <div class="brand-tagline">TRAVEL • CRUISES • THEME PARKS</div>
+        </div>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#homeNavCollapse" aria-controls="homeNavCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="homeNavCollapse">
+        <div class="nav-main-links">
+          <a href="#" class="nav-link"><i class="fas fa-ship me-2"></i>Cruises</a>
+          <a href="#" class="nav-link"><i class="fas fa-star me-2"></i>Theme Parks</a>
+          <a href="#" class="nav-link"><i class="fas fa-utensils me-2"></i>Dining</a>
+          <a href="#" class="nav-link"><i class="fas fa-compass me-2"></i>Travel Tips</a>
+        </div>
+        <div class="nav-main-actions">
+          <button class="btn-search" aria-label="Search"><i class="fas fa-search"></i></button>
+          <button class="btn-ctpg-secondary">
+            <i class="fas fa-bookmark me-1"></i>Newsletter
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-home">
+    <div class="hero-home-blob-1"></div>
+    <div class="hero-home-blob-2"></div>
+    <div class="container position-relative">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="hero-eyebrow"><i class="fas fa-anchor me-2"></i>Your #1 Travel Resource</div>
+          <h1 class="hero-home-title mb-4">
+            Plan Your<br>
+            <span>Perfect</span><br>
+            Vacation
+          </h1>
+          <p class="hero-home-sub mb-4">
+            Expert cruise reviews, theme park guides, dining recommendations, and travel tips — all in one place.
+          </p>
+          <!-- Search Bar -->
+          <div class="hero-search-bar mb-4">
+            <i class="fas fa-search icon-muted"></i>
+            <input class="hero-search-input" type="text" placeholder="Search cruises, parks, dining...">
+            <button class="btn-ctpg-secondary">Search</button>
+          </div>
+          <!-- Stat Pills -->
+          <div class="d-flex flex-wrap gap-2">
+            <span class="hero-stat-pill"><strong>500+</strong> Cruise Reviews</span>
+            <span class="hero-stat-pill"><strong>1.2M+</strong> Monthly Readers</span>
+            <span class="hero-stat-pill"><strong>250+</strong> Destinations</span>
+          </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-block">
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=400" alt="Caribbean cruise ship">
+                <div class="dest-card-overlay"></div>
+                <div class="dest-card-body">
+                  <div class="dest-card-label">CRUISES</div>
+                  <div class="dest-card-title">Caribbean Escapes</div>
+                  <div class="dest-card-sub">48 cruise guides</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 mt-4">
+              <div class="dest-card">
+                <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=400" alt="Theme park roller coaster">
+                <div class="dest-card-overlay"></div>
+                <div class="dest-card-body">
+                  <div class="dest-card-label dest-card-label-teal">PARKS</div>
+                  <div class="dest-card-title">Theme Park Magic</div>
+                  <div class="dest-card-sub">120+ park reviews</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Strip -->
+  <div class="cat-strip">
+    <div class="container">
+      <div class="row g-0">
+        <div class="col-6 col-sm-3">
+          <a href="#" class="cat-strip-link cat-cruises active">
+            <i class="fas fa-ship"></i>
+            Cruises
+          </a>
+        </div>
+        <div class="col-6 col-sm-3">
+          <a href="#" class="cat-strip-link cat-parks">
+            <i class="fas fa-star"></i>
+            Theme Parks
+          </a>
+        </div>
+        <div class="col-6 col-sm-3">
+          <a href="#" class="cat-strip-link cat-dining">
+            <i class="fas fa-utensils"></i>
+            Dining
+          </a>
+        </div>
+        <div class="col-6 col-sm-3">
+          <a href="#" class="cat-strip-link cat-travel">
+            <i class="fas fa-compass"></i>
+            Travel Tips
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Article + Sidebar -->
+  <section class="py-5 bg-white">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+          <div class="mb-4">
+            <span class="section-eyebrow">Editor's Pick</span>
+            <h2 class="section-title">Featured <span>Guide</span></h2>
+            <div class="section-divider"></div>
+          </div>
+          <div class="hc2 mb-5">
+            <div class="hc2-media">
+              <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=700" alt="Disney Cruise ship">
+              <span class="hc2-badge">EDITOR'S PICK</span>
+            </div>
+            <div class="hc2-body">
+              <span class="hc2-cat hc2-cat-cruise">🚢 Cruises</span>
+              <h3 class="hc2-title">How to Plan Your First Disney Cruise: The Complete Beginner's Guide</h3>
+              <p class="hc2-excerpt">Everything you need to know about booking, packing, dining reservations, and making the most of your first Disney Cruise vacation with the whole family.</p>
+              <div class="hc2-meta">
+                <span><i class="far fa-user"></i>Cierra Ray</span>
+                <span><i class="far fa-calendar"></i>May 1, 2026</span>
+                <span><i class="far fa-clock"></i>12 min read</span>
+              </div>
+              <a href="#" class="hc2-btn">Read Full Guide <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Latest Articles Grid -->
+          <div class="mb-4">
+            <span class="section-eyebrow">What's New</span>
+            <h2 class="section-title">Latest <span>Articles</span></h2>
+            <div class="section-divider"></div>
+          </div>
+          <div class="row g-4">
+            <div class="col-12 col-sm-6">
+              <div class="post-card">
+                <div class="post-card-img">
+                  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500" alt="Caribbean cruise">
+                </div>
+                <div class="post-card-content">
+                  <span class="post-category badge-coral-bg">CRUISES</span>
+                  <h3 class="post-title">Top 10 Caribbean Cruise Destinations for 2026</h3>
+                  <p class="post-excerpt">From the turquoise waters of the Bahamas to the lush shores of Jamaica — our picks for the best Caribbean ports this year.</p>
+                  <div class="post-meta">
+                    <span><i class="far fa-user"></i>Cierra Ray</span>
+                    <span><i class="far fa-clock"></i>8 min read</span>
+                  </div>
+                  <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="post-card">
+                <div class="post-card-img">
+                  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500" alt="Theme park">
+                </div>
+                <div class="post-card-content">
+                  <span class="post-category badge-teal-bg">THEME PARKS</span>
+                  <h3 class="post-title">Walt Disney World Planning Guide: Everything You Need to Know</h3>
+                  <p class="post-excerpt">Park tickets, FastPass strategies, dining plans, resort hotels — our 2026 WDW guide covers it all.</p>
+                  <div class="post-meta">
+                    <span><i class="far fa-user"></i>Cierra Ray</span>
+                    <span><i class="far fa-clock"></i>15 min read</span>
+                  </div>
+                  <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="post-card">
+                <div class="post-card-img">
+                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500" alt="Fine dining">
+                </div>
+                <div class="post-card-content">
+                  <span class="post-category badge-orange-bg">DINING</span>
+                  <h3 class="post-title">Best Restaurants at Universal Orlando Resort 2026</h3>
+                  <p class="post-excerpt">From Three Broomsticks to Mythos — the dining experiences that are truly worth your money at Universal.</p>
+                  <div class="post-meta">
+                    <span><i class="far fa-user"></i>Cierra Ray</span>
+                    <span><i class="far fa-clock"></i>6 min read</span>
+                  </div>
+                  <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <div class="post-card">
+                <div class="post-card-img">
+                  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500" alt="Travel planning">
+                </div>
+                <div class="post-card-content">
+                  <span class="post-category badge-blue-bg">TRAVEL TIPS</span>
+                  <h3 class="post-title">How to Pack for a 7-Night Cruise Without Checking Bags</h3>
+                  <p class="post-excerpt">Our veteran cruise packer shares the ultimate light-packing system for a week at sea — yes, it's possible.</p>
+                  <div class="post-meta">
+                    <span><i class="far fa-user"></i>Cierra Ray</span>
+                    <span><i class="far fa-clock"></i>5 min read</span>
+                  </div>
+                  <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-5">
+            <a href="#" class="btn-ctpg-outline">View All Articles <i class="fas fa-arrow-right ms-2"></i></a>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <!-- Popular Posts -->
+          <div class="sw mb-4">
+            <div class="sw-title">Popular This Week</div>
+            <a href="#" class="sw-post">
+              <img class="sw-post-img" src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=120" alt="Cruise">
+              <div>
+                <span class="sw-post-cat">Cruises</span>
+                <div class="sw-post-title">Royal Caribbean vs Carnival: Which Cruise Line is Best for Families?</div>
+                <div class="sw-post-meta"><i class="far fa-clock me-1"></i>10 min read</div>
+              </div>
+            </a>
+            <a href="#" class="sw-post">
+              <img class="sw-post-img" src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=120" alt="Theme Park">
+              <div>
+                <span class="sw-post-cat">Theme Parks</span>
+                <div class="sw-post-title">Universal Epic Universe: What We Know So Far About the New Park</div>
+                <div class="sw-post-meta"><i class="far fa-clock me-1"></i>7 min read</div>
+              </div>
+            </a>
+            <a href="#" class="sw-post">
+              <img class="sw-post-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=120" alt="Dining">
+              <div>
+                <span class="sw-post-cat">Dining</span>
+                <div class="sw-post-title">Best Specialty Dining on Norwegian Cruise Line — Is It Worth Paying Extra?</div>
+                <div class="sw-post-meta"><i class="far fa-clock me-1"></i>5 min read</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- Promo Banner -->
+          <div class="promo-banner mb-4">
+            <div class="promo-banner-glow"></div>
+            <div class="position-relative">
+              <div class="mb-2 promo-banner-eyebrow">FREE GUIDE</div>
+              <h5 class="promo-banner-title">First-Time Cruiser's Ultimate Checklist</h5>
+              <p class="promo-banner-text">Everything you need to know before setting sail for the first time.</p>
+              <button class="btn-gold w-100">Download Free <i class="fas fa-download ms-1"></i></button>
+            </div>
+          </div>
+
+          <!-- Trending Tags -->
+          <div class="sw mb-4">
+            <div class="sw-title">Trending Topics</div>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="#" class="tag-pill">Caribbean</a>
+              <a href="#" class="tag-pill">Disney World</a>
+              <a href="#" class="tag-pill">Royal Caribbean</a>
+              <a href="#" class="tag-pill">Universal Orlando</a>
+              <a href="#" class="tag-pill">Alaska Cruise</a>
+              <a href="#" class="tag-pill">Dining Plans</a>
+              <a href="#" class="tag-pill">Bahamas</a>
+              <a href="#" class="tag-pill">Packing Tips</a>
+              <a href="#" class="tag-pill">Norwegian</a>
+              <a href="#" class="tag-pill">SeaWorld</a>
+            </div>
+          </div>
+
+          <!-- Mini Newsletter Widget -->
+          <div class="sw sw-teal">
+            <div class="sw-title">Stay Updated</div>
+            <p class="sw-intro">Get the latest travel guides delivered to your inbox.</p>
+            <div class="d-flex">
+              <input type="email" class="footer-email-input" placeholder="your@email.com">
+              <button class="footer-sub-btn" aria-label="Subscribe">Go</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Strip -->
+  <section class="stats-strip">
+    <div class="container">
+      <div class="row text-center g-4">
+        <div class="col-6 col-md-3">
+          <div class="stat-block">
+            <div class="stat-number-home">500+</div>
+            <div class="stat-label-home">Cruise Reviews</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-block">
+            <div class="stat-number-home">1.2M+</div>
+            <div class="stat-label-home">Monthly Readers</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-block">
+            <div class="stat-number-home">250+</div>
+            <div class="stat-label-home">Destinations Covered</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="stat-block">
+            <div class="stat-number-home">10k+</div>
+            <div class="stat-label-home">Community Members</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destinations Showcase -->
+  <section class="py-5 bg-light-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-eyebrow">Explore the World</span>
+        <h2 class="section-title">Top <span>Destinations</span></h2>
+        <div class="section-divider section-divider-teal mx-auto"></div>
+      </div>
+      <div class="row g-4">
+        <div class="col-6 col-md-3">
+          <a href="#" class="dest-card">
+            <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=400" alt="Bahamas">
+            <div class="dest-card-overlay"></div>
+            <div class="dest-card-body">
+              <div class="dest-card-label">CRUISES</div>
+              <div class="dest-card-title">The Bahamas</div>
+              <div class="dest-card-sub">23 port guides</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-3">
+          <a href="#" class="dest-card">
+            <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=400" alt="Orlando">
+            <div class="dest-card-overlay"></div>
+            <div class="dest-card-body">
+              <div class="dest-card-label dest-card-label-teal">PARKS</div>
+              <div class="dest-card-title">Orlando, FL</div>
+              <div class="dest-card-sub">40+ park reviews</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-3">
+          <a href="#" class="dest-card">
+            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400" alt="Alaska">
+            <div class="dest-card-overlay"></div>
+            <div class="dest-card-body">
+              <div class="dest-card-label">CRUISES</div>
+              <div class="dest-card-title">Alaska</div>
+              <div class="dest-card-sub">18 itineraries</div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-3">
+          <a href="#" class="dest-card">
+            <img src="https://images.unsplash.com/photo-1512813195386-6cf811ad3542?w=400" alt="Anaheim">
+            <div class="dest-card-overlay"></div>
+            <div class="dest-card-body">
+              <div class="dest-card-label dest-card-label-gold">PARKS</div>
+              <div class="dest-card-title">Anaheim, CA</div>
+              <div class="dest-card-sub">Disneyland guides</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Now — 3-up Grid -->
+  <section class="py-5 bg-white">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+        <div>
+          <span class="section-eyebrow">Hot Right Now</span>
+          <h2 class="section-title mb-0">Trending <span>Articles</span></h2>
+          <div class="section-divider"></div>
+        </div>
+        <a href="#" class="btn-ctpg-primary">View All Trending</a>
+      </div>
+      <div class="row g-4">
+        <div class="col-12 col-md-4">
+          <div class="post-card">
+            <div class="post-card-img">
+              <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=500" alt="Disney Cruise">
+            </div>
+            <div class="post-card-content">
+              <span class="post-category badge-coral-bg">CRUISES</span>
+              <h3 class="post-title">Disney Dream vs Disney Fantasy: Which Ship is Better for Your Family?</h3>
+              <p class="post-excerpt">We broke down every detail of both ships — entertainment, dining, cabins, and kids clubs — to help you choose.</p>
+              <div class="post-meta">
+                <span><i class="far fa-eye"></i>18.4k views</span>
+                <span><i class="far fa-clock"></i>11 min read</span>
+              </div>
+              <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="post-card">
+            <div class="post-card-img">
+              <img src="https://images.unsplash.com/photo-1541976590-713941681591?w=500" alt="Universal">
+            </div>
+            <div class="post-card-content">
+              <span class="post-category badge-teal-bg">THEME PARKS</span>
+              <h3 class="post-title">Universal Epic Universe Opening Day Guide: Rides, Lands &amp; Tips</h3>
+              <p class="post-excerpt">The newest Universal park is here. We've got your complete guide to every world, ride, and must-do experience on opening day.</p>
+              <div class="post-meta">
+                <span><i class="far fa-eye"></i>32.1k views</span>
+                <span><i class="far fa-clock"></i>14 min read</span>
+              </div>
+              <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="post-card">
+            <div class="post-card-img">
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500" alt="Cruise dining">
+            </div>
+            <div class="post-card-content">
+              <span class="post-category badge-orange-bg">DINING</span>
+              <h3 class="post-title">Main Dining Room vs Specialty Restaurants on Cruise Ships: Full Breakdown</h3>
+              <p class="post-excerpt">Is the extra cost of specialty dining worth it? We ate at every option on four different cruise lines to find out.</p>
+              <div class="post-meta">
+                <span><i class="far fa-eye"></i>9.7k views</span>
+                <span><i class="far fa-clock"></i>9 min read</span>
+              </div>
+              <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <section class="newsletter-cta">
+    <div class="newsletter-cta-blob"></div>
+    <div class="container position-relative">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <span class="nl-eyebrow">Stay in the Know</span>
+          <h2 class="nl-title">
+            Never Miss a<br>Travel Tip Again
+          </h2>
+          <p class="nl-text">
+            Join over 10,000 travelers who get weekly cruise reviews, theme park news, and exclusive planning guides straight to their inbox — totally free.
+          </p>
+          <div class="d-flex gap-4 flex-wrap mt-3">
+            <span class="nl-check-item"><i class="fas fa-check-circle me-2 nl-check-icon"></i>Weekly cruise deals</span>
+            <span class="nl-check-item"><i class="fas fa-check-circle me-2 nl-check-icon"></i>Park discount alerts</span>
+            <span class="nl-check-item"><i class="fas fa-check-circle me-2 nl-check-icon"></i>Free planning guides</span>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="nl-box">
+            <p class="nl-box-title">Get Your Free Weekly Newsletter</p>
+            <div class="mb-3">
+              <label class="nl-label">First Name</label>
+              <input type="text" class="newsletter-input nl-input-full" placeholder="Your first name">
+            </div>
+            <div class="mb-4">
+              <label class="nl-label">Email Address</label>
+              <div class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="your@email.com">
+                <button class="newsletter-submit">Subscribe</button>
+              </div>
+            </div>
+            <p class="nl-privacy"><i class="fas fa-lock me-1"></i>We respect your privacy. Unsubscribe anytime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Brand -->
+        <div class="col-12 col-md-4 col-lg-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="images/ctpg_logo_cutout.png" alt="CTPG Logo" class="logo-icon-small">
+            <div>
+              <div class="footer-brand-title">Cruise &amp; Theme Park Guide</div>
+              <div class="footer-brand-sub">TRAVEL • CRUISES • THEME PARKS</div>
+            </div>
+          </div>
+          <p class="footer-about">
+            Your complete guide to cruise and theme park travel. Real reviews, honest tips, and expert planning advice since 2018.
+          </p>
+          <div class="mt-3">
+            <a href="#" class="social-btn facebook" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-btn youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-btn instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-btn pinterest" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="col-6 col-md-2">
+          <div class="footer-heading">Cruises</div>
+          <a href="#" class="footer-link">Caribbean</a>
+          <a href="#" class="footer-link">Alaska</a>
+          <a href="#" class="footer-link">Mediterranean</a>
+          <a href="#" class="footer-link">Bahamas</a>
+          <a href="#" class="footer-link">Disney Cruise</a>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="footer-heading">Theme Parks</div>
+          <a href="#" class="footer-link">Disney World</a>
+          <a href="#" class="footer-link">Universal Orlando</a>
+          <a href="#" class="footer-link">Disneyland</a>
+          <a href="#" class="footer-link">SeaWorld</a>
+          <a href="#" class="footer-link">Busch Gardens</a>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="footer-heading">Company</div>
+          <a href="#" class="footer-link">About Us</a>
+          <a href="#" class="footer-link">Contact</a>
+          <a href="#" class="footer-link">Advertise</a>
+          <a href="#" class="footer-link">Write for Us</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+        </div>
+        <div class="col-6 col-md-2">
+          <div class="footer-heading">Newsletter</div>
+          <p class="footer-newsletter-text">Weekly guides, deals, and tips.</p>
+          <div class="d-flex">
+            <input type="email" class="footer-email-input" placeholder="Email">
+            <button class="footer-sub-btn" aria-label="Subscribe"><i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="footer-hr">
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <p class="footer-bottom mb-0">&copy; 2026 Cruise &amp; Theme Park Guide. All rights reserved.</p>
+        <div class="d-flex gap-3">
+          <a href="#" class="footer-link footer-link-sm">Terms</a>
+          <a href="#" class="footer-link footer-link-sm">Privacy</a>
+          <a href="#" class="footer-link footer-link-sm">Accessibility</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script>
+    // Back to top
+    const btn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      btn.classList.toggle('visible', window.scrollY > 400);
+    });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  </script>
+</body>
+</html>
