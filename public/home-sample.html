@@ -381,17 +381,66 @@
       font-weight: 700;
       letter-spacing: 0.07em;
       text-transform: uppercase;
-      transition: all 0.2s ease;
+      transition: color 0.2s ease, background 0.2s ease;
       border-right: 1px solid rgba(255,255,255,0.07);
+      position: relative;
+      overflow: hidden;
     }
     .cat-strip-link:last-child { border-right: none; }
     .cat-strip-link i { font-size: 1.4rem; }
     .cat-strip-link:hover { background: rgba(255,255,255,0.07); color: white; text-decoration: none; }
-    .cat-strip-link.active { color: var(--gold); border-bottom: 3px solid var(--gold); }
+    .cat-strip-link.active { color: var(--gold); }
+    /* Progress bar fills bottom of active tab */
+    .cat-strip-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: transparent;
+    }
+    .cat-strip-link.active::after { background: var(--gold); }
     .cat-strip-link.cat-cruises i { color: var(--coral); }
     .cat-strip-link.cat-parks i { color: var(--teal); }
     .cat-strip-link.cat-dining i { color: var(--gold); }
     .cat-strip-link.cat-travel i { color: var(--light-blue); }
+
+    /* === Category Content Panels === */
+    /* Grid-stacking: all panels share one cell — zero layout shift */
+    .cat-panels-stack { display: grid; }
+    .cat-panel {
+      grid-area: 1 / 1;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(20px);
+      filter: blur(6px);
+      transition:
+        opacity   0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        filter    0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0.5s;
+    }
+    .cat-panel.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+      filter: blur(0px);
+      transition:
+        opacity   0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        filter    0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        visibility 0s linear 0s;
+    }
+    /* Staggered child cascade on entry */
+    .cat-panel--entering > *:nth-child(1) { animation: childCascade 0.55s 0.04s cubic-bezier(0.22,1,0.36,1) both; }
+    .cat-panel--entering > *:nth-child(2) { animation: childCascade 0.55s 0.13s cubic-bezier(0.22,1,0.36,1) both; }
+    .cat-panel--entering > *:nth-child(3) { animation: childCascade 0.55s 0.22s cubic-bezier(0.22,1,0.36,1) both; }
+    .cat-panel--entering > *:nth-child(4) { animation: childCascade 0.55s 0.31s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes childCascade {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
     /* ── Post Cards ── */
     .post-card {
@@ -599,21 +648,44 @@
     }
     .section-divider-teal { background: var(--teal); }
 
-    /* ── Destination Cards (image overlay) ── */
+    /* ── Destination Card Carousel (multi-card) ── */
+    .dest-carousel-outer {
+      position: relative;
+    }
+    .dest-carousel-viewport {
+      overflow: hidden;
+    }
+    .dest-carousel-track {
+      display: flex;
+      gap: 1rem;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+    /* Each card = 25% of viewport minus gaps → 4 visible */
     .dest-card {
       position: relative;
-      border-radius: 8px;
+      border-radius: 12px;
       overflow: hidden;
+      flex: 0 0 calc(25% - 0.75rem);
       aspect-ratio: 3/4;
       display: block;
       text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dest-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); text-decoration: none; }
+    @media (max-width: 991px) {
+      .dest-card { flex: 0 0 calc(50% - 0.5rem); }
+    }
+    @media (max-width: 575px) {
+      .dest-card { flex: 0 0 calc(80% - 0.5rem); }
     }
     .dest-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-    .dest-card:hover img { transform: scale(1.07); }
+    .dest-card:hover img { transform: scale(1.06); }
     .dest-card-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+      background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
     }
     .dest-card-body {
       position: absolute;
@@ -629,17 +701,46 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       padding: 0.2rem 0.55rem;
+      border-radius: 3px;
       margin-bottom: 0.5rem;
     }
+    .dest-card-label-teal  { background: var(--teal); }
+    .dest-card-label-gold  { background: var(--gold); color: #333; }
+    .dest-card-label-blue  { background: var(--light-blue); }
     .dest-card-title {
       font-family: var(--font-display);
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: white;
-      line-height: 1.3;
+      line-height: 1.25;
       margin: 0;
     }
-    .dest-card-sub { font-size: 0.78rem; color: rgba(255,255,255,0.75); margin-top: 0.25rem; }
+    .dest-card-sub { font-size: 0.78rem; color: rgba(255,255,255,0.75); margin-top: 0.3rem; }
+    /* Arrow buttons — sit outside the viewport, flanking it */
+    .dest-carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--navy);
+      background: #fff;
+      color: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.2s, color 0.2s;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .dest-carousel-btn:hover { background: var(--teal); border-color: var(--teal); color: #fff; }
+    .dest-carousel-btn:disabled { opacity: 0.3; cursor: default; }
+    .dest-carousel-btn.prev { left: -22px; }
+    .dest-carousel-btn.next { right: -22px; }
+    @media (max-width: 575px) {
+      .dest-carousel-btn.prev { left: 0; }
+      .dest-carousel-btn.next { right: 0; }
+    }
 
     /* ── Newsletter CTA ── */
     .newsletter-cta {
@@ -775,8 +876,88 @@
     }
     .footer-sub-btn:hover { background: var(--coral-light); }
 
-    /* ── Sidebar Widgets ── */
-    .sw {
+    /* ── Sidebar Newsletter Widget ── */
+    .sw-newsletter {
+      background: linear-gradient(140deg, var(--navy) 0%, var(--navy-dark) 100%);
+      border: none;
+      border-radius: 12px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .sw-newsletter::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: rgba(78,205,196,0.12);
+      border-radius: 50%;
+    }
+    .sw-newsletter-icon {
+      font-size: 1.75rem;
+      color: var(--teal);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .sw-newsletter-heading {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    .sw-newsletter-sub {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+    .sw-newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .sw-newsletter-input {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      color: #fff;
+      font-size: 0.88rem;
+      font-family: var(--font-body);
+      padding: 0.65rem 1rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+    }
+    .sw-newsletter-input::placeholder { color: rgba(255,255,255,0.4); }
+    .sw-newsletter-input:focus {
+      border-color: var(--teal);
+      background: rgba(255,255,255,0.14);
+    }
+    .sw-newsletter-btn {
+      background: var(--teal);
+      color: var(--navy-dark);
+      border: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 0.7rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .sw-newsletter-btn:hover { background: #3dc4bb; transform: translateY(-1px); }
+    .sw-newsletter-privacy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.5rem;
+      text-align: center;
+    }
       background: #ffffff;
       border: 1px solid var(--border-color);
       border-top: 3px solid var(--coral);
@@ -1001,25 +1182,25 @@
     <div class="container">
       <div class="row g-0">
         <div class="col-6 col-sm-3">
-          <a href="#" class="cat-strip-link cat-cruises active">
+          <a href="#" class="cat-strip-link cat-cruises active" data-cat="cruises">
             <i class="fas fa-ship"></i>
             Cruises
           </a>
         </div>
         <div class="col-6 col-sm-3">
-          <a href="#" class="cat-strip-link cat-parks">
+          <a href="#" class="cat-strip-link cat-parks" data-cat="parks">
             <i class="fas fa-star"></i>
             Theme Parks
           </a>
         </div>
         <div class="col-6 col-sm-3">
-          <a href="#" class="cat-strip-link cat-dining">
+          <a href="#" class="cat-strip-link cat-dining" data-cat="dining">
             <i class="fas fa-utensils"></i>
             Dining
           </a>
         </div>
         <div class="col-6 col-sm-3">
-          <a href="#" class="cat-strip-link cat-travel">
+          <a href="#" class="cat-strip-link cat-travel" data-cat="travel">
             <i class="fas fa-compass"></i>
             Travel Tips
           </a>
@@ -1028,111 +1209,338 @@
     </div>
   </div>
 
-  <!-- Featured Article + Sidebar -->
-  <section class="py-5 bg-white">
+  <!-- Featured Article + Sidebar — category-filtered -->
+  <section class="py-5 bg-white" id="featured-section">
     <div class="container">
       <div class="row g-5">
         <!-- Main Content -->
         <div class="col-lg-8">
-          <div class="mb-4">
-            <span class="section-eyebrow">Editor's Pick</span>
-            <h2 class="section-title">Featured <span>Guide</span></h2>
-            <div class="section-divider"></div>
-          </div>
-          <div class="hc2 mb-5">
-            <div class="hc2-media">
-              <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=700" alt="Disney Cruise ship">
-              <span class="hc2-badge">EDITOR'S PICK</span>
+          <div class="cat-panels-stack">
+
+          <!-- ── CRUISES PANEL ── -->
+          <div class="cat-panel active" id="panel-cruises">
+            <div class="mb-4">
+              <span class="section-eyebrow">Editor's Pick · Cruises</span>
+              <h2 class="section-title">Featured <span>Cruise Guide</span></h2>
+              <div class="section-divider"></div>
             </div>
-            <div class="hc2-body">
-              <span class="hc2-cat hc2-cat-cruise">🚢 Cruises</span>
-              <h3 class="hc2-title">How to Plan Your First Disney Cruise: The Complete Beginner's Guide</h3>
-              <p class="hc2-excerpt">Everything you need to know about booking, packing, dining reservations, and making the most of your first Disney Cruise vacation with the whole family.</p>
-              <div class="hc2-meta">
-                <span><i class="far fa-user"></i>Cierra Ray</span>
-                <span><i class="far fa-calendar"></i>May 1, 2026</span>
-                <span><i class="far fa-clock"></i>12 min read</span>
+            <div class="hc2 mb-5">
+              <div class="hc2-media">
+                <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=700" alt="Disney Cruise ship">
+                <span class="hc2-badge">EDITOR'S PICK</span>
               </div>
-              <a href="#" class="hc2-btn">Read Full Guide <i class="fas fa-arrow-right"></i></a>
+              <div class="hc2-body">
+                <span class="hc2-cat hc2-cat-cruise">🚢 Cruises</span>
+                <h3 class="hc2-title">How to Plan Your First Disney Cruise: The Complete Beginner's Guide</h3>
+                <p class="hc2-excerpt">Everything you need to know about booking, packing, dining reservations, and making the most of your first Disney Cruise vacation with the whole family.</p>
+                <div class="hc2-meta">
+                  <span><i class="far fa-user"></i>Cierra Ray</span>
+                  <span><i class="far fa-calendar"></i>May 1, 2026</span>
+                  <span><i class="far fa-clock"></i>12 min read</span>
+                </div>
+                <a href="#" class="hc2-btn">Read Full Guide <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="mb-4">
+              <span class="section-eyebrow">Top Cruise Articles</span>
+              <h2 class="section-title">Latest <span>Cruise Guides</span></h2>
+              <div class="section-divider"></div>
+            </div>
+            <div class="row g-4">
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500" alt="Caribbean cruise"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-coral-bg">CRUISES</span>
+                    <h3 class="post-title">Top 10 Caribbean Cruise Destinations for 2026</h3>
+                    <p class="post-excerpt">From the turquoise waters of the Bahamas to the lush shores of Jamaica — our picks for the best Caribbean ports.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>8 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=500" alt="Royal Caribbean ship"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-coral-bg">CRUISES</span>
+                    <h3 class="post-title">Royal Caribbean vs Carnival: Which is Best for Families?</h3>
+                    <p class="post-excerpt">We break down pricing, amenities, kids clubs, and dining so you can pick the right cruise line for your family.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>10 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=500" alt="Alaska cruise"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-coral-bg">CRUISES</span>
+                    <h3 class="post-title">Alaska Cruise Guide: Every Port, Every Excursion</h3>
+                    <p class="post-excerpt">Glaciers, wildlife, and stunning fjords — everything you need to plan the perfect Alaska cruise itinerary.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>11 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500" alt="Cruise packing"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-coral-bg">CRUISES</span>
+                    <h3 class="post-title">How to Pack for a 7-Night Cruise Without Checking Bags</h3>
+                    <p class="post-excerpt">Our veteran cruise packer shares the ultimate light-packing system for a week at sea.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>5 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Latest Articles Grid -->
-          <div class="mb-4">
-            <span class="section-eyebrow">What's New</span>
-            <h2 class="section-title">Latest <span>Articles</span></h2>
-            <div class="section-divider"></div>
+          <!-- ── THEME PARKS PANEL ── -->
+          <div class="cat-panel" id="panel-parks">
+            <div class="mb-4">
+              <span class="section-eyebrow">Editor's Pick · Theme Parks</span>
+              <h2 class="section-title">Featured <span>Park Guide</span></h2>
+              <div class="section-divider"></div>
+            </div>
+            <div class="hc2 mb-5">
+              <div class="hc2-media">
+                <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=700" alt="Theme park">
+                <span class="hc2-badge">EDITOR'S PICK</span>
+              </div>
+              <div class="hc2-body">
+                <span class="hc2-cat hc2-cat-parks">⭐ Theme Parks</span>
+                <h3 class="hc2-title">Walt Disney World 2026: The Ultimate First-Timer's Planning Guide</h3>
+                <p class="hc2-excerpt">Park tickets, Lightning Lane, dining plans, resort hotels, and the best rides for every age — our most comprehensive WDW guide ever.</p>
+                <div class="hc2-meta">
+                  <span><i class="far fa-user"></i>Cierra Ray</span>
+                  <span><i class="far fa-calendar"></i>April 20, 2026</span>
+                  <span><i class="far fa-clock"></i>15 min read</span>
+                </div>
+                <a href="#" class="hc2-btn">Read Full Guide <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="mb-4">
+              <span class="section-eyebrow">Top Park Articles</span>
+              <h2 class="section-title">Latest <span>Park Guides</span></h2>
+              <div class="section-divider"></div>
+            </div>
+            <div class="row g-4">
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500" alt="Theme park"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-teal-bg">THEME PARKS</span>
+                    <h3 class="post-title">Universal Epic Universe: Everything We Know So Far</h3>
+                    <p class="post-excerpt">Lands, rides, hotels, and opening timeline — we have the complete rundown on Universal's biggest park ever.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>9 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1512813195386-6cf811ad3542?w=500" alt="Disneyland"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-teal-bg">THEME PARKS</span>
+                    <h3 class="post-title">Disneyland vs Disney World: Which Park Trip is Right for You?</h3>
+                    <p class="post-excerpt">Coast to coast comparison — crowd levels, ride lineups, costs, and the best time of year to visit each park.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>7 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1560180474-e8563fd75bab?w=500" alt="Roller coaster"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-teal-bg">THEME PARKS</span>
+                    <h3 class="post-title">SeaWorld Orlando 2026: Is It Worth the Ticket Price?</h3>
+                    <p class="post-excerpt">Rides, shows, animal experiences, and dining — our honest review of whether SeaWorld delivers in 2026.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>6 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=500" alt="Theme park crowds"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-teal-bg">THEME PARKS</span>
+                    <h3 class="post-title">Best Times to Visit Disney World to Avoid Crowds in 2026</h3>
+                    <p class="post-excerpt">Our crowd calendar shows the cheapest, least-crowded weeks of the year — and the dates to avoid at all costs.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>5 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="row g-4">
-            <div class="col-12 col-sm-6">
-              <div class="post-card">
-                <div class="post-card-img">
-                  <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500" alt="Caribbean cruise">
+
+          <!-- ── DINING PANEL ── -->
+          <div class="cat-panel" id="panel-dining">
+            <div class="mb-4">
+              <span class="section-eyebrow">Editor's Pick · Dining</span>
+              <h2 class="section-title">Featured <span>Dining Guide</span></h2>
+              <div class="section-divider"></div>
+            </div>
+            <div class="hc2 mb-5">
+              <div class="hc2-media">
+                <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700" alt="Fine dining">
+                <span class="hc2-badge">EDITOR'S PICK</span>
+              </div>
+              <div class="hc2-body">
+                <span class="hc2-cat hc2-cat-dining">🍽️ Dining</span>
+                <h3 class="hc2-title">The Best Specialty Dining on Norwegian Cruise Line — Is It Worth Paying Extra?</h3>
+                <p class="hc2-excerpt">We ate at every specialty restaurant on Norwegian Bliss so you don't have to guess. Here's exactly what to book and what to skip.</p>
+                <div class="hc2-meta">
+                  <span><i class="far fa-user"></i>Cierra Ray</span>
+                  <span><i class="far fa-calendar"></i>May 5, 2026</span>
+                  <span><i class="far fa-clock"></i>9 min read</span>
                 </div>
-                <div class="post-card-content">
-                  <span class="post-category badge-coral-bg">CRUISES</span>
-                  <h3 class="post-title">Top 10 Caribbean Cruise Destinations for 2026</h3>
-                  <p class="post-excerpt">From the turquoise waters of the Bahamas to the lush shores of Jamaica — our picks for the best Caribbean ports this year.</p>
-                  <div class="post-meta">
-                    <span><i class="far fa-user"></i>Cierra Ray</span>
-                    <span><i class="far fa-clock"></i>8 min read</span>
-                  </div>
-                  <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                </div>
+                <a href="#" class="hc2-btn">Read Full Guide <i class="fas fa-arrow-right"></i></a>
               </div>
             </div>
-            <div class="col-12 col-sm-6">
-              <div class="post-card">
-                <div class="post-card-img">
-                  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500" alt="Theme park">
-                </div>
-                <div class="post-card-content">
-                  <span class="post-category badge-teal-bg">THEME PARKS</span>
-                  <h3 class="post-title">Walt Disney World Planning Guide: Everything You Need to Know</h3>
-                  <p class="post-excerpt">Park tickets, FastPass strategies, dining plans, resort hotels — our 2026 WDW guide covers it all.</p>
-                  <div class="post-meta">
-                    <span><i class="far fa-user"></i>Cierra Ray</span>
-                    <span><i class="far fa-clock"></i>15 min read</span>
+            <div class="mb-4">
+              <span class="section-eyebrow">Top Dining Articles</span>
+              <h2 class="section-title">Latest <span>Dining Reviews</span></h2>
+              <div class="section-divider"></div>
+            </div>
+            <div class="row g-4">
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500" alt="Restaurant"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-orange-bg">DINING</span>
+                    <h3 class="post-title">Best Restaurants at Universal Orlando Resort 2026</h3>
+                    <p class="post-excerpt">From Three Broomsticks to Mythos — the dining experiences truly worth your money at Universal.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>6 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
                   </div>
-                  <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
                 </div>
               </div>
-            </div>
-            <div class="col-12 col-sm-6">
-              <div class="post-card">
-                <div class="post-card-img">
-                  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500" alt="Fine dining">
-                </div>
-                <div class="post-card-content">
-                  <span class="post-category badge-orange-bg">DINING</span>
-                  <h3 class="post-title">Best Restaurants at Universal Orlando Resort 2026</h3>
-                  <p class="post-excerpt">From Three Broomsticks to Mythos — the dining experiences that are truly worth your money at Universal.</p>
-                  <div class="post-meta">
-                    <span><i class="far fa-user"></i>Cierra Ray</span>
-                    <span><i class="far fa-clock"></i>6 min read</span>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=500" alt="Cruise dining"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-orange-bg">DINING</span>
+                    <h3 class="post-title">Disney Cruise Line Dining: Every Restaurant Ranked</h3>
+                    <p class="post-excerpt">Rotational dining, Palo, Remy — we rank every dining option on Disney's fleet from best to skip.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>8 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
                   </div>
-                  <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
                 </div>
               </div>
-            </div>
-            <div class="col-12 col-sm-6">
-              <div class="post-card">
-                <div class="post-card-img">
-                  <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500" alt="Travel planning">
-                </div>
-                <div class="post-card-content">
-                  <span class="post-category badge-blue-bg">TRAVEL TIPS</span>
-                  <h3 class="post-title">How to Pack for a 7-Night Cruise Without Checking Bags</h3>
-                  <p class="post-excerpt">Our veteran cruise packer shares the ultimate light-packing system for a week at sea — yes, it's possible.</p>
-                  <div class="post-meta">
-                    <span><i class="far fa-user"></i>Cierra Ray</span>
-                    <span><i class="far fa-clock"></i>5 min read</span>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500" alt="Food"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-orange-bg">DINING</span>
+                    <h3 class="post-title">Walt Disney World Dining Plan 2026: Is It Still Worth It?</h3>
+                    <p class="post-excerpt">We ran the numbers on the 2026 Disney Dining Plan so you can decide if prepaying makes financial sense.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>7 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
                   </div>
-                  <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=500" alt="Breakfast"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-orange-bg">DINING</span>
+                    <h3 class="post-title">Character Dining at Disney World: The Complete 2026 Guide</h3>
+                    <p class="post-excerpt">Every character meal, ranked by experience, value, and which characters you'll meet — plus booking tips.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>6 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- ── TRAVEL TIPS PANEL ── -->
+          <div class="cat-panel" id="panel-travel">
+            <div class="mb-4">
+              <span class="section-eyebrow">Editor's Pick · Travel Tips</span>
+              <h2 class="section-title">Featured <span>Travel Tip</span></h2>
+              <div class="section-divider"></div>
+            </div>
+            <div class="hc2 mb-5">
+              <div class="hc2-media">
+                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=700" alt="Travel planning">
+                <span class="hc2-badge">EDITOR'S PICK</span>
+              </div>
+              <div class="hc2-body">
+                <span class="hc2-cat hc2-cat-travel">🧭 Travel Tips</span>
+                <h3 class="hc2-title">The Ultimate Vacation Budget Planner: Cruises vs Theme Parks vs Both</h3>
+                <p class="hc2-excerpt">We break down real costs for a cruise vacation, a theme park trip, and a combo vacation so you can plan the perfect trip for your budget.</p>
+                <div class="hc2-meta">
+                  <span><i class="far fa-user"></i>Cierra Ray</span>
+                  <span><i class="far fa-calendar"></i>May 8, 2026</span>
+                  <span><i class="far fa-clock"></i>10 min read</span>
+                </div>
+                <a href="#" class="hc2-btn">Read Full Guide <i class="fas fa-arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="mb-4">
+              <span class="section-eyebrow">Top Travel Articles</span>
+              <h2 class="section-title">Latest <span>Travel Tips</span></h2>
+              <div class="section-divider"></div>
+            </div>
+            <div class="row g-4">
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500" alt="Travel tips"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-blue-bg">TRAVEL TIPS</span>
+                    <h3 class="post-title">How to Pack for a 7-Night Cruise Without Checking Bags</h3>
+                    <p class="post-excerpt">Our veteran cruise packer shares the ultimate light-packing system for a week at sea — yes, it's possible.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>5 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=500" alt="Travel planning"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-blue-bg">TRAVEL TIPS</span>
+                    <h3 class="post-title">Best Travel Insurance for Cruise & Theme Park Vacations</h3>
+                    <p class="post-excerpt">What to look for, what to avoid, and our top-rated travel insurance picks specifically for cruise and park trips.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>7 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500" alt="Family travel"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-blue-bg">TRAVEL TIPS</span>
+                    <h3 class="post-title">Flying to Your Cruise Port: Tips to Avoid Missing Embarkation</h3>
+                    <p class="post-excerpt">Don't let a delayed flight ruin your cruise. Here's exactly how to book flights the smart way.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>6 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="post-card">
+                  <div class="post-card-img"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=500" alt="Vacation planning"></div>
+                  <div class="post-card-content">
+                    <span class="post-category badge-blue-bg">TRAVEL TIPS</span>
+                    <h3 class="post-title">How to Combine a Cruise + Theme Park Trip in One Vacation</h3>
+                    <p class="post-excerpt">Port Canaveral to Disney World — the combo trip that makes perfect sense and how to plan it without stress.</p>
+                    <div class="post-meta"><span><i class="far fa-user"></i>Cierra Ray</span><span><i class="far fa-clock"></i>8 min read</span></div>
+                    <a href="#" class="post-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div><!-- /.cat-panels-stack -->
 
           <div class="text-center mt-5">
             <a href="#" class="btn-ctpg-outline">View All Articles <i class="fas fa-arrow-right ms-2"></i></a>
@@ -1199,13 +1607,15 @@
           </div>
 
           <!-- Mini Newsletter Widget -->
-          <div class="sw sw-teal">
-            <div class="sw-title">Stay Updated</div>
-            <p class="sw-intro">Get the latest travel guides delivered to your inbox.</p>
-            <div class="d-flex">
-              <input type="email" class="footer-email-input" placeholder="your@email.com">
-              <button class="footer-sub-btn" aria-label="Subscribe">Go</button>
+          <div class="sw-newsletter mb-4">
+            <i class="fas fa-paper-plane sw-newsletter-icon"></i>
+            <div class="sw-newsletter-heading">Never Miss a Deal or Guide</div>
+            <p class="sw-newsletter-sub">Join 10,000+ travellers getting weekly cruise tips, park secrets, and destination guides — free.</p>
+            <div class="sw-newsletter-form">
+              <input type="email" class="sw-newsletter-input" placeholder="Enter your email address">
+              <button class="sw-newsletter-btn">Subscribe Free <i class="fas fa-arrow-right"></i></button>
             </div>
+            <p class="sw-newsletter-privacy"><i class="fas fa-lock"></i> No spam. Unsubscribe anytime.</p>
           </div>
         </div>
       </div>
@@ -1244,60 +1654,113 @@
     </div>
   </section>
 
-  <!-- Destinations Showcase -->
-  <section class="py-5 bg-light-section">
+  <!-- Destinations Carousel -->
+  <section class="py-5 bg-light-section" id="destinations">
     <div class="container">
-      <div class="text-center mb-5">
-        <span class="section-eyebrow">Explore the World</span>
-        <h2 class="section-title">Top <span>Destinations</span></h2>
-        <div class="section-divider section-divider-teal mx-auto"></div>
+      <div class="d-flex justify-content-between align-items-end mb-4 flex-wrap gap-3">
+        <div>
+          <span class="section-eyebrow">Explore the World</span>
+          <h2 class="section-title mb-0">Top <span>Destinations</span></h2>
+          <div class="section-divider section-divider-teal"></div>
+        </div>
+        <a href="#" class="btn-ctpg-outline">Browse All Destinations <i class="fas fa-arrow-right ms-2"></i></a>
       </div>
-      <div class="row g-4">
-        <div class="col-6 col-md-3">
-          <a href="#" class="dest-card">
-            <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=400" alt="Bahamas">
-            <div class="dest-card-overlay"></div>
-            <div class="dest-card-body">
-              <div class="dest-card-label">CRUISES</div>
-              <div class="dest-card-title">The Bahamas</div>
-              <div class="dest-card-sub">23 port guides</div>
-            </div>
-          </a>
-        </div>
-        <div class="col-6 col-md-3">
-          <a href="#" class="dest-card">
-            <img src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=400" alt="Orlando">
-            <div class="dest-card-overlay"></div>
-            <div class="dest-card-body">
-              <div class="dest-card-label dest-card-label-teal">PARKS</div>
-              <div class="dest-card-title">Orlando, FL</div>
-              <div class="dest-card-sub">40+ park reviews</div>
-            </div>
-          </a>
-        </div>
-        <div class="col-6 col-md-3">
-          <a href="#" class="dest-card">
-            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400" alt="Alaska">
-            <div class="dest-card-overlay"></div>
-            <div class="dest-card-body">
-              <div class="dest-card-label">CRUISES</div>
-              <div class="dest-card-title">Alaska</div>
-              <div class="dest-card-sub">18 itineraries</div>
-            </div>
-          </a>
-        </div>
-        <div class="col-6 col-md-3">
-          <a href="#" class="dest-card">
-            <img src="https://images.unsplash.com/photo-1512813195386-6cf811ad3542?w=400" alt="Anaheim">
-            <div class="dest-card-overlay"></div>
-            <div class="dest-card-body">
-              <div class="dest-card-label dest-card-label-gold">PARKS</div>
-              <div class="dest-card-title">Anaheim, CA</div>
-              <div class="dest-card-sub">Disneyland guides</div>
-            </div>
-          </a>
-        </div>
-      </div>
+
+      <div class="dest-carousel-outer">
+        <div class="dest-carousel-viewport" id="destCarousel">
+          <div class="dest-carousel-track" id="destTrack">
+
+            <a href="#" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?w=600&q=80" alt="The Bahamas">
+              <div class="dest-card-overlay"></div>
+              <div class="dest-card-body">
+                <div class="dest-card-label">CRUISES</div>
+                <div class="dest-card-title">The Bahamas</div>
+                <div class="dest-card-sub">23 port guides</div>
+              </div>
+            </a>
+
+            <a href="#" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1594736797933-d0501ba2fe65?w=600&q=80" alt="Orlando">
+              <div class="dest-card-overlay"></div>
+              <div class="dest-card-body">
+                <div class="dest-card-label dest-card-label-teal">PARKS</div>
+                <div class="dest-card-title">Orlando, FL</div>
+                <div class="dest-card-sub">40+ park reviews</div>
+              </div>
+            </a>
+
+            <a href="#" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&q=80" alt="Alaska">
+              <div class="dest-card-overlay"></div>
+              <div class="dest-card-body">
+                <div class="dest-card-label">CRUISES</div>
+                <div class="dest-card-title">Alaska</div>
+                <div class="dest-card-sub">18 itineraries</div>
+              </div>
+            </a>
+
+            <a href="#" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1512813195386-6cf811ad3542?w=600&q=80" alt="Anaheim">
+              <div class="dest-card-overlay"></div>
+              <div class="dest-card-body">
+                <div class="dest-card-label dest-card-label-gold">PARKS</div>
+                <div class="dest-card-title">Anaheim, CA</div>
+                <div class="dest-card-sub">Disneyland guides</div>
+              </div>
+            </a>
+
+            <a href="#" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80" alt="Caribbean">
+              <div class="dest-card-overlay"></div>
+              <div class="dest-card-body">
+                <div class="dest-card-label">CRUISES</div>
+                <div class="dest-card-title">Caribbean</div>
+                <div class="dest-card-sub">50+ port guides</div>
+              </div>
+            </a>
+
+            <a href="#" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=600&q=80" alt="Disney Cruise Line">
+              <div class="dest-card-overlay"></div>
+              <div class="dest-card-body">
+                <div class="dest-card-label">CRUISES</div>
+                <div class="dest-card-title">Disney Cruise</div>
+                <div class="dest-card-sub">Every ship reviewed</div>
+              </div>
+            </a>
+
+            <a href="#" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Universal Orlando">
+              <div class="dest-card-overlay"></div>
+              <div class="dest-card-body">
+                <div class="dest-card-label dest-card-label-teal">PARKS</div>
+                <div class="dest-card-title">Universal Orlando</div>
+                <div class="dest-card-sub">Epic Universe &amp; more</div>
+              </div>
+            </a>
+
+            <a href="#" class="dest-card">
+              <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80" alt="Mediterranean Cruises">
+              <div class="dest-card-overlay"></div>
+              <div class="dest-card-body">
+                <div class="dest-card-label dest-card-label-blue">TRAVEL</div>
+                <div class="dest-card-title">Mediterranean</div>
+                <div class="dest-card-sub">12 cruise routes</div>
+              </div>
+            </a>
+
+          </div><!-- /.dest-carousel-track -->
+        </div><!-- /.dest-carousel-viewport -->
+
+        <button class="dest-carousel-btn prev" id="destPrev" aria-label="Previous" disabled>
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="dest-carousel-btn next" id="destNext" aria-label="Next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div><!-- /.dest-carousel-outer -->
+
     </div>
   </section>
 
@@ -1493,6 +1956,111 @@
       btn.classList.toggle('visible', window.scrollY > 400);
     });
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // Category strip — auto-advancing tabs with blur + cascade animation
+    (function () {
+      const DURATION = 10000; // 10s per tab
+      const links = Array.from(document.querySelectorAll('.cat-strip-link[data-cat]'));
+      let current = links.findIndex(l => l.classList.contains('active'));
+      if (current < 0) current = 0;
+      let timer = null;
+
+      function activate(index) {
+        // Deactivate all
+        links.forEach(l => l.classList.remove('active'));
+        document.querySelectorAll('.cat-panel').forEach(p => {
+          p.classList.remove('active', 'cat-panel--entering');
+        });
+
+        current = (index + links.length) % links.length;
+        links[current].classList.add('active');
+
+        // Force reflow so the cascade animation restarts cleanly
+        const panel = document.getElementById('panel-' + links[current].dataset.cat);
+        void panel.offsetWidth;
+        panel.classList.add('active', 'cat-panel--entering');
+
+        clearTimeout(timer);
+        timer = setTimeout(() => activate(current + 1), DURATION);
+      }
+
+      // Manual click
+      links.forEach((link, i) => {
+        link.addEventListener('click', e => { e.preventDefault(); activate(i); });
+      });
+
+      // Pause on hover
+      const strip = document.querySelector('.cat-strip');
+      let pausedAt = null;
+      let remaining = DURATION;
+      strip.addEventListener('mouseenter', () => {
+        clearTimeout(timer);
+        pausedAt = Date.now();
+      });
+      strip.addEventListener('mouseleave', () => {
+        if (pausedAt) remaining = Math.max(0, remaining - (Date.now() - pausedAt));
+        pausedAt = null;
+        timer = setTimeout(() => { remaining = DURATION; activate(current + 1); }, remaining);
+      });
+
+      // Kick off
+      timer = setTimeout(() => { remaining = DURATION; activate(current + 1); }, DURATION);
+    })();
+
+    // ── Destination Card Carousel (multi-card) ──
+    (function () {
+      const track    = document.getElementById('destTrack');
+      const viewport = document.getElementById('destCarousel');
+      const btnPrev  = document.getElementById('destPrev');
+      const btnNext  = document.getElementById('destNext');
+      if (!track) return;
+
+      const cards = Array.from(track.querySelectorAll('.dest-card'));
+      let offset = 0;
+
+      function visibleCount() {
+        const w = viewport.offsetWidth;
+        if (w >= 992) return 4;
+        if (w >= 576) return 2;
+        return 1;
+      }
+
+      function cardWidth() {
+        return cards[0] ? cards[0].offsetWidth + 16 : 0; // 16 = 1rem gap
+      }
+
+      function maxOffset() {
+        return Math.max(0, cards.length - visibleCount());
+      }
+
+      function update() {
+        track.style.transform = `translateX(-${offset * cardWidth()}px)`;
+        btnPrev.disabled = offset <= 0;
+        btnNext.disabled = offset >= maxOffset();
+      }
+
+      btnPrev.addEventListener('click', () => { if (offset > 0) { offset--; update(); } });
+      btnNext.addEventListener('click', () => { if (offset < maxOffset()) { offset++; update(); } });
+
+      // Touch swipe
+      let touchX = null;
+      viewport.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+      viewport.addEventListener('touchend', e => {
+        if (touchX === null) return;
+        const diff = touchX - e.changedTouches[0].clientX;
+        if (diff > 40 && offset < maxOffset()) { offset++; update(); }
+        if (diff < -40 && offset > 0)          { offset--; update(); }
+        touchX = null;
+      }, { passive: true });
+
+      // Recalculate on resize
+      window.addEventListener('resize', () => {
+        offset = Math.min(offset, maxOffset());
+        update();
+      });
+
+      update();
+    })();
   </script>
 </body>
 </html>
