@@ -1,4 +1,8 @@
-name: Deploy to Cloudflare R2
+name: Release design system to Cloudflare R2
+
+# Uploads a NEW versioned release (v/<package.json version>/...) only.
+# If that version is already released, nothing is uploaded.
+# Never overwrites live files (11-media-rules.md section 3.1).
 
 on:
   push:
@@ -6,7 +10,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  release:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,8 +29,8 @@ jobs:
       - name: Build assets
         run: npm run build
 
-      - name: Upload dist to Cloudflare R2
-        run: npm run deploy:r2
+      - name: Upload new release to Cloudflare R2
+        run: node scripts/release.js --if-new
         env:
           R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
           R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
