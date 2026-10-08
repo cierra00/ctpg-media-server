@@ -10,7 +10,6 @@
   var nav = document.getElementById("ctpg-nav");
   var searchButton = header.querySelector("[data-ctpg-search]");
   var panel = document.getElementById("ctpg-search-panel");
-  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function setMenu(open, returnFocus) {
     if (!menuButton || !nav) return;
@@ -46,14 +45,9 @@
 
   if (searchButton) {
     searchButton.addEventListener("click", function () {
-      // Homepage: the hero has the search box, so go there instead of opening the panel.
-      var hero = document.querySelector("[data-ctpg-hero-search] input[type=search], .ctpg-hero-search input[type=search]");
+      // The header searches the site on every page, the homepage included. The big hero box is
+      // the separate travel search engine (Cierra, Oct 8), so the pill never sends people there.
       setMenu(false);
-      if (hero) {
-        hero.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "center" });
-        hero.focus({ preventScroll: true });
-        return;
-      }
       setPanel(searchButton.getAttribute("aria-expanded") !== "true");
     });
   }
