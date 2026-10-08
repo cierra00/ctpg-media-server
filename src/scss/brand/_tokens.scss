@@ -1,48 +1,249 @@
 // =========================================================
-// CTPG Brand Tokens
+// CTPG design tokens
+// Source of truth: plans/10-design-system.md sections 3, 4, 5 and 7.4.
+// Change that file first, then this one. Never add a value here that
+// is not in the spec.
+//
+// Every token is written out as a CSS custom property --ctpg-<name>
+// by brand/_custom-properties.scss. Components use the custom
+// properties; Sass variables are only for Bootstrap and media queries.
 // =========================================================
 
-// Primary Brand Colors
-$navy: #0a1e3d;           // Primary navy blue
-$teal: #2596be;           // Secondary teal/ocean blue  
-$gold: #f4b223;           // Accent gold/yellow
-$orange: #ff8c42;         // Sunset orange
-$coral: #ff6b6b;          // Coral/red accent
-$light-blue: #4a90a4;     // Supporting light blue
-$sky-blue: #5eb3d6;       // Sky blue
+// ---------------------------------------------------------
+// 3.1 Colors
+// ---------------------------------------------------------
+$ctpg-colors: (
+  "deep":       #172333,
+  "navy":       #334155,
+  "ink":        #1e293b,
+  "night":      #101a24,
+  "slate":      #566379,
+  "coral":      #ff5e5e,
+  "coral-text": #c93333,
+  "blue":       #0077be,
+  "link":       #006aa9,
+  "light-blue": #00a8e8,
+  "aqua":       #4ecdc4,
+  "gold":       #ffd93d,
+  "paper":      #fafaf8,
+  "tint":       #f5f6f5,
+  "sand":       #f7f7f4,
+  "mist":       #f1f3f3,
+  "line":       #dfe6e9,
+  "card-line":  #d9e4e7,
+  "field-line": #8695a1,
+  "white":      #ffffff,
+);
 
-// Bootstrap Mapped Colors
-$primary: $navy;
-$secondary: $teal;
-$info: $light-blue;
-$warning: $gold;
-$dark: #07111f;
-$light: #f8fbff;
+@function ctpg-color($name) {
+  @if not map-has-key($ctpg-colors, $name) {
+    @error "Unknown CTPG color: #{$name}";
+  }
+  @return map-get($ctpg-colors, $name);
+}
 
-// Semantic Colors
-$success: #28a745;
-$danger: #dc3545;
+// Shade bases used by photo overlays (3.2)
+$ctpg-shade-rgb: 10, 25, 38;      // rgba(10,25,38,x)
+$ctpg-ask-rgb:   17, 35, 51;      // rgba(17,35,51,x), Ask panel only
 
-// Body Defaults
-$body-bg: #ffffff;
-$body-color: #1f2937;
+// Status badges (crowd calendar)
+$ctpg-status: (
+  "quiet":    (text: #1f6f6a, bg: rgba(78, 205, 196, .17)),
+  "moderate": (text: #856c00, bg: rgba(255, 217, 61, .25)),
+  "busy":     (text: #b82e2e, bg: rgba(255, 94, 94, .13)),
+);
 
-// Typography
-$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-$headings-font-weight: 700;
-$headings-color: $navy;
+// Translucent colors named in 3.3 and 3.4
+$ctpg-alphas: (
+  "white-90":     rgba(255, 255, 255, .9),   // hero paragraph
+  "white-80":     rgba(255, 255, 255, .8),
+  "white-78":     rgba(255, 255, 255, .78),  // Ask panel text
+  "white-72":     rgba(255, 255, 255, .72),  // Ask panel label
+  "white-58":     rgba(255, 255, 255, .58),  // meta on night
+  "header-bg":    rgba(255, 255, 255, .97),  // sticky header
+  "deep-80":      rgba(23, 35, 51, .8),      // numbered card circles
+  "deep-90":      rgba(23, 35, 51, .9),      // trip badge
+  "shade-75":     rgba(10, 25, 38, .75),     // destination circles
+  "latest-row":   rgba(10, 25, 38, .85),     // hero latest row backing
+);
 
-// Border Radius
-$border-radius: .75rem;
-$border-radius-sm: .5rem;
-$border-radius-lg: 1rem;
-$border-radius-xl: 1.5rem;
-$border-radius-xxl: 2rem;
+// ---------------------------------------------------------
+// 3.2 Gradients and overlays (exact)
+// ---------------------------------------------------------
+$ctpg-gradients: (
+  "stripe": linear-gradient(90deg,
+    #ff5e5e 0 25%, #ffd93d 25% 50%, #4ecdc4 50% 75%, #00a8e8 75% 100%),
+  "stripe-blend": linear-gradient(90deg, #ff5e5e, #ffd93d, #4ecdc4, #00a8e8),
+  "hero-shade-wide": (linear-gradient(90deg, rgba(10, 25, 38, .91), rgba(10, 25, 38, .72) 65%, rgba(10, 25, 38, .2)),
+    linear-gradient(0deg, rgba(10, 25, 38, .6), transparent 55%)),
+  "hero-shade-mid": (linear-gradient(90deg, rgba(10, 25, 38, .88), rgba(10, 25, 38, .74)),
+    linear-gradient(0deg, rgba(10, 25, 38, .6), transparent 55%)),
+  "hero-shade-phone": (linear-gradient(90deg, rgba(10, 25, 38, .86), rgba(10, 25, 38, .72)),
+    linear-gradient(0deg, rgba(10, 25, 38, .65), transparent)),
+  "tile-shade": linear-gradient(0deg, rgba(10, 25, 38, .92), rgba(10, 25, 38, .78) 40%, transparent 80%),
+  "food-shade": linear-gradient(0deg, rgba(10, 25, 38, .92), rgba(10, 25, 38, .76) 60%, transparent 92%),
+  "ask-shade": linear-gradient(90deg, rgba(17, 35, 51, .93), rgba(17, 35, 51, .8)),
+);
 
-// Spacing
-$spacer: 1rem;
+// 3.5 Accent per position
+$ctpg-toolkit-accents: (#ff5e5e, #4ecdc4, #ffd93d, #0077be);   // cards 1 to 4
+$ctpg-trip-tints: (rgba(255, 94, 94, .06), rgba(255, 217, 61, .11), rgba(78, 205, 196, .09));
 
-// Shadows
-$box-shadow-sm: 0 .125rem .25rem rgba(0, 0, 0, .075);
-$box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
-$box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, .175);
+// ---------------------------------------------------------
+// 4.1 Families and weights
+// ---------------------------------------------------------
+$ctpg-font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+$ctpg-font-label: "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+$ctpg-font-sans:  "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+$ctpg-weight-serif: 700;            // every Playfair use, written explicitly
+$ctpg-weight-label: 700;            // Montserrat 700 (nav, wordmark line 1)
+$ctpg-weight-label-heavy: 800;      // Montserrat 800 (labels, buttons, GUIDE)
+$ctpg-weight-regular: 400;          // Inter
+$ctpg-weight-semibold: 600;         // Inter (skip link, crowd badges, top bar headline)
+
+// ---------------------------------------------------------
+// 4.2 Type roles
+// (size, line-height, letter-spacing) desktop, then phone (680 and under).
+// A null phone value means "same as desktop".
+// ---------------------------------------------------------
+$ctpg-type: (
+  "display":             (clamp(60px, 7vw, 92px), .92, -.05em,   clamp(38px, 11.5vw, 48px), 1, -.035em),
+  "title-xl":            (clamp(40px, 4.8vw, 60px), 1.02, -.04em, clamp(30px, 9.5vw, 38px), 1.08, -.025em),
+  "title-xl-trip":       (clamp(42px, 5vw, 62px), 1.02, -.04em,   clamp(30px, 9.5vw, 38px), 1.08, -.025em),
+  "title-xl-newsletter": (clamp(40px, 4.8vw, 58px), 1.03, 0,      clamp(30px, 9.5vw, 38px), 1.08, -.025em),
+  "title-l-cover":       (clamp(36px, 4vw, 52px), 1.04, 0,        clamp(28px, 8.5vw, 34px), 1.1, -.02em),
+  "title-l-feature":     (clamp(34px, 3.8vw, 48px), 1.05, 0,      clamp(28px, 8.5vw, 34px), 1.12, 0),
+  "title-l-lead":        (clamp(31px, 3vw, 41px), 1.06, 0,        clamp(27px, 8vw, 33px), 1.12, 0),
+  "body-l":              (17px, 1.7, 0,  15px, 1.6, 0),
+  "body":                (15px, 1.75, 0, 14px, 1.65, 0),
+  "body-s":              (14px, 1.7, 0,  14px, 1.65, 0),
+  "body-xs":             (13px, 1.5, 0,  13px, 1.5, 0),
+  "meta":                (12px, 1.5, 0,  12px, 1.5, 0),
+  "label":               (12px, 1.5, 0,  12px, 1.5, 0),
+  "nav":                 (12px, 1.5, .06em, 12px, 1.5, .06em),
+  "button":              (13px, 1.5, 0,  13px, 1.5, 0),
+);
+
+// title-m and title-s exact sizes (size, line-height desktop, size, line-height phone)
+$ctpg-type-titles: (
+  "food-l":       (38px, 1.14, 27px, 1.16),
+  "ask":          (34px, 1.1,  29px, 1.15),
+  "trip-detail":  (34px, 1.08, 28px, 1.13),
+  "explore-bar":  (34px, 1.5,  30px, 1.1),
+  "toolkit":      (30px, 1.14, 26px, 1.18),
+  "destination":  (30px, 1.5,  27px, 1.15),
+  "explore-tile": (27px, 1.5,  25px, 1.12),
+  "more-bar":     (26px, 1.5,  24px, 1.2),
+  "food":         (25px, 1.14, 27px, 1.16),
+  "side":         (23px, 1.15, 22px, 1.22),
+  "trip-tile":    (23px, 1.15, 21px, 1.2),
+  "story":        (21px, 1.25, 21px, 1.25),
+  "numbered":     (21px, 1.22, 21px, 1.25),
+  "trip-step":    (20px, 1.5,  20px, 1.5),
+  "travel-list":  (19px, 1.22, 20px, 1.25),
+);
+
+// Hero display extras
+$ctpg-display-shadow: 0 3px 25px rgba(0, 0, 0, .28);
+$ctpg-display-size-small: 37px;     // 380 and under
+$ctpg-display-measure-phone: 12ch;
+
+// Wordmark (logo exception to the 12px rule)
+$ctpg-wordmark: (
+  "line1-size": 13px, "line1-lh": 1.05,
+  "guide-size": 16px, "guide-ls": .25em,
+  "line1-size-phone": 10px, "guide-size-phone": 11px, "ls-phone": .18em,
+  "line1-max-small": 92px,
+);
+
+$ctpg-field-font-size: 16px;        // 4.4: every form field, all screens
+
+// ---------------------------------------------------------
+// 5.1 Page frame and breakpoints
+// ---------------------------------------------------------
+$ctpg-bp-wide:   1200px;   // hero shade switches at 1200 and wider
+$ctpg-bp-tablet: 960px;    // tablet layout and phone menu (max-width)
+$ctpg-bp-phone:  680px;    // phone (max-width)
+$ctpg-bp-small:  380px;    // small phone (max-width)
+
+$ctpg-content-max: 1200px;
+$ctpg-frame-gutter: 20px;          // 100% minus 40px
+$ctpg-frame-gutter-small: 16px;    // 100% minus 32px at 380 and under
+$ctpg-topbar-height: 34px;
+$ctpg-header-height: 86px;
+$ctpg-header-height-phone: 72px;
+$ctpg-header-blur: 12px;
+$ctpg-stripe-height: 3px;
+$ctpg-stripe-blend-height: 5px;
+$ctpg-section-pad: 112px;
+$ctpg-section-pad-phone: 52px;
+
+// 5.2 Section paddings: (top, bottom, phone top, phone bottom)
+$ctpg-sections: (
+  "hero":         (70px, 28px, 38px, 26px),
+  "weekend":      (112px, 112px, 52px, 52px),
+  "explore":      (72px, 85px, 72px, 85px),
+  "toolkit":      (112px, 112px, 52px, 52px),
+  "cruise-desk":  (112px, 112px, 52px, 52px),
+  "park-desk":    (112px, 112px, 52px, 52px),
+  "food":         (112px, 112px, 52px, 52px),
+  "travel":       (112px, 112px, 52px, 52px),
+  "trip":         (112px, 112px, 58px, 58px),
+  "destinations": (112px, 112px, 52px, 52px),
+  "newsletter":   (76px, 76px, 58px, 58px),
+  "footer":       (55px, 20px, 55px, 20px),
+);
+$ctpg-hero-min-height: 720px;
+$ctpg-hero-min-height-tablet: 700px;
+
+// ---------------------------------------------------------
+// 5.3 Spacing, radius and shadow
+// ---------------------------------------------------------
+$ctpg-space: (
+  1: 4px, 2: 8px, 3: 12px, 4: 16px, 5: 20px, 6: 24px,
+  7: 32px, 8: 40px, 9: 56px, 10: 72px, 11: 112px,
+);
+
+$ctpg-radius: (
+  "0": 0,
+  "badge": 12px,
+  "chip": 18px,
+  "pill": 22px,
+  "round": 50%,
+);
+
+$ctpg-shadows: (
+  "search":       0 25px 65px rgba(0, 0, 0, .3),
+  "card":         0 8px 25px rgba(30, 51, 65, .05),
+  "card-hover":   0 18px 38px rgba(30, 51, 65, .1),
+  "tile":         0 10px 28px rgba(27, 45, 58, .07),
+  "panel":        0 12px 30px rgba(27, 45, 58, .06),
+  "menu":         0 16px 35px rgba(0, 0, 0, .15),
+  "toast":        0 12px 35px rgba(0, 0, 0, .22),
+  "slide-active": inset 0 -3px 0 #ffd93d,
+);
+
+// ---------------------------------------------------------
+// 7.2 Focus and 7.4 Motion
+// ---------------------------------------------------------
+$ctpg-focus-width: 3px;
+$ctpg-focus-offset: 3px;
+
+$ctpg-motion: (
+  "fast":         .2s,
+  "base":         .25s,
+  "image":        .5s ease,     // default photo zoom
+  "image-card":   .45s ease,    // numbered and story cards
+  "image-list":   .4s ease,     // travel list
+  "fade":         1s ease,
+  "drift":        7s ease,
+);
+
+// 7.1 Photo zoom amounts
+$ctpg-zoom: (
+  "feature": 1.025,   // cover, desk lead, travel feature
+  "side":    1.035,   // side stories, food cards
+  "card":    1.04,    // numbered, story, toolkit, trip tiles, destinations, travel list
+  "tile":    1.05,    // Explore tiles
+);

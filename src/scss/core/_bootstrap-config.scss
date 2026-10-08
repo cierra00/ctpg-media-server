@@ -1,0 +1,112 @@
+// =========================================================
+// Bootstrap 5 variables mapped to the CTPG tokens.
+// Imported after brand/tokens and before Bootstrap's variables.
+// Nothing here may introduce a value that is not a token.
+// =========================================================
+
+// Colors
+$primary:   ctpg-color("coral");
+$secondary: ctpg-color("navy");
+$success:   map-get(map-get($ctpg-status, "quiet"), text);
+$info:      ctpg-color("blue");
+$warning:   ctpg-color("gold");
+$danger:    map-get(map-get($ctpg-status, "busy"), text);
+$light:     ctpg-color("paper");
+$dark:      ctpg-color("deep");
+
+$color-contrast-dark:  ctpg-color("deep");
+$color-contrast-light: ctpg-color("white");
+$min-contrast-ratio:   4.5;
+
+$body-bg:          ctpg-color("paper");
+$body-color:       ctpg-color("ink");
+$body-secondary-color: ctpg-color("slate");
+$border-color:     ctpg-color("line");
+$link-color:       ctpg-color("link");
+$link-hover-color: ctpg-color("coral-text");
+
+// Breakpoints: the site's max-width breakpoints are 380, 680 and 960
+// (10-design-system.md 5.1), so Bootstrap's min-width tiers start one
+// pixel above them. xl is where the wide hero shade begins.
+$grid-breakpoints: (
+  xs: 0,
+  sm: $ctpg-bp-small + 1,
+  md: $ctpg-bp-phone + 1,
+  lg: $ctpg-bp-tablet + 1,
+  xl: $ctpg-bp-wide,
+);
+$container-max-widths: (
+  xl: $ctpg-content-max + 2 * $ctpg-frame-gutter,
+);
+$container-padding-x: 2 * $ctpg-frame-gutter;   // Bootstrap pads each side by half of this
+$grid-gutter-width: map-get($ctpg-space, 6);
+
+// Spacing scale (space-1 to space-11)
+$spacer: 16px;
+$spacers: map-merge((0: 0), $ctpg-space);
+
+// Typography
+$font-family-sans-serif: $ctpg-font-sans;
+$font-family-base:       $ctpg-font-sans;
+$font-size-root:         null;
+$font-size-base:         1rem;
+$font-weight-normal:     $ctpg-weight-regular;
+$font-weight-medium:     $ctpg-weight-semibold;
+$font-weight-semibold:   $ctpg-weight-semibold;
+$font-weight-bold:       $ctpg-weight-semibold;   // Inter loads 400 and 600 only
+$font-weight-bolder:     $ctpg-weight-semibold;
+$line-height-base:       1.5;
+
+$headings-font-family: $ctpg-font-serif;
+$headings-font-weight: $ctpg-weight-serif;
+$headings-color:       ctpg-color("deep");
+$headings-line-height: 1.1;
+$display-font-family:  $ctpg-font-serif;
+$display-font-weight:  $ctpg-weight-serif;
+
+// Radius: the mock is square-cornered (radius-0)
+$border-radius:      map-get($ctpg-radius, "0");
+$border-radius-sm:   map-get($ctpg-radius, "0");
+$border-radius-lg:   map-get($ctpg-radius, "0");
+$border-radius-xl:   map-get($ctpg-radius, "0");
+$border-radius-xxl:  map-get($ctpg-radius, "0");
+$border-radius-pill: map-get($ctpg-radius, "pill");
+
+// Shadows
+$enable-shadows: false;
+$box-shadow-sm:  map-get($ctpg-shadows, "card");
+$box-shadow:     map-get($ctpg-shadows, "tile");
+$box-shadow-lg:  map-get($ctpg-shadows, "search");
+
+// Buttons (13px Montserrat 800; 44px tall with a 1px border)
+$btn-font-family:  $ctpg-font-label;
+$btn-font-weight:  $ctpg-weight-label-heavy;
+$btn-font-size:    nth(map-get($ctpg-type, "button"), 1);
+$btn-line-height:  nth(map-get($ctpg-type, "button"), 2);
+$btn-padding-y:    map-get($ctpg-space, 3);
+$btn-padding-x:    map-get($ctpg-space, 6);
+$btn-font-size-sm: nth(map-get($ctpg-type, "button"), 1);
+$btn-font-size-lg: nth(map-get($ctpg-type, "button"), 1);
+$btn-focus-box-shadow: none;
+
+// Form fields: 16px on every screen, field-line borders, focus outline not a glow
+$input-font-size:         $ctpg-field-font-size;
+$input-font-size-sm:      $ctpg-field-font-size;
+$input-font-size-lg:      $ctpg-field-font-size;
+$input-bg:                ctpg-color("white");
+$input-color:             ctpg-color("ink");
+$input-border-color:      ctpg-color("field-line");
+$input-placeholder-color: ctpg-color("slate");
+$input-focus-border-color: ctpg-color("deep");
+$input-focus-box-shadow:  none;
+$input-btn-focus-width:   0;
+$input-btn-focus-box-shadow: none;
+$form-select-focus-box-shadow: none;
+$form-check-input-focus-box-shadow: none;
+$form-check-input-checked-bg-color: ctpg-color("deep");
+$form-check-input-checked-border-color: ctpg-color("deep");
+
+// Motion
+$transition-base: all map-get($ctpg-motion, "fast") ease-in-out;
+$enable-smooth-scroll: true;      // Bootstrap turns it off under reduce motion
+$enable-reduced-motion: true;

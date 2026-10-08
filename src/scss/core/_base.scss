@@ -1,0 +1,77 @@
+// =========================================================
+// CTPG base: page-wide rules from 10-design-system.md 2, 4.4, 5.1, 7.2, 7.3.
+// Component styles never go here.
+// =========================================================
+
+// 4.4 Text rules
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--ctpg-weight-serif);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  h1, h2, h3, p {
+    overflow-wrap: break-word;
+  }
+}
+
+// Every form field is 16px on every screen (phones zoom into smaller text)
+input, select, textarea {
+  font-size: var(--ctpg-field-font-size);
+}
+
+::placeholder {
+  color: var(--ctpg-slate);
+  opacity: 1;
+}
+
+// 5.1 Page frame: min(1200px, 100% minus 40px); 100% minus 32px at 380 and under
+.ctpg-frame {
+  width: min(var(--ctpg-content-max), 100% - 2 * var(--ctpg-frame-gutter));
+  margin-inline: auto;
+}
+
+@media (max-width: $ctpg-bp-small) {
+  .container,
+  .container-fluid {
+    --bs-gutter-x: #{2 * $ctpg-frame-gutter-small};
+  }
+}
+
+// 7.2 Focus: 3px outline, 3px offset, on everything that can take focus.
+// Deep on light backgrounds and coral; gold on dark backgrounds and photo shades.
+.ctpg-on-dark {
+  --ctpg-focus-color: var(--ctpg-gold);
+}
+
+.ctpg-on-light {
+  --ctpg-focus-color: var(--ctpg-deep);
+}
+
+:focus-visible,
+.btn:focus-visible,
+.form-control:focus,
+.form-control:focus-visible,
+.form-select:focus,
+.form-select:focus-visible,
+.form-check-input:focus-visible {
+  outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color);
+  outline-offset: var(--ctpg-focus-offset);
+  box-shadow: none;
+}
+
+// 7.3 Reduce motion: transitions, zooms and smooth scrolling off
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,11 @@
+// =========================================================
+// CTPG website bundle  ->  ctpg.min.css
+// Fonts, tokens as custom properties, trimmed Bootstrap, base rules.
+// Components are added here as they are built (09 plan, 2.2).
+// Spec: plans/10-design-system.md. Budget: 11-media-rules.md 3.2.
+// =========================================================
+
+@import "core/bootstrap-site";
+@import "brand/fonts";
+@import "brand/custom-properties";
+@import "core/base";

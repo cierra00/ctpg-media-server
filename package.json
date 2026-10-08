@@ -1,15 +1,16 @@
 {
   "name": "ctpg-media-server",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Cruise & Theme Park Guide media asset server and Bootstrap 5 design system.",
   "scripts": {
     "clean": "rimraf dist",
     "copy:assets": "copyfiles -u 1 \"public/**/*\" dist",
     "build:bootstrap": "sass src/scss/bootstrap.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps --no-source-map",
     "build:css": "sass src/scss/main.scss dist/css/ctpg-main.min.css --style=compressed --quiet-deps --no-source-map",
+    "build:site": "sass src/scss/ctpg.scss dist/css/ctpg.min.css --style=compressed --quiet-deps --no-source-map",
     "build:components": "sass src/scss/components.scss dist/css/ctpg-components.min.css --style=compressed --quiet-deps --no-source-map",
     "build:js": "terser src/js/main.js -o dist/js/ctpg-main.min.js -c -m",
-    "build": "npm-run-all clean copy:assets build:bootstrap build:css build:components build:js",
+    "build": "npm-run-all clean copy:assets build:site build:bootstrap build:css build:components build:js",
     "watch:css": "sass --watch src/scss/bootstrap.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps",
     "deploy:r2": "node -e \"console.error('deploy:r2 is retired: it overwrote the live files the Hub uses. Use npm run release (versioned, 11-media-rules.md 3.1).');process.exit(1)\"",
     "release": "node scripts/release.js",
@@ -17,12 +18,12 @@
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.1041.0",
-    "bootstrap": "latest",
+    "bootstrap": "5.3.8",
     "copyfiles": "latest",
     "mime-types": "^3.0.2",
     "npm-run-all": "latest",
     "rimraf": "latest",
-    "sass": "latest",
+    "sass": "1.99.0",
     "terser": "latest"
   }
 }

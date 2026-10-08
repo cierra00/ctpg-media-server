@@ -1,0 +1,31 @@
+// =========================================================
+// CTPG fonts (10-design-system.md 4.1), self-hosted on the media server.
+// One variable woff2 per family. The weight descriptors limit each file
+// to the weights the spec allows, so the browser never draws anything else.
+// No italics are loaded (none are used).
+// Files: public/fonts -> v/<version>/fonts, next to v/<version>/css.
+// =========================================================
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/playfair-display-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700 800;
+  font-display: swap;
+  src: url("../fonts/montserrat-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("../fonts/inter-normal.woff2") format("woff2");
+}

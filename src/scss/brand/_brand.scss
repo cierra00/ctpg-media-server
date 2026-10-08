@@ -1,7 +1,9 @@
 // =========================================================
-// CTPG Brand Styles
+// CTPG Brand Styles (LEGACY, ctpg-main.min.css)
+// Older brand classes kept for the Studio Hub and the old catalogue until
+// 09 plan step 2.2b. New work uses brand/_tokens.scss and components.
 // =========================================================
-@import "tokens";
+@import "../legacy/old-tokens";
 
 // Sections
 .ctpg-section {

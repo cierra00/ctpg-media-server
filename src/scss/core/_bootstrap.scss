@@ -4,8 +4,10 @@
 
 @import "../../../node_modules/bootstrap/scss/functions";
 
-// CTPG custom values before Bootstrap variables
+// CTPG tokens and the Bootstrap mapping (shared with the site bundle),
+// then the 1 to 100 utility scales the Studio Hub uses
 @import "../brand/tokens";
+@import "bootstrap-config";
 @import "bootstrap-extended-maps";
 
 // Bootstrap core variables/maps

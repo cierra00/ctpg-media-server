@@ -1,0 +1,148 @@
+// =========================================================
+// CTPG tokens as CSS custom properties (--ctpg-<name>)
+// Generated from brand/_tokens.scss. Phone values (680 and under)
+// replace the desktop value of the same property, so components
+// use one name at every width.
+// =========================================================
+
+:root {
+  // 3.1 Colors
+  @each $name, $value in $ctpg-colors {
+    --ctpg-#{$name}: #{$value};
+  }
+  @each $name, $pair in $ctpg-status {
+    --ctpg-status-#{$name}-text: #{map-get($pair, text)};
+    --ctpg-status-#{$name}-bg: #{map-get($pair, bg)};
+  }
+  @each $name, $value in $ctpg-alphas {
+    --ctpg-#{$name}: #{$value};
+  }
+
+  // 3.2 Gradients and overlays
+  @each $name, $value in $ctpg-gradients {
+    --ctpg-#{$name}: #{$value};
+  }
+  --ctpg-hero-shade: var(--ctpg-hero-shade-wide);
+
+  // 3.5 Accent per position
+  @for $i from 1 through length($ctpg-toolkit-accents) {
+    --ctpg-toolkit-accent-#{$i}: #{nth($ctpg-toolkit-accents, $i)};
+  }
+  @for $i from 1 through length($ctpg-trip-tints) {
+    --ctpg-trip-tint-#{$i}: #{nth($ctpg-trip-tints, $i)};
+  }
+
+  // 4.1 Families and weights
+  --ctpg-font-serif: #{inspect($ctpg-font-serif)};
+  --ctpg-font-label: #{inspect($ctpg-font-label)};
+  --ctpg-font-sans: #{inspect($ctpg-font-sans)};
+  --ctpg-weight-serif: #{$ctpg-weight-serif};
+  --ctpg-weight-label: #{$ctpg-weight-label};
+  --ctpg-weight-label-heavy: #{$ctpg-weight-label-heavy};
+  --ctpg-weight-regular: #{$ctpg-weight-regular};
+  --ctpg-weight-semibold: #{$ctpg-weight-semibold};
+
+  // 4.2 Type roles
+  @each $role, $v in $ctpg-type {
+    --ctpg-#{$role}-size: #{nth($v, 1)};
+    --ctpg-#{$role}-lh: #{nth($v, 2)};
+    --ctpg-#{$role}-ls: #{nth($v, 3)};
+  }
+  @each $name, $v in $ctpg-type-titles {
+    --ctpg-title-#{$name}-size: #{nth($v, 1)};
+    --ctpg-title-#{$name}-lh: #{nth($v, 2)};
+  }
+  --ctpg-display-shadow: #{$ctpg-display-shadow};
+  --ctpg-display-measure: none;
+  --ctpg-wordmark-line1-size: #{map-get($ctpg-wordmark, "line1-size")};
+  --ctpg-wordmark-line1-lh: #{map-get($ctpg-wordmark, "line1-lh")};
+  --ctpg-wordmark-guide-size: #{map-get($ctpg-wordmark, "guide-size")};
+  --ctpg-wordmark-guide-ls: #{map-get($ctpg-wordmark, "guide-ls")};
+  --ctpg-field-font-size: #{$ctpg-field-font-size};
+
+  // 5.1 Page frame
+  --ctpg-content-max: #{$ctpg-content-max};
+  --ctpg-frame-gutter: #{$ctpg-frame-gutter};
+  --ctpg-topbar-height: #{$ctpg-topbar-height};
+  --ctpg-header-height: #{$ctpg-header-height};
+  --ctpg-header-blur: #{$ctpg-header-blur};
+  --ctpg-stripe-height: #{$ctpg-stripe-height};
+  --ctpg-stripe-blend-height: #{$ctpg-stripe-blend-height};
+  --ctpg-section-pad: #{$ctpg-section-pad};
+  --ctpg-hero-min-height: #{$ctpg-hero-min-height};
+
+  // 5.2 Section paddings
+  @each $name, $v in $ctpg-sections {
+    --ctpg-section-#{$name}-pt: #{nth($v, 1)};
+    --ctpg-section-#{$name}-pb: #{nth($v, 2)};
+  }
+
+  // 5.3 Spacing, radius, shadow
+  @each $step, $value in $ctpg-space {
+    --ctpg-space-#{$step}: #{$value};
+  }
+  @each $name, $value in $ctpg-radius {
+    --ctpg-radius-#{$name}: #{$value};
+  }
+  @each $name, $value in $ctpg-shadows {
+    --ctpg-shadow-#{$name}: #{$value};
+  }
+
+  // 7.2 Focus (deep on light backgrounds; .ctpg-on-dark switches to gold)
+  --ctpg-focus-color: #{ctpg-color("deep")};
+  --ctpg-focus-width: #{$ctpg-focus-width};
+  --ctpg-focus-offset: #{$ctpg-focus-offset};
+
+  // 7.1 and 7.4 Motion
+  @each $name, $value in $ctpg-motion {
+    --ctpg-motion-#{$name}: #{$value};
+  }
+  @each $name, $value in $ctpg-zoom {
+    --ctpg-zoom-#{$name}: #{$value};
+  }
+}
+
+// Hero shade by width (3.2)
+@media (max-width: #{$ctpg-bp-wide - 1px}) {
+  :root { --ctpg-hero-shade: var(--ctpg-hero-shade-mid); }
+}
+
+@media (max-width: $ctpg-bp-tablet) {
+  :root { --ctpg-hero-min-height: #{$ctpg-hero-min-height-tablet}; }
+}
+
+// Phone values (680 and under)
+@media (max-width: $ctpg-bp-phone) {
+  :root {
+    --ctpg-hero-shade: var(--ctpg-hero-shade-phone);
+    --ctpg-header-height: #{$ctpg-header-height-phone};
+    --ctpg-section-pad: #{$ctpg-section-pad-phone};
+    --ctpg-hero-min-height: 0px;
+    --ctpg-display-measure: #{$ctpg-display-measure-phone};
+    @each $role, $v in $ctpg-type {
+      @if nth($v, 4) != nth($v, 1) { --ctpg-#{$role}-size: #{nth($v, 4)}; }
+      @if nth($v, 5) != nth($v, 2) { --ctpg-#{$role}-lh: #{nth($v, 5)}; }
+      @if nth($v, 6) != nth($v, 3) { --ctpg-#{$role}-ls: #{nth($v, 6)}; }
+    }
+    @each $name, $v in $ctpg-type-titles {
+      @if nth($v, 3) != nth($v, 1) { --ctpg-title-#{$name}-size: #{nth($v, 3)}; }
+      @if nth($v, 4) != nth($v, 2) { --ctpg-title-#{$name}-lh: #{nth($v, 4)}; }
+    }
+    --ctpg-wordmark-line1-size: #{map-get($ctpg-wordmark, "line1-size-phone")};
+    --ctpg-wordmark-guide-size: #{map-get($ctpg-wordmark, "guide-size-phone")};
+    --ctpg-wordmark-guide-ls: #{map-get($ctpg-wordmark, "ls-phone")};
+    @each $name, $v in $ctpg-sections {
+      @if nth($v, 3) != nth($v, 1) { --ctpg-section-#{$name}-pt: #{nth($v, 3)}; }
+      @if nth($v, 4) != nth($v, 2) { --ctpg-section-#{$name}-pb: #{nth($v, 4)}; }
+    }
+  }
+}
+
+// Small phones (380 and under)
+@media (max-width: $ctpg-bp-small) {
+  :root {
+    --ctpg-frame-gutter: #{$ctpg-frame-gutter-small};
+    --ctpg-display-size: #{$ctpg-display-size-small};
+    --ctpg-wordmark-line1-max: #{map-get($ctpg-wordmark, "line1-max-small")};
+  }
+}

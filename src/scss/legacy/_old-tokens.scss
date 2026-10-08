@@ -1,0 +1,15 @@
+// =========================================================
+// LEGACY: the media server's tokens before Oct 8, 2026.
+// Only brand/_brand.scss (ctpg-main.min.css, used by the Studio Hub and
+// the old catalogue) still reads these. They are replaced by
+// brand/_tokens.scss (10-design-system.md) and this file goes away when
+// the Hub moves to the new components (09 plan, 2.2b). Do not use in new code.
+// =========================================================
+
+$navy: #0a1e3d;
+$teal: #2596be;
+$gold: #f4b223;
+$orange: #ff8c42;
+$coral: #ff6b6b;
+$light-blue: #4a90a4;
+$sky-blue: #5eb3d6;
