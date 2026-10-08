@@ -1,0 +1,47 @@
+// =========================================================
+// CTPG Component: Courses / Guides
+// =========================================================
+
+.ctpg-guides-section {
+  padding: 5rem 0;
+  background: #f8f9fa;
+}
+
+.ctpg-guide-card {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: #fff;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.ctpg-guide-card__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.ctpg-guide-card__body {
+  padding: 1.5rem;
+}
+
+.ctpg-guide-card__tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ctpg-teal);
+  margin-bottom: 0.5rem;
+}
+
+.ctpg-guide-card__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--ctpg-navy);
+  margin-bottom: 0.75rem;
+}

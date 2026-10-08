@@ -2,6 +2,11 @@
 // CTPG Main Stylesheet
 // =========================================================
 
-@import "core/bootstrap";
+// =========================================================
+// CTPG Main Stylesheet  →  ctpg-main.min.css
+// Brand tokens + base resets + utility classes.
+// No third-party frameworks. Load on every page.
+// =========================================================
+
 @import "core/global";
 @import "brand/brand";

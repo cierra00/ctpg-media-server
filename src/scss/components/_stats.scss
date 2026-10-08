@@ -1,0 +1,28 @@
+// =========================================================
+// CTPG Component: Stats
+// =========================================================
+
+.ctpg-stats-section {
+  padding: 4rem 0;
+  background: var(--ctpg-navy);
+  color: #fff;
+}
+
+.ctpg-stat-card {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.ctpg-stat-card__number {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  color: var(--ctpg-gold);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.ctpg-stat-card__label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  opacity: 0.8;
+}

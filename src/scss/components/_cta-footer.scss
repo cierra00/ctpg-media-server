@@ -1,0 +1,25 @@
+// =========================================================
+// CTPG Component: CTA Footer
+// =========================================================
+
+.ctpg-cta-section {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, var(--ctpg-navy) 0%, var(--ctpg-teal) 100%);
+  color: #fff;
+  text-align: center;
+}
+
+.ctpg-cta-section__title {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.ctpg-cta-section__subtitle {
+  font-size: 1.125rem;
+  opacity: 0.85;
+  max-width: 520px;
+  margin-inline: auto;
+  margin-bottom: 2rem;
+}

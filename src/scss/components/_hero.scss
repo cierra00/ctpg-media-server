@@ -1,0 +1,33 @@
+// =========================================================
+// CTPG Component: Hero
+// =========================================================
+
+.ctpg-hero-section {
+  background: linear-gradient(135deg, var(--ctpg-navy) 0%, var(--ctpg-teal) 100%);
+  color: #fff;
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ctpg-hero-section__eyebrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ctpg-gold);
+  margin-bottom: 1rem;
+}
+
+.ctpg-hero-section__title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.ctpg-hero-section__subtitle {
+  font-size: 1.125rem;
+  opacity: 0.85;
+  max-width: 540px;
+}

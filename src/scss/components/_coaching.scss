@@ -1,0 +1,34 @@
+// =========================================================
+// CTPG Component: Coaching / Planning Services
+// =========================================================
+
+.ctpg-coaching-section {
+  padding: 5rem 0;
+  background: #fff;
+}
+
+.ctpg-coaching-card {
+  border-radius: 1.5rem;
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(0, 51, 102, 0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.25s ease;
+  height: 100%;
+
+  &:hover {
+    box-shadow: 0 12px 40px rgba(0, 51, 102, 0.12);
+  }
+}
+
+.ctpg-coaching-card__icon {
+  font-size: 2.5rem;
+  color: var(--ctpg-teal);
+  margin-bottom: 1.25rem;
+}
+
+.ctpg-coaching-card__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ctpg-navy);
+  margin-bottom: 0.75rem;
+}

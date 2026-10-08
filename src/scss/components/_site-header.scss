@@ -1,0 +1,58 @@
+// =========================================================
+// CTPG Component: Site Header
+// =========================================================
+
+.ctpg-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  border-bottom: 1px solid rgba(0, 51, 102, 0.08);
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0, 51, 102, 0.06);
+}
+
+.ctpg-site-header__inner {
+  min-height: 5.25rem;
+}
+
+.ctpg-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 700;
+  color: var(--ctpg-navy);
+  line-height: 1;
+}
+
+.ctpg-brand-mark__text {
+  display: inline-block;
+  font-size: 1.14rem;
+  font-weight: 700;
+  color: var(--ctpg-navy);
+  letter-spacing: -0.01em;
+}
+
+.ctpg-nav-toggle {
+  width: 2.85rem;
+  height: 2.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--ctpg-navy);
+}
+
+.ctpg-nav-link {
+  font-weight: 500;
+  color: var(--ctpg-navy);
+  text-decoration: none;
+  transition: color 0.2s;
+
+  &:hover,
+  &.is-active {
+    color: var(--ctpg-teal);
+  }
+}
