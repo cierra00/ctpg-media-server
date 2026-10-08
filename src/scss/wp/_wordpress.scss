@@ -40,3 +40,25 @@ footer .wp-block-list {
   }
   a:hover { text-decoration: underline; }
 }
+
+// WordPress font size presets carry their type role's line height and
+// letter spacing (10-design-system.md 4.2), so a block set to "Card title"
+// gets 21px / 1.25, not 21px with the heading default.
+@each $role in ("meta", "body-xs", "body-s", "body", "body-l", "title-l-lead", "title-l-cover", "title-xl", "display") {
+  .has-#{$role}-font-size {
+    line-height: var(--ctpg-#{$role}-lh);
+    letter-spacing: var(--ctpg-#{$role}-ls);
+  }
+}
+
+.has-title-story-font-size {
+  line-height: var(--ctpg-title-story-lh);
+}
+
+// Category links on story cards and pages: 24px targets (rule 6)
+.wp-block-post-terms a,
+.wp-block-post-author-name a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
