@@ -1,0 +1,350 @@
+// =========================================================
+// 6.20 Footer (redesigned, Cierra Oct 8: "we need a lot of stuff on it"; draft
+// approved Oct 8 "perfect I like it"; design/drafts/footer-draft.html).
+// Night band under the four-colour stripe:
+//   1. Friday newsletter signup (only once a provider is set up, rule 12)
+//   2. Brand, about line and social links, then link columns
+//   3. Trust notes (how we make money, independent)
+//   4. Bottom bar: copyright and site links
+// Markup: ctpg-theme inc/Blocks/SiteFooter.php. Focus ring gold (dark background).
+// =========================================================
+
+$footer-line: rgba(255, 255, 255, .1);
+
+.ctpg-footer {
+  --ctpg-focus-color: var(--ctpg-gold);
+  background: var(--ctpg-night);
+  color: var(--ctpg-white-78);
+  font-family: var(--ctpg-font-sans);
+
+  &::before {
+    content: "";
+    display: block;
+    height: var(--ctpg-stripe-height);
+    background: var(--ctpg-stripe);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--ctpg-white);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+// Shared label style (headings, eyebrows)
+%ctpg-footer-label {
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: var(--ctpg-label-lh);
+  text-transform: uppercase;
+}
+
+// ── 1. Newsletter ────────────────────────────────────────
+.ctpg-footer__news {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  gap: var(--ctpg-space-8);
+  align-items: center;
+  padding: 44px 0;
+  border-bottom: 1px solid $footer-line;
+}
+
+.ctpg-footer__eyebrow {
+  @extend %ctpg-footer-label;
+  margin: 0 0 10px;
+  letter-spacing: .16em;
+  color: var(--ctpg-gold);
+}
+
+.ctpg-footer__news-title {
+  margin: 0;
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: var(--ctpg-title-toolkit-size);
+  line-height: var(--ctpg-title-toolkit-lh);
+  color: var(--ctpg-white);
+}
+
+.ctpg-footer__news-text {
+  margin: 10px 0 0;
+  font-size: var(--ctpg-body-s-size);
+  line-height: var(--ctpg-body-s-lh);
+}
+
+.ctpg-footer__form {
+  label {
+    @extend %ctpg-footer-label;
+    display: block;
+    margin-bottom: var(--ctpg-space-2);
+    letter-spacing: .06em;
+    color: var(--ctpg-white);
+  }
+
+  .ctpg-footer__field {
+    display: flex;
+    padding: 5px;
+    background: var(--ctpg-white);
+  }
+
+  input[type="email"] {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0 13px;
+    border: 0;
+    color: var(--ctpg-ink);
+    font-size: var(--ctpg-field-font-size);
+
+    &:focus {
+      outline: var(--ctpg-focus-width) solid var(--ctpg-deep);
+      outline-offset: 0;
+    }
+  }
+
+  button {
+    padding: 0 18px;
+    border: 0;
+    background: var(--ctpg-coral);
+    color: var(--ctpg-deep);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: var(--ctpg-button-size);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--ctpg-motion-fast), color var(--ctpg-motion-fast);
+
+    &:hover {
+      background: var(--ctpg-deep);
+      color: var(--ctpg-white);
+    }
+  }
+
+  small {
+    display: block;
+    margin-top: var(--ctpg-space-2);
+    font-size: var(--ctpg-meta-size);
+    color: var(--ctpg-white-58);
+  }
+}
+
+// ── 2. Brand and link columns ────────────────────────────
+.ctpg-footer__main {
+  display: grid;
+  grid-template-columns: 1.35fr repeat(5, minmax(0, 1fr));
+  gap: var(--ctpg-space-7);
+  padding: 48px 0 40px;
+}
+
+.ctpg-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--ctpg-space-4);
+
+  &:hover { text-decoration: none; }
+
+  img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+  }
+
+  .ctpg-wordmark strong {
+    color: var(--ctpg-white);
+    white-space: nowrap; // keep "Cruise & Theme Park" on one line in the narrow brand column
+  }
+}
+
+.ctpg-footer__about {
+  max-width: 34ch;
+  margin: 0 0 var(--ctpg-space-3);
+  font-size: var(--ctpg-body-s-size);
+  line-height: var(--ctpg-body-s-lh);
+}
+
+.ctpg-footer__more {
+  @extend %ctpg-footer-label;
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  letter-spacing: .06em;
+
+  .ctpg-footer & { color: var(--ctpg-gold); }
+}
+
+.ctpg-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ctpg-space-2);
+  margin: var(--ctpg-space-5) 0 0;
+  padding: 0;
+  list-style: none;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: var(--ctpg-radius-round);
+    color: var(--ctpg-white);
+    transition: background var(--ctpg-motion-fast), color var(--ctpg-motion-fast);
+
+    &:hover {
+      background: var(--ctpg-coral);
+      border-color: var(--ctpg-coral);
+      color: var(--ctpg-deep);
+    }
+  }
+
+  svg { width: 18px; height: 18px; }
+}
+
+.ctpg-footer__col {
+  h2 {
+    @extend %ctpg-footer-label;
+    margin: 0 0 14px;
+    letter-spacing: .1em;
+    color: var(--ctpg-white);
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    font-size: var(--ctpg-body-s-size);
+    line-height: 1.4;
+  }
+}
+
+.ctpg-footer__show {
+  display: block;
+  margin-top: 14px;
+  padding: var(--ctpg-space-3);
+  border: 1px solid rgba(255, 255, 255, .14);
+
+  &:hover {
+    border-color: var(--ctpg-gold);
+    text-decoration: none;
+  }
+
+  span {
+    @extend %ctpg-footer-label;
+    display: block;
+    letter-spacing: .08em;
+    color: var(--ctpg-gold);
+  }
+
+  b {
+    display: block;
+    margin-top: var(--ctpg-space-1);
+    color: var(--ctpg-white);
+    font-weight: var(--ctpg-weight-semibold);
+    font-size: var(--ctpg-body-s-size);
+  }
+}
+
+// ── 3. Trust notes ───────────────────────────────────────
+.ctpg-footer__trust {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ctpg-space-7);
+  padding: 22px 0;
+  border-top: 1px solid $footer-line;
+  font-size: var(--ctpg-body-xs-size);
+  line-height: 1.65;
+  color: var(--ctpg-white-58);
+
+  p { margin: 0; }
+
+  strong {
+    color: var(--ctpg-white-78);
+    font-weight: var(--ctpg-weight-semibold);
+  }
+
+  a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+// ── 4. Bottom bar ────────────────────────────────────────
+.ctpg-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--ctpg-space-6);
+  padding: 18px 0 22px;
+  border-top: 1px solid $footer-line;
+  font-size: var(--ctpg-body-xs-size);
+  color: var(--ctpg-white-58);
+
+  p { margin: 0; }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+  }
+}
+
+// ── Narrower screens ─────────────────────────────────────
+@media (max-width: 1100px) {
+  .ctpg-footer__main { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ctpg-footer__intro { grid-column: 1 / -1; }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .ctpg-footer__news {
+    grid-template-columns: 1fr;
+    gap: var(--ctpg-space-5);
+    padding: 36px 0;
+  }
+
+  .ctpg-footer__form .ctpg-footer__field {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .ctpg-footer__form button { min-height: 47px; }
+
+  .ctpg-footer__main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+  }
+
+  .ctpg-footer__trust {
+    grid-template-columns: 1fr;
+    gap: var(--ctpg-space-3);
+  }
+
+  .ctpg-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
