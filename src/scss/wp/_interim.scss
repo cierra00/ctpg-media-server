@@ -12,6 +12,9 @@
 
 // -> 6.1 top bar
 .ctpg-topstrip a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px; // rule 6: links in a fixed-height bar
   color: inherit;
   text-decoration: none;
 

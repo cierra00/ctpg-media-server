@@ -32,6 +32,11 @@ footer .wp-block-list {
   margin: 0;
 
   li { padding-block: var(--ctpg-space-1); }
-  a { text-decoration: none; }
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px; // rule 6: links in lists at least 24px
+    text-decoration: none;
+  }
   a:hover { text-decoration: underline; }
 }
