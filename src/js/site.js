@@ -1,7 +1,22 @@
-// CTPG website behaviour (10-design-system.md 6.2): phone menu and header search.
+// CTPG website behaviour (10-design-system.md 6.2, 6.20): phone menu, header search, footer sections.
 // Loaded by ctpg-theme with defer. No dependencies.
 (function () {
   "use strict";
+
+  // Footer link columns (6.20): open on wide screens, folded into tap-to-open sections on phones.
+  var phone = window.matchMedia("(max-width: 680px)");
+  var cols = Array.prototype.slice.call(document.querySelectorAll(".ctpg-footer__col"));
+  function setCols() {
+    cols.forEach(function (d) { if (phone.matches) { d.removeAttribute("open"); } else { d.setAttribute("open", ""); } });
+  }
+  if (cols.length) {
+    setCols();
+    if (phone.addEventListener) phone.addEventListener("change", setCols);
+    cols.forEach(function (d) {
+      var summary = d.querySelector("summary");
+      if (summary) summary.addEventListener("click", function (e) { if (!phone.matches) e.preventDefault(); });
+    });
+  }
 
   var header = document.querySelector(".ctpg-header");
   if (!header) return;

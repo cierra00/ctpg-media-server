@@ -1,11 +1,10 @@
 // =========================================================
-// 6.20 Footer (redesigned, Cierra Oct 8: "we need a lot of stuff on it"; draft
-// approved Oct 8 "perfect I like it"; design/drafts/footer-draft.html).
-// Night band under the four-colour stripe:
-//   1. Friday newsletter signup (only once a provider is set up, rule 12)
-//   2. Brand, about line and social links, then link columns
-//   3. Trust notes (how we make money, independent)
-//   4. Bottom bar: copyright and site links
+// 6.20 Footer (redesigned with Cierra Oct 8; second pass Oct 8: "go for it get it done").
+// Night band under the four-colour stripe, top to bottom:
+//   1. Plan a trip band  2. Friday newsletter (once a provider exists, rule 12)
+//   3. Latest from the guide (3 newest stories)
+//   4. Brand column and link columns (folding sections on phones), tool icons,
+//      newest weekly show episode  5. Trust notes  6. Bottom bar with Back to top
 // Markup: ctpg-theme inc/Blocks/SiteFooter.php. Focus ring gold (dark background).
 // =========================================================
 
@@ -45,7 +44,7 @@ $footer-line: rgba(255, 255, 255, .1);
   text-transform: uppercase;
 }
 
-// ── 1. Newsletter ────────────────────────────────────────
+// ── 2. Newsletter ────────────────────────────────────────
 .ctpg-footer__news {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
@@ -134,49 +133,241 @@ $footer-line: rgba(255, 255, 255, .1);
   }
 }
 
-// ── 2. Brand and link columns ────────────────────────────
-.ctpg-footer__main {
-  display: grid;
-  grid-template-columns: 1.35fr repeat(5, minmax(0, 1fr));
-  gap: var(--ctpg-space-7);
-  padding: 48px 0 40px;
+// ── Shared pieces ────────────────────────────────────────
+.ctpg-footer__heading {
+  @extend %ctpg-footer-label;
+  margin: 0;
+  letter-spacing: .1em;
+  color: var(--ctpg-white);
 }
 
-.ctpg-footer__brand {
+.ctpg-footer__btn-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+// ── 1. Plan a trip band ──────────────────────────────────
+.ctpg-footer__plan {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--ctpg-space-7);
+  align-items: center;
+  margin: var(--ctpg-space-9) 0 0;
+  padding: var(--ctpg-space-7) var(--ctpg-space-8);
+  background: var(--ctpg-deep);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-left: 4px solid var(--ctpg-coral);
+}
+
+.ctpg-footer__plan-title {
+  margin: 0;
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: var(--ctpg-title-toolkit-size);
+  line-height: var(--ctpg-title-toolkit-lh);
+  color: var(--ctpg-white);
+}
+
+.ctpg-footer__plan-text {
+  max-width: 60ch;
+  margin: 10px 0 0;
+  font-size: var(--ctpg-body-s-size);
+  line-height: var(--ctpg-body-s-lh);
+}
+
+.ctpg-footer__plan-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ctpg-space-3);
+}
+
+// Buttons on the night band. Hover goes to white with deep text: the spec's
+// deep fill (7.1) would disappear on this background.
+.ctpg-footer .ctpg-footer__btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: var(--ctpg-space-2);
+  min-height: 48px;
+  padding: 0 var(--ctpg-space-6);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-button-size);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--ctpg-motion-fast), color var(--ctpg-motion-fast), border-color var(--ctpg-motion-fast);
+
+  &:hover {
+    background: var(--ctpg-white);
+    border-color: var(--ctpg-white);
+    color: var(--ctpg-deep);
+    text-decoration: none;
+  }
+}
+
+.ctpg-footer .ctpg-footer__btn--primary {
+  background: var(--ctpg-coral);
+  border: 1px solid var(--ctpg-coral);
+  color: var(--ctpg-deep);
+}
+
+.ctpg-footer .ctpg-footer__btn--ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .4);
+  color: var(--ctpg-white);
+}
+
+// ── 3. Latest from the guide ─────────────────────────────
+.ctpg-footer__latest {
+  padding: 44px 0 0;
+}
+
+.ctpg-footer__latest-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ctpg-space-4);
+  margin-bottom: var(--ctpg-space-5);
+}
+
+.ctpg-footer .ctpg-footer__all {
+  @extend %ctpg-footer-label;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  letter-spacing: .06em;
+  color: var(--ctpg-gold);
+}
+
+.ctpg-footer__stories {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--ctpg-space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ctpg-footer .ctpg-footer__story {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+
+  &:hover {
+    text-decoration: none;
+
+    b { text-decoration: underline; text-underline-offset: 3px; }
+  }
+
+  img {
+    flex: 0 0 112px;
+    width: 112px;
+    height: 75px;
+    object-fit: cover;
+  }
+
+  > span { min-width: 0; }
+
+  b {
+    display: block;
+    color: var(--ctpg-white);
+    font-weight: var(--ctpg-weight-semibold);
+    font-size: var(--ctpg-body-s-size);
+    line-height: 1.4;
+  }
+
+  time {
+    display: block;
+    margin-top: var(--ctpg-space-1);
+    font-size: var(--ctpg-meta-size);
+    color: var(--ctpg-white-58);
+  }
+}
+
+// Stand-in when a story has no featured photo
+.ctpg-footer .ctpg-footer__story .ctpg-footer__story-ph {
+  display: flex;
+  flex: 0 0 112px;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 75px;
+  background: var(--ctpg-deep);
+  border: 1px solid rgba(255, 255, 255, .1);
+
+  img {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    aspect-ratio: auto;
+  }
+}
+
+.ctpg-footer__story-label {
+  @extend %ctpg-footer-label;
+  display: block;
+  margin-bottom: var(--ctpg-space-1);
+  letter-spacing: .11em;
+  color: var(--ctpg-gold);
+}
+
+// ── 4. Brand and link columns ────────────────────────────
+.ctpg-footer__main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 5fr);
+  gap: var(--ctpg-space-7);
+  margin-top: 44px;
+  padding: 44px 0 40px;
+  border-top: 1px solid $footer-line;
+}
+
+.ctpg-footer .ctpg-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: var(--ctpg-space-4);
 
   &:hover { text-decoration: none; }
 
   img {
-    width: 55px;
-    height: 55px;
+    width: 72px;
+    height: 72px;
     object-fit: contain;
   }
 
   .ctpg-wordmark strong {
     color: var(--ctpg-white);
-    white-space: nowrap; // keep "Cruise & Theme Park" on one line in the narrow brand column
+    white-space: nowrap; // one line in the brand column
   }
 }
 
 .ctpg-footer__about {
-  max-width: 34ch;
-  margin: 0 0 var(--ctpg-space-3);
-  font-size: var(--ctpg-body-s-size);
-  line-height: var(--ctpg-body-s-lh);
+  max-width: 36ch;
+  margin: 0 0 var(--ctpg-space-4);
+  font-size: var(--ctpg-body-size);
+  line-height: var(--ctpg-body-lh);
 }
 
-.ctpg-footer__more {
-  @extend %ctpg-footer-label;
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px;
-  letter-spacing: .06em;
+.ctpg-footer__about-links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 
-  .ctpg-footer & { color: var(--ctpg-gold); }
+  a {
+    @extend %ctpg-footer-label;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 30px;
+    letter-spacing: .06em;
+
+    .ctpg-footer & { color: var(--ctpg-gold); }
+  }
 }
 
 .ctpg-social {
@@ -208,10 +399,27 @@ $footer-line: rgba(255, 255, 255, .1);
   svg { width: 18px; height: 18px; }
 }
 
+.ctpg-footer__cols {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--ctpg-space-7);
+}
+
 .ctpg-footer__col {
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    list-style: none;
+    cursor: default;
+
+    &::-webkit-details-marker { display: none; }
+  }
+
   h2 {
     @extend %ctpg-footer-label;
-    margin: 0 0 14px;
+    margin: 0;
     letter-spacing: .1em;
     color: var(--ctpg-white);
   }
@@ -225,13 +433,25 @@ $footer-line: rgba(255, 255, 255, .1);
   li a {
     display: inline-flex;
     align-items: center;
+    gap: 9px;
     min-height: 30px;
     font-size: var(--ctpg-body-s-size);
     line-height: 1.4;
   }
 }
 
-.ctpg-footer__show {
+.ctpg-footer__chevron { display: none; }
+
+// Tool links: gold icon
+.ctpg-footer__icon {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  color: var(--ctpg-gold);
+}
+
+// Newest weekly show episode
+.ctpg-footer .ctpg-footer__show {
   display: block;
   margin-top: 14px;
   padding: var(--ctpg-space-3);
@@ -240,13 +460,8 @@ $footer-line: rgba(255, 255, 255, .1);
   &:hover {
     border-color: var(--ctpg-gold);
     text-decoration: none;
-  }
 
-  span {
-    @extend %ctpg-footer-label;
-    display: block;
-    letter-spacing: .08em;
-    color: var(--ctpg-gold);
+    b { text-decoration: underline; text-underline-offset: 3px; }
   }
 
   b {
@@ -255,10 +470,50 @@ $footer-line: rgba(255, 255, 255, .1);
     color: var(--ctpg-white);
     font-weight: var(--ctpg-weight-semibold);
     font-size: var(--ctpg-body-s-size);
+    line-height: 1.4;
+  }
+
+  small {
+    display: block;
+    margin-top: var(--ctpg-space-1);
+    font-size: var(--ctpg-meta-size);
+    color: var(--ctpg-white-58);
   }
 }
 
-// ── 3. Trust notes ───────────────────────────────────────
+.ctpg-footer__show-img {
+  position: relative;
+  display: block;
+  margin-bottom: var(--ctpg-space-2);
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+}
+
+.ctpg-footer__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  color: var(--ctpg-white);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .5));
+}
+
+.ctpg-footer__show-label {
+  @extend %ctpg-footer-label;
+  display: block;
+  letter-spacing: .08em;
+  color: var(--ctpg-gold);
+}
+
+// ── 5. Trust notes ───────────────────────────────────────
 .ctpg-footer__trust {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -276,13 +531,17 @@ $footer-line: rgba(255, 255, 255, .1);
     font-weight: var(--ctpg-weight-semibold);
   }
 
+  // Links inside the notes: 24px tall targets (rule 6) without changing the line spacing
   a {
+    display: inline-block;
+    padding-block: 4px;
+    margin-block: -4px;
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 }
 
-// ── 4. Bottom bar ────────────────────────────────────────
+// ── 6. Bottom bar ────────────────────────────────────────
 .ctpg-footer__bottom {
   display: flex;
   flex-wrap: wrap;
@@ -312,13 +571,60 @@ $footer-line: rgba(255, 255, 255, .1);
   }
 }
 
+.ctpg-footer .ctpg-footer__top {
+  gap: 6px;
+  color: var(--ctpg-white-78);
+}
+
 // ── Narrower screens ─────────────────────────────────────
 @media (max-width: 1100px) {
-  .ctpg-footer__main { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .ctpg-footer__intro { grid-column: 1 / -1; }
+  .ctpg-footer__main { grid-template-columns: minmax(0, 1fr); }
+  .ctpg-footer__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--ctpg-space-7); }
+}
+
+// Tablet: brand beside its text, stories with the photo on top
+@media (min-width: #{$ctpg-bp-phone + 1px}) and (max-width: 1100px) {
+  .ctpg-footer__intro {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "brand about" "brand links";
+    column-gap: var(--ctpg-space-8);
+    align-items: start;
+  }
+
+  .ctpg-footer .ctpg-footer__brand { grid-area: brand; }
+  .ctpg-footer__about { grid-area: about; max-width: 60ch; }
+  .ctpg-footer__about-links { grid-area: links; display: flex; gap: var(--ctpg-space-6); }
+
+  .ctpg-footer .ctpg-footer__story {
+    flex-direction: column;
+
+    > img,
+    .ctpg-footer__story-ph {
+      flex: none;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 2;
+    }
+  }
+}
+
+@media (max-width: $ctpg-bp-tablet) {
+  .ctpg-footer__plan {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--ctpg-space-6);
+  }
 }
 
 @media (max-width: $ctpg-bp-phone) {
+  .ctpg-footer__plan { margin-top: var(--ctpg-space-7); }
+
+  .ctpg-footer__plan-actions {
+    flex-direction: column;
+
+    .ctpg-footer__btn { width: 100%; }
+  }
+
   .ctpg-footer__news {
     grid-template-columns: 1fr;
     gap: var(--ctpg-space-5);
@@ -332,9 +638,43 @@ $footer-line: rgba(255, 255, 255, .1);
 
   .ctpg-footer__form button { min-height: 47px; }
 
-  .ctpg-footer__main {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px 20px;
+  .ctpg-footer__main { margin-top: var(--ctpg-space-8); padding-top: var(--ctpg-space-7); }
+
+  .ctpg-footer__stories {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--ctpg-space-4);
+  }
+
+  // Link columns fold into tap-to-open sections
+  .ctpg-footer__cols {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    border-top: 1px solid $footer-line;
+  }
+
+  .ctpg-footer__col {
+    border-bottom: 1px solid $footer-line;
+
+    summary {
+      min-height: 52px;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    ul, .ctpg-footer__show { margin-bottom: var(--ctpg-space-4); }
+
+    li a { min-height: 40px; }
+  }
+
+  .ctpg-footer__chevron {
+    display: block;
+    width: 18px;
+    height: 18px;
+    color: var(--ctpg-white-78);
+    transform: rotate(90deg);
+    transition: transform var(--ctpg-motion-fast);
+
+    [open] > summary > & { transform: rotate(-90deg); }
   }
 
   .ctpg-footer__trust {
