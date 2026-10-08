@@ -4,37 +4,13 @@
 // 10-design-system.md section 6. Tokens only, like everything else.
 // =========================================================
 
-// -> 6.2 header stripe (5.1)
+// -> 6.20 footer stripe (5.1); the header draws its own (6.2)
 .ctpg-stripe {
   height: var(--ctpg-stripe-height);
   background: var(--ctpg-stripe);
 }
 
-// -> 6.1 top bar
-.ctpg-topstrip a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 24px; // rule 6: links in a fixed-height bar
-  color: inherit;
-  text-decoration: none;
-
-  &:hover,
-  &:focus-visible { text-decoration: underline; }
-}
-
-// -> 6.2 main nav
-.ctpg-navrow.has-background { padding-block: 0; }
-.ctpg-mainnav .wp-block-navigation-item__content:hover,
-.ctpg-mainnav .current-menu-item > .wp-block-navigation-item__content {
-  color: var(--ctpg-coral-text);
-}
-.ctpg-mainnav .wp-block-navigation__responsive-container-open svg {
-  width: 28px;
-  height: 28px;
-}
-
-// Search fields (both): one outline on the box, not the input
-.ctpg-header-search,
+// Hero search field: one outline on the box, not the input
 .ctpg-hero-search {
   .wp-block-search__inside-wrapper {
     background: var(--ctpg-white);
@@ -59,24 +35,6 @@
     margin: 0;
     border-radius: var(--ctpg-radius-0);
   }
-}
-
-// -> 6.2 header Search (decision D1)
-.ctpg-header-search {
-  flex: 1 1 280px;
-  max-width: 520px;
-  min-width: 0;
-
-  .wp-block-search__inside-wrapper {
-    width: 100% !important; // WordPress writes a fixed width inline
-    max-width: 100%;
-    padding: 3px;
-  }
-  .wp-block-search__input {
-    padding: 0 var(--ctpg-space-4);
-    min-height: 44px;
-  }
-  .wp-block-search__button { min-height: 44px; }
 }
 
 // -> 6.4 search box

@@ -1,6 +1,6 @@
 {
   "name": "ctpg-media-server",
-  "version": "2.1.7",
+  "version": "2.2.2",
   "description": "Cruise & Theme Park Guide media asset server and Bootstrap 5 design system.",
   "scripts": {
     "clean": "rimraf dist",
@@ -12,7 +12,7 @@
     "build:hub": "sass src/scss/ctpg-hub.scss:dist/css/ctpg-hub.min.css src/scss/ctpg-hub-login.scss:dist/css/ctpg-hub-login.min.css src/scss/ctpg-hub-status.scss:dist/css/ctpg-hub-status.min.css --style=compressed --quiet-deps --no-source-map",
     "copy:icons": "copyfiles -f node_modules/bootstrap-icons/font/bootstrap-icons.min.css dist/icons && copyfiles -f \"node_modules/bootstrap-icons/font/fonts/*\" dist/icons/fonts",
     "build:components": "sass src/scss/components.scss dist/css/ctpg-components.min.css --style=compressed --quiet-deps --no-source-map",
-    "build:js": "terser src/js/main.js -o dist/js/ctpg-main.min.js -c -m",
+    "build:js": "terser src/js/main.js -o dist/js/ctpg-main.min.js -c -m && terser src/js/site.js -o dist/js/ctpg-site.min.js -c -m",
     "release-vars": "node scripts/write-release-vars.js",
     "build": "npm-run-all clean release-vars copy:assets copy:icons build:site build:wp build:hub build:bootstrap build:css build:components build:js",
     "watch:css": "sass --watch src/scss/bootstrap.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps",

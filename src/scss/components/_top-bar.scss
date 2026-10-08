@@ -1,0 +1,84 @@
+// =========================================================
+// 6.1 Top bar. 34px, coral, deep text (3.3). Left: Latest badge and the newest
+// headline. Right: utility links. Phones: links hidden, left side centred.
+// Hover: underline (the mock's 72% fade fails contrast). Focus: deep on coral.
+// =========================================================
+
+.ctpg-topbar {
+  --ctpg-focus-color: var(--ctpg-deep);
+  background: var(--ctpg-coral);
+  color: var(--ctpg-deep);
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+.ctpg-topbar__inner {
+  min-height: var(--ctpg-topbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.ctpg-topbar__latest {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.ctpg-topbar__badge {
+  flex: 0 0 auto;
+  padding: 4px 7px;
+  background: var(--ctpg-gold);
+  color: var(--ctpg-navy);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: 1.2;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.ctpg-topbar__latest a {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 24px;
+  font-family: var(--ctpg-font-sans);
+  font-weight: var(--ctpg-weight-semibold);
+  font-size: var(--ctpg-meta-size);
+}
+
+.ctpg-topbar__links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label);
+  font-size: var(--ctpg-nav-size);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .ctpg-topbar__inner { justify-content: center; }
+  .ctpg-topbar__latest { max-width: 100%; }
+  .ctpg-topbar__links { display: none; }
+}

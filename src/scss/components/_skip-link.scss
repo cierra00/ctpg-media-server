@@ -1,0 +1,50 @@
+// =========================================================
+// 6.0 Skip link. WordPress writes the link ("Skip to main content", text set by
+// the theme) as the first thing in <body> and points it at <main>. This styles it:
+// navy, white Inter 600 16px (15px phone), hidden above the screen until focused.
+// =========================================================
+
+// WordPress's own skip-link CSS sets position:absolute!important, so fixed needs it too.
+html a.skip-link.screen-reader-text {
+  position: fixed !important;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 11px 14px;
+  overflow: visible;
+  clip: auto;
+  clip-path: none;
+  background: var(--ctpg-navy);
+  color: var(--ctpg-white);
+  font-family: var(--ctpg-font-sans);
+  font-weight: var(--ctpg-weight-semibold);
+  font-size: 16px;
+  line-height: 1.4;
+  text-decoration: none;
+  transform: translateY(-150%);
+  transition: transform var(--ctpg-motion-fast);
+
+  // WordPress's focus rule (.skip-link.screen-reader-text:focus) sets its own grey box,
+  // position and padding, so the focused state repeats ours at a higher weight.
+  &:focus {
+    top: 10px;
+    left: 10px;
+    padding: 11px 14px;
+    background: var(--ctpg-navy);
+    color: var(--ctpg-white);
+    font-size: 16px;
+    line-height: 1.4;
+    transform: none;
+    clip-path: none;
+    outline: var(--ctpg-focus-width) solid var(--ctpg-gold);
+    outline-offset: var(--ctpg-focus-offset);
+  }
+
+  @media (max-width: $ctpg-bp-phone) {
+    &,
+    &:focus { font-size: 15px; }
+  }
+}

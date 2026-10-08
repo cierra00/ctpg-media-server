@@ -9,3 +9,8 @@
 @import "brand/fonts";
 @import "brand/custom-properties";
 @import "core/base";
+
+// Components (10-design-system.md section 6)
+@import "components/skip-link";
+@import "components/top-bar";
+@import "components/header";
