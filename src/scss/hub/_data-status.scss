@@ -86,6 +86,8 @@ th {
 }
 td.err {
   white-space: normal;
+  overflow-wrap: anywhere; // long error addresses wrap instead of widening the table (fixed Oct 8)
+  min-width: 200px;
   color: var(--ctpg-status-busy-text);
   font-size: 12px;
   max-width: 280px;

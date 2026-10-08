@@ -24,6 +24,7 @@ $body-secondary-color: ctpg-color("slate");
 $border-color:     ctpg-color("line");
 $link-color:       ctpg-color("link");
 $link-hover-color: ctpg-color("coral-text");
+$code-color:       ctpg-color("coral-text");   // was Bootstrap's pink #d63384 (not a token)
 
 // Breakpoints: the site's max-width breakpoints are 380, 680 and 960
 // (10-design-system.md 5.1), so Bootstrap's min-width tiers start one
