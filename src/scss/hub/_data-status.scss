@@ -84,6 +84,11 @@ th {
   font-weight: 600;
   background: var(--ctpg-paper);
 }
+// The name column wraps too, so the "Sync now" column always fits (fixed Oct 8)
+td:first-child {
+  white-space: normal;
+  min-width: 180px;
+}
 td.err {
   white-space: normal;
   overflow-wrap: anywhere; // long error addresses wrap instead of widening the table (fixed Oct 8)
