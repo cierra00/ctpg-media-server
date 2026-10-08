@@ -1,0 +1,150 @@
+// =========================================================
+// Studio Hub: data status page
+// Moved from the Hub's inline <style> on Oct 8, 2026 by
+// design/tools/convert_hub_css.py. Colors, fonts and the 12px minimum now
+// come from the design system (10-design-system.md section 12). Layout
+// values (sizes, spacing, corners) are carried over as they were.
+// =========================================================
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: var(--ctpg-font-sans);
+  background: var(--ctpg-mist);
+  color: var(--ctpg-ink);
+}
+header {
+  background: var(--ctpg-deep);
+  color: var(--ctpg-white);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+header a {
+  color: var(--ctpg-white-80);
+  text-decoration: none;
+  font-size: 14px;
+}
+header h1 {
+  font-size: 18px;
+  margin: 0;
+  font-weight: 600;
+}
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+.note {
+  color: var(--ctpg-slate);
+  font-size: 14px;
+  margin: 0 0 18px;
+}
+section {
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-line);
+  border-radius: 12px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+section > h2 {
+  font-size: 15px;
+  margin: 0;
+  padding: 14px 16px 4px;
+}
+section > p {
+  margin: 0;
+  padding: 0 16px 12px;
+  color: var(--ctpg-slate);
+  font-size: 13px;
+}
+.tablewrap {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th, td {
+  text-align: left;
+  padding: 10px 16px;
+  border-top: 1px solid var(--ctpg-line);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+th {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--ctpg-slate);
+  font-weight: 600;
+  background: var(--ctpg-paper);
+}
+td.err {
+  white-space: normal;
+  color: var(--ctpg-status-busy-text);
+  font-size: 12px;
+  max-width: 280px;
+}
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.ok {
+  background: var(--ctpg-status-quiet-bg);
+  color: var(--ctpg-status-quiet-text);
+}
+.warn {
+  background: var(--ctpg-status-moderate-bg);
+  color: var(--ctpg-status-moderate-text);
+}
+.bad {
+  background: var(--ctpg-status-busy-bg);
+  color: var(--ctpg-status-busy-text);
+}
+.run {
+  background: var(--ctpg-hub-info-bg);
+  color: var(--ctpg-link);
+}
+.quiet {
+  background: var(--ctpg-mist);
+  color: var(--ctpg-slate);
+}
+button {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--ctpg-link);
+  color: var(--ctpg-link);
+  background: var(--ctpg-white);
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  min-height: 34px;
+}
+button:hover {
+  background: var(--ctpg-link);
+  color: var(--ctpg-white);
+}
+button:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  background: var(--ctpg-white);
+  color: var(--ctpg-link);
+}
+#msg {
+  min-height: 20px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.sub {
+  color: var(--ctpg-slate);
+  font-size: 12px;
+}

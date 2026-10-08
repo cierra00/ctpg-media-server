@@ -1,0 +1,183 @@
+// =========================================================
+// Studio Hub: sign-in page
+// Moved from the Hub's inline <style> on Oct 8, 2026 by
+// design/tools/convert_hub_css.py. Colors, fonts and the 12px minimum now
+// come from the design system (10-design-system.md section 12). Layout
+// values (sizes, spacing, corners) are carried over as they were.
+// =========================================================
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+body {
+  font-family: var(--ctpg-font-sans);
+  background: var(--ctpg-mist);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.login-card {
+  background: var(--ctpg-white);
+  border-radius: 1rem;
+  box-shadow: var(--ctpg-shadow-panel);
+  width: 100%;
+  max-width: 400px;
+  padding: 2.25rem 2rem;
+}
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: 1.75rem;
+}
+.login-logo img {
+  height: 40px;
+}
+.login-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+.login-logo-title {
+  font-size: 1.15rem;
+  font-weight: var(--ctpg-weight-semibold);
+  color: var(--ctpg-deep);
+  line-height: 1.2;
+}
+.login-logo-sub {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ctpg-slate);
+}
+.login-heading {
+  font-size: 1.3rem;
+  font-weight: var(--ctpg-weight-semibold);
+  color: var(--ctpg-deep);
+  margin: 0 0 .25rem;
+}
+.login-sub {
+  font-size: .85rem;
+  color: var(--ctpg-slate);
+  margin: 0 0 1.75rem;
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-label {
+  display: block;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--ctpg-ink);
+  margin-bottom: .35rem;
+}
+.form-input {
+  width: 100%;
+  padding: .6rem .875rem;
+  border: 1.5px solid var(--ctpg-line);
+  border-radius: .5rem;
+  font-size: .9rem;
+  font-family: inherit;
+  color: var(--ctpg-ink);
+  background: var(--ctpg-white);
+  transition: border-color .15s;
+  outline: none;
+}
+.form-input:focus {
+  border-color: var(--ctpg-link);
+}
+.form-input.error {
+  border-color: var(--ctpg-status-busy-text);
+}
+.btn-primary {
+  width: 100%;
+  padding: .7rem 1rem;
+  background: var(--ctpg-deep);
+  color: var(--ctpg-white);
+  border: none;
+  border-radius: .5rem;
+  font-size: .9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  margin-top: 1.25rem;
+  transition: background .15s;
+}
+.btn-primary:hover {
+  background: var(--ctpg-link);
+}
+.btn-primary:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.alert-error {
+  background: var(--ctpg-status-busy-bg);
+  border: 1px solid var(--ctpg-hub-danger-line);
+  color: var(--ctpg-status-busy-text);
+  border-radius: .5rem;
+  padding: .65rem .875rem;
+  font-size: .85rem;
+  margin-bottom: 1rem;
+  display: none;
+}
+.alert-error.visible {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+}
+.spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--ctpg-white-58);
+  border-top-color: var(--ctpg-white);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  display: none;
+}
+.btn-primary.loading .spinner {
+  display: block;
+}
+.btn-primary.loading .btn-label {
+  display: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.totp-section {
+  display: none;
+}
+.totp-section.visible {
+  display: block;
+}
+.totp-hint {
+  font-size: .82rem;
+  color: var(--ctpg-slate);
+  margin-bottom: 1rem;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .82rem;
+  color: var(--ctpg-link);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  margin-bottom: 1.25rem;
+}
+.back-link:hover {
+  text-decoration: underline;
+}

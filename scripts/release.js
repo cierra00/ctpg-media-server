@@ -2,7 +2,7 @@
 /*
   Versioned release upload for the CTPG design system (11-media-rules.md section 3.1).
 
-  Uploads the built CSS, JS and fonts into  v/<version>/...  on the ctpg-media R2 bucket,
+  Uploads the built CSS, JS, fonts and icons into  v/<version>/...  on the ctpg-media R2 bucket,
   where <version> is "version" in package.json. A release folder is never overwritten:
   if any file for this version already exists, nothing is uploaded.
 
@@ -117,7 +117,7 @@ async function main() {
 
   const plan = [];
   // Versioned design system files
-  for (const sub of ["css", "js", "fonts"]) {
+  for (const sub of ["css", "js", "fonts", "icons"]) {
     for (const f of walk(path.join(distDir, sub))) {
       if (f.endsWith(".map")) continue;
       plan.push({ file: f, key: prefix + rel(f), cache: IMMUTABLE, kind: "release" });

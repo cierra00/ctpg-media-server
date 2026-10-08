@@ -1,6 +1,6 @@
 {
   "name": "ctpg-media-server",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "Cruise & Theme Park Guide media asset server and Bootstrap 5 design system.",
   "scripts": {
     "clean": "rimraf dist",
@@ -9,10 +9,12 @@
     "build:css": "sass src/scss/main.scss dist/css/ctpg-main.min.css --style=compressed --quiet-deps --no-source-map",
     "build:site": "sass src/scss/ctpg.scss dist/css/ctpg.min.css --style=compressed --quiet-deps --no-source-map",
     "build:wp": "sass src/scss/ctpg-wp.scss dist/css/ctpg-wp.min.css --style=compressed --quiet-deps --no-source-map",
+    "build:hub": "sass src/scss/ctpg-hub.scss:dist/css/ctpg-hub.min.css src/scss/ctpg-hub-login.scss:dist/css/ctpg-hub-login.min.css src/scss/ctpg-hub-status.scss:dist/css/ctpg-hub-status.min.css --style=compressed --quiet-deps --no-source-map",
+    "copy:icons": "copyfiles -f node_modules/bootstrap-icons/font/bootstrap-icons.min.css dist/icons && copyfiles -f \"node_modules/bootstrap-icons/font/fonts/*\" dist/icons/fonts",
     "build:components": "sass src/scss/components.scss dist/css/ctpg-components.min.css --style=compressed --quiet-deps --no-source-map",
     "build:js": "terser src/js/main.js -o dist/js/ctpg-main.min.js -c -m",
     "release-vars": "node scripts/write-release-vars.js",
-    "build": "npm-run-all clean release-vars copy:assets build:site build:wp build:bootstrap build:css build:components build:js",
+    "build": "npm-run-all clean release-vars copy:assets copy:icons build:site build:wp build:hub build:bootstrap build:css build:components build:js",
     "watch:css": "sass --watch src/scss/bootstrap.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps",
     "deploy:r2": "node -e \"console.error('deploy:r2 is retired: it overwrote the live files the Hub uses. Use npm run release (versioned, 11-media-rules.md 3.1).');process.exit(1)\"",
     "release": "node scripts/release.js",
@@ -21,6 +23,7 @@
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.1041.0",
     "bootstrap": "5.3.8",
+    "bootstrap-icons": "^1.11.3",
     "copyfiles": "latest",
     "mime-types": "^3.0.2",
     "npm-run-all": "latest",

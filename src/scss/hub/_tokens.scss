@@ -1,0 +1,25 @@
+// =========================================================
+// Studio Hub tokens (10-design-system.md section 12). Admin-only values
+// built from the site palette; written as --ctpg-hub-* custom properties.
+// =========================================================
+
+$ctpg-hub: (
+  "hub-info-bg":      #e0eff7,                  // blue at 12% on white, solid (link text 4.91:1)
+  "hub-navy-bg":      #ebecee,                  // navy at 10% on white, solid (navy text 8.76:1)
+  "hub-danger-line":  rgba(184, 46, 46, .35),   // borders around error boxes
+  "hub-divider-dark": rgba(255, 255, 255, .08), // dividers in the dark sidebar
+  "hub-nav-hover":    rgba(255, 255, 255, .07), // sidebar link hover
+  "hub-nav-active":   rgba(0, 119, 190, .25),   // sidebar link, current page (white text 13.5:1)
+  "hub-backdrop":     rgba(16, 26, 36, .55),    // behind modals (night)
+);
+
+:root {
+  @each $name, $value in $ctpg-hub {
+    --ctpg-#{$name}: #{$value};
+  }
+}
+
+// The Hub's headings stay in the body font (as before the move)
+h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+}
