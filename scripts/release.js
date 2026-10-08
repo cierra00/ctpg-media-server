@@ -8,7 +8,8 @@
 
   Also uploads:
     - public images (images/...) that are NOT already in the bucket (never overwrites an image)
-    - the catalogue pages (system.html, home-sample.html) with a short cache
+    - the catalogue pages (system.html, home-sample.html) with a short cache,
+      only with --catalogue (they live at the bucket root, outside the release)
 
   Usage:
     npm run build && npm run release            (fails if the version already exists)
@@ -128,8 +129,9 @@ async function main() {
     if (await exists(key)) continue;
     plan.push({ file: f, key, cache: IMMUTABLE, kind: "new image" });
   }
-  // Catalogue pages: short cache, may be replaced
-  for (const page of ["system.html", "home-sample.html"]) {
+  // Catalogue pages: short cache, replaced only when asked (--catalogue),
+  // because they sit at the bucket root outside the release folder.
+  for (const page of args.has("--catalogue") ? ["system.html", "home-sample.html"] : []) {
     const f = path.join(distDir, page);
     if (fs.existsSync(f)) plan.push({ file: f, key: page, cache: SHORT, kind: "catalogue" });
   }

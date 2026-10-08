@@ -1,0 +1,143 @@
+// =========================================================
+// INTERIM looks for the current staging theme (ctpg-theme 0.1.x).
+// Each block is removed when the component named beside it is built from
+// 10-design-system.md section 6. Tokens only, like everything else.
+// =========================================================
+
+// -> 6.2 header stripe (5.1)
+.ctpg-stripe {
+  height: var(--ctpg-stripe-height);
+  background: var(--ctpg-stripe);
+}
+
+// -> 6.1 top bar
+.ctpg-topstrip a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible { text-decoration: underline; }
+}
+
+// -> 6.2 main nav
+.ctpg-navrow.has-background { padding-block: 0; }
+.ctpg-mainnav .wp-block-navigation-item__content:hover,
+.ctpg-mainnav .current-menu-item > .wp-block-navigation-item__content {
+  color: var(--ctpg-coral-text);
+}
+.ctpg-mainnav .wp-block-navigation__responsive-container-open svg {
+  width: 28px;
+  height: 28px;
+}
+
+// Search fields (both): one outline on the box, not the input
+.ctpg-header-search,
+.ctpg-hero-search {
+  .wp-block-search__inside-wrapper {
+    background: var(--ctpg-white);
+    border: 1px solid var(--ctpg-field-line);
+    border-radius: var(--ctpg-radius-0);
+  }
+  .wp-block-search__inside-wrapper:focus-within {
+    outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color);
+    outline-offset: var(--ctpg-focus-offset);
+  }
+  .wp-block-search__input {
+    border: 0;
+    background: transparent;
+    color: var(--ctpg-ink);
+    font-size: var(--ctpg-field-font-size);
+    min-width: 0;
+
+    &:focus,
+    &:focus-visible { outline: 0; }
+  }
+  .wp-block-search__button {
+    margin: 0;
+    border-radius: var(--ctpg-radius-0);
+  }
+}
+
+// -> 6.2 header Search (decision D1)
+.ctpg-header-search {
+  flex: 1 1 280px;
+  max-width: 520px;
+  min-width: 0;
+
+  .wp-block-search__inside-wrapper {
+    width: 100% !important; // WordPress writes a fixed width inline
+    max-width: 100%;
+    padding: 3px;
+  }
+  .wp-block-search__input {
+    padding: 0 var(--ctpg-space-4);
+    min-height: 44px;
+  }
+  .wp-block-search__button { min-height: 44px; }
+}
+
+// -> 6.4 search box
+.ctpg-hero-search {
+  .wp-block-search__inside-wrapper {
+    border: 0;
+    border-top: var(--ctpg-stripe-blend-height) solid transparent;
+    border-image: var(--ctpg-stripe-blend) 1;
+    padding: 18px 20px;
+    gap: 9px;
+    box-shadow: var(--ctpg-shadow-search);
+  }
+  .wp-block-search__input {
+    min-height: 62px;
+    padding: 0 18px;
+    border: 1px solid var(--ctpg-field-line);
+  }
+  .wp-block-search__button {
+    min-width: 140px;
+    min-height: 62px;
+  }
+
+  @media (max-width: $ctpg-bp-phone) {
+    .wp-block-search__inside-wrapper { padding: 16px; }
+    .wp-block-search__input { min-height: 54px; padding: 0 14px; }
+  }
+}
+
+// -> 6.5 search chips
+.ctpg-chips .wp-block-button__link {
+  background: var(--ctpg-white);
+  color: var(--ctpg-slate);
+  border: 1px solid var(--ctpg-line);
+  border-radius: var(--ctpg-radius-chip);
+  font-family: var(--ctpg-font-sans);
+  font-weight: var(--ctpg-weight-regular);
+  font-size: var(--ctpg-body-xs-size);
+  text-transform: none;
+  padding: 8px 11px;
+  min-height: 24px;
+
+  &:hover {
+    color: var(--ctpg-coral-text);
+    border-color: var(--ctpg-coral-text);
+    background: var(--ctpg-white);
+  }
+
+  @media (pointer: coarse) { min-height: 44px; }
+}
+
+// -> 6.13 story card
+.ctpg-card { height: 100%; }
+.ctpg-card .wp-block-post-featured-image img {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: var(--ctpg-radius-0);
+}
+
+// -> eyebrow (09 plan 2.2)
+.ctpg-eyebrow {
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: 1.45;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
