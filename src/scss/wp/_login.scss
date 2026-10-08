@@ -1,0 +1,518 @@
+// =========================================================
+// WordPress sign-in page (wp-login.php): ctpg-login.min.css
+// Loaded by ctpg-theme (inc/Admin/Login.php) after WordPress's own login.css.
+// Matches the mock (Cierra, Oct 8): the page is one panel built like the mock's
+// "Ask the guide" panel (index.css .ask-widget): a deep copy side with the header's
+// logo and wordmark, eyebrow and Playfair title, and a white form side with the
+// mock's labels, fields and navy button (coral on hover). The header's four-colour
+// stripe runs across the top. Password form first, Google below.
+// Tokens only, except Google's own button colours. 10-design-system.md section 6.21.
+// =========================================================
+
+body.login.ctpg-login {
+  min-height: 100vh;
+  margin: 0;
+  padding: var(--ctpg-space-9) var(--ctpg-frame-gutter);
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 400px) minmax(0, 480px);
+  justify-content: center;
+  align-content: center;
+  background: var(--ctpg-paper);
+  color: var(--ctpg-ink);
+  font-family: var(--ctpg-font-sans);
+  font-size: var(--ctpg-body-s-size);
+  line-height: var(--ctpg-body-s-lh);
+
+  // The header stripe (mock .header::after)
+  &::before {
+    content: "";
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: var(--ctpg-stripe-height);
+    background: var(--ctpg-stripe);
+  }
+}
+
+// ── Copy side (mock .ask-widget-copy) ────────────────────
+.ctpg-login__brand {
+  --ctpg-focus-color: var(--ctpg-gold);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 42px;
+  background: var(--ctpg-ask-shade), var(--ctpg-night);
+  color: var(--ctpg-white);
+  box-shadow: var(--ctpg-shadow-card);
+}
+
+// Logo and two-line wordmark (mock .brand, footer colours on dark)
+.ctpg-login__lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  margin-bottom: var(--ctpg-space-8);
+  color: var(--ctpg-white);
+  text-decoration: none;
+}
+
+.ctpg-login__logo {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+}
+
+.ctpg-login__wordmark {
+  display: flex;
+  flex-direction: column;
+
+  strong {
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label);
+    font-size: var(--ctpg-wordmark-line1-size);
+    line-height: var(--ctpg-wordmark-line1-lh);
+    text-transform: uppercase;
+    color: var(--ctpg-white);
+  }
+
+  small {
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: var(--ctpg-wordmark-guide-size);
+    letter-spacing: var(--ctpg-wordmark-guide-ls);
+    text-transform: uppercase;
+    color: var(--ctpg-coral);
+  }
+}
+
+// Mock .eyebrow
+.ctpg-login__eyebrow {
+  margin: 0;
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: var(--ctpg-label-lh);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--ctpg-gold);
+}
+
+// Mock .ask-widget-copy h3 (body.login prefix beats WordPress's centred .login h1)
+body.login.ctpg-login .ctpg-login__title {
+  text-align: left;
+  margin: 18px 0 10px;
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: var(--ctpg-title-ask-size);
+  line-height: var(--ctpg-title-ask-lh);
+  color: var(--ctpg-white);
+}
+
+.ctpg-login__text {
+  margin: 0;
+  font-size: var(--ctpg-body-s-size);
+  line-height: 1.7;
+  color: var(--ctpg-white-78);
+}
+
+// ── Form side (mock .ask-widget-form) ────────────────────
+body.login.ctpg-login #login {
+  width: auto;
+  margin: 0;
+  padding: 42px;
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-card-line);
+  border-left: 0;
+  box-shadow: var(--ctpg-shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// The copy side carries the logo, the link home and the page heading.
+body.login.ctpg-login #login h1 {
+  display: none;
+}
+
+body.login.ctpg-login form {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+// Password form first, then Remember me and Log In, then Google (Cierra, Oct 8).
+body.login.ctpg-login #loginform {
+  display: flex;
+  flex-direction: column;
+
+  > p:first-of-type,
+  .user-pass-wrap { margin: 0 0 var(--ctpg-space-5); }
+  .forgetmenot    { order: 3; margin: 0 0 var(--ctpg-space-5); }
+  .submit         { order: 4; }
+  .ctpg-gsi-wrap  { order: 5; }
+}
+
+// Mock .ask-widget-form > label
+body.login.ctpg-login label {
+  display: block;
+  margin: 0 0 var(--ctpg-space-2);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: var(--ctpg-label-lh);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ctpg-navy);
+}
+
+// Mock .ask-widget input (field-line border for 3:1, focus outline per 7.2)
+body.login.ctpg-login form .input,
+body.login.ctpg-login input[type="text"],
+body.login.ctpg-login input[type="password"],
+body.login.ctpg-login input[type="email"] {
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: 0 14px;
+  font-family: var(--ctpg-font-sans);
+  font-size: var(--ctpg-field-font-size);
+  color: var(--ctpg-ink);
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-field-line);
+  border-radius: var(--ctpg-radius-0);
+  box-shadow: none;
+
+  &:focus {
+    border-color: var(--ctpg-deep);
+    outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color);
+    outline-offset: 0;
+    box-shadow: none;
+  }
+}
+
+// Show-password button inside the password field
+body.login.ctpg-login .wp-pwd {
+  position: relative;
+  margin: 0;
+}
+
+body.login.ctpg-login .button.wp-hide-pw {
+  top: 0;
+  right: 0;
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  min-height: 48px;
+  color: var(--ctpg-slate);
+  border-radius: var(--ctpg-radius-0);
+
+  &:focus {
+    border-color: transparent;
+    outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color);
+    outline-offset: calc(-1 * var(--ctpg-focus-width));
+    box-shadow: none;
+  }
+
+  .dashicons {
+    top: 0;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+body.login.ctpg-login .forgetmenot {
+  float: none;
+  display: flex;
+  align-items: center;
+  min-height: 24px;
+  margin: 0 0 var(--ctpg-space-5);
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    font-family: var(--ctpg-font-sans);
+    font-weight: var(--ctpg-weight-regular);
+    font-size: var(--ctpg-body-s-size);
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ctpg-ink);
+  }
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 0 var(--ctpg-space-2) 0 0;
+    border: 1px solid var(--ctpg-field-line);
+    border-radius: var(--ctpg-radius-0);
+    box-shadow: none;
+
+    &:checked::before {
+      width: 24px;
+      height: 24px;
+      margin: -3px 0 0 -4px;
+    }
+
+    &:focus {
+      outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color);
+      outline-offset: 2px;
+      box-shadow: none;
+    }
+  }
+}
+
+body.login.ctpg-login .submit {
+  margin: 0;
+  padding: 0;
+}
+
+// Mock .ask-widget button: navy, white Montserrat 800 capitals, coral on hover
+body.login.ctpg-login .button-primary,
+body.login.ctpg-login #wp-submit {
+  float: none;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 17px;
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-button-size);
+  line-height: 1;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-shadow: none;
+  color: var(--ctpg-white);
+  background: var(--ctpg-navy);
+  border: 0;
+  border-radius: var(--ctpg-radius-0);
+  box-shadow: none;
+  transition: background var(--ctpg-motion-fast), color var(--ctpg-motion-fast);
+
+  &:hover {
+    color: var(--ctpg-deep);
+    background: var(--ctpg-coral);
+  }
+
+  &:focus {
+    outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color);
+    outline-offset: var(--ctpg-focus-offset);
+    box-shadow: none;
+  }
+}
+
+body.login.ctpg-login #lostpasswordform .submit,
+body.login.ctpg-login #resetpassform .submit {
+  margin-top: var(--ctpg-space-5);
+}
+
+body.login.ctpg-login .reset-pass-submit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ctpg-space-3);
+
+  .button {
+    float: none;
+    width: 100%;
+    min-height: 48px;
+    border-radius: var(--ctpg-radius-0);
+  }
+}
+
+body.login.ctpg-login .description,
+body.login.ctpg-login .indicator-hint {
+  color: var(--ctpg-slate);
+  font-size: var(--ctpg-body-xs-size);
+}
+
+// ── Sign in with Google ──────────────────────────────────
+// Google's standard light button (Sign in with Google branding guidelines):
+// white, #747775 outline, #1f1f1f text, the four-colour G. These three colours
+// are Google's, not CTPG tokens, and stay exactly as Google publishes them.
+.ctpg-gsi-wrap {
+  margin: var(--ctpg-space-5) 0 0;
+}
+
+.ctpg-gsi-or {
+  display: flex;
+  align-items: center;
+  gap: var(--ctpg-space-3);
+  margin: 0 0 var(--ctpg-space-5);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ctpg-slate);
+
+  &::before,
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--ctpg-line);
+  }
+}
+
+.ctpg-gsi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 var(--ctpg-space-3);
+  background: #fff;
+  border: 1px solid #747775;
+  border-radius: 4px;
+  color: #1f1f1f;
+  font: 500 14px/20px Roboto, var(--ctpg-font-sans);
+  letter-spacing: .25px;
+  text-decoration: none;
+  transition: background var(--ctpg-motion-fast), box-shadow var(--ctpg-motion-fast);
+
+  &:hover {
+    background: #f8f9fa;
+    color: #1f1f1f;
+    box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+  }
+
+  &:focus,
+  &:focus-visible {
+    color: #1f1f1f;
+    outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color);
+    outline-offset: var(--ctpg-focus-offset);
+    box-shadow: none;
+  }
+
+  svg {
+    flex: 0 0 18px;
+  }
+}
+
+// ── Messages ─────────────────────────────────────────────
+body.login.ctpg-login #login_error,
+body.login.ctpg-login .message,
+body.login.ctpg-login .notice,
+body.login.ctpg-login .success {
+  margin: 0 0 var(--ctpg-space-5);
+  padding: var(--ctpg-space-3) var(--ctpg-space-4);
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-card-line);
+  border-left: 4px solid var(--ctpg-link);
+  border-radius: var(--ctpg-radius-0);
+  box-shadow: none;
+  color: var(--ctpg-ink);
+}
+
+body.login.ctpg-login #login_error,
+body.login.ctpg-login .notice-error {
+  border-left-color: var(--ctpg-coral-text);
+}
+
+body.login.ctpg-login .success,
+body.login.ctpg-login .notice-success {
+  border-left-color: var(--ctpg-status-quiet-text);
+}
+
+// ── Links under the form ─────────────────────────────────
+body.login.ctpg-login #nav,
+body.login.ctpg-login #backtoblog,
+body.login.ctpg-login .privacy-policy-page-link {
+  margin: var(--ctpg-space-4) 0 0;
+  padding: 0;
+  text-align: left;
+  font-size: var(--ctpg-body-s-size);
+}
+
+body.login.ctpg-login #nav {
+  margin-top: var(--ctpg-space-6);
+  padding-top: var(--ctpg-space-5);
+  border-top: 1px solid var(--ctpg-line);
+}
+
+body.login.ctpg-login #nav a,
+body.login.ctpg-login #backtoblog a,
+body.login.ctpg-login .privacy-policy-page-link a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--ctpg-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: var(--ctpg-deep);
+  }
+
+  &:focus {
+    color: var(--ctpg-deep);
+    outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+}
+
+body.login.ctpg-login .language-switcher {
+  grid-column: 1 / -1;
+  margin-top: var(--ctpg-space-6);
+}
+
+// ── Tablet and phone: copy on top, form below ─────────────
+@media (max-width: $ctpg-bp-tablet) {
+  body.login.ctpg-login {
+    grid-template-columns: minmax(0, 480px);
+    align-content: start;
+    padding-top: var(--ctpg-space-8);
+  }
+
+  .ctpg-login__brand {
+    padding: 28px;
+  }
+
+  .ctpg-login__lockup {
+    margin-bottom: var(--ctpg-space-6);
+  }
+
+  body.login.ctpg-login .ctpg-login__title {
+    margin: 12px 0 8px;
+  }
+
+  body.login.ctpg-login #login {
+    padding: 28px;
+    border-left: 1px solid var(--ctpg-card-line);
+    border-top: 0;
+  }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  body.login.ctpg-login {
+    padding: var(--ctpg-space-6) var(--ctpg-frame-gutter) var(--ctpg-space-8);
+  }
+
+  .ctpg-login__brand,
+  body.login.ctpg-login #login {
+    padding: 24px 20px;
+  }
+}
+
+// The small sign-in box WordPress shows when a session runs out: form only.
+body.login.ctpg-login.interim-login {
+  display: block;
+  padding: 0;
+  background: var(--ctpg-white);
+
+  &::before,
+  .ctpg-login__brand {
+    display: none;
+  }
+
+  #login {
+    border: 0;
+    box-shadow: none;
+    padding: var(--ctpg-space-5);
+  }
+}

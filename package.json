@@ -1,6 +1,6 @@
 {
   "name": "ctpg-media-server",
-  "version": "2.1.3",
+  "version": "2.1.7",
   "description": "Cruise & Theme Park Guide media asset server and Bootstrap 5 design system.",
   "scripts": {
     "clean": "rimraf dist",
@@ -8,7 +8,7 @@
     "build:bootstrap": "sass src/scss/bootstrap.scss dist/css/ctpg-bootstrap.min.css --style=compressed --quiet-deps --no-source-map",
     "build:css": "sass src/scss/main.scss dist/css/ctpg-main.min.css --style=compressed --quiet-deps --no-source-map",
     "build:site": "sass src/scss/ctpg.scss dist/css/ctpg.min.css --style=compressed --quiet-deps --no-source-map",
-    "build:wp": "sass src/scss/ctpg-wp.scss dist/css/ctpg-wp.min.css --style=compressed --quiet-deps --no-source-map",
+    "build:wp": "sass src/scss/ctpg-wp.scss:dist/css/ctpg-wp.min.css src/scss/ctpg-login.scss:dist/css/ctpg-login.min.css --style=compressed --quiet-deps --no-source-map",
     "build:hub": "sass src/scss/ctpg-hub.scss:dist/css/ctpg-hub.min.css src/scss/ctpg-hub-login.scss:dist/css/ctpg-hub-login.min.css src/scss/ctpg-hub-status.scss:dist/css/ctpg-hub-status.min.css --style=compressed --quiet-deps --no-source-map",
     "copy:icons": "copyfiles -f node_modules/bootstrap-icons/font/bootstrap-icons.min.css dist/icons && copyfiles -f \"node_modules/bootstrap-icons/font/fonts/*\" dist/icons/fonts",
     "build:components": "sass src/scss/components.scss dist/css/ctpg-components.min.css --style=compressed --quiet-deps --no-source-map",
