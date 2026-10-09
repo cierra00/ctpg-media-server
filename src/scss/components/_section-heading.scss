@@ -1,0 +1,53 @@
+// =========================================================
+// 6.6 Section headings. Intro kind (Weekend edit): grid 1fr .55fr, gap 11%, bottom
+// aligned; eyebrow and title-xl on the left, an intro paragraph on the right.
+// 42px below (28px phone). Stacks at 960 (paragraph 20px below, 16px phone).
+// =========================================================
+
+.ctpg-heading {
+  margin-bottom: 42px;
+}
+
+.ctpg-heading__title {
+  margin: 0;
+  color: var(--ctpg-deep);
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: var(--ctpg-title-xl-size);
+  line-height: var(--ctpg-title-xl-lh);
+  letter-spacing: var(--ctpg-title-xl-ls);
+}
+
+.ctpg-heading--intro {
+  display: grid;
+  grid-template-columns: 1fr .55fr;
+  align-items: end;
+  gap: 11%;
+
+  .ctpg-heading__intro {
+    margin: 0 0 4px;
+    color: var(--ctpg-slate);
+    font-size: var(--ctpg-body-size);
+    line-height: var(--ctpg-body-lh);
+  }
+}
+
+@media (max-width: $ctpg-bp-tablet) {
+  .ctpg-heading--intro {
+    display: block;
+
+    .ctpg-heading__intro {
+      max-width: 650px;
+      margin-top: 20px;
+    }
+  }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .ctpg-heading { margin-bottom: 28px; }
+
+  .ctpg-heading--intro .ctpg-heading__intro {
+    max-width: 42ch;
+    margin-top: 16px;
+  }
+}

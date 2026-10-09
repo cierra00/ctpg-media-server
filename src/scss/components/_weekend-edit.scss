@@ -1,0 +1,140 @@
+// =========================================================
+// H4 The weekend edit (10-design-system.md 6.8): cover story and two side stories.
+// Section padding 112px (52px phone). Grid 1.35fr .65fr, gap 28px. At 960 the side
+// stories sit two across under the cover (gap 22px, 42px above); phones one column
+// (gap 28px, 36px above). Photo zoom on hover: cover 1.025, sides 1.035, over .5s.
+// Markup: ctpg-theme inc/Blocks/WeekendEdit.php.
+// =========================================================
+
+.ctpg-weekend {
+  padding: var(--ctpg-section-weekend-pt) 0 var(--ctpg-section-weekend-pb);
+}
+
+.ctpg-weekend__grid {
+  display: grid;
+  grid-template-columns: 1.35fr .65fr;
+  gap: 28px;
+}
+
+// Photo frames (shared by cover and side stories)
+.ctpg-cover__photo,
+.ctpg-side-story__photo {
+  display: block;
+  overflow: hidden;
+  background: var(--ctpg-mist);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--ctpg-motion-image);
+  }
+}
+
+// A story without a featured photo: the logo on deep
+.ctpg-photo-standin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: var(--ctpg-deep);
+
+}
+
+// Beats the frame rule that sizes photos to fill
+.ctpg-cover__photo .ctpg-photo-standin img,
+.ctpg-side-story__photo .ctpg-photo-standin img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
+// Titles: deep, link colour on hover (7.1)
+.ctpg-cover__title a,
+.ctpg-side-story__title a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover { color: var(--ctpg-link); }
+}
+
+// ── Cover ────────────────────────────────────────────────
+.ctpg-cover__photo { height: 520px; }
+
+.ctpg-cover:hover .ctpg-cover__photo img { transform: scale(var(--ctpg-zoom-feature)); }
+
+.ctpg-cover__text { padding-top: 26px; }
+
+.ctpg-cover__title {
+  max-width: 850px;
+  margin: 0;
+  color: var(--ctpg-deep);
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: var(--ctpg-title-l-cover-size);
+  line-height: var(--ctpg-title-l-cover-lh);
+  letter-spacing: var(--ctpg-title-l-cover-ls);
+}
+
+.ctpg-cover__dek {
+  max-width: 760px;
+  margin: 16px 0;
+  color: var(--ctpg-slate);
+  font-size: var(--ctpg-body-size);
+  line-height: var(--ctpg-body-lh);
+}
+
+// ── Side stories ─────────────────────────────────────────
+.ctpg-weekend__side {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+}
+
+.ctpg-side-story {
+  min-width: 0;
+  border-bottom: 1px solid var(--ctpg-line);
+}
+
+.ctpg-side-story__photo { height: 220px; }
+
+.ctpg-side-story:hover .ctpg-side-story__photo img { transform: scale(var(--ctpg-zoom-side)); }
+
+.ctpg-side-story__text { padding: 16px 0 18px; }
+
+.ctpg-side-story__title {
+  margin: 0 0 10px;
+  color: var(--ctpg-deep);
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: var(--ctpg-title-side-size);
+  line-height: var(--ctpg-title-side-lh);
+}
+
+// ── Narrower screens ─────────────────────────────────────
+@media (max-width: $ctpg-bp-tablet) {
+  .ctpg-weekend__grid { display: block; }
+
+  .ctpg-weekend__side {
+    grid-template-rows: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 42px;
+  }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .ctpg-cover__photo { height: clamp(260px, 92vw, 350px); }
+  .ctpg-cover__text { padding-top: 20px; }
+  .ctpg-cover__dek { margin: 14px 0; }
+
+  .ctpg-weekend__side {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-top: 36px;
+  }
+
+  .ctpg-side-story__photo { height: clamp(210px, 70vw, 280px); }
+}

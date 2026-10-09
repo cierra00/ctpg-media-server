@@ -1,0 +1,40 @@
+// =========================================================
+// Labels shared by every section (10-design-system.md 4.2, 6.6, 6.8):
+// eyebrow (section kicker), category (story section), meta (bylines, dates, read time).
+// Eyebrow colour by background: coral-text on light, gold on dark (.ctpg-on-dark), deep on coral.
+// =========================================================
+
+.ctpg-eyebrow {
+  margin: 0 0 14px;
+  color: var(--ctpg-coral-text);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: 1.45;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+
+  .ctpg-on-dark & { color: var(--ctpg-gold); }
+}
+
+.ctpg-category {
+  margin: 0 0 10px;
+  color: var(--ctpg-coral-text);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: 1.45;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.ctpg-meta {
+  margin: 0;
+  color: var(--ctpg-slate);
+  font-size: var(--ctpg-meta-size);
+  line-height: var(--ctpg-meta-lh);
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .ctpg-eyebrow { margin-bottom: 10px; }
+}
