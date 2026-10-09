@@ -933,7 +933,7 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
   background: var(--ctpg-deep);
 
   &.food-card-large { grid-row: 1 / 3; }
-  &:last-child { grid-column: 2 / 4; }
+  &.food-card-wide { grid-column: 2 / 4; }
 
   > a, > a img, > a .ctpg-photo-standin { height: 100%; }
 
@@ -1464,7 +1464,7 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
     .department-spread.reverse-spread .department-grid { grid-column: auto; grid-row: auto; }
 
     .food-grid { grid-template-columns: 1fr 1fr; grid-template-rows: none; gap: 18px; }
-    .food-card, .food-card.food-card-large, .food-card:last-child { min-width: 0; height: 360px; grid-column: auto; grid-row: auto; }
+    .food-card, .food-card.food-card-large, .food-card.food-card-wide { min-width: 0; height: 360px; grid-column: auto; grid-row: auto; }
 
     .tech-layout { display: block; }
     .tech-story-list { margin-top: 42px; }
@@ -1574,7 +1574,7 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
     .story-card h3 { margin: 10px 0 17px; }
 
     .food-grid { grid-template-columns: 1fr; gap: 18px; }
-    .food-card, .food-card.food-card-large, .food-card:last-child { height: clamp(300px, 96vw, 380px); margin: 0; }
+    .food-card, .food-card.food-card-large, .food-card.food-card-wide { height: clamp(300px, 96vw, 380px); margin: 0; }
     .food-card > div { right: 20px; bottom: 20px; left: 20px; }
     .food-card-large h3 { font-size: var(--ctpg-title-food-size); line-height: var(--ctpg-title-food-lh); }
 
@@ -1633,4 +1633,110 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
   .front-headline-rail > a { display: flex; flex-direction: column; }
   .headline-copy { display: flex; flex: 1; flex-direction: column; }
   .headline-copy > span { align-self: flex-start; margin-top: auto; padding-top: 14px; }
+}
+
+// ── Engagement additions (Cierra, Oct 8) ─────────────────
+.ctpg-home [hidden] { display: none !important; }
+
+// Sticky "On this page" bar: sits under the hero, then sticks under the header.
+.ctpg-home .home-jump {
+  position: sticky;
+  z-index: 40;
+  top: var(--ctpg-sticky-top, calc(var(--wp-admin--admin-bar--height, 0px) + var(--ctpg-header-height) + var(--ctpg-stripe-height)));
+  border-bottom: 1px solid var(--ctpg-line);
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 8px 20px rgba(23, 35, 51, .07);
+  backdrop-filter: blur(8px);
+
+  ul {
+    display: flex;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    list-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  a {
+    @include label;
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    border-bottom: 3px solid transparent;
+    color: var(--ctpg-navy);
+    letter-spacing: .06em;
+    white-space: nowrap;
+
+    &:hover { color: var(--ctpg-coral-text); }
+
+    &[aria-current="true"] {
+      border-bottom-color: var(--ctpg-coral);
+      color: var(--ctpg-coral-text);
+    }
+  }
+}
+
+.ctpg-home section[id] { scroll-margin-top: calc(var(--ctpg-sticky-top, 90px) + 60px); }
+
+// "New" badge: published in the last 48 hours.
+.ctpg-new-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: var(--ctpg-gold);
+  color: var(--ctpg-deep);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 12px;
+  line-height: 1.2;
+  letter-spacing: .06em;
+  text-shadow: none;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+// Filter chips on More from the guide and Food and drink.
+.ctpg-home .home-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 2px;
+
+  button {
+    min-height: 36px;
+    padding: 8px 15px;
+    border: 1px solid var(--ctpg-line);
+    border-radius: var(--ctpg-radius-chip);
+    background: var(--ctpg-white);
+    color: var(--ctpg-slate);
+    font-size: 13px;
+    line-height: 1.2;
+    cursor: pointer;
+
+    &:hover { border-color: var(--ctpg-coral-text); color: var(--ctpg-coral-text); }
+
+    &[aria-pressed="true"] { border-color: var(--ctpg-navy); background: var(--ctpg-navy); color: var(--ctpg-white); }
+
+    @media (pointer: coarse) { min-height: 44px; }
+  }
+}
+
+.ctpg-home .food-section .home-chips { margin: -8px 0 22px; }
+
+// A filtered food grid: plain equal cards.
+.ctpg-home .food-grid.is-filtered {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-rows: none;
+
+  .food-card { height: 300px; grid-row: auto; grid-column: auto; }
+  .food-card-large h3 { font-size: var(--ctpg-title-food-size); line-height: var(--ctpg-title-food-lh); }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .ctpg-home .home-jump ul { gap: 22px; }
 }

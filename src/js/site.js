@@ -193,6 +193,70 @@
     });
   });
 
+  // Filter chips (More from the guide, Food and drink): swap which cards show, no reload.
+  each("[data-ctpg-filter]", null, function (row) {
+    var target = document.getElementById(row.getAttribute("data-ctpg-filter"));
+    if (!target) return;
+    var show = parseInt(target.getAttribute("data-show"), 10) || 4;
+    var cards = Array.prototype.slice.call(target.children);
+    var isFood = target.classList.contains("food-grid");
+    each("button[data-key]", row, function (b) {
+      b.addEventListener("click", function () {
+        var key = b.getAttribute("data-key");
+        each("button[data-key]", row, function (o) { o.setAttribute("aria-pressed", String(o === b)); });
+        var list = cards.filter(function (c) {
+          return key ? (" " + (c.getAttribute("data-keys") || "") + " ").indexOf(" " + key + " ") > -1 : c.hasAttribute("data-default");
+        }).slice(0, show);
+        cards.forEach(function (c) { c.hidden = list.indexOf(c) < 0; });
+        list.forEach(function (c, i) {
+          var n = c.querySelector("[data-ctpg-num]");
+          if (n) n.textContent = (i < 9 ? "0" : "") + (i + 1);
+        });
+        if (isFood) target.classList.toggle("is-filtered", !!key);
+      });
+    });
+  });
+
+  // Sticky "On this page" bar: sits under the header, marks the section being read.
+  var jump = home.querySelector("[data-ctpg-jump]");
+  if (jump) {
+    var siteHeader = document.querySelector(".wp-site-blocks > header");
+    var topbar = document.querySelector(".ctpg-topbar");
+    var setTop = function () {
+      if (!siteHeader) return;
+      var h = siteHeader.offsetHeight - (topbar ? topbar.offsetHeight : 0);
+      var bar = document.getElementById("wpadminbar");
+      document.documentElement.style.setProperty("--ctpg-sticky-top", (h + (bar && getComputedStyle(bar).position === "fixed" ? bar.offsetHeight : 0)) + "px");
+    };
+    setTop();
+    window.addEventListener("resize", setTop);
+    var links = Array.prototype.slice.call(jump.querySelectorAll("a[href^='#']")).filter(function (a) {
+      var ok = !!document.getElementById(a.getAttribute("href").slice(1));
+      if (!ok) a.parentNode.hidden = true; // a section with no stories is not on the page
+      return ok;
+    });
+    var list = jump.querySelector("ul");
+    var ticking = false;
+    var mark = function () {
+      ticking = false;
+      var line = jump.getBoundingClientRect().bottom + 12;
+      var current = null;
+      links.forEach(function (a) {
+        var t = document.getElementById(a.getAttribute("href").slice(1));
+        if (t.getBoundingClientRect().top <= line && t.getBoundingClientRect().bottom > line) current = a;
+      });
+      links.forEach(function (a) {
+        if (a === current) a.setAttribute("aria-current", "true"); else a.removeAttribute("aria-current");
+      });
+      if (current && list) {
+        var l = current.offsetLeft, r = l + current.offsetWidth;
+        if (l < list.scrollLeft || r > list.scrollLeft + list.clientWidth) list.scrollLeft = l - 16;
+      }
+    };
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(mark); } }, { passive: true });
+    mark();
+  }
+
   // Vacation ideas: choosing a tile swaps the trip detail.
   var detail = home.querySelector("[data-ctpg-trip-detail]");
   if (detail) {
