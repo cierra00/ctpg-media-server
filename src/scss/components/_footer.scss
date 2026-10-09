@@ -110,8 +110,9 @@ $footer-line: rgba(255, 255, 255, .1);
   button {
     padding: 0 18px;
     border: 0;
-    background: var(--ctpg-coral);
-    color: var(--ctpg-deep);
+    background: var(--ctpg-coral-text);
+    color: var(--ctpg-white);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .45);
     font-family: var(--ctpg-font-label);
     font-weight: var(--ctpg-weight-label-heavy);
     font-size: var(--ctpg-button-size);
@@ -210,9 +211,12 @@ $footer-line: rgba(255, 255, 255, .1);
 }
 
 .ctpg-footer .ctpg-footer__btn--primary {
-  background: var(--ctpg-coral);
-  border: 1px solid var(--ctpg-coral);
-  color: var(--ctpg-deep);
+  background: var(--ctpg-coral-text); // Cierra, Oct 8: white on the deeper coral, like the newsletter band
+  border: 1px solid var(--ctpg-coral-text);
+  color: var(--ctpg-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .45);
+
+  &:hover { text-shadow: none; }
 }
 
 .ctpg-footer .ctpg-footer__btn--ghost {
