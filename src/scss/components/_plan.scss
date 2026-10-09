@@ -343,6 +343,29 @@
 
 .trip-note { margin: 10px 0 0; color: var(--ctpg-slate); font-size: 13px; }
 
+// Booking links switchboard (plans/21): the Book button in each sailing row, and the
+// "add to your trip" buttons (hotels, shore excursions) under the sailings.
+.trip-table .trip-table-book {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 2px solid var(--ctpg-navy);
+  color: var(--ctpg-navy);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 12px;
+  letter-spacing: .05em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &:hover { background: var(--ctpg-navy); color: var(--ctpg-white); }
+  &:focus-visible { outline: var(--ctpg-focus-width) solid var(--ctpg-gold); outline-offset: 2px; }
+}
+
+.trip-addons { margin-top: 14px; }
+
 .trip-guides {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
