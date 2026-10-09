@@ -278,3 +278,34 @@
     });
   }
 })();
+
+// Trip wizard (plans/17): one step at a time with Back and Next; without the script every step shows.
+(function () {
+  "use strict";
+  var wiz = document.querySelector("[data-ctpg-wizard] form");
+  if (!wiz) return;
+  var steps = Array.prototype.slice.call(wiz.querySelectorAll("[data-ctpg-step]"));
+  var back = wiz.querySelector("[data-ctpg-wizard-back]");
+  var next = wiz.querySelector("[data-ctpg-wizard-next]");
+  var submit = wiz.querySelector("button[type=submit]");
+  var progress = wiz.querySelector("[data-ctpg-wizard-progress]");
+  if (!steps.length || !back || !next) return;
+  var at = 0;
+  wiz.classList.add("is-stepped");
+  progress.hidden = false;
+  function show(i, focus) {
+    at = Math.max(0, Math.min(steps.length - 1, i));
+    steps.forEach(function (s, n) { s.classList.toggle("is-current", n === at); });
+    back.hidden = at === 0;
+    next.hidden = at === steps.length - 1;
+    submit.hidden = at !== steps.length - 1;
+    progress.textContent = "Step " + (at + 1) + " of " + steps.length;
+    if (focus) {
+      var first = steps[at].querySelector("input, select");
+      if (first) first.focus();
+    }
+  }
+  back.addEventListener("click", function () { show(at - 1, true); });
+  next.addEventListener("click", function () { show(at + 1, true); });
+  show(0, false);
+})();

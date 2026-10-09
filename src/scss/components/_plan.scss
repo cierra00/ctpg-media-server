@@ -1,0 +1,416 @@
+// =========================================================
+// Trip planner pages (plans/17-travel-search-engine.md): the "Find my vacation"
+// wizard and the results page. Uses the same tokens as the homepage.
+// =========================================================
+
+.trip-wizard,
+.trip-results {
+  padding: var(--ctpg-section-pad) 0;
+  background: var(--ctpg-paper);
+  color: var(--ctpg-ink);
+}
+
+.trip-eyebrow {
+  margin: 0 0 10px;
+  color: var(--ctpg-coral-text);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.trip-title {
+  margin: 0;
+  color: var(--ctpg-deep);
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -.02em;
+}
+
+.trip-intro {
+  max-width: 620px;
+  margin: 14px 0 0;
+  color: var(--ctpg-slate);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+// ── Wizard ───────────────────────────────────────────────
+.trip-form {
+  max-width: 860px;
+  margin-top: 32px;
+  padding: 32px;
+  border-top: 5px solid var(--ctpg-coral);
+  background: var(--ctpg-white);
+  box-shadow: 0 18px 40px rgba(23, 35, 51, .08);
+}
+
+.trip-progress {
+  margin: 0 0 18px;
+  color: var(--ctpg-slate);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.trip-step {
+  margin: 0 0 28px;
+  padding: 0;
+  border: 0;
+
+  legend {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    color: var(--ctpg-deep);
+    font-family: var(--ctpg-font-serif);
+    font-weight: var(--ctpg-weight-serif);
+    font-size: 26px;
+    line-height: 1.2;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--ctpg-deep);
+      color: var(--ctpg-white);
+      font-family: var(--ctpg-font-label);
+      font-size: 13px;
+    }
+  }
+}
+
+.trip-choices { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.trip-choice {
+  position: relative;
+  cursor: pointer;
+
+  input { position: absolute; opacity: 0; pointer-events: none; }
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 1px solid var(--ctpg-line);
+    border-radius: 999px;
+    background: var(--ctpg-white);
+    color: var(--ctpg-navy);
+    font-size: 15px;
+    line-height: 1.2;
+    transition: border-color var(--ctpg-motion-fast), background var(--ctpg-motion-fast);
+  }
+
+  &:hover span { border-color: var(--ctpg-coral-text); }
+  input:checked + span { border-color: var(--ctpg-navy); background: var(--ctpg-navy); color: var(--ctpg-white); }
+  input:focus-visible + span { outline: var(--ctpg-focus-width) solid var(--ctpg-gold); outline-offset: 2px; }
+}
+
+.trip-fields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.trip-field {
+  display: grid;
+  gap: 6px;
+
+  span {
+    color: var(--ctpg-navy);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label);
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  select {
+    min-height: 48px;
+    padding: 0 12px;
+    border: 1px solid var(--ctpg-line);
+    background: var(--ctpg-white);
+    color: var(--ctpg-ink);
+    font-size: 16px;
+  }
+}
+
+.trip-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.trip-back,
+.trip-next,
+.trip-submit {
+  min-height: 48px;
+  padding: 0 22px;
+  border: 0;
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 13px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.trip-back { border: 1px solid var(--ctpg-line); background: var(--ctpg-white); color: var(--ctpg-navy); }
+.trip-next { background: var(--ctpg-navy); color: var(--ctpg-white); }
+
+.trip-submit {
+  margin-left: auto;
+  background: var(--ctpg-coral-text);
+  color: var(--ctpg-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .45);
+
+  &:hover { background: var(--ctpg-deep); }
+}
+
+// One step at a time once the script runs.
+.trip-form.is-stepped .trip-step:not(.is-current) { display: none; }
+
+// ── Results ──────────────────────────────────────────────
+.trip-answers {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.trip-answer {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-line);
+  color: var(--ctpg-navy);
+  font-size: 13px;
+}
+
+.trip-change {
+  margin-left: 6px;
+  color: var(--ctpg-link);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 12px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.trip-disclosure {
+  margin: 18px 0 0;
+  color: var(--ctpg-slate);
+  font-size: 13px;
+}
+
+.trip-h2 {
+  margin: 44px 0 18px;
+  color: var(--ctpg-deep);
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.15;
+}
+
+.trip-empty {
+  padding: 22px;
+  border: 1px dashed var(--ctpg-line);
+  background: var(--ctpg-white);
+  color: var(--ctpg-slate);
+
+  a { color: var(--ctpg-link); }
+}
+
+.trip-ideas { display: grid; gap: 22px; }
+
+.trip-idea {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  background: var(--ctpg-white);
+  box-shadow: 0 10px 28px rgba(23, 35, 51, .07);
+
+  .trip-idea-photo {
+    position: relative;
+    display: block;
+    min-height: 240px;
+    overflow: hidden;
+    background: var(--ctpg-mist);
+
+    img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  }
+
+  .trip-idea-body { padding: 26px 28px; }
+
+  h3 {
+    margin: 0;
+    font-family: var(--ctpg-font-serif);
+    font-weight: var(--ctpg-weight-serif);
+    font-size: 28px;
+    line-height: 1.15;
+
+    a { color: var(--ctpg-deep); text-decoration: none; }
+    a:hover { color: var(--ctpg-link); }
+  }
+
+  p { margin: 10px 0 0; color: var(--ctpg-slate); font-size: 15px; line-height: 1.6; }
+}
+
+.trip-facts {
+  color: var(--ctpg-coral-text) !important;
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 12px !important;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.trip-why {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: var(--ctpg-status-quiet-bg);
+    color: var(--ctpg-status-quiet-text);
+    font-size: 13px;
+  }
+}
+
+.trip-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+.trip-book,
+.trip-partner {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 13px;
+  letter-spacing: .05em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.trip-book { background: var(--ctpg-coral-text); color: var(--ctpg-white); text-shadow: 0 1px 3px rgba(0, 0, 0, .45); }
+.trip-book:hover { background: var(--ctpg-deep); }
+.trip-partner { border: 2px solid var(--ctpg-navy); color: var(--ctpg-navy); }
+.trip-partner:hover { background: var(--ctpg-navy); color: var(--ctpg-white); }
+.trip-pitch { font-size: 13px !important; }
+
+.trip-table-wrap { overflow-x: auto; background: var(--ctpg-white); box-shadow: 0 10px 28px rgba(23, 35, 51, .07); }
+
+.trip-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+
+  th {
+    padding: 14px 16px;
+    border-bottom: 2px solid var(--ctpg-deep);
+    color: var(--ctpg-navy);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-align: left;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  td { padding: 14px 16px; border-bottom: 1px solid var(--ctpg-line); color: var(--ctpg-ink); }
+  td:last-child { color: var(--ctpg-deep); font-weight: 700; white-space: nowrap; }
+  a { color: var(--ctpg-link); }
+}
+
+.trip-note { margin: 10px 0 0; color: var(--ctpg-slate); font-size: 13px; }
+
+.trip-guides {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.trip-guide {
+  display: grid;
+  gap: 8px;
+  color: var(--ctpg-deep);
+  text-decoration: none;
+
+  .trip-guide-photo { display: block; height: 180px; overflow: hidden; background: var(--ctpg-mist); }
+  img { width: 100%; height: 100%; object-fit: cover; }
+
+  small {
+    color: var(--ctpg-coral-text);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  strong { font-family: var(--ctpg-font-serif); font-weight: var(--ctpg-weight-serif); font-size: 21px; line-height: 1.2; }
+  &:hover strong { color: var(--ctpg-link); }
+}
+
+@media (max-width: $ctpg-bp-tablet) {
+  .trip-idea { grid-template-columns: 1fr; }
+  .trip-idea .trip-idea-photo { height: 240px; }
+  .trip-guides { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .trip-form { padding: 22px 18px; }
+  .trip-fields { grid-template-columns: 1fr; }
+  .trip-submit { width: 100%; margin-left: 0; }
+  .trip-idea .trip-idea-body { padding: 20px; }
+  .trip-guides { grid-template-columns: 1fr; }
+}
+
+// ── A vacation idea's own page ───────────────────────────
+.trip-single .wp-block-post-featured-image { margin: 26px 0 0; }
+
+.trip-details { margin: 28px 0 8px; }
+
+.trip-facts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1px;
+  margin: 0;
+  border: 1px solid var(--ctpg-line);
+  background: var(--ctpg-line);
+
+  div { padding: 14px 16px; background: var(--ctpg-white); }
+
+  dt {
+    color: var(--ctpg-slate);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  dd { margin: 4px 0 0; color: var(--ctpg-deep); font-weight: 600; }
+}
+
+.trip-more { margin: 18px 0 0; }
+.trip-more a { color: var(--ctpg-link); font-weight: 600; }
