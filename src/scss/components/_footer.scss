@@ -4,7 +4,8 @@
 //   1. Plan a trip band  2. Friday newsletter (once a provider exists, rule 12)
 //   3. Latest from the guide (3 newest stories)
 //   4. Brand column and link columns (folding sections on phones), tool icons,
-//      newest weekly show episode  5. Trust notes  6. Bottom bar with Back to top
+//      newest weekly show episode  5. Bottom bar with Back to top
+// No disclaimer notes (Cierra, Oct 8): disclosures sit next to affiliate links on each page.
 // Markup: ctpg-theme inc/Blocks/SiteFooter.php. Focus ring gold (dark background).
 // =========================================================
 
@@ -513,35 +514,7 @@ $footer-line: rgba(255, 255, 255, .1);
   color: var(--ctpg-gold);
 }
 
-// ── 5. Trust notes ───────────────────────────────────────
-.ctpg-footer__trust {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--ctpg-space-7);
-  padding: 22px 0;
-  border-top: 1px solid $footer-line;
-  font-size: var(--ctpg-body-xs-size);
-  line-height: 1.65;
-  color: var(--ctpg-white-58);
-
-  p { margin: 0; }
-
-  strong {
-    color: var(--ctpg-white-78);
-    font-weight: var(--ctpg-weight-semibold);
-  }
-
-  // Links inside the notes: 24px tall targets (rule 6) without changing the line spacing
-  a {
-    display: inline-block;
-    padding-block: 4px;
-    margin-block: -4px;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-}
-
-// ── 6. Bottom bar ────────────────────────────────────────
+// ── 5. Bottom bar ────────────────────────────────────────
 .ctpg-footer__bottom {
   display: flex;
   flex-wrap: wrap;
@@ -675,11 +648,6 @@ $footer-line: rgba(255, 255, 255, .1);
     transition: transform var(--ctpg-motion-fast);
 
     [open] > summary > & { transform: rotate(-90deg); }
-  }
-
-  .ctpg-footer__trust {
-    grid-template-columns: 1fr;
-    gap: var(--ctpg-space-3);
   }
 
   .ctpg-footer__bottom {
