@@ -108,7 +108,7 @@
 }
 
 @media (max-width: $ctpg-bp-tablet) {
-  :root { --ctpg-hero-min-height: #{$ctpg-hero-min-height-tablet}; }
+  :root { --ctpg-hero-min-height: #{$ctpg-hero-min-height-tablet}; --ctpg-section-pad: #{$ctpg-section-pad-tablet}; }
 }
 
 // Phone values (680 and under)

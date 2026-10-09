@@ -327,3 +327,42 @@ $ctpg-nav-collapse: $ctpg-bp-tablet;
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+// Bigger logo in the site header (Cierra, Oct 8: "the header logo is too small").
+// The mock's 55px badge and 13/16px wordmark read small next to the nav; the header height stays.
+.ctpg-header .ctpg-brand {
+  gap: 12px;
+
+  img { width: 70px; height: 70px; }
+
+  .ctpg-wordmark strong { font-size: 15px; }
+  .ctpg-wordmark small { font-size: 19px; }
+}
+
+// Narrowest wide screens: tighter nav gaps so the 7 items, logo and Search fit (overflowed by 38px at 961).
+@media (min-width: 961px) and (max-width: 1079px) {
+  .ctpg-nav__list { gap: 13px; }
+}
+
+// Small laptops: the full nav needs the room, so the logo stays at the mock's size here.
+@media (min-width: 961px) and (max-width: 1199px) {
+  .ctpg-header .ctpg-brand {
+    gap: 10px;
+
+    img { width: 55px; height: 55px; }
+
+    .ctpg-wordmark strong { font-size: 13px; }
+    .ctpg-wordmark small { font-size: 16px; }
+  }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .ctpg-header .ctpg-brand {
+    gap: 8px;
+
+    img { width: 52px; height: 52px; }
+
+    .ctpg-wordmark strong { font-size: 12px; }
+    .ctpg-wordmark small { font-size: 14px; }
+  }
+}

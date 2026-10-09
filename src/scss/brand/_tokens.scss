@@ -176,22 +176,23 @@ $ctpg-header-height-phone: 72px;
 $ctpg-header-blur: 12px;
 $ctpg-stripe-height: 3px;
 $ctpg-stripe-blend-height: 5px;
-$ctpg-section-pad: 112px;
-$ctpg-section-pad-phone: 52px;
+$ctpg-section-pad: 72px;          // Cierra, Oct 8: "too much vertical spacing" (was the mock's 112px)
+$ctpg-section-pad-tablet: 60px;
+$ctpg-section-pad-phone: 44px;   // was 52px
 
 // 5.2 Section paddings: (top, bottom, phone top, phone bottom)
 $ctpg-sections: (
   "hero":         (70px, 28px, 38px, 26px),
   "weekend":      (112px, 112px, 52px, 52px),
-  "explore":      (72px, 85px, 72px, 85px),
+  "explore":      (60px, 68px, 44px, 48px),
   "toolkit":      (112px, 112px, 52px, 52px),
   "cruise-desk":  (112px, 112px, 52px, 52px),
   "park-desk":    (112px, 112px, 52px, 52px),
   "food":         (112px, 112px, 52px, 52px),
   "travel":       (112px, 112px, 52px, 52px),
-  "trip":         (112px, 112px, 58px, 58px),
+  "trip":         (72px, 72px, 48px, 48px),
   "destinations": (112px, 112px, 52px, 52px),
-  "newsletter":   (76px, 76px, 58px, 58px),
+  "newsletter":   (64px, 64px, 48px, 48px),
   "footer":       (55px, 20px, 55px, 20px),
 );
 $ctpg-hero-min-height: 720px;
