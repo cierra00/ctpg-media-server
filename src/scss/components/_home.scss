@@ -237,9 +237,10 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
     gap: 9px;
     min-width: 140px;
     border: 0;
-    background: var(--ctpg-coral);
-    color: var(--ctpg-deep);
+    background: var(--ctpg-coral-text); // Cierra, Oct 8: option C, white on a deeper coral (5.2:1)
+    color: var(--ctpg-white);
     font-size: $mock-button;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .45);
 
     &:hover { background: var(--ctpg-deep); color: var(--ctpg-white); }
   }
@@ -1334,12 +1335,15 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 
 // ── H15 Newsletter band ─────────────────────────────────
 .ctpg-home .newsletter {
-  --ctpg-focus-color: var(--ctpg-deep);
+  --ctpg-focus-color: var(--ctpg-white);
   padding: var(--ctpg-section-newsletter-pt) 0 var(--ctpg-section-newsletter-pb);
-  background: var(--ctpg-coral);
-  color: var(--ctpg-deep);
+  background: var(--ctpg-coral-text); // Cierra, Oct 8: option C, white on a deeper coral (5.2:1)
+  color: var(--ctpg-white);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .4);
 
-  .eyebrow { color: var(--ctpg-deep); }
+  .eyebrow { color: var(--ctpg-white); }
+  h2 { color: var(--ctpg-white); text-shadow: 0 3px 10px rgba(0, 0, 0, .4); }
+  input, button { text-shadow: none; }
 
   h2 {
     margin: 0;
