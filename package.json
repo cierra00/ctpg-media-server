@@ -1,6 +1,6 @@
 {
   "name": "ctpg-media-server",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "Cruise & Theme Park Guide media asset server and Bootstrap 5 design system.",
   "scripts": {
     "clean": "rimraf dist",

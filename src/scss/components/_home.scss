@@ -61,7 +61,7 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
   }
 
   .heading-link,
-  .section-bar-link { gap: 7px; letter-spacing: 0; }
+  .section-bar-link { gap: 7px; letter-spacing: 0; white-space: nowrap; flex-shrink: 0; }
 
   .swipe-hint { display: none; }
 }
@@ -1613,4 +1613,20 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
     .hero-controls button { justify-content: flex-start; padding-inline: 12px; }
     .hero-controls .hero-pause { justify-self: end; justify-content: center; padding: 0; }
   }
+}
+
+// ── Fixes from the full-page review (Oct 8) ──────────────
+// No white strip between the newsletter band and the footer (WordPress's block gap).
+.wp-site-blocks > footer:has(.ctpg-footer) { margin-block-start: 0; }
+
+.ctpg-home {
+  // Room between the choice chips or price lines and the action under them.
+  .widget-choices,
+  .widget-tags,
+  .budget-lines { margin-bottom: 18px; }
+
+  // "Read story" lines up along the bottom of each More from the guide card.
+  .front-headline-rail > a { display: flex; flex-direction: column; }
+  .headline-copy { display: flex; flex: 1; flex-direction: column; }
+  .headline-copy > span { align-self: flex-start; margin-top: auto; padding-top: 14px; }
 }
