@@ -1177,3 +1177,97 @@ div.fig-list-card {
 .fig-list-card:has(.fig-card-tools > *) .fig-list-open { padding-right: 48px; }
 .fig-list-card:has(.fig-card-tools > * + *) .fig-list-open { padding-right: 84px; }
 .fig-list-name { overflow-wrap: break-word; word-break: normal; hyphens: auto; }
+
+// ── Scheduled lists and "Post this next" (Oct 11) ──
+.fig-active .fig-sched { grid-column: 2; }
+@media (max-width: 860px) { .fig-active .fig-sched { grid-column: 1; } }
+.fig-sched {
+  margin-top: var(--ctpg-space-5);
+  padding-top: var(--ctpg-space-4);
+  border-top: 1px solid var(--ctpg-card-line);
+}
+.fig-sched-title {
+  margin: 0 0 var(--ctpg-space-1);
+  font-size: 16px;
+  font-weight: var(--ctpg-weight-label);
+  color: var(--ctpg-deep);
+  .bi { margin-right: 6px; color: var(--ctpg-slate); }
+}
+.fig-sched-help { margin: 0 0 var(--ctpg-space-3); font-size: 14px; color: var(--ctpg-slate); max-width: 640px; }
+.fig-sched-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ctpg-space-3);
+  align-items: center;
+  > .fig-select { flex: 1 1 220px; min-width: 0; }
+}
+.fig-input {
+  min-height: 48px;
+  padding: 0 var(--ctpg-space-3);
+  border: 1px solid var(--ctpg-field-line);
+  border-radius: var(--fig-radius-s);
+  background: var(--ctpg-white);
+  font: inherit;
+  font-size: 16px;
+  color: var(--ctpg-ink);
+  &:hover { border-color: var(--ctpg-slate); }
+  &:focus { outline: none; border-color: var(--ctpg-deep); box-shadow: 0 0 0 3px rgba(0, 106, 169, .35); }
+}
+.fig-sched-items {
+  list-style: none;
+  margin: var(--ctpg-space-4) 0 0;
+  padding: 0;
+}
+.fig-sched-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ctpg-space-2) var(--ctpg-space-4);
+  padding: var(--ctpg-space-3) var(--ctpg-space-4);
+  margin-bottom: var(--ctpg-space-2);
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: var(--fig-radius-s);
+  &.is-active { border-color: var(--ctpg-status-quiet-text); background: rgba(30, 140, 90, .06); }
+}
+.fig-sched-when {
+  flex: 0 0 auto;
+  font-size: 14px;
+  font-weight: var(--ctpg-weight-label);
+  color: var(--ctpg-deep);
+  font-variant-numeric: tabular-nums;
+  .bi { margin-right: 4px; color: var(--ctpg-slate); }
+}
+.fig-sched-what {
+  flex: 1 1 200px;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 8px;
+  overflow-wrap: anywhere;
+  strong { color: var(--ctpg-ink); }
+}
+.fig-sched-by { flex-basis: 100%; font-size: 13px; color: var(--ctpg-slate); }
+.fig-sched-empty { font-size: 14px; color: var(--ctpg-slate); }
+.fig-next-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--ctpg-space-3);
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ctpg-white);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover { background: rgba(255, 255, 255, .12); }
+  &:focus-visible { outline: 3px solid var(--ctpg-gold); outline-offset: 2px; }
+}
+.fig-btn-xs { padding: 4px 12px; min-height: 32px; font-size: 13px; white-space: nowrap; }
+.fig-queue-act { text-align: right; width: 1%; }
+@media (max-width: 575.98px) {
+  .fig-sched-row > .fig-input { flex: 1 1 140px; }
+  .fig-sched-row > .fig-btn-save { flex: 1 1 100%; justify-content: center; }
+}
