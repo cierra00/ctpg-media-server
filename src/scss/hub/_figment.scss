@@ -1117,3 +1117,35 @@ div.fig-list-card {
 @media (max-width: 860px) {
   .fig-active-row > .fig-select { flex-basis: 100%; }
 }
+
+// ── Owner locks (Oct 11) ──
+.fig-card-tools {
+  position: absolute;
+  top: var(--ctpg-space-2);
+  right: var(--ctpg-space-2);
+  display: inline-flex;
+  gap: 2px;
+  .fig-list-archive { position: static; }
+}
+.fig-list-open { padding-right: 80px; }
+.fig-lock:hover { background: var(--ctpg-hub-navy-bg); color: var(--ctpg-deep); }
+.fig-lock.is-locked { color: var(--ctpg-deep); background: var(--ctpg-trip-tint-2); }
+.fig-list-whose .bi { font-size: 11px; }
+.fig-active-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ctpg-space-2);
+  margin-top: var(--ctpg-space-3);
+  font-size: 14px;
+  color: var(--ctpg-slate);
+  cursor: pointer;
+}
+.fig-active .fig-active-lock { grid-column: 2; }
+@media (max-width: 860px) {
+  .fig-active .fig-active-lock { grid-column: 1; }
+}
+// Room for the corner buttons only when they're there (none, one or two)
+.fig-list-open { padding-right: var(--ctpg-space-4); }
+.fig-list-card:has(.fig-card-tools > *) .fig-list-open { padding-right: 48px; }
+.fig-list-card:has(.fig-card-tools > * + *) .fig-list-open { padding-right: 84px; }
+.fig-list-name { overflow-wrap: break-word; word-break: normal; hyphens: auto; }
