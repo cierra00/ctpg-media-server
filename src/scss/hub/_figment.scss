@@ -874,3 +874,41 @@
 @media (prefers-reduced-motion: reduce) {
   .fig-switch-ui, .fig-switch-ui::after { transition: none; }
 }
+
+// ── Active list: one dropdown, Save, and what's active now ──
+.fig-active {
+  margin-bottom: var(--ctpg-space-6);
+  padding: var(--ctpg-space-5) var(--ctpg-space-6);
+  border-radius: var(--fig-radius);
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-card-line);
+  box-shadow: var(--ctpg-shadow-card);
+  .fig-field-label { font-size: 16px; }
+}
+.fig-active-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ctpg-space-3);
+  align-items: center;
+}
+.fig-select {
+  flex: 1 1 260px;
+  max-width: 480px;
+  min-height: 48px;
+  padding: 0 var(--ctpg-space-4);
+  border: 1px solid var(--ctpg-field-line);
+  border-radius: var(--fig-radius-s);
+  background-color: var(--ctpg-white);
+  font: inherit;
+  font-size: 16px;
+  color: var(--ctpg-ink);
+  cursor: pointer;
+  &:hover { border-color: var(--ctpg-slate); }
+  &:focus { outline: none; border-color: var(--ctpg-deep); box-shadow: 0 0 0 3px rgba(0, 106, 169, .35); }
+}
+.fig-active-now {
+  margin: var(--ctpg-space-3) 0 0;
+  font-size: 15px;
+  color: var(--ctpg-ink);
+  .bi { color: var(--ctpg-status-quiet-text); margin-right: 4px; }
+}
