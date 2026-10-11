@@ -912,3 +912,113 @@
   color: var(--ctpg-ink);
   .bi { color: var(--ctpg-status-quiet-text); margin-right: 4px; }
 }
+
+// =========================================================
+// Polish pass (Oct 11; Cierra: "lets just clean up the UI and make it better
+// don't change any functionality"). Looks only.
+// =========================================================
+
+// Empty message rows stay short: the counter and YouTube/Twitch switches show
+// once the box has text or is being typed in.
+// The shrink waits a moment so a click on the button below still lands.
+.fig-msg .fig-msg-foot {
+  max-height: 120px;
+  overflow: hidden;
+  transition: max-height .2s ease, opacity .2s ease, visibility 0s;
+}
+.fig-msg:not(.is-filled):not(:focus-within) .fig-msg-foot {
+  max-height: 0;
+  margin-top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height .2s ease .4s, opacity .2s ease .4s, margin-top 0s .6s, visibility 0s .6s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fig-msg .fig-msg-foot { transition: visibility 0s .4s, max-height 0s .4s; }
+}
+.fig-msgs { gap: var(--ctpg-space-2); }
+
+// Smaller, quieter platform switches and tools
+.fig-chip {
+  min-height: 28px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+.fig-msg-foot { gap: 6px var(--ctpg-space-2); }
+.fig-msg-tools .fig-icon-btn { width: 32px; height: 32px; }
+
+// Active list card: a clear label row with an icon
+.fig-active {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--ctpg-space-4);
+  align-items: center;
+  border-left: 5px solid var(--ctpg-aqua);
+  .fig-field-label { grid-column: 2; margin-bottom: var(--ctpg-space-2); }
+  .fig-active-row, .fig-active-now { grid-column: 2; }
+}
+.fig-active-icon {
+  grid-row: 1 / span 3;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--ctpg-deep);
+  background: rgba(78, 205, 196, .18);
+}
+.fig-active-now strong { color: var(--ctpg-deep); }
+
+// How it works: compact cards
+.fig-steps li {
+  padding: var(--ctpg-space-3) var(--ctpg-space-3) var(--ctpg-space-3) 52px;
+  font-size: 13px;
+  strong { font-size: 14px; }
+}
+.fig-step-icon { left: var(--ctpg-space-3); top: var(--ctpg-space-3); width: 28px; height: 28px; font-size: 14px; }
+.fig-guide-head h2 {
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: 22px;
+}
+
+// Section rhythm
+.fig-section { margin-bottom: var(--ctpg-space-8); }
+.fig-guide { margin-bottom: var(--ctpg-space-7); }
+.fig-section-head p { max-width: 640px; }
+
+// Message list cards: steadier height, name never squeezed
+.fig-list-card { min-height: 104px; }
+.fig-list-name { overflow-wrap: anywhere; }
+.fig-list-default .fig-list-name { font-size: 16px; }
+
+// Folded panels: show the header as a button-like row
+.fig-fold-head h2 .bi { margin-right: 6px; color: var(--ctpg-slate); }
+
+// Phones: tighter hero, two-column steps, number beside the message
+@media (max-width: 860px) {
+  .fig-hero { gap: var(--ctpg-space-4); }
+  .fig-hero-title { font-size: 24px; }
+  .fig-next { padding: var(--ctpg-space-3) var(--ctpg-space-4); }
+  .fig-next-text { font-size: 15px; }
+  .fig-active {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--ctpg-space-4);
+    .fig-field-label, .fig-active-row, .fig-active-now { grid-column: 1; }
+  }
+  .fig-active-icon { display: none; }
+  .fig-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ctpg-space-2); }
+  .fig-steps li { padding: var(--ctpg-space-3); }
+  .fig-step-icon { position: static; margin-bottom: 6px; }
+  .fig-msg { grid-template-columns: 28px minmax(0, 1fr); gap: var(--ctpg-space-2); padding: var(--ctpg-space-2) var(--ctpg-space-3); }
+  .fig-msg-num { margin-top: 8px; }
+  .fig-msg-tools { margin-left: auto; }
+  .fig-section-head h2 { font-size: 22px; }
+  .fig-editor-head h2 { font-size: 20px; }
+}
+.fig-muted-inline { font-weight: var(--ctpg-weight-regular); color: var(--ctpg-slate); font-size: 14px; }
+// Active list box: the list name, then "Next message in queue", then the message
+.fig-next-label { font-size: 13px; letter-spacing: .04em; }
+.fig-next-from { margin: 0 0 4px; font-size: 13px; font-weight: var(--ctpg-weight-semibold); color: var(--ctpg-white-72); }
