@@ -316,7 +316,9 @@
 .trip-partner:hover { background: var(--ctpg-navy); color: var(--ctpg-white); }
 .trip-pitch { font-size: 13px !important; }
 
-.trip-table-wrap { overflow-x: auto; background: var(--ctpg-white); box-shadow: 0 10px 28px rgba(23, 35, 51, .07); }
+// position: relative keeps the hidden "Book" heading (screen-reader-text) inside the scroll
+// area; without it a table wider than a phone pushed the whole page sideways (2.6.3).
+.trip-table-wrap { position: relative; overflow-x: auto; background: var(--ctpg-white); box-shadow: 0 10px 28px rgba(23, 35, 51, .07); }
 
 .trip-table {
   width: 100%;
@@ -363,6 +365,9 @@
   &:hover { background: var(--ctpg-navy); color: var(--ctpg-white); }
   &:focus-visible { outline: var(--ctpg-focus-width) solid var(--ctpg-gold); outline-offset: 2px; }
 }
+
+// "Hotel the night before" under the departure port (theme 0.13.0, plans/23 section 4P).
+.trip-table .trip-table-hotel { display: inline-block; margin-top: 4px; font-size: 14px; }
 
 .trip-addons { margin-top: 14px; }
 
