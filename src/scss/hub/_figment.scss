@@ -1022,3 +1022,77 @@
 // Active list box: the list name, then "Next message in queue", then the message
 .fig-next-label { font-size: 13px; letter-spacing: .04em; }
 .fig-next-from { margin: 0 0 4px; font-size: 13px; font-weight: var(--ctpg-weight-semibold); color: var(--ctpg-white-72); }
+
+// ── Travel on / off / refresh / status (Oct 11; the chat commands as buttons) ──
+.fig-travel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ctpg-space-2);
+}
+.fig-travel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ctpg-space-2);
+  min-height: 48px;
+  padding: 0 var(--ctpg-space-3);
+  border-radius: var(--fig-radius-s);
+  border: 1px solid rgba(255, 255, 255, .35);
+  background: rgba(255, 255, 255, .06);
+  color: var(--ctpg-white);
+  font-size: 15px;
+  font-weight: var(--ctpg-weight-label);
+  cursor: pointer;
+  transition: background var(--ctpg-motion-fast), border-color var(--ctpg-motion-fast);
+  &:hover:not(:disabled) { background: rgba(255, 255, 255, .14); border-color: var(--ctpg-white-80); }
+  &:disabled { cursor: default; }
+  &:disabled:not(.is-current) { opacity: .5; }
+  .bi { font-size: 18px; }
+  // the state you're in now: filled, so it reads as "this one is on"
+  &.is-on.is-current { background: var(--ctpg-aqua); border-color: var(--ctpg-aqua); color: var(--ctpg-deep); }
+  &.is-off.is-current { background: var(--ctpg-gold); border-color: var(--ctpg-gold); color: var(--ctpg-deep); }
+}
+.fig-hero-actions { min-width: 300px; }
+
+// ── List cards: open area plus an archive button in the corner ──
+div.fig-list-card {
+  padding: 0;
+  cursor: default;
+}
+.fig-list-open {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ctpg-space-1);
+  width: 100%;
+  min-height: 104px;
+  padding: var(--ctpg-space-4) 48px var(--ctpg-space-3) var(--ctpg-space-4);
+  border: 0;
+  border-radius: var(--fig-radius-s);
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.fig-list-archive {
+  position: absolute;
+  top: var(--ctpg-space-2);
+  right: var(--ctpg-space-2);
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ctpg-slate);
+  cursor: pointer;
+  &:hover { background: var(--ctpg-status-busy-bg); color: var(--ctpg-coral-text); }
+  &:focus-visible { outline: var(--ctpg-focus-width) solid var(--ctpg-link); outline-offset: 1px; }
+}
+@media (max-width: 860px) {
+  .fig-hero-actions { min-width: 0; }
+  .fig-travel-btn { font-size: 14px; min-height: 46px; }
+}
