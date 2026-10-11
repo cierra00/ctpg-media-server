@@ -741,6 +741,34 @@
 .fig-fold-body {
   padding: 0 var(--ctpg-space-5) var(--ctpg-space-5);
 }
+// Who can use Figment (owner only)
+.fig-people {
+  list-style: none;
+  margin: 0 0 var(--ctpg-space-4);
+  padding: 0;
+  border-top: 1px solid var(--ctpg-card-line);
+}
+.fig-person {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ctpg-space-2) var(--ctpg-space-4);
+  padding: var(--ctpg-space-3) 0;
+  border-bottom: 1px solid var(--ctpg-card-line);
+}
+.fig-person-who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  strong { color: var(--ctpg-deep); font-weight: var(--ctpg-weight-label); }
+  span { font-size: 13px; color: var(--ctpg-slate); overflow-wrap: anywhere; }
+}
+.fig-person > .fig-select { flex: 0 1 220px; width: auto; }
+.fig-people-note { font-size: 13px; line-height: 1.55; color: var(--ctpg-slate); }
+@media (max-width: 575.98px) {
+  .fig-person > .fig-select { flex: 1 1 100%; width: 100%; }
+}
 .fig-time {
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
