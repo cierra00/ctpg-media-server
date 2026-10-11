@@ -465,7 +465,8 @@
   font: inherit;
   font-size: 16px;
   color: var(--ctpg-ink);
-  &:focus { outline: var(--ctpg-focus-width) solid var(--ctpg-deep); outline-offset: 1px; }
+  &:hover { border-color: var(--ctpg-slate); }
+  &:focus { outline: none; border-color: var(--ctpg-deep); box-shadow: 0 0 0 3px rgba(0, 106, 169, .35); }
 }
 .fig-msgs-head {
   display: flex;
@@ -518,18 +519,24 @@
   min-height: 44px;
   field-sizing: content;
   padding: 10px 12px;
-  border: 1px solid transparent;
+  border: 1px solid var(--ctpg-field-line);       // resting: a visible grey outline (3.1:1 on white)
   border-radius: 10px;
-  background: transparent;
+  background: var(--ctpg-white);
   font: inherit;
   font-size: 16px;
   line-height: 1.5;
   color: var(--ctpg-ink);
   resize: vertical;
+  transition: border-color var(--ctpg-motion-fast), box-shadow var(--ctpg-motion-fast);
   &::placeholder { color: var(--ctpg-slate); }
-  &:hover { border-color: var(--ctpg-line); }
-  &:focus { outline: none; border-color: var(--ctpg-field-line); background: var(--ctpg-white); }
-  &[readonly] { resize: none; }
+  &:hover { border-color: var(--ctpg-slate); }
+  // typing here: dark border plus a blue ring, so the active box is obvious
+  &:focus {
+    outline: none;
+    border-color: var(--ctpg-deep);
+    box-shadow: 0 0 0 3px rgba(0, 106, 169, .35);
+  }
+  &[readonly] { resize: none; border-color: var(--ctpg-line); background: var(--ctpg-paper); }
 }
 .fig-msg-foot {
   display: flex;
@@ -773,4 +780,10 @@
   background: var(--ctpg-deep);
   border-color: var(--ctpg-deep);
   color: var(--ctpg-white);
+}
+// Default stream messages card: sits first in the list row, tinted gold
+.fig-list-default {
+  background: var(--ctpg-trip-tint-2);
+  outline-color: rgba(255, 217, 61, .7);
+  .fig-list-name .bi { color: var(--ctpg-deep); }
 }
