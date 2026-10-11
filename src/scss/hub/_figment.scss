@@ -1103,3 +1103,17 @@ div.fig-list-card {
 @media (max-width: 860px) {
   .fig-hero { grid-template-columns: minmax(0, 1fr); }
 }
+// Whose list it is (Oct 11: lists shared across accounts, each with a maker)
+.fig-list-whose {
+  font-size: 12px;
+  font-weight: var(--ctpg-weight-label);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ctpg-slate);
+}
+// The dropdown never pushes the page sideways on a phone
+.fig-select { min-width: 0; width: 100%; }
+.fig-active-row > .fig-select { flex: 1 1 220px; }
+@media (max-width: 860px) {
+  .fig-active-row > .fig-select { flex-basis: 100%; }
+}
