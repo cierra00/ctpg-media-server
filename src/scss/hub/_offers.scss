@@ -1,0 +1,212 @@
+// =========================================================
+// Studio Hub: Offer pages and Email sign-ups (plan 26, Oct 11, 2026).
+// Built on the Analytics page's pieces (an-card, an-table, an-kpi, an-btn); only what's
+// new lives here. Bundled with ctpg-hub-figment.min.css. Uses only --ctpg-* tokens.
+// =========================================================
+
+#panel-offers, #panel-signups {
+  --an-radius: 16px;
+  --an-radius-s: 12px;
+  color: var(--ctpg-ink);
+}
+
+.an-alert {
+  margin: 0 0 var(--ctpg-space-3);
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--ctpg-status-busy-bg);
+  color: var(--ctpg-coral-text);
+  font-size: 14px;
+  font-weight: var(--ctpg-weight-semibold);
+}
+
+// Status pills
+.of-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: var(--ctpg-weight-semibold);
+  white-space: nowrap;
+  background: var(--ctpg-mist);
+  color: var(--ctpg-slate);
+}
+.of-pill-live { background: rgba(78, 205, 196, .17); color: var(--ctpg-status-quiet-text); }
+.of-pill-ended { background: var(--ctpg-status-busy-bg); color: var(--ctpg-coral-text); }
+.of-pill-partner { background: rgba(0, 119, 190, .1); color: var(--ctpg-link); }
+.of-addr { display: block; margin-top: 2px; overflow-wrap: anywhere; }
+.of-acts { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.of-acts .an-btn { white-space: nowrap; }
+
+// Editor: the form on the left, a live preview on the right
+.of-editor { border-left: 4px solid var(--ctpg-deep); }
+.of-ed-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--ctpg-space-5);
+  align-items: start;
+}
+.of-form { display: flex; flex-direction: column; gap: var(--ctpg-space-4); min-width: 0; }
+.of-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ctpg-space-3);
+  min-width: 0;
+  margin: 0;
+  padding: var(--ctpg-space-4);
+  border: 1px solid var(--ctpg-line);
+  border-radius: var(--an-radius-s);
+  legend {
+    float: left;
+    width: 100%;
+    margin: 0 0 2px;
+    padding: 0;
+    font-size: 16px;
+    font-weight: var(--ctpg-weight-semibold);
+    color: var(--ctpg-deep);
+  }
+  legend + * { clear: both; }
+  .an-help { margin: 0; }
+  .an-check { min-height: 32px; align-items: flex-start; }
+  .an-check input { margin-top: 3px; flex-shrink: 0; }
+}
+.of-f { display: flex; flex-direction: column; gap: 4px; margin: 0; min-width: 0; }
+.of-f .an-search { width: 100%; min-width: 0; }
+.of-f .an-label { text-transform: none; letter-spacing: 0; font-size: 13px; color: var(--ctpg-ink); }
+.of-opt { font-weight: var(--ctpg-weight-regular); color: var(--ctpg-slate); }
+.of-ta { padding-top: 8px; padding-bottom: 8px; min-height: 64px; line-height: 1.45; resize: vertical; }
+.of-dim { opacity: .55; }
+.of-slug {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border: 1px solid var(--ctpg-field-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--ctpg-white);
+  &:focus-within { outline: 3px solid var(--ctpg-deep); outline-offset: 1px; }
+  .an-search { border: 0; border-radius: 0; min-width: 0; &:focus { outline: none; } }
+  .an-search[readonly] { background: var(--ctpg-mist); color: var(--ctpg-slate); }
+}
+.of-slug-pre {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0 0 12px;
+  font-size: 14px;
+  color: var(--ctpg-slate);
+  white-space: nowrap;
+}
+.of-checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0 var(--ctpg-space-4); }
+.of-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ctpg-space-2);
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 14px 0 8px;
+    border: 1px solid var(--ctpg-field-line);
+    border-radius: 999px;
+    background: var(--ctpg-white);
+    font-size: 14px;
+    font-weight: var(--ctpg-weight-semibold);
+    color: var(--ctpg-deep);
+    cursor: pointer;
+    &[aria-checked="true"] { border-color: var(--ctpg-deep); box-shadow: inset 0 0 0 1px var(--ctpg-deep); }
+    &:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 2px; }
+  }
+}
+.of-sw { width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, .12); }
+.of-sw-coral { background: var(--ctpg-coral); }
+.of-sw-aqua { background: var(--ctpg-aqua); }
+.of-sw-gold { background: var(--ctpg-gold); }
+.of-sw-blue { background: var(--ctpg-blue); }
+
+.of-preview { position: sticky; top: var(--ctpg-space-4); min-width: 0; }
+.of-preview-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--ctpg-space-3); margin-bottom: var(--ctpg-space-2); }
+.of-frame-wrap {
+  width: 390px;
+  max-width: 100%;
+  height: min(78vh, 900px);
+  margin-inline: auto;
+  border: 1px solid var(--ctpg-line);
+  border-radius: var(--an-radius-s);
+  overflow: hidden;
+  background: var(--ctpg-mist);
+  iframe { display: block; width: 100%; height: 100%; border: 0; }
+  // Desktop: a 1280px-wide page scaled to fit (the scale is set by the editor's script)
+  &.is-desktop {
+    width: 100%;
+    iframe { width: 1280px; height: calc(100% / var(--of-scale, .5)); transform: scale(var(--of-scale, .5)); transform-origin: 0 0; }
+  }
+}
+
+// Different offer per interest
+.of-variants { display: flex; flex-direction: column; gap: var(--ctpg-space-2); }
+.of-variant {
+  border: 1px solid var(--ctpg-line);
+  border-radius: 10px;
+  background: var(--ctpg-paper);
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ctpg-space-2);
+    min-height: 44px;
+    padding: 0 var(--ctpg-space-3);
+    font-weight: var(--ctpg-weight-semibold);
+    color: var(--ctpg-deep);
+    cursor: pointer;
+    &:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 2px; }
+  }
+  .of-variant-body { display: flex; flex-direction: column; gap: var(--ctpg-space-3); padding: 0 var(--ctpg-space-3) var(--ctpg-space-3); }
+}
+.of-variant-state { font-size: 12px; font-weight: var(--ctpg-weight-regular); color: var(--ctpg-slate); }
+.of-variant[data-filled="1"] .of-variant-state { color: var(--ctpg-status-quiet-text); font-weight: var(--ctpg-weight-semibold); }
+#of-pv-interest { min-height: 32px; min-width: 0; font-size: 13px; }
+
+// Email sign-ups
+.su-export { border-left: 4px solid var(--ctpg-aqua); }
+.su-export-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ctpg-space-2); margin-bottom: var(--ctpg-space-3); }
+.su-email { overflow-wrap: anywhere; font-weight: var(--ctpg-weight-semibold); }
+.su-more { display: flex; justify-content: center; margin-top: var(--ctpg-space-3); }
+.su-detail > td { background: var(--ctpg-paper); }
+.su-detail-in {
+  padding: var(--ctpg-space-2) var(--ctpg-space-2) var(--ctpg-space-3);
+  text-align: left;
+  h3 { margin: var(--ctpg-space-3) 0 var(--ctpg-space-2); font-size: 15px; font-weight: var(--ctpg-weight-semibold); color: var(--ctpg-deep); }
+  h3:first-child { margin-top: 0; }
+  .an-tools { margin-top: var(--ctpg-space-3); }
+}
+.su-ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  li { margin-bottom: 6px; overflow-wrap: anywhere; }
+}
+.su-consent { margin-top: 2px; font-size: 13px; color: var(--ctpg-slate); }
+
+// Narrow screens: the preview goes under the form; tables become cards
+@media (max-width: 1279.98px) {
+  .of-ed-grid { grid-template-columns: minmax(0, 1fr); }
+  .of-preview { position: static; }
+}
+@media (max-width: 1199.98px) { #of-table, #su-table { @include an-cards; } }
+@media (max-width: 991.98px) { #of-sources { @include an-cards; } }
+@media (max-width: 1199.98px) {
+  #of-table td[data-label="Actions"], #su-table td[data-label="Details"] { grid-column: 1 / -1; justify-content: flex-start; &::before { display: none; } }
+  #su-table .su-detail { display: block; }
+  #su-table .su-detail > td { grid-column: 1 / -1; display: block; &::before { display: none; } }
+  .of-acts { justify-content: flex-start; }
+}
+@media (max-width: 575.98px) {
+  .of-slug { flex-direction: column; }
+  .of-slug-pre { padding: 6px 12px 0; font-size: 13px; }
+  .su-export-row > * { flex: 1 1 100%; justify-content: center; }
+  .su-export-row .an-seg button { flex: 1; }
+  .su-export-row .an-seg { display: flex; }
+}

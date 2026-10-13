@@ -1332,9 +1332,9 @@ div.fig-list-card {
     ".   status status status status";
   gap: var(--ctpg-space-2) var(--ctpg-space-3);
   align-items: center;
-  padding: var(--ctpg-space-3) var(--ctpg-space-2);
+  padding: var(--ctpg-space-2);
   border-bottom: 1px solid var(--ctpg-card-line);
-  .fig-select, .fig-input { width: 100%; max-width: none; min-height: 44px; }
+  .fig-select, .fig-input { width: 100%; max-width: none; min-height: 42px; }
   &.is-active { background: rgba(30, 140, 90, .06); border-radius: var(--fig-radius-s); }
   > .fig-slot-num { grid-area: num; }
   > .fig-slot-list { grid-area: list; }
@@ -1346,10 +1346,11 @@ div.fig-list-card {
 }
 .fig-slot-when {
   display: grid;
-  grid-template-columns: 52px minmax(140px, 1.2fr) minmax(130px, 1fr);
-  gap: 6px;
+  grid-template-columns: minmax(150px, 1.3fr) minmax(112px, 1fr);
+  gap: 2px 6px;
   align-items: center;
   min-width: 0;
+  .fig-slot-label { grid-column: 1 / -1; }
 }
 .fig-slot-label { font-size: 12px; font-weight: var(--ctpg-weight-label); color: var(--ctpg-slate); text-transform: uppercase; letter-spacing: .04em; }
 .fig-slot-num {
@@ -1369,7 +1370,7 @@ div.fig-list-card {
 .fig-tag.is-live { background: rgba(30, 140, 90, .12); color: var(--ctpg-status-quiet-text); }
 .fig-tag .bi { margin-right: 3px; }
 .fig-slots-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--ctpg-space-3); }
-@media (max-width: 1699.98px) {
+@media (max-width: 1099.98px) {
   .fig-slot {
     grid-template-columns: 28px minmax(0, 1fr) minmax(0, 1fr) auto;
     grid-template-areas:
@@ -1383,8 +1384,6 @@ div.fig-list-card {
     grid-template-columns: 28px minmax(0, 1fr) auto;
     grid-template-areas: "num list act" ". start start" ". stop stop" ". status status";
   }
-  .fig-slot-when { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
-  .fig-slot-label { grid-column: 1 / -1; }
   .fig-slot .fig-input { padding: 0 6px; }
 }
 .fig-person-forever {
@@ -1400,3 +1399,210 @@ div.fig-list-card {
 @media (max-width: 575.98px) {
   .fig-stash-tools { width: 100%; }
 }
+
+// ── List cards, Oct 11 layout fix (Cierra: "the figment page has layout issues") ──
+// The corner buttons used to reserve up to 120px on the right of the whole card, so names and
+// dates broke into one word per line. Now only the top line (Yours / Shared) makes room for
+// them; the name and details use the full width.
+.fig-lists { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.fig-list-open,
+.fig-list-card:has(.fig-card-tools > *) .fig-list-open,
+.fig-list-card:has(.fig-card-tools > * + *) .fig-list-open,
+.fig-list-card:has(.fig-card-tools > * + * + *) .fig-list-open { padding-right: var(--ctpg-space-4); }
+.fig-list-whose { display: flex; align-items: center; min-height: 30px; gap: 4px; }
+.fig-list-card:has(.fig-card-tools > *) .fig-list-whose { padding-right: 44px; }
+.fig-list-card:has(.fig-card-tools > * + *) .fig-list-whose { padding-right: 80px; }
+.fig-list-card:has(.fig-card-tools > * + * + *) .fig-list-whose { padding-right: 116px; }
+.fig-list-name { overflow-wrap: anywhere; word-break: normal; hyphens: manual; }
+@media (max-width: 575.98px) {
+  .fig-lists { grid-template-columns: minmax(0, 1fr); }
+  .fig-list-card, .fig-list-open { min-height: 0; }
+}
+
+// ── Breakpoint sweep fixes, Oct 11 (Cierra: "go through the figment page on every break point
+// make sure everything is a line. Make sure everything is equal") ─────────────────────────
+// Checked at every width from 320 to 1920 in 20px steps (e2e/sweep.py).
+
+// Tables in folds scroll inside their box; the screen-reader-only header text no longer escapes
+// the box and widens the page on phones (it did from 320 to 540 px).
+#panel-figment .table-responsive, #panel-analytics .table-responsive { position: relative; }
+
+// Who can use Figment: name, dropdown and tick box in fixed columns, so every row lines up
+.fig-person {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px 190px;
+  justify-content: stretch;
+  align-items: center;
+}
+.fig-person > .fig-select { width: 100%; }
+.fig-person-forever { justify-self: start; }
+@media (max-width: 767.98px) {
+  .fig-person { grid-template-columns: minmax(0, 1fr) 200px; }
+  .fig-person-who { grid-column: 1 / -1; }
+  .fig-person > .fig-select { grid-column: 1; }
+}
+@media (max-width: 575.98px) {
+  .fig-person { grid-template-columns: minmax(0, 1fr); }
+  .fig-person > .fig-select { grid-column: 1; width: 100%; }
+}
+
+// Schedule slots: every column has a set width, so the list, Starts, Stops and the Remove or
+// clear button sit in the same place in every row (a saved slot's Remove button used to push
+// its row over). One row from 1560 px; two rows from 1100; below that Starts and Stops get a row
+// each; on narrow phones each date and time gets the full width.
+.fig-slot {
+  grid-template-columns: 28px minmax(220px, 1.1fr) minmax(0, 1.5fr) minmax(0, 1.5fr) 104px;
+}
+.fig-slot > .fig-slot-act { justify-self: stretch; display: flex; justify-content: flex-end; }
+.fig-slot-when { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+.fig-slot-when .fig-input { min-width: 0; }
+@media (max-width: 1559.98px) {
+  .fig-slot {
+    grid-template-columns: 28px minmax(0, 1fr) minmax(0, 1fr) 104px;
+    grid-template-areas:
+      "num list list act"
+      ".   start stop stop"
+      ".   status status status";
+  }
+}
+@media (max-width: 1199.98px) {
+  .fig-slot {
+    grid-template-columns: 28px minmax(0, 1fr) 104px;
+    grid-template-areas: "num list act" ". start start" ". stop stop" ". status status";
+  }
+}
+@media (max-width: 575.98px) {
+  .fig-slot {
+    grid-template-columns: 28px minmax(0, 1fr);
+    grid-template-areas: "num list" ". act" ". start" ". stop" ". status";
+  }
+  .fig-slot > .fig-slot-act { justify-content: flex-start; }
+  .fig-slot > .fig-slot-act:empty { display: none; }
+}
+@media (max-width: 419.98px) {
+  .fig-slot-when { grid-template-columns: minmax(0, 1fr); }
+  #fig-active-select, .fig-slot .fig-select { font-size: 15px; padding-left: 10px; }
+}
+
+// The save bar sits on the same left and right edges as the boxes above it
+.fig-savebar { margin-left: 0; margin-right: 0; }
+
+// Status panel: Travel on and Travel off always the same size
+#fig-controls .fig-travel-btn:not(.fig-travel-wide) { flex: 1 1 0; min-width: 0; }
+
+// Fold headers: the button keeps its size and sits on the same right edge in every fold
+.fig-fold-head > button, .fig-fold-head > .fig-btn-soft { flex: 0 0 auto; white-space: nowrap; }
+.fig-fold-head > div { flex: 1 1 auto; min-width: 0; }
+@media (max-width: 419.98px) {
+  .fig-fold-head { flex-wrap: nowrap; padding: var(--ctpg-space-4); }
+  .fig-fold-body { padding: 0 var(--ctpg-space-4) var(--ctpg-space-4); }
+}
+
+// Buttons keep their words on one line; on very narrow phones the row wraps instead
+#panel-figment .fig-btn-soft, #panel-figment .fig-btn-save, #panel-figment .fig-btn-go,
+#panel-figment .fig-travel-btn, #panel-figment .fig-add { white-space: nowrap; }
+// Slot rows start and end on the same edges as the heading, the help text and the buttons below
+.fig-slot { padding-left: 0; padding-right: 0; }
+
+// Link clicks tiles fill the row edge to edge, all the same width
+#panel-figment .an-kpis-compact { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+// Message queue and Post history: long links break inside their cell, so the tables fit the box
+// on phones instead of running off the side; the When column stays on one line
+.fig-fold .ctpg-table td { overflow-wrap: anywhere; }
+#tbody-figment-posts td:first-child, #tbody-fig-rotation td:first-child { white-space: nowrap; }
+@media (max-width: 575.98px) {
+  #fig-connect-card .fig-fold-head { flex-wrap: wrap; }
+  #fig-connect-card .fig-fold-head > button { width: 100%; justify-content: center; }
+}
+
+// Phones: Message queue and Post history rows become small cards, so nothing scrolls sideways
+@media (max-width: 575.98px) {
+  #fig-order .ctpg-table, #fig-posts .ctpg-table { display: block; }
+  #fig-order thead, #fig-posts thead { display: none; }
+  #fig-order tbody, #fig-posts tbody { display: block; }
+  #fig-order tr, #fig-posts tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 4px var(--ctpg-space-3);
+    padding: var(--ctpg-space-3) 0;
+    border-bottom: 1px solid var(--ctpg-card-line);
+  }
+  #fig-order td, #fig-posts td { display: block; padding: 0; border: 0; min-width: 0; }
+  #fig-order td:nth-child(1), #fig-posts td:nth-child(1) { grid-column: 1 / -1; font-size: 13px; color: var(--ctpg-slate); }
+  #fig-order td:nth-child(2), #fig-posts td:nth-child(2) { grid-column: 1 / -1; }
+  #fig-order td:nth-child(3) { grid-column: 1; align-self: center; font-size: 13px; color: var(--ctpg-slate); }
+  #fig-order td:nth-child(4) { grid-column: 2; justify-self: end; width: auto; }
+  #fig-posts td:nth-child(3), #fig-posts td:nth-child(4) { grid-column: auto; font-size: 13px; }
+  #fig-posts td:nth-child(3)::before { content: "YouTube: "; color: var(--ctpg-slate); }
+  #fig-posts td:nth-child(4)::before { content: "Twitch: "; color: var(--ctpg-slate); }
+  #fig-posts tr { grid-template-columns: auto auto 1fr; }
+  #fig-order td[colspan], #fig-posts td[colspan] { grid-column: 1 / -1; }
+}
+
+// ── Link menu on every message, and Link choices (plan 26 section 9g, Oct 13, 2026) ──
+// Cierra: "make it a drop down for all messages. and save button applies to all messages not
+// just one". The menu sits first in the message's footer, on its own line.
+.fig-msg .fig-msg-foot { max-height: 260px; }
+.fig-link {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px var(--ctpg-space-2);
+  min-width: 0;
+}
+.fig-link-label {
+  font-size: 13px;
+  font-weight: var(--ctpg-weight-label);
+  color: var(--ctpg-deep);
+}
+.fig-link .fig-select {
+  flex: 0 1 460px;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 40px;
+  padding: 0 10px;
+  font-size: 15px;
+}
+.fig-link.is-missing .fig-select { border-color: var(--ctpg-coral-text); }
+.fig-kind {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--ctpg-line);
+  color: var(--ctpg-deep);
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: var(--ctpg-weight-label);
+  white-space: nowrap;
+  vertical-align: 1px;
+}
+.fig-url { overflow-wrap: anywhere; }
+.fig-choice-add {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) auto;
+  gap: var(--ctpg-space-2) var(--ctpg-space-3);
+  align-items: end;
+  margin-top: var(--ctpg-space-3);
+  .fig-input { width: 100%; max-width: none; min-height: 42px; }
+}
+.fig-choice-field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.fig-choice-edit { flex: 1 1 100%; margin-top: 0; }
+@media (max-width: 640px) {
+  .fig-choice-add { grid-template-columns: minmax(0, 1fr); }
+  .fig-choice-add > .fig-btn-save, .fig-choice-add > .fig-stash-tools { justify-self: start; }
+}
+.fig-move {
+  margin-bottom: var(--ctpg-space-3);
+  padding: var(--ctpg-space-3);
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: var(--fig-radius-s);
+  background: var(--ctpg-paper);
+  font-size: 15px;
+  color: var(--ctpg-ink);
+}
+// Wrapping (Cierra, Oct 13: "you have to be careful with the word wrapping"): help lines that
+// changed with the Link menu end on a full phrase, never a word left alone.
+.fig-help, .fig-msgs-head span, .fig-people-note, .fig-move p, .fig-fold-head p { text-wrap: pretty; }

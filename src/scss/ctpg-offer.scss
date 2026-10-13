@@ -1,0 +1,11 @@
+// =========================================================
+// Public stand-alone pages bundle  ->  ctpg-offer.min.css
+// Offer landing pages, the privacy policy and unsubscribe, served by the API on the
+// site's address through the ctpg-go-links Worker (plan 26). No Bootstrap.
+// =========================================================
+
+@import "brand/tokens";
+@import "brand/fonts";
+@import "brand/custom-properties";
+@import "core/base";
+@import "public/pages";

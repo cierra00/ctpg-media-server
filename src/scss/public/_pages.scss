@@ -1,0 +1,468 @@
+// =========================================================
+// Public stand-alone pages served by the API on the site's address (plan 26):
+// offer landing pages (/offer/{name}), the privacy policy, unsubscribe and messages.
+// Spec: 10-design-system.md section 13. Colors, type and spacing are tokens only.
+// The accent per page (coral, aqua, gold, blue) marks the offer points and the countdown.
+//
+// 2.7.18 (Cierra, Oct 13, 2026: "more on brand with me and have more contrast"; plan 26
+// section 10): deep navy top holding the logo and the hero (eyebrow in gold, headline and
+// lead in white), the stripe under it, one white card, numbered steps, deep text and 2px
+// outlines, the button white on the deeper coral, and the welcome email's footer.
+// Wrapping: the API groups the words (class pg-k, app/services/typo.py); lines are
+// evened out here with text-wrap: balance.
+// =========================================================
+
+*, *::before, *::after { box-sizing: border-box; }
+
+.pg {
+  --pg-accent: var(--ctpg-coral);
+  --pg-accent-tint: rgba(255, 94, 94, .12);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  --pg-col: 980px;                 // width of the card and of the hero text above it
+  background: var(--ctpg-mist);
+  color: var(--ctpg-deep);
+  font-family: var(--ctpg-font-sans);
+  font-size: var(--ctpg-body-size);
+  line-height: var(--ctpg-body-lh);
+  -webkit-font-smoothing: antialiased;
+}
+.pg-accent-aqua { --pg-accent: var(--ctpg-aqua); --pg-accent-tint: rgba(78, 205, 196, .16); }
+.pg-accent-gold { --pg-accent: var(--ctpg-gold); --pg-accent-tint: rgba(255, 217, 61, .25); }
+.pg-accent-blue { --pg-accent: var(--ctpg-blue); --pg-accent-tint: rgba(0, 119, 190, .1); }
+
+.pg a { color: var(--ctpg-link); text-underline-offset: 2px; }
+.pg a:hover { color: var(--ctpg-deep); }
+
+// Skip link (7.2)
+.pg-skip {
+  position: absolute;
+  left: var(--ctpg-space-4);
+  top: -100px;
+  z-index: 10;
+  padding: var(--ctpg-space-2) var(--ctpg-space-4);
+  background: var(--ctpg-deep);
+  color: var(--ctpg-white) !important;
+  font-weight: var(--ctpg-weight-semibold);
+  border-radius: var(--ctpg-radius-badge);
+}
+.pg-skip:focus { top: var(--ctpg-space-4); }
+
+// Words that stay together on a line (groups set by the API, app/services/typo.py):
+// pg-k never wraps; pg-kl keeps its full width from 360px up; pg-kx is longer: it stays whole
+// when it fits and wraps where its words were joined when it cannot (names inside still hold).
+// max-width keeps a group from ever being wider than its line.
+.pg-k { white-space: nowrap; }
+.pg-kl, .pg-kx { display: inline-block; white-space: normal; max-width: 100%; }
+@media (min-width: 360px) {
+  .pg-kl { min-width: max-content; }
+}
+.pg-kx, .pg-title, .pg-lead, .pg-intro, .pg-step, .pg-check label { overflow-wrap: anywhere; }
+// Lines are evened out. Under 360px the grouped paragraphs wrap the plain way instead, because
+// "balance" narrows the line and could squeeze a medium group into wrapping inside itself.
+.pg-small, .pg-skip-link, .pg-countdown,
+.pg-lead, .pg-intro, .pg-step, .pg-details li, .pg-check label, .pg-join, .pg-error, .pg-alert { text-wrap: balance; }
+// Headlines: "pretty" (no stub last line). With "balance", Chromium can leave a long held name
+// sticking out past the end of a headline line (found at 1366px).
+.pg-title, .pg-h2 { text-wrap: pretty; }
+@media (max-width: 359px) {
+  .pg-lead, .pg-intro, .pg-step, .pg-details li, .pg-check label, .pg-join, .pg-error, .pg-alert { text-wrap: wrap; }
+}
+
+// Header: logo and wordmark on deep navy; the hero continues the same navy inside <main>
+.pg-top, .pg-hero-band { background: var(--ctpg-deep); color: var(--ctpg-white); --ctpg-focus-color: var(--ctpg-gold); }
+.pg-top-in {
+  display: flex;
+  align-items: center;
+  min-height: var(--ctpg-header-height);
+}
+.pg-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ctpg-space-3);
+  text-decoration: none;
+  color: var(--ctpg-white) !important;
+  min-height: 44px;
+}
+.pg-brand img { width: 40px; height: 40px; }
+.pg-word { display: flex; flex-direction: column; font-family: var(--ctpg-font-label); text-transform: uppercase; }
+.pg-word-1 {
+  font-weight: var(--ctpg-weight-label);
+  font-size: var(--ctpg-wordmark-line1-size);
+  line-height: var(--ctpg-wordmark-line1-lh);
+}
+.pg-word-2 {
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-wordmark-guide-size);
+  letter-spacing: var(--ctpg-wordmark-guide-ls);
+}
+.pg-stripe { height: var(--ctpg-stripe-height); background: var(--ctpg-stripe); }
+
+// Hero: eyebrow, headline and lead, lined up with the card below
+.pg-hero { padding-block: var(--ctpg-space-6) var(--ctpg-space-8); }
+.pg-hero > * { max-width: var(--pg-col); margin-inline: auto; }
+.pg-lead {
+  margin-block: 0;
+  font-size: var(--ctpg-body-l-size);
+  line-height: var(--ctpg-body-l-lh);
+  color: var(--ctpg-white-90);
+}
+
+// Main and the card
+.pg-main { flex: 1 0 auto; }
+.pg-main-in { padding-block: var(--ctpg-space-7) var(--ctpg-space-9); }
+.pg-card {
+  max-width: var(--pg-col);
+  margin-inline: auto;
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: var(--ctpg-radius-badge);
+  box-shadow: var(--ctpg-shadow-panel);
+  overflow: hidden;
+}
+.pg-message { --pg-col: 620px; }
+.pg-doc { --pg-col: 820px; }
+.pg-body { padding: var(--ctpg-space-7) var(--ctpg-space-8) var(--ctpg-space-8); min-width: 0; }
+
+.pg-photo { margin: 0; background: var(--ctpg-tint); }
+.pg-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pg-photo-top .pg-photo { aspect-ratio: 16 / 7; }
+
+// Photo beside the form (wide screens); stacks on tablets and phones
+@media (min-width: #{$ctpg-bp-tablet + 1px}) {
+  .pg-photo-side .pg-card { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+  .pg-photo-side .pg-photo { min-height: 100%; }
+}
+.pg-photo-side .pg-photo { aspect-ratio: auto; }
+@media (max-width: $ctpg-bp-tablet) {
+  .pg-photo-side .pg-photo { aspect-ratio: 16 / 9; }
+}
+.pg-simple { --pg-col: 680px; }
+
+// Text
+.pg-eyebrow {
+  display: block;
+  margin-block: 0 var(--ctpg-space-3);
+  color: var(--ctpg-gold);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: var(--ctpg-label-lh);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.pg-title {
+  margin-block: 0 var(--ctpg-space-4);
+  color: var(--ctpg-white);
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: var(--ctpg-title-l-lead-size);
+  line-height: var(--ctpg-title-l-lead-lh);
+}
+.pg-intro {
+  margin: 0 0 var(--ctpg-space-4);
+  font-size: var(--ctpg-body-l-size);
+  line-height: var(--ctpg-body-l-lh);
+  color: var(--ctpg-deep);
+}
+
+// Numbered steps (intro lines that start "1." "2." "3.")
+.pg-steps-h {
+  margin: 0 0 var(--ctpg-space-1);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: var(--ctpg-label-lh);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ctpg-deep);
+}
+.pg-steps { list-style: none; margin: 0 0 var(--ctpg-space-6); padding: 0; }
+.pg-steps li {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: var(--ctpg-space-4);
+  align-items: start;
+  padding-block: var(--ctpg-space-4);
+  border-bottom: 1px solid var(--ctpg-line);
+  font-size: var(--ctpg-body-l-size);
+  line-height: 1.5;
+  color: var(--ctpg-deep);
+}
+.pg-steps li:last-child { border-bottom: 0; }
+.pg-n {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--ctpg-radius-round);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 15px;
+  color: var(--ctpg-deep);
+}
+.pg-n1 { background: var(--ctpg-coral); }
+.pg-n2 { background: var(--ctpg-gold); }
+.pg-n3 { background: var(--ctpg-aqua); }
+.pg-step { padding-top: 3px; }
+
+.pg-details {
+  list-style: none;
+  margin: var(--ctpg-space-5) 0;
+  padding: 0;
+  display: grid;
+  gap: var(--ctpg-space-2);
+}
+.pg-details li {
+  position: relative;
+  padding-left: var(--ctpg-space-6);
+  font-weight: var(--ctpg-weight-semibold);
+  color: var(--ctpg-deep);
+}
+.pg-details li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .5em;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--ctpg-radius-round);
+  background: var(--pg-accent);
+}
+.pg-countdown {
+  margin: 0 0 var(--ctpg-space-5);
+  padding: var(--ctpg-space-2) var(--ctpg-space-4);
+  border-left: 4px solid var(--pg-accent);
+  background: var(--ctpg-sand);
+  font-weight: var(--ctpg-weight-semibold);
+  color: var(--ctpg-deep);
+}
+
+// Form
+.pg-form { display: grid; gap: var(--ctpg-space-4); }
+.pg-body > :not(.pg-form) + .pg-form { margin-top: var(--ctpg-space-5); }
+.pg-field { display: grid; gap: var(--ctpg-space-1); }
+.pg-label { min-height: 24px; font-weight: var(--ctpg-weight-label); color: var(--ctpg-deep); font-size: var(--ctpg-body-s-size); }
+.pg-optional { font-weight: var(--ctpg-weight-regular); color: var(--ctpg-slate); }
+.pg-input {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--ctpg-space-3) var(--ctpg-space-4);
+  border: 2px solid var(--ctpg-navy);
+  border-radius: 8px;
+  background: var(--ctpg-white);
+  color: var(--ctpg-deep);
+  font-family: inherit;
+  font-size: var(--ctpg-field-font-size);
+  line-height: 1.4;
+}
+textarea.pg-input { resize: vertical; min-height: 96px; }
+.pg-input[aria-invalid="true"] { border-color: var(--ctpg-coral-text); }
+.pg-error, .pg-alert { margin: 0; color: var(--ctpg-coral-text); font-size: var(--ctpg-body-s-size); font-weight: var(--ctpg-weight-semibold); }
+.pg-alert {
+  padding: var(--ctpg-space-3) var(--ctpg-space-4);
+  background: var(--ctpg-status-busy-bg);
+  border-radius: 8px;
+}
+.pg-check {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: var(--ctpg-space-3);
+  align-items: start;
+  font-size: var(--ctpg-body-s-size);
+  line-height: var(--ctpg-body-s-lh);
+  color: var(--ctpg-deep);
+}
+.pg-check input {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  accent-color: var(--ctpg-deep);
+  cursor: pointer;
+}
+.pg-check label { cursor: pointer; min-height: 24px; padding-top: 1px; }
+// Interests: pill-shaped tick boxes in even columns (two on phones, four on wider screens),
+// with the last one ("All of them") across the full width. On the smallest phones they flow.
+.pg-interests { border: 0; margin: 0; padding: 0; min-width: 0; }
+.pg-interests legend { padding: 0; margin-bottom: var(--ctpg-space-2); }
+.pg-chips { display: flex; flex-wrap: wrap; gap: var(--ctpg-space-2); }
+@media (min-width: #{$ctpg-bp-small + 1px}) {
+  .pg-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .pg-chips .pg-chip { display: flex; }
+  .pg-chips .pg-chip span { display: flex; flex: 1; }
+  .pg-chips .pg-chip:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: #{$ctpg-bp-phone + 1px}) {
+  .pg-chips:has(> :nth-child(5)) { grid-template-columns: repeat(4, auto); }
+  .pg-chips:has(> :nth-child(5)) .pg-chip:last-child { grid-column: 1 / -1; }
+}
+.pg-chip {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  white-space: nowrap;
+  input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ctpg-space-2);
+    min-height: 44px;
+    padding: 0 var(--ctpg-space-4);
+    border: 2px solid var(--ctpg-navy);
+    border-radius: var(--ctpg-radius-pill);
+    background: var(--ctpg-white);
+    color: var(--ctpg-deep);
+    font-weight: var(--ctpg-weight-semibold);
+    font-size: var(--ctpg-body-s-size);
+    transition: background var(--ctpg-motion-fast), border-color var(--ctpg-motion-fast);
+  }
+  span::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--ctpg-navy);
+    border-radius: 4px;
+    background: var(--ctpg-white);
+    flex-shrink: 0;
+  }
+  input:checked + span { border-color: var(--ctpg-deep); background: var(--pg-accent-tint); }
+  input:checked + span::before {
+    border-color: var(--ctpg-deep);
+    background: var(--ctpg-deep) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='2.4' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center / 12px no-repeat;
+  }
+  input:focus-visible + span { outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color); outline-offset: 2px; }
+  span:hover { border-color: var(--ctpg-deep); }
+}
+
+// After sign-up: the offer with the partner's button
+.pg-reveal .pg-body { text-align: left; }
+.pg-eyebrow-done { color: var(--ctpg-aqua); }
+.pg-offer-block {
+  margin-top: var(--ctpg-space-6);
+  padding-top: var(--ctpg-space-5);
+  border-top: 1px solid var(--ctpg-line);
+  .pg-h2 { margin-bottom: var(--ctpg-space-2); }
+  .pg-details { margin-top: var(--ctpg-space-3); }
+}
+.pg-offer-for {
+  margin: 0 0 var(--ctpg-space-2);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ctpg-slate);
+}
+.pg-cta-row { margin: var(--ctpg-space-6) 0 var(--ctpg-space-3); }
+.pg-button-cta { width: 100%; max-width: 460px; }
+.pg-cta-note { max-width: 460px; }
+
+.pg-join { margin: 0; font-size: var(--ctpg-body-s-size); line-height: var(--ctpg-body-s-lh); color: var(--ctpg-deep); }
+.pg-skip-row { margin: var(--ctpg-space-4) 0 0; text-align: center; }
+.pg-skip-link {
+  display: inline-block;
+  min-height: 44px;
+  padding: 11px var(--ctpg-space-3);
+  text-align: center;
+  font-weight: var(--ctpg-weight-semibold);
+  font-size: var(--ctpg-body-s-size);
+}
+.pg-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.pg-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: var(--ctpg-space-3) var(--ctpg-space-7);
+  border: 0;
+  border-radius: var(--ctpg-radius-pill);
+  background: var(--ctpg-coral-text);   // white on the deeper coral, like the site's Start planning button
+  color: var(--ctpg-white) !important;
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 15px;
+  letter-spacing: .02em;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--ctpg-motion-fast);
+}
+.pg-button:hover { background: var(--ctpg-deep); }
+.pg-form .pg-button { width: 100%; }
+.pg-small { margin: 0; font-size: var(--ctpg-body-xs-size); line-height: var(--ctpg-body-xs-lh); color: var(--ctpg-navy); }
+// Links inside small print keep a 24px tap height (open item 66)
+.pg-small a { display: inline-block; padding-block: 3px; }
+.pg-section a, .pg-intro a, .pg-mail { padding-block: 4px; overflow-wrap: anywhere; }
+.pg-section li { text-wrap: pretty; }
+
+.pg-preview {
+  margin: 0;
+  padding: var(--ctpg-space-2) var(--ctpg-frame-gutter);
+  background: var(--ctpg-gold);
+  color: var(--ctpg-deep);
+  text-align: center;
+  font-weight: var(--ctpg-weight-semibold);
+}
+
+// Long pages (privacy policy)
+.pg-doc .pg-title { font-size: var(--ctpg-title-l-cover-size); line-height: var(--ctpg-title-l-cover-lh); }
+.pg-section { margin-top: var(--ctpg-space-7); }
+.pg-h2 {
+  margin: 0 0 var(--ctpg-space-3);
+  color: var(--ctpg-deep);
+  font-family: var(--ctpg-font-serif);
+  font-weight: var(--ctpg-weight-serif);
+  font-size: var(--ctpg-title-side-size);
+  line-height: var(--ctpg-title-side-lh);
+}
+.pg-section p { margin: 0 0 var(--ctpg-space-3); max-width: 70ch; }
+
+// Footer: the welcome email's footer (stripe, logo, "Find me on", links, privacy, copyright)
+.pg-foot { background: var(--ctpg-deep); color: var(--ctpg-white-90); --ctpg-focus-color: var(--ctpg-gold); text-align: center; }
+.pg-foot-in { padding-block: var(--ctpg-space-8) var(--ctpg-space-7); }
+.pg-foot a { color: var(--ctpg-white) !important; }
+.pg-foot-brand { text-align: left; }
+.pg-foot-brand img { width: 48px; height: 48px; }
+.pg-foot-h {
+  margin: var(--ctpg-space-6) 0 var(--ctpg-space-1);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ctpg-gold);
+}
+.pg-foot-social, .pg-foot-small { display: flex; flex-wrap: wrap; justify-content: center; margin: 0; }
+.pg-foot-social { gap: 0 var(--ctpg-space-1); margin-bottom: var(--ctpg-space-5); }
+.pg-foot-social a, .pg-foot-small a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: var(--ctpg-space-3);
+  white-space: nowrap;
+}
+.pg-foot-social a { font-weight: var(--ctpg-weight-semibold); font-size: 15px; }
+.pg-foot-line { height: 1px; max-width: 520px; margin-inline: auto; background: var(--ctpg-white-58); opacity: .45; }
+.pg-foot-small { gap: 0 var(--ctpg-space-2); margin-top: var(--ctpg-space-3); }
+.pg-foot-small a { font-size: var(--ctpg-meta-size); }
+.pg-foot-c { margin: var(--ctpg-space-1) 0 0; font-size: var(--ctpg-body-xs-size); color: var(--ctpg-white-80); }
+
+@media (max-width: $ctpg-bp-phone) {
+  .pg-hero { padding-block: var(--ctpg-space-5) var(--ctpg-space-7); }
+  .pg-main-in { padding-block: var(--ctpg-space-6) var(--ctpg-space-8); }
+  .pg-foot-social { max-width: 300px; margin-inline: auto; }
+  .pg-body { padding: var(--ctpg-space-6) var(--ctpg-space-5) var(--ctpg-space-7); }
+  .pg-photo-top .pg-photo { aspect-ratio: 16 / 9; }
+  .pg-doc .pg-title { font-size: var(--ctpg-title-l-lead-size); }
+}
+@media (max-width: $ctpg-bp-phone) {
+  .pg-button { padding-inline: var(--ctpg-space-4); }
+}
+@media (max-width: $ctpg-bp-small) {
+  .pg-body { padding-inline: var(--ctpg-space-4); }
+}
+
