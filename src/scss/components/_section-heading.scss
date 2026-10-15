@@ -13,9 +13,9 @@
   color: var(--ctpg-deep);
   font-family: var(--ctpg-font-serif);
   font-weight: var(--ctpg-weight-serif);
-  font-size: var(--ctpg-title-xl-size);
-  line-height: var(--ctpg-title-xl-lh);
-  letter-spacing: var(--ctpg-title-xl-ls);
+  font-size: var(--ctpg-title-section-size);  // Oct 15, 3.0.0
+  line-height: var(--ctpg-title-section-lh);
+  letter-spacing: var(--ctpg-title-section-ls);
 }
 
 .ctpg-heading--intro {

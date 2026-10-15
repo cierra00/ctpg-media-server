@@ -108,8 +108,9 @@ $ctpg-weight-semibold: 600;         // Inter (skip link, crowd badges, top bar h
 // A null phone value means "same as desktop".
 // ---------------------------------------------------------
 $ctpg-type: (
-  "display":             (clamp(60px, 7vw, 92px), .92, -.05em,   clamp(38px, 11.5vw, 48px), 1, -.035em),
+  "display":             (clamp(48px, 5.4vw, 72px), .92, -.05em,   clamp(38px, 11.5vw, 48px), 1, -.035em),
   "title-xl":            (clamp(40px, 4.8vw, 60px), 1.02, -.04em, clamp(30px, 9.5vw, 38px), 1.08, -.025em),
+  "title-section":       (clamp(32px, 3.2vw, 40px), 1.08, -.02em, clamp(26px, 7.5vw, 28px), 1.15, -.015em), // Oct 15, 3.0.0: homepage section headings
   "title-xl-trip":       (clamp(42px, 5vw, 62px), 1.02, -.04em,   clamp(30px, 9.5vw, 38px), 1.08, -.025em),
   "title-xl-newsletter": (clamp(40px, 4.8vw, 58px), 1.03, 0,      clamp(30px, 9.5vw, 38px), 1.08, -.025em),
   "title-l-cover":       (clamp(36px, 4vw, 52px), 1.04, 0,        clamp(28px, 8.5vw, 34px), 1.1, -.02em),
@@ -131,7 +132,7 @@ $ctpg-type-titles: (
   "ask":          (34px, 1.1,  29px, 1.15),
   "trip-detail":  (34px, 1.08, 28px, 1.13),
   "explore-bar":  (34px, 1.5,  30px, 1.1),
-  "toolkit":      (30px, 1.14, 26px, 1.18),
+  "toolkit":      (22px, 1.2,  24px, 1.2),  // Oct 15, 3.0.0: four columns
   "destination":  (30px, 1.5,  27px, 1.15),
   "explore-tile": (27px, 1.5,  25px, 1.12),
   "more-bar":     (26px, 1.5,  24px, 1.2),
@@ -176,27 +177,27 @@ $ctpg-header-height-phone: 72px;
 $ctpg-header-blur: 12px;
 $ctpg-stripe-height: 3px;
 $ctpg-stripe-blend-height: 5px;
-$ctpg-section-pad: 72px;          // Cierra, Oct 8: "too much vertical spacing" (was the mock's 112px)
-$ctpg-section-pad-tablet: 60px;
-$ctpg-section-pad-phone: 44px;   // was 52px
+$ctpg-section-pad: 56px;          // Cierra, Oct 15 (3.0.0): layout review; was 72px (Oct 8), mock 112px
+$ctpg-section-pad-tablet: 48px;   // was 60px
+$ctpg-section-pad-phone: 40px;    // was 44px
 
 // 5.2 Section paddings: (top, bottom, phone top, phone bottom)
 $ctpg-sections: (
-  "hero":         (70px, 28px, 38px, 26px),
-  "weekend":      (112px, 112px, 52px, 52px),
-  "explore":      (60px, 68px, 44px, 48px),
-  "toolkit":      (112px, 112px, 52px, 52px),
-  "cruise-desk":  (112px, 112px, 52px, 52px),
-  "park-desk":    (112px, 112px, 52px, 52px),
-  "food":         (112px, 112px, 52px, 52px),
-  "travel":       (112px, 112px, 52px, 52px),
-  "trip":         (72px, 72px, 48px, 48px),
-  "destinations": (112px, 112px, 52px, 52px),
-  "newsletter":   (64px, 64px, 48px, 48px),
+  "hero":         (48px, 28px, 38px, 26px),   // Oct 15, 3.0.0: 48px top (was 70px)
+  "weekend":      (56px, 56px, 40px, 40px),   // Oct 15, 3.0.0: one spacing for every section (item 73)
+  "explore":      (56px, 56px, 40px, 40px),
+  "toolkit":      (56px, 56px, 40px, 40px),
+  "cruise-desk":  (56px, 56px, 40px, 40px),
+  "park-desk":    (56px, 56px, 40px, 40px),
+  "food":         (56px, 56px, 40px, 40px),
+  "travel":       (56px, 56px, 40px, 40px),
+  "trip":         (56px, 56px, 40px, 40px),
+  "destinations": (56px, 56px, 40px, 40px),
+  "newsletter":   (56px, 56px, 40px, 40px),
   "footer":       (55px, 20px, 55px, 20px),
 );
-$ctpg-hero-min-height: 720px;
-$ctpg-hero-min-height-tablet: 700px;
+$ctpg-hero-min-height: 600px;        // Oct 15, 3.0.0 (was 720px)
+$ctpg-hero-min-height-tablet: 600px; // was 700px
 
 // ---------------------------------------------------------
 // 5.3 Spacing, radius and shadow

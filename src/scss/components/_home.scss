@@ -28,6 +28,9 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 
   .section { padding: var(--ctpg-section-pad) 0; }
 
+  // Oct 15, 3.0.0: bands alternate white and mist (plan 10 section 5.2).
+  .front-page { background: var(--ctpg-white); }
+
   .eyebrow {
     @include label;
     margin: 0 0 14px;
@@ -422,7 +425,7 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 // ── H7 Explore the guide ────────────────────────────────
 .ctpg-home .topic-section {
   padding: var(--ctpg-section-explore-pt) 0 var(--ctpg-section-explore-pb);
-  background: var(--ctpg-white);
+  background: var(--ctpg-mist);
   color: var(--ctpg-ink);
   border-block: 1px solid var(--ctpg-line);
 }
@@ -517,8 +520,7 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 
 // ── H8 Planning toolkit ─────────────────────────────────
 .ctpg-home .widget-section {
-  background: var(--ctpg-sand);
-  border-block: 1px solid var(--ctpg-line);
+  background: var(--ctpg-white);
 }
 
 .ctpg-home .department-heading,
@@ -534,17 +536,14 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
     color: var(--ctpg-deep);
     font-family: var(--ctpg-font-serif);
     font-weight: var(--ctpg-weight-serif);
-    font-size: var(--ctpg-title-xl-size);
-    line-height: var(--ctpg-title-xl-lh);
-    letter-spacing: var(--ctpg-title-xl-ls);
+    font-size: var(--ctpg-title-section-size);
+    line-height: var(--ctpg-title-section-lh);
+    letter-spacing: var(--ctpg-title-section-ls);
   }
 }
 
 .ctpg-home .vacation-carousel-heading h2 {
   max-width: 720px;
-  font-size: var(--ctpg-title-xl-trip-size);
-  line-height: var(--ctpg-title-xl-trip-lh);
-  letter-spacing: var(--ctpg-title-xl-trip-ls);
 }
 
 .ctpg-home .widget-heading-copy {
@@ -557,15 +556,14 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 
 .ctpg-home .widget-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(4, 1fr); // Oct 15, 3.0.0 (was 2 columns)
+  gap: 20px;
 }
 
 .ctpg-home .widget-card {
-  min-height: 485px;
   display: flex;
   flex-direction: column;
-  padding: 32px;
+  padding: 24px;
   overflow: hidden;
   border: 1px solid var(--ctpg-card-line);
   background: var(--ctpg-white);
@@ -581,7 +579,7 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
   &:nth-child(4) { border-top: 5px solid var(--ctpg-toolkit-accent-4); }
 
   h3 {
-    margin: 22px 0 13px;
+    margin: 16px 0 10px;
     color: var(--ctpg-deep);
     font-family: var(--ctpg-font-serif);
     font-weight: var(--ctpg-weight-serif);
@@ -599,8 +597,8 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 }
 
 .ctpg-home .widget-image {
-  height: 175px;
-  margin: -32px -32px 27px;
+  height: 120px;
+  margin: -24px -24px 20px;
   overflow: hidden;
   background: var(--ctpg-line);
 
@@ -911,14 +909,19 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
   small { color: var(--ctpg-slate); font-size: var(--ctpg-meta-size); }
 }
 
+.ctpg-home .department:not(.department-tint) {
+  background: var(--ctpg-mist);
+  border-block: 1px solid var(--ctpg-line);
+}
+
 .ctpg-home .department-tint {
-  background: var(--ctpg-tint);
+  background: var(--ctpg-white);
 
   .story-card { background: transparent; }
 }
 
 // ── H11 Food & drink ────────────────────────────────────
-.ctpg-home .food-section { background: var(--ctpg-white); }
+.ctpg-home .food-section { background: var(--ctpg-mist); border-block: 1px solid var(--ctpg-line); }
 
 .ctpg-home .food-grid {
   display: grid;
@@ -983,7 +986,6 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 // ── H12 Travel tech ─────────────────────────────────────
 .ctpg-home .tech-section {
   background: var(--ctpg-white);
-  border-top: 1px solid var(--ctpg-line);
 }
 
 .ctpg-home .tech-layout {
@@ -1278,7 +1280,7 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 }
 
 // ── H14 Destinations ────────────────────────────────────
-.ctpg-home .destination-section { background: var(--ctpg-paper); overflow: hidden; }
+.ctpg-home .destination-section { background: var(--ctpg-white); overflow: hidden; }
 
 .ctpg-home .destination-rail { gap: 20px; }
 
@@ -1349,9 +1351,9 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
     margin: 0;
     font-family: var(--ctpg-font-serif);
     font-weight: var(--ctpg-weight-serif);
-    font-size: var(--ctpg-title-xl-newsletter-size);
-    line-height: var(--ctpg-title-xl-newsletter-lh);
-    letter-spacing: var(--ctpg-title-xl-newsletter-ls);
+    font-size: var(--ctpg-title-section-size);
+    line-height: var(--ctpg-title-section-lh);
+    letter-spacing: var(--ctpg-title-section-ls);
   }
 }
 
@@ -1680,6 +1682,20 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 }
 
 .ctpg-home section[id] { scroll-margin-top: calc(var(--ctpg-sticky-top, 90px) + 60px); }
+
+// Oct 15, 3.0.0 (plan 10 6.22): the jump bar tucks behind the header while scrolling down
+// and comes back on any scroll up. site.js adds .is-tucked; focus inside always shows it.
+.ctpg-home .home-jump {
+  transition: transform var(--ctpg-motion-base) ease, visibility 0s;
+
+  &.is-tucked:not(:focus-within) {
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform var(--ctpg-motion-base) ease, visibility 0s linear var(--ctpg-motion-base);
+  }
+
+  @media (prefers-reduced-motion: reduce) { &, &.is-tucked:not(:focus-within) { transition: none; } }
+}
 
 // "New" badge: published in the last 48 hours.
 .ctpg-new-badge {

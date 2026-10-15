@@ -253,7 +253,17 @@
         if (l < list.scrollLeft || r > list.scrollLeft + list.clientWidth) list.scrollLeft = l - 16;
       }
     };
-    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(mark); } }, { passive: true });
+    // Oct 15, 3.0.0 (plan 10 6.22): tuck the bar while scrolling down, show it on any scroll up.
+    var lastY = window.scrollY;
+    var hero = home.querySelector(".hero");
+    var tuck = function () {
+      var y = window.scrollY;
+      var past = hero ? y > hero.offsetTop + hero.offsetHeight + 120 : y > 600;
+      if (y > lastY + 4 && past) jump.classList.add("is-tucked");
+      else if (y < lastY - 4 || !past) jump.classList.remove("is-tucked");
+      lastY = y;
+    };
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(function () { mark(); tuck(); }); } }, { passive: true });
     mark();
   }
 
