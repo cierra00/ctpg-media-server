@@ -108,6 +108,62 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
   padding: var(--ctpg-section-hero-pt) 0 var(--ctpg-section-hero-pb);
 }
 
+// Oct 15, 3.0.0 (plan 10 6.3, plan 39 R2): the Latest row sits along the bottom of the hero;
+// the hero content stays centred in the space above it.
+.ctpg-home .hero { flex-direction: column; }
+.ctpg-home .hero-inner { margin-block: auto; }
+
+.ctpg-home .hero-latest {
+  position: relative;
+  z-index: 2;
+  align-self: stretch;
+  background: var(--ctpg-latest-row);
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin: 0;
+    padding: 16px 0;
+    list-style: none;
+  }
+
+  li + li { padding-left: 24px; border-left: 1px solid rgba(255, 255, 255, .18); }
+
+  a { display: block; color: var(--ctpg-white); }
+
+  small {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 8px;
+    color: var(--ctpg-white-72);
+    font-size: var(--ctpg-meta-size);
+    line-height: var(--ctpg-meta-lh);
+
+    span { @include label; color: var(--ctpg-gold); letter-spacing: .08em; }
+  }
+
+  strong {
+    display: -webkit-box;
+    margin-top: 4px;
+    overflow: hidden;
+    font-family: var(--ctpg-font-serif);
+    font-weight: var(--ctpg-weight-serif);
+    font-size: 15px;
+    line-height: 1.3;
+    text-wrap: balance; // no single word left on the last line (CLAUDE.md wrapping)
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  a:hover strong { text-decoration: underline; }
+}
+
+// Mid-page newsletter band (plan 10 6.19, plan 39 R3): shorter than the closing band.
+.ctpg-home .newsletter-mid { padding: 40px 0; }
+.ctpg-home .newsletter-inner p { text-wrap: pretty; } // no stub last line
+
 .ctpg-home .hero-copy {
   max-width: 760px;
 
@@ -1755,4 +1811,28 @@ $mock-button: 13px;  // the mock's 9 and 10px button text (4.3)
 
 @media (max-width: $ctpg-bp-phone) {
   .ctpg-home .home-jump ul { gap: 22px; }
+}
+
+// Oct 15, 3.0.0 (plan 10 6.13 and 6.3, plan 39 R2 and R4): phones.
+@media (max-width: 680px) {
+  .ctpg-home .hero-latest ul {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 78vw;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .ctpg-home .hero-latest li { scroll-snap-align: start; }
+  .ctpg-home .hero-latest li + li { padding-left: 16px; }
+
+  .ctpg-home .newsletter-mid { padding: 32px 0; }
+
+  // Each desk shows its lead and the first 2 cards; travel tech shows its first 3 items.
+  .ctpg-home .department-grid > :nth-child(n+3),
+  .ctpg-home .tech-story-list > :nth-child(n+4) { display: none; }
 }
