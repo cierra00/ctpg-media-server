@@ -20,6 +20,10 @@
   .ctpg-cards, .ctpg-cards--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
 }
 
+// Card links never underline (WordPress adds an underline to every link on hover).
+.ctpg-place, .ctpg-story, .ctpg-tile, .ctpg-row, a.ctpg-cta {
+  &:hover, &:focus, &:focus-visible { text-decoration: none; }
+}
 // ---------- load more as you scroll (site.js, data-ctpg-more) ----------
 .ctpg-later { display: none !important; }
 
