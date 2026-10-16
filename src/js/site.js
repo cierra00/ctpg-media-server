@@ -332,7 +332,7 @@
 (function () {
   "use strict";
   var ROWS = 5;
-  var CARD = ".ctpg-place, .ctpg-story, .ctpg-panel, .ctpg-tile";
+  var CARD = ".ctpg-place, .ctpg-story, .ctpg-panel, .ctpg-tile, .ctpg-row";
   // Photos shimmer until they arrive, then fade in (Cierra Oct 16: "need a loading affect and animation").
   document.documentElement.classList.add("ctpg-js");
   function photos(root) {
@@ -347,7 +347,9 @@
   photos(document);
 
   var units = Array.prototype.slice.call(document.querySelectorAll("[data-ctpg-more]"));
-  Array.prototype.forEach.call(document.querySelectorAll(".ctpg-cards"), function (g) {
+  // Item containers: card grids, list rows, and any list marked data-ctpg-more-items (its children are the items).
+  var CONT = ".ctpg-cards, .ctpg-rows, [data-ctpg-more-items]";
+  Array.prototype.forEach.call(document.querySelectorAll(CONT), function (g) {
     if (!g.closest("[data-ctpg-more]")) units.push(g);
   });
   // A to Z link lists (the theme's Directory lists: ports, restaurants, rides...) load the same way.
@@ -371,7 +373,7 @@
   }
 
   units.forEach(function (box) {
-    var solo = box.matches(".ctpg-cards");
+    var solo = box.matches(CONT);
     var src = box.getAttribute("data-ctpg-more-src");
     var total = parseInt(box.getAttribute("data-ctpg-more-total"), 10) || 0;
     var next = src ? parseInt(box.getAttribute("data-ctpg-more-next"), 10) : null;
@@ -412,11 +414,15 @@
     }
 
     var isDir = box.matches(".dir");
+    function itemsOf(g) {
+      var any = g.hasAttribute("data-ctpg-more-items");
+      return Array.prototype.filter.call(g.children, function (c) { return any ? !c.classList.contains("ctpg-skel") : c.matches(CARD); });
+    }
     function collect() {
       cards = [];
       if (isDir) { cards = Array.prototype.slice.call(box.querySelectorAll(".dir-list > li")); return; }
-      (solo ? [box] : Array.prototype.slice.call(box.querySelectorAll(".ctpg-cards"))).forEach(function (g) {
-        Array.prototype.forEach.call(g.children, function (c) { if (c.matches(CARD)) cards.push(c); });
+      (solo ? [box] : Array.prototype.slice.call(box.querySelectorAll(CONT))).forEach(function (g) {
+        Array.prototype.push.apply(cards, itemsOf(g));
       });
     }
     function pool() { return cards.filter(function (c) { return !c.hidden; }); }
@@ -465,7 +471,7 @@
     // Hide group headings (a cruise line) whose cards are all folded.
     function groups() {
       Array.prototype.forEach.call(box.querySelectorAll("[data-ctpg-more-group], .dir-group"), function (g) {
-        var any = Array.prototype.some.call(g.querySelectorAll(".ctpg-cards > *, .dir-list > li"), function (c) { return !c.hidden && !c.classList.contains("ctpg-later"); });
+        var any = Array.prototype.some.call(g.querySelectorAll(".ctpg-cards > *, .ctpg-rows > *, [data-ctpg-more-items] > *, .dir-list > li"), function (c) { return !c.hidden && !c.classList.contains("ctpg-later"); });
         g.classList.toggle("ctpg-later", !any);
       });
     }
@@ -507,7 +513,7 @@
     }
 
     function measure() {
-      var grid = solo ? box : isDir ? (box.querySelector(".dir-list--cols") || box.querySelector(".dir-list")) : box.querySelector(".ctpg-cards");
+      var grid = solo ? box : isDir ? (box.querySelector(".dir-list--cols") || box.querySelector(".dir-list")) : box.querySelector(CONT);
       if (!grid) return;
       var s = cols(grid) * ROWS;
       if (s === size) return;

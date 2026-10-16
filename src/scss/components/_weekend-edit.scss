@@ -17,8 +17,7 @@
 }
 
 // Photo frames (shared by cover and side stories)
-.ctpg-cover__photo,
-.ctpg-side-story__photo {
+.ctpg-cover__photo {
   display: block;
   overflow: hidden;
   background: var(--ctpg-mist);
@@ -44,16 +43,14 @@
 }
 
 // Beats the frame rule that sizes photos to fill
-.ctpg-cover__photo .ctpg-photo-standin img,
-.ctpg-side-story__photo .ctpg-photo-standin img {
+.ctpg-cover__photo .ctpg-photo-standin img {
   width: 72px;
   height: 72px;
   object-fit: contain;
 }
 
 // Titles: deep, link colour on hover (7.1)
-.ctpg-cover__title a,
-.ctpg-side-story__title a {
+.ctpg-cover__title a {
   color: inherit;
   text-decoration: none;
 
@@ -93,26 +90,6 @@
   gap: 24px;
 }
 
-.ctpg-side-story {
-  min-width: 0;
-  border-bottom: 1px solid var(--ctpg-line);
-}
-
-.ctpg-side-story__photo { height: 220px; }
-
-.ctpg-side-story:hover .ctpg-side-story__photo img { transform: scale(var(--ctpg-zoom-side)); }
-
-.ctpg-side-story__text { padding: 16px 0 18px; }
-
-.ctpg-side-story__title {
-  margin: 0 0 10px;
-  color: var(--ctpg-deep);
-  font-family: var(--ctpg-font-serif);
-  font-weight: var(--ctpg-weight-serif);
-  font-size: var(--ctpg-title-side-size);
-  line-height: var(--ctpg-title-side-lh);
-}
-
 // ── Narrower screens ─────────────────────────────────────
 @media (max-width: $ctpg-bp-tablet) {
   .ctpg-weekend__grid { display: block; }
@@ -136,5 +113,4 @@
     margin-top: 36px;
   }
 
-  .ctpg-side-story__photo { height: clamp(210px, 70vw, 280px); }
 }

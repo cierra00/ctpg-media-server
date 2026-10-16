@@ -124,8 +124,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 82px;
+  // A circle while the words fit; an oval as wide as the longest word when they don't (Tomorrowland,
+  // Meraviglia class): the text never crosses the ring or the card edge (3.1.8).
+  min-width: 82px;
   height: 82px;
+  padding: 0 14px;
   border-radius: var(--ctpg-radius-round);
   background: var(--ctpg-white);
   box-shadow: 0 4px 12px rgba(23, 35, 51, .18);
@@ -142,7 +145,7 @@
 
   span {
     position: relative;
-    max-width: 66px;
+    width: min-content;
     color: var(--ctpg-coral-text);
     font-family: var(--ctpg-font-label);
     font-weight: var(--ctpg-weight-label-heavy);
@@ -155,7 +158,7 @@
     hyphens: none;
   }
 
-  &--sm { width: 78px; height: 78px; bottom: -28px; }
+  &--sm { min-width: 78px; height: 78px; bottom: -28px; }
 }
 
 // Ticket tear between the photo and the details (place and trip cards).
@@ -500,3 +503,20 @@
   .ctpg-js .ctpg-media img { transition: none; }
   .ctpg-more__btn.is-loading::before { animation-duration: 1.8s; }
 }
+
+// ---------- list of rows (6) and links inside a panel (3.1.9) ----------
+.ctpg-rows { display: flex; flex-direction: column; }
+.ctpg-panel .ctpg-rows { margin-bottom: 14px; }
+.ctpg-panel .ctpg-go { align-self: flex-start; }
+.ctpg-panel .ctpg-go + .ctpg-go { margin-top: 8px; }
+
+// ---------- 3.1.10: trip card spacing, rows in a narrow panel, panel title without a label ----------
+.ctpg-place--trip .ctpg-place__fact { min-height: 0; margin: 10px 0 0; }
+.ctpg-place--trip .ctpg-place__price { margin-top: 16px; }
+.ctpg-panel__title:first-child { margin-top: 0; }
+.ctpg-panel .ctpg-row { grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: start; padding: 14px 0; }
+.ctpg-panel .ctpg-row .ctpg-media { height: 72px; }
+.ctpg-panel .ctpg-row__title { font-size: 17px; line-height: 1.25; }
+
+// 3.1.11: a page's own link colour (the homepage sets one) never darkens text on a photo tile.
+.ctpg-tile__body, .ctpg-tile__name { color: var(--ctpg-white); }
