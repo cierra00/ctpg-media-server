@@ -319,3 +319,84 @@
   next.addEventListener("click", function () { show(at + 1, true); });
   show(0, false);
 })();
+
+// Load more cards as you scroll (10-design-system.md 6.23, plan 41; Cierra Oct 16: "when there are too many cards
+// lets load a limit and then load them as we scroll further").
+// Markup: a wrapper with data-ctpg-more="8" (batch size) and data-ctpg-more-noun="ships" holding one or more
+// .ctpg-cards grids. Every card is in the page for search engines and for visitors without JavaScript; this only
+// folds the ones past the first batch and shows the next batch when the visitor nears the end, with a button as well.
+// A filter can fire "ctpg-more-reset" on the wrapper after hiding cards with the hidden attribute.
+(function () {
+  "use strict";
+  var boxes = document.querySelectorAll("[data-ctpg-more]");
+  if (!boxes.length) return;
+  var CARD = ".ctpg-place, .ctpg-story, .ctpg-panel, .ctpg-tile";
+
+  Array.prototype.forEach.call(boxes, function (box) {
+    var size = parseInt(box.getAttribute("data-ctpg-more"), 10) || 8;
+    var noun = box.getAttribute("data-ctpg-more-noun") || "cards";
+    var cards = Array.prototype.slice.call(box.querySelectorAll(".ctpg-cards > *")).filter(function (c) { return c.matches(CARD); });
+    if (cards.length <= size) return;
+
+    var foot = document.createElement("div");
+    foot.className = "ctpg-more";
+    foot.innerHTML = '<p class="ctpg-more__status" aria-live="polite"></p><button type="button" class="ctpg-cta ctpg-more__btn"></button>';
+    box.appendChild(foot);
+    var status = foot.querySelector(".ctpg-more__status");
+    var btn = foot.querySelector(".ctpg-more__btn");
+    btn.textContent = "Show more " + noun;
+    var shown = 0;
+
+    function pool() { return cards.filter(function (c) { return !c.hidden; }); }
+
+    function paint() {
+      var list = pool();
+      cards.forEach(function (c) { c.classList.remove("ctpg-later"); });
+      list.forEach(function (c, i) { if (i >= shown) c.classList.add("ctpg-later"); });
+      // Hide group headings (a cruise line, a class) whose cards are all folded.
+      Array.prototype.forEach.call(box.querySelectorAll("[data-ctpg-more-group]"), function (g) {
+        var any = Array.prototype.some.call(g.querySelectorAll(".ctpg-cards > *"), function (c) { return !c.hidden && !c.classList.contains("ctpg-later"); });
+        g.classList.toggle("ctpg-later", !any);
+      });
+      var left = list.length - Math.min(shown, list.length);
+      foot.hidden = left <= 0;
+      status.textContent = "Showing " + Math.min(shown, list.length) + " of " + list.length + " " + noun;
+    }
+
+    function more() { shown += size; paint(); }
+
+    btn.addEventListener("click", function () {
+      var first = pool()[shown];
+      more();
+      if (first) { var link = first.matches("a") ? first : first.querySelector("a"); if (link) link.focus({ preventScroll: true }); }
+    });
+
+    box.addEventListener("ctpg-more-reset", function () { shown = size; paint(); });
+
+    // Jump links to a group (#ships-carnival) open everything up to the end of that group.
+    function openTo(hash) {
+      if (!hash || hash.length < 2) return;
+      var target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (!target || !box.contains(target)) return;
+      var inside = pool().filter(function (c) { return target.contains(c); });
+      if (!inside.length) return;
+      var last = pool().indexOf(inside[inside.length - 1]) + 1;
+      if (last > shown) { shown = last; paint(); }
+    }
+    box.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (a) openTo(a.getAttribute("href"));
+    });
+    window.addEventListener("hashchange", function () { openTo(location.hash); });
+
+    shown = size;
+    paint();
+    openTo(location.hash);
+
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting && !foot.hidden) more(); });
+      }, { rootMargin: "0px 0px 500px 0px" }).observe(foot);
+    }
+  });
+})();

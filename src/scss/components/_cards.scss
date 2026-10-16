@@ -20,6 +20,23 @@
   .ctpg-cards, .ctpg-cards--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
 }
 
+// ---------- load more as you scroll (site.js, data-ctpg-more) ----------
+.ctpg-later { display: none !important; }
+
+.ctpg-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 32px 0 8px;
+
+  &[hidden] { display: none; }
+  &__status { margin: 0; color: var(--ctpg-slate); font-size: var(--ctpg-meta-size); line-height: var(--ctpg-meta-lh); }
+  &__btn { min-width: 220px; margin-top: 0; border: 0; cursor: pointer; }
+  &__btn:hover { background: var(--ctpg-coral); color: var(--ctpg-deep); }
+  &__btn:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 3px; }
+}
+
 @media (max-width: $ctpg-bp-phone) {
   .ctpg-cards, .ctpg-cards--3, .ctpg-cards--2 { grid-template-columns: 1fr; gap: 28px; }
 }
