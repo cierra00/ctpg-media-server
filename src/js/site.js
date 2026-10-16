@@ -390,7 +390,7 @@
         if (first) return;
         c.style.setProperty("--ctpg-i", String(k++ % 12));
         c.classList.add("ctpg-in");
-        c.addEventListener("animationend", function () { c.classList.remove("ctpg-in"); c.style.removeProperty("--ctpg-i"); }, { once: true });
+        c.addEventListener("animationend", function () { c.classList.remove("ctpg-in"); c.style.removeProperty("--ctpg-i"); if (!c.getAttribute("style")) c.removeAttribute("style"); }, { once: true });
       });
     }
 
