@@ -1,0 +1,395 @@
+// =========================================================
+// Cards: the six cards every page uses (10-design-system.md 6.23; approved by Cierra Oct 16, 2026).
+// photo tile, story card, place card (and its trip form), panel, list row; plus the shared parts:
+// photo frame with the brand stripe, the passport stamp, the ticket tear, the photo stand-in.
+// Markup comes from the theme's inc/Blocks/Cards.php. Tokens only.
+// =========================================================
+
+// ---------- grids ----------
+.ctpg-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 40px 24px;
+  align-items: stretch;
+
+  &--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  &--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: $ctpg-bp-tablet) {
+  .ctpg-cards, .ctpg-cards--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 20px; }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .ctpg-cards, .ctpg-cards--3, .ctpg-cards--2 { grid-template-columns: 1fr; gap: 28px; }
+}
+
+// ---------- shared parts ----------
+// Photo frame: fills its shape, ends in the 4px brand stripe.
+.ctpg-media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--ctpg-deep);
+
+  img, picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--ctpg-motion-image);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: var(--ctpg-stripe);
+  }
+}
+
+.ctpg-media-wrap { position: relative; display: block; }
+
+// Stand-in when there is no photo yet: deep, an icon for the kind, "Photo coming soon".
+.ctpg-standin {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-top: 12%;
+  background: radial-gradient(120% 95% at 50% 10%, #24384f 0%, var(--ctpg-deep) 70%);
+
+  svg { width: 64px; height: 64px; color: var(--ctpg-aqua); opacity: .75; }
+
+  span {
+    color: var(--ctpg-gold);
+    font-family: var(--ctpg-font-sans);
+    font-weight: var(--ctpg-weight-semibold);
+    font-size: var(--ctpg-label-size);
+    line-height: 1.3;
+  }
+}
+
+.ctpg-new {
+  position: absolute;
+  z-index: 3;
+  top: 12px;
+  left: 12px;
+  padding: 5px 9px;
+  background: var(--ctpg-gold);
+  color: var(--ctpg-deep);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: 1.2;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+// Passport stamp (like the story postcard stamp): class, port type or story category.
+.ctpg-stamp {
+  position: absolute;
+  z-index: 4;
+  right: 14px;
+  bottom: -30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: var(--ctpg-radius-round);
+  background: var(--ctpg-white);
+  box-shadow: 0 4px 12px rgba(23, 35, 51, .18);
+  transform: rotate(-9deg);
+  transition: transform .3s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: var(--ctpg-radius-round);
+    border: 2px dashed var(--ctpg-coral-text);
+  }
+
+  span {
+    position: relative;
+    max-width: 58px;
+    color: var(--ctpg-coral-text);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: var(--ctpg-label-size);
+    line-height: 1.05;
+    letter-spacing: .04em;
+    text-align: center;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+  }
+
+  &--sm { width: 70px; height: 70px; bottom: -26px; }
+}
+
+// Ticket tear between the photo and the details (place and trip cards).
+.ctpg-tear {
+  position: relative;
+  display: block;
+  height: 0;
+  margin: 10px 18px 0;
+  border-top: 2px dashed #b9c5cd;
+
+  &::before, &::after {
+    content: "";
+    position: absolute;
+    top: -14px;
+    width: 26px;
+    height: 26px;
+    border-radius: var(--ctpg-radius-round);
+    background: var(--ctpg-paper);
+    border: 1px solid var(--ctpg-card-line);
+  }
+
+  &::before { left: -32px; clip-path: inset(0 0 0 50%); }
+  &::after { right: -32px; clip-path: inset(0 50% 0 0); }
+}
+
+// Text link with an arrow: Read story, Explore.
+.ctpg-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ctpg-link);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-label-size);
+  line-height: 1.5;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  transition: gap var(--ctpg-motion-fast), color var(--ctpg-motion-fast);
+
+  &::after { content: "\2192"; font-size: 15px; }
+}
+
+// Wide rounded button inside place, trip and panel cards.
+.ctpg-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin-top: auto;
+  padding: 0 20px;
+  border-radius: var(--ctpg-radius-pill);
+  background: var(--ctpg-navy);
+  color: var(--ctpg-white);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label-heavy);
+  font-size: var(--ctpg-button-size);
+  line-height: 1.2;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: background var(--ctpg-motion-fast), color var(--ctpg-motion-fast);
+
+  &--coral { background: var(--ctpg-coral); color: var(--ctpg-deep); }
+}
+
+// ---------- 1. photo tile ----------
+.ctpg-tile {
+  position: relative;
+  display: block;
+  height: 310px;
+  overflow: hidden;
+  background: var(--ctpg-deep);
+  color: var(--ctpg-white);
+  text-decoration: none;
+
+  img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform var(--ctpg-motion-image); }
+  &::before { content: ""; position: absolute; inset: 0; z-index: 1; background: var(--ctpg-tile-shade); }
+  &::after { content: ""; position: absolute; z-index: 2; left: 0; right: 0; top: 0; height: 4px; background: var(--ctpg-stripe); }
+
+  &__body { position: absolute; z-index: 2; left: 20px; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 6px; }
+  &__meta { color: var(--ctpg-gold); font-size: var(--ctpg-meta-size); line-height: var(--ctpg-meta-lh); }
+  &__name { font-family: var(--ctpg-font-serif); font-weight: var(--ctpg-weight-serif); font-size: 27px; line-height: 1.12; }
+  .ctpg-go { color: var(--ctpg-aqua); }
+
+  &:hover img { transform: scale(var(--ctpg-zoom-tile)); }
+  &:focus-visible { outline: 3px solid var(--ctpg-gold); outline-offset: 3px; }
+}
+
+// ---------- 2. story card ----------
+.ctpg-story {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ctpg-line);
+  color: var(--ctpg-deep);
+  text-decoration: none;
+
+  .ctpg-media { aspect-ratio: 16 / 10; }
+  .ctpg-media-wrap { margin-bottom: 6px; }
+
+  &__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    min-height: 18px;
+    margin-top: 17px;
+    padding-right: 84px;
+    color: var(--ctpg-slate);
+    font-size: var(--ctpg-meta-size);
+    line-height: var(--ctpg-meta-lh);
+  }
+
+  &__title {
+    margin-top: 10px;
+    min-height: 3.75em;
+    font-family: var(--ctpg-font-serif);
+    font-weight: var(--ctpg-weight-serif);
+    font-size: var(--ctpg-title-story-size);
+    line-height: var(--ctpg-title-story-lh);
+    text-wrap: balance;
+  }
+
+  .ctpg-go { margin-top: 14px; }
+
+  &:hover img { transform: scale(var(--ctpg-zoom-card)); }
+  &:hover .ctpg-story__title { color: var(--ctpg-link); }
+  &:hover .ctpg-go { gap: 11px; color: var(--ctpg-coral-text); }
+  &:hover .ctpg-stamp { transform: rotate(0deg) scale(1.04); }
+  &:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 4px; }
+}
+
+// ---------- 3. place card (and 4. trip card, .ctpg-place--trip) ----------
+.ctpg-place {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-card-line);
+  box-shadow: var(--ctpg-shadow-card);
+  color: var(--ctpg-ink);
+  text-decoration: none;
+  transition: transform var(--ctpg-motion-base) ease, box-shadow var(--ctpg-motion-base) ease;
+
+  .ctpg-media { aspect-ratio: 3 / 2; }
+
+  &__body { display: flex; flex-direction: column; flex: 1; padding: 22px 20px 20px; }
+
+  &__kind {
+    color: var(--ctpg-coral-text);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: var(--ctpg-label-size);
+    line-height: 1.45;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  &__name {
+    display: flex;
+    align-items: flex-end;
+    min-height: 2.3em;
+    margin-top: 8px;
+    color: var(--ctpg-deep);
+    font-family: var(--ctpg-font-serif);
+    font-weight: var(--ctpg-weight-serif);
+    font-size: 23px;
+    line-height: 1.15;
+    text-wrap: balance;
+  }
+
+  &__fact {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    min-height: 2.9em;
+    margin: 10px 0 16px;
+    font-size: var(--ctpg-body-s-size);
+    line-height: 1.45;
+
+    svg { flex: 0 0 auto; width: 16px; height: 16px; margin-top: 2px; color: var(--ctpg-coral-text); }
+    b { color: var(--ctpg-deep); font-weight: var(--ctpg-weight-semibold); }
+  }
+
+  &__price { display: flex; align-items: baseline; gap: 6px; margin: 4px 0; }
+  &__price b { color: var(--ctpg-deep); font-family: var(--ctpg-font-serif); font-weight: var(--ctpg-weight-serif); font-size: 26px; line-height: 1; }
+  &__note { color: var(--ctpg-slate); font-size: var(--ctpg-meta-size); line-height: var(--ctpg-meta-lh); }
+  &__why { margin: 12px 0 16px; padding: 10px 12px; background: var(--ctpg-mist); font-size: 13px; line-height: 1.5; }
+  &__why b { font-weight: var(--ctpg-weight-semibold); }
+
+  &:hover { transform: translateY(-4px); box-shadow: var(--ctpg-shadow-card-hover); }
+  &:hover img { transform: scale(var(--ctpg-zoom-card)); }
+  &:hover .ctpg-stamp { transform: rotate(0deg) scale(1.04); }
+  &:hover .ctpg-cta { background: var(--ctpg-coral); color: var(--ctpg-deep); }
+  &:hover .ctpg-cta--coral { background: var(--ctpg-deep); color: var(--ctpg-white); }
+  &:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 3px; }
+}
+
+// ---------- 5. panel ----------
+.ctpg-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 24px;
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-card-line);
+  border-top: 5px solid var(--ctpg-coral);
+  box-shadow: var(--ctpg-shadow-card);
+
+  &--aqua { border-top-color: var(--ctpg-aqua); }
+  &--gold { border-top-color: var(--ctpg-gold); }
+  &--blue { border-top-color: var(--ctpg-blue); }
+
+  &__label {
+    color: var(--ctpg-coral-text);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: var(--ctpg-label-size);
+    line-height: 1.45;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  &__title { margin: 12px 0 10px; color: var(--ctpg-deep); font-family: var(--ctpg-font-serif); font-weight: var(--ctpg-weight-serif); font-size: 22px; line-height: 1.2; }
+  &__text { margin: 0 0 18px; color: var(--ctpg-slate); font-size: var(--ctpg-body-s-size); line-height: var(--ctpg-body-s-lh); }
+  .ctpg-cta { align-self: flex-start; }
+}
+
+// ---------- 6. list row ----------
+.ctpg-row {
+  display: grid;
+  grid-template-columns: 125px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--ctpg-line);
+  color: var(--ctpg-deep);
+  text-decoration: none;
+
+  .ctpg-media { height: 90px; }
+  &__title { display: block; margin: 4px 0; font-family: var(--ctpg-font-serif); font-weight: var(--ctpg-weight-serif); font-size: 19px; line-height: 1.22; }
+  &:hover .ctpg-row__title { color: var(--ctpg-link); }
+  &:hover img { transform: scale(var(--ctpg-zoom-card)); }
+  &:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 3px; }
+
+  .ctpg-panel & { grid-template-columns: 96px minmax(0, 1fr); }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .ctpg-tile { height: 280px; }
+  .ctpg-story__title, .ctpg-place__name { min-height: 0; }
+  .ctpg-row { grid-template-columns: 96px minmax(0, 1fr); gap: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctpg-place, .ctpg-stamp, .ctpg-media img, .ctpg-tile img, .ctpg-go, .ctpg-cta { transition: none; }
+  .ctpg-place:hover { transform: none; }
+  .ctpg-media img, .ctpg-tile img { transform: none !important; }
+}
