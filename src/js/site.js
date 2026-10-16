@@ -320,83 +320,176 @@
   show(0, false);
 })();
 
-// Load more cards as you scroll (10-design-system.md 6.23, plan 41; Cierra Oct 16: "when there are too many cards
-// lets load a limit and then load them as we scroll further").
-// Markup: a wrapper with data-ctpg-more="8" (batch size) and data-ctpg-more-noun="ships" holding one or more
-// .ctpg-cards grids. Every card is in the page for search engines and for visitors without JavaScript; this only
-// folds the ones past the first batch and shows the next batch when the visitor nears the end, with a button as well.
-// A filter can fire "ctpg-more-reset" on the wrapper after hiding cards with the hidden attribute.
+// Load more cards as you scroll (10-design-system.md 6.23, plan 41). Cierra Oct 16: "we need the scroll load to
+// happen every grid when there is more than 5 rows" and "like ships we cant load them all at once".
+// Every .ctpg-cards grid taller than 5 rows shows 5 rows, then the next 5 as the visitor nears the end (with a
+// button and a count as well). Rows follow the columns on screen: 4 across = 20 cards, 2 across = 10, 1 across = 5.
+// A wrapper with data-ctpg-more holds several grids that load as one list (ships grouped by cruise line);
+// data-ctpg-more-noun names the things ("ships").
+// Big lists send only the first batch: data-ctpg-more-src (a JSON address), -total and -next. Each answer is
+// {items:[{id, section, cards}], next, total}: cards go into the section with that id, or a new section is added.
+// A filter can fire "ctpg-more-reset" on the wrapper after hiding cards (hidden attribute).
 (function () {
   "use strict";
-  var boxes = document.querySelectorAll("[data-ctpg-more]");
-  if (!boxes.length) return;
+  var ROWS = 5;
   var CARD = ".ctpg-place, .ctpg-story, .ctpg-panel, .ctpg-tile";
+  var units = Array.prototype.slice.call(document.querySelectorAll("[data-ctpg-more]"));
+  Array.prototype.forEach.call(document.querySelectorAll(".ctpg-cards"), function (g) {
+    if (!g.closest("[data-ctpg-more]")) units.push(g);
+  });
+  if (!units.length) return;
 
-  Array.prototype.forEach.call(boxes, function (box) {
-    var size = parseInt(box.getAttribute("data-ctpg-more"), 10) || 8;
-    var noun = box.getAttribute("data-ctpg-more-noun") || "cards";
-    var cards = Array.prototype.slice.call(box.querySelectorAll(".ctpg-cards > *")).filter(function (c) { return c.matches(CARD); });
-    if (cards.length <= size) return;
+  function cols(grid) {
+    var t = getComputedStyle(grid).gridTemplateColumns;
+    return t && t !== "none" ? t.split(" ").filter(Boolean).length : 1;
+  }
 
-    var foot = document.createElement("div");
-    foot.className = "ctpg-more";
-    foot.innerHTML = '<p class="ctpg-more__status" aria-live="polite"></p><button type="button" class="ctpg-cta ctpg-more__btn"></button>';
-    box.appendChild(foot);
-    var status = foot.querySelector(".ctpg-more__status");
-    var btn = foot.querySelector(".ctpg-more__btn");
-    btn.textContent = "Show more " + noun;
-    var shown = 0;
+  units.forEach(function (box) {
+    var solo = box.matches(".ctpg-cards");
+    var src = box.getAttribute("data-ctpg-more-src");
+    var total = parseInt(box.getAttribute("data-ctpg-more-total"), 10) || 0;
+    var next = src ? parseInt(box.getAttribute("data-ctpg-more-next"), 10) : null;
+    var noun = box.getAttribute("data-ctpg-more-noun") || "";
+    var cards = [], foot = null, status, btn, io = null;
+    var size = 0, shown = 0, loading = false, failed = false;
 
+    function collect() {
+      cards = [];
+      (solo ? [box] : Array.prototype.slice.call(box.querySelectorAll(".ctpg-cards"))).forEach(function (g) {
+        Array.prototype.forEach.call(g.children, function (c) { if (c.matches(CARD)) cards.push(c); });
+      });
+    }
     function pool() { return cards.filter(function (c) { return !c.hidden; }); }
+    function remoteLeft() { return src && next !== null && !isNaN(next); }
+    function count() { return remoteLeft() ? Math.max(total, pool().length) : pool().length; }
+
+    function build() {
+      foot = document.createElement("div");
+      foot.className = "ctpg-more";
+      foot.innerHTML = '<p class="ctpg-more__status" aria-live="polite"></p><button type="button" class="ctpg-cta ctpg-more__btn"></button>';
+      if (solo) box.parentNode.insertBefore(foot, box.nextSibling); else box.appendChild(foot);
+      status = foot.querySelector(".ctpg-more__status");
+      btn = foot.querySelector(".ctpg-more__btn");
+      btn.addEventListener("click", function () {
+        var from = shown;
+        more(function () {
+          var first = pool()[from];
+          if (first) { var link = first.matches("a") ? first : first.querySelector("a"); if (link) link.focus({ preventScroll: true }); }
+        });
+      });
+      if ("IntersectionObserver" in window) {
+        io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) { if (en.isIntersecting && !foot.hidden && !failed) more(); });
+        }, { rootMargin: "0px 0px 500px 0px" });
+        io.observe(foot);
+      }
+    }
+    // Re-observe so a batch that leaves the end in view loads the next one too.
+    function poke() { if (io && foot) { io.unobserve(foot); io.observe(foot); } }
 
     function paint() {
       var list = pool();
       cards.forEach(function (c) { c.classList.remove("ctpg-later"); });
+      if (list.length <= size && !remoteLeft()) { if (foot) foot.hidden = true; groups(); return; }
+      if (!foot) build();
       list.forEach(function (c, i) { if (i >= shown) c.classList.add("ctpg-later"); });
-      // Hide group headings (a cruise line, a class) whose cards are all folded.
+      groups();
+      var now = Math.min(shown, list.length);
+      foot.hidden = now >= list.length && !remoteLeft();
+      status.textContent = failed ? "Couldn't load more just now." : "Showing " + now + " of " + count() + (noun ? " " + noun : "");
+      btn.textContent = failed ? "Try again" : loading ? "Loading..." : (noun ? "Show more " + noun : "Show more");
+    }
+
+    // Hide group headings (a cruise line) whose cards are all folded.
+    function groups() {
       Array.prototype.forEach.call(box.querySelectorAll("[data-ctpg-more-group]"), function (g) {
         var any = Array.prototype.some.call(g.querySelectorAll(".ctpg-cards > *"), function (c) { return !c.hidden && !c.classList.contains("ctpg-later"); });
         g.classList.toggle("ctpg-later", !any);
       });
-      var left = list.length - Math.min(shown, list.length);
-      foot.hidden = left <= 0;
-      status.textContent = "Showing " + Math.min(shown, list.length) + " of " + list.length + " " + noun;
     }
 
-    function more() { shown += size; paint(); }
+    function fetchMore(to, done) {
+      if (loading || !remoteLeft()) { if (done && !loading) done(); return; }
+      loading = true; failed = false; paint();
+      var url = src + (src.indexOf("?") < 0 ? "?" : "&") + "offset=" + next + (to ? "&to=" + encodeURIComponent(to) : "");
+      fetch(url, { headers: { Accept: "application/json" } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) {
+          (d.items || []).forEach(function (it) {
+            var sec = document.getElementById(it.id);
+            if (!sec) {
+              var tmp = document.createElement("div");
+              tmp.innerHTML = it.section;
+              sec = tmp.firstElementChild;
+              box.insertBefore(sec, foot);
+            }
+            var grid = sec.matches(".ctpg-cards") ? sec : sec.querySelector(".ctpg-cards");
+            grid.insertAdjacentHTML("beforeend", it.cards);
+          });
+          next = d.next === null || d.next === undefined ? null : d.next;
+          if (d.total) total = d.total;
+          loading = false;
+          collect(); paint(); poke();
+          if (done) done();
+        })
+        .catch(function () { loading = false; failed = true; paint(); });
+    }
 
-    btn.addEventListener("click", function () {
-      var first = pool()[shown];
-      more();
-      if (first) { var link = first.matches("a") ? first : first.querySelector("a"); if (link) link.focus({ preventScroll: true }); }
-    });
+    function more(done) {
+      failed = false;
+      shown += size;
+      if (shown > pool().length && remoteLeft()) { paint(); fetchMore("", done); return; }
+      paint();
+      if (done) done();
+    }
+
+    function measure() {
+      var grid = solo ? box : box.querySelector(".ctpg-cards");
+      if (!grid) return;
+      var s = cols(grid) * ROWS;
+      if (s === size) return;
+      shown = Math.max(s, Math.ceil(shown / s) * s);
+      size = s;
+      paint();
+    }
 
     box.addEventListener("ctpg-more-reset", function () { shown = size; paint(); });
 
-    // Jump links to a group (#ships-carnival) open everything up to the end of that group.
-    function openTo(hash) {
-      if (!hash || hash.length < 2) return;
-      var target = document.getElementById(decodeURIComponent(hash.slice(1)));
-      if (!target || !box.contains(target)) return;
-      var inside = pool().filter(function (c) { return target.contains(c); });
-      if (!inside.length) return;
-      var last = pool().indexOf(inside[inside.length - 1]) + 1;
-      if (last > shown) { shown = last; paint(); }
+    // Jump links to a group (#ships-carnival) open everything up to the end of that group, loading it if needed.
+    function openTo(id, scroll) {
+      var target = document.getElementById(id);
+      if (!target) {
+        if (remoteLeft()) fetchMore(id, function () { if (document.getElementById(id)) openTo(id, true); });
+        return;
+      }
+      if (!box.contains(target)) return;
+      var list = pool();
+      var inside = list.filter(function (c) { return target.contains(c); });
+      if (inside.length) {
+        var last = list.indexOf(inside[inside.length - 1]) + 1;
+        if (last > shown) { shown = last; paint(); }
+      }
+      if (scroll) target.scrollIntoView({ block: "start" });
     }
     box.addEventListener("click", function (e) {
       var a = e.target.closest && e.target.closest('a[href^="#"]');
-      if (a) openTo(a.getAttribute("href"));
+      if (!a) return;
+      var id = decodeURIComponent(a.getAttribute("href").slice(1));
+      if (!id) return;
+      if (!document.getElementById(id) && remoteLeft()) {
+        e.preventDefault();
+        history.pushState(null, "", "#" + id);
+        openTo(id, true);
+      } else {
+        openTo(id, false);
+      }
     });
-    window.addEventListener("hashchange", function () { openTo(location.hash); });
+    window.addEventListener("hashchange", function () { if (location.hash.length > 1) openTo(decodeURIComponent(location.hash.slice(1)), true); });
 
-    shown = size;
-    paint();
-    openTo(location.hash);
-
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) { if (en.isIntersecting && !foot.hidden) more(); });
-      }, { rootMargin: "0px 0px 500px 0px" }).observe(foot);
-    }
+    collect();
+    measure();
+    if (location.hash.length > 1) openTo(decodeURIComponent(location.hash.slice(1)), true);
+    var timer;
+    window.addEventListener("resize", function () { clearTimeout(timer); timer = setTimeout(measure, 150); });
   });
 })();
