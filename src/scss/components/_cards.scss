@@ -99,12 +99,12 @@
   position: absolute;
   z-index: 4;
   right: 14px;
-  bottom: -30px;
+  bottom: -32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 76px;
-  height: 76px;
+  width: 82px;
+  height: 82px;
   border-radius: var(--ctpg-radius-round);
   background: var(--ctpg-white);
   box-shadow: 0 4px 12px rgba(23, 35, 51, .18);
@@ -121,19 +121,20 @@
 
   span {
     position: relative;
-    max-width: 58px;
+    max-width: 66px;
     color: var(--ctpg-coral-text);
     font-family: var(--ctpg-font-label);
     font-weight: var(--ctpg-weight-label-heavy);
     font-size: var(--ctpg-label-size);
     line-height: 1.05;
-    letter-spacing: .04em;
+    letter-spacing: .02em;
     text-align: center;
     text-transform: uppercase;
-    overflow-wrap: anywhere;
+    word-break: keep-all;
+    hyphens: none;
   }
 
-  &--sm { width: 70px; height: 70px; bottom: -26px; }
+  &--sm { width: 78px; height: 78px; bottom: -28px; }
 }
 
 // Ticket tear between the photo and the details (place and trip cards).
