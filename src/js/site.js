@@ -333,6 +333,19 @@
   "use strict";
   var ROWS = 5;
   var CARD = ".ctpg-place, .ctpg-story, .ctpg-panel, .ctpg-tile";
+  // Photos shimmer until they arrive, then fade in (Cierra Oct 16: "need a loading affect and animation").
+  document.documentElement.classList.add("ctpg-js");
+  function photos(root) {
+    Array.prototype.forEach.call(root.querySelectorAll(".ctpg-media:not(.is-loaded)"), function (m) {
+      var img = m.querySelector("img");
+      function done() { m.classList.add("is-loaded"); }
+      if (!img || (img.complete && img.naturalWidth)) { done(); return; }
+      img.addEventListener("load", done, { once: true });
+      img.addEventListener("error", done, { once: true });
+    });
+  }
+  photos(document);
+
   var units = Array.prototype.slice.call(document.querySelectorAll("[data-ctpg-more]"));
   Array.prototype.forEach.call(document.querySelectorAll(".ctpg-cards"), function (g) {
     if (!g.closest("[data-ctpg-more]")) units.push(g);
@@ -351,7 +364,39 @@
     var next = src ? parseInt(box.getAttribute("data-ctpg-more-next"), 10) : null;
     var noun = box.getAttribute("data-ctpg-more-noun") || "";
     var cards = [], foot = null, status, btn, io = null;
-    var size = 0, shown = 0, loading = false, failed = false;
+    var size = 0, shown = 0, loading = false, failed = false, first = true, skels = [];
+
+    // Cards that appear after the first paint rise in, one after another.
+    function arrive(list) {
+      var k = 0;
+      list.forEach(function (c, i) {
+        if (i >= shown || c.ctpgSeen) return;
+        c.ctpgSeen = true;
+        if (first) return;
+        c.style.setProperty("--ctpg-i", String(k++ % 12));
+        c.classList.add("ctpg-in");
+        c.addEventListener("animationend", function () { c.classList.remove("ctpg-in"); c.style.removeProperty("--ctpg-i"); }, { once: true });
+      });
+    }
+
+    // Placeholder cards while the next batch comes from the server: one row's worth.
+    function skeletons(on) {
+      skels.forEach(function (s) { s.remove(); });
+      skels = [];
+      if (!on) return;
+      var all = solo ? [box] : box.querySelectorAll(".ctpg-cards");
+      var grid = all[all.length - 1];
+      if (!grid) return;
+      var n = Math.min(4, Math.max(2, cols(grid)));
+      for (var i = 0; i < n; i++) {
+        var s = document.createElement("div");
+        s.className = "ctpg-skel";
+        s.setAttribute("aria-hidden", "true");
+        s.innerHTML = '<span class="ctpg-skel__photo"></span><span class="ctpg-skel__body"><span class="ctpg-skel__line"></span><span class="ctpg-skel__line ctpg-skel__line--title"></span><span class="ctpg-skel__line ctpg-skel__line--fact"></span><span class="ctpg-skel__line ctpg-skel__line--btn"></span></span>';
+        grid.appendChild(s);
+        skels.push(s);
+      }
+    }
 
     function collect() {
       cards = [];
@@ -390,14 +435,16 @@
     function paint() {
       var list = pool();
       cards.forEach(function (c) { c.classList.remove("ctpg-later"); });
-      if (list.length <= size && !remoteLeft()) { if (foot) foot.hidden = true; groups(); return; }
+      if (list.length <= size && !remoteLeft()) { if (foot) foot.hidden = true; arrive(list); groups(); return; }
       if (!foot) build();
       list.forEach(function (c, i) { if (i >= shown) c.classList.add("ctpg-later"); });
+      arrive(list);
       groups();
       var now = Math.min(shown, list.length);
       foot.hidden = now >= list.length && !remoteLeft();
-      status.textContent = failed ? "Couldn't load more just now." : "Showing " + now + " of " + count() + (noun ? " " + noun : "");
-      btn.textContent = failed ? "Try again" : loading ? "Loading..." : (noun ? "Show more " + noun : "Show more");
+      status.textContent = failed ? "Couldn't load more just now." : loading ? "Loading more" + (noun ? " " + noun : "") + "..." : "Showing " + now + " of " + count() + (noun ? " " + noun : "");
+      btn.textContent = failed ? "Try again" : loading ? "Loading" : (noun ? "Show more " + noun : "Show more");
+      btn.classList.toggle("is-loading", loading);
     }
 
     // Hide group headings (a cruise line) whose cards are all folded.
@@ -410,11 +457,12 @@
 
     function fetchMore(to, done) {
       if (loading || !remoteLeft()) { if (done && !loading) done(); return; }
-      loading = true; failed = false; paint();
+      loading = true; failed = false; paint(); skeletons(true);
       var url = src + (src.indexOf("?") < 0 ? "?" : "&") + "offset=" + next + (to ? "&to=" + encodeURIComponent(to) : "");
       fetch(url, { headers: { Accept: "application/json" } })
         .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(function (d) {
+          skeletons(false);
           (d.items || []).forEach(function (it) {
             var sec = document.getElementById(it.id);
             if (!sec) {
@@ -429,10 +477,10 @@
           next = d.next === null || d.next === undefined ? null : d.next;
           if (d.total) total = d.total;
           loading = false;
-          collect(); paint(); poke();
+          collect(); photos(box); paint(); poke();
           if (done) done();
         })
-        .catch(function () { loading = false; failed = true; paint(); });
+        .catch(function () { skeletons(false); loading = false; failed = true; paint(); });
     }
 
     function more(done) {
@@ -459,7 +507,8 @@
     function openTo(id, scroll) {
       var target = document.getElementById(id);
       if (!target) {
-        if (remoteLeft()) fetchMore(id, function () { if (document.getElementById(id)) openTo(id, true); });
+        // Only for this list's own jump links (a cruise line not loaded yet).
+        if (remoteLeft() && box.querySelector('a[href="#' + (window.CSS && CSS.escape ? CSS.escape(id) : id) + '"]')) fetchMore(id, function () { if (document.getElementById(id)) openTo(id, true); });
         return;
       }
       if (!box.contains(target)) return;
@@ -476,7 +525,7 @@
       if (!a) return;
       var id = decodeURIComponent(a.getAttribute("href").slice(1));
       if (!id) return;
-      if (!document.getElementById(id) && remoteLeft()) {
+      if (!document.getElementById(id) && remoteLeft() && box.contains(a)) {
         e.preventDefault();
         history.pushState(null, "", "#" + id);
         openTo(id, true);
@@ -488,6 +537,7 @@
 
     collect();
     measure();
+    first = false;
     if (location.hash.length > 1) openTo(decodeURIComponent(location.hash.slice(1)), true);
     var timer;
     window.addEventListener("resize", function () { clearTimeout(timer); timer = setTimeout(measure, 150); });

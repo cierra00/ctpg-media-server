@@ -418,3 +418,85 @@
   .ctpg-place:hover { transform: none; }
   .ctpg-media img, .ctpg-tile img { transform: none !important; }
 }
+
+// ---------- loading and arrival (site.js; Cierra Oct 16: "need a loading affect and animation") ----------
+// Cards rise in one after another, photos shimmer until they arrive and then fade in, placeholder cards
+// shimmer while the next batch comes from the server, and the button spins. Off for reduced motion.
+@keyframes ctpg-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ctpg-shimmer {
+  from { background-position: 150% 0; }
+  to { background-position: -50% 0; }
+}
+@keyframes ctpg-spin { to { transform: rotate(360deg); } }
+
+.ctpg-in {
+  animation: ctpg-rise .5s cubic-bezier(.2, .7, .2, 1) both;
+  animation-delay: calc(var(--ctpg-i, 0) * 70ms);
+}
+
+.ctpg-js .ctpg-media:not(.is-loaded) {
+  background: linear-gradient(100deg, var(--ctpg-deep) 30%, #24384f 50%, var(--ctpg-deep) 70%);
+  background-size: 200% 100%;
+  animation: ctpg-shimmer 1.4s linear infinite;
+}
+.ctpg-js .ctpg-media img {
+  opacity: 0;
+  transition: opacity .45s ease, transform var(--ctpg-motion-image);
+}
+.ctpg-js .ctpg-media.is-loaded img { opacity: 1; }
+
+.ctpg-skel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-card-line);
+  box-shadow: var(--ctpg-shadow-card);
+
+  &__photo { position: relative; display: block; aspect-ratio: 3 / 2; }
+  &__photo::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: var(--ctpg-stripe);
+  }
+  &__body { display: flex; flex-direction: column; gap: 12px; padding: 26px 20px 20px; }
+  &__line { display: block; width: 30%; height: 12px; }
+  &__line--title { width: 75%; height: 24px; }
+  &__line--fact { width: 60%; height: 14px; margin-bottom: 8px; }
+  &__line--btn { width: 100%; height: 46px; border-radius: var(--ctpg-radius-pill); }
+
+  &__photo, &__line {
+    background: linear-gradient(100deg, var(--ctpg-mist) 30%, var(--ctpg-white) 50%, var(--ctpg-mist) 70%);
+    background-size: 200% 100%;
+    animation: ctpg-shimmer 1.4s linear infinite;
+  }
+}
+
+.ctpg-more__btn.is-loading {
+  gap: 10px;
+  pointer-events: none;
+
+  &::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: var(--ctpg-radius-round);
+    animation: ctpg-spin .7s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctpg-in { animation: none; }
+  .ctpg-js .ctpg-media:not(.is-loaded), .ctpg-skel__photo, .ctpg-skel__line { animation: none; }
+  .ctpg-js .ctpg-media img { transition: none; }
+  .ctpg-more__btn.is-loading::before { animation-duration: 1.8s; }
+}
