@@ -195,6 +195,7 @@
   letter-spacing: .06em;
   text-transform: uppercase;
   text-align: center;
+  text-decoration: none;
   transition: background var(--ctpg-motion-fast), color var(--ctpg-motion-fast);
 
   &--coral { background: var(--ctpg-coral); color: var(--ctpg-deep); }
@@ -361,6 +362,8 @@
   &__title { margin: 12px 0 10px; color: var(--ctpg-deep); font-family: var(--ctpg-font-serif); font-weight: var(--ctpg-weight-serif); font-size: 22px; line-height: 1.2; }
   &__text { margin: 0 0 18px; color: var(--ctpg-slate); font-size: var(--ctpg-body-s-size); line-height: var(--ctpg-body-s-lh); }
   .ctpg-cta { align-self: flex-start; }
+  a.ctpg-cta:hover { background: var(--ctpg-coral); color: var(--ctpg-deep); }
+  a.ctpg-cta:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 3px; }
 }
 
 // ---------- 6. list row ----------
