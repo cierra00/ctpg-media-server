@@ -350,11 +350,24 @@
   Array.prototype.forEach.call(document.querySelectorAll(".ctpg-cards"), function (g) {
     if (!g.closest("[data-ctpg-more]")) units.push(g);
   });
+  // A to Z link lists (the theme's Directory lists: ports, restaurants, rides...) load the same way.
+  Array.prototype.forEach.call(document.querySelectorAll(".dir"), function (d) {
+    if (!d.closest("[data-ctpg-more]")) units.push(d);
+  });
   if (!units.length) return;
 
-  function cols(grid) {
-    var t = getComputedStyle(grid).gridTemplateColumns;
-    return t && t !== "none" ? t.split(" ").filter(Boolean).length : 1;
+  // Columns on screen: a grid's tracks, or a CSS-columns list's column count at its current width.
+  function cols(el) {
+    var cs = getComputedStyle(el);
+    if (cs.display === "grid") {
+      var t = cs.gridTemplateColumns;
+      return t && t !== "none" ? t.split(" ").filter(Boolean).length : 1;
+    }
+    var count = parseInt(cs.columnCount, 10) || 99;
+    var width = parseFloat(cs.columnWidth) || 0;
+    var gap = parseFloat(cs.columnGap) || 0;
+    var fit = width ? Math.max(1, Math.floor((el.clientWidth + gap) / (width + gap))) : (count === 99 ? 1 : count);
+    return Math.max(1, Math.min(count, fit));
   }
 
   units.forEach(function (box) {
@@ -398,8 +411,10 @@
       }
     }
 
+    var isDir = box.matches(".dir");
     function collect() {
       cards = [];
+      if (isDir) { cards = Array.prototype.slice.call(box.querySelectorAll(".dir-list > li")); return; }
       (solo ? [box] : Array.prototype.slice.call(box.querySelectorAll(".ctpg-cards"))).forEach(function (g) {
         Array.prototype.forEach.call(g.children, function (c) { if (c.matches(CARD)) cards.push(c); });
       });
@@ -449,8 +464,8 @@
 
     // Hide group headings (a cruise line) whose cards are all folded.
     function groups() {
-      Array.prototype.forEach.call(box.querySelectorAll("[data-ctpg-more-group]"), function (g) {
-        var any = Array.prototype.some.call(g.querySelectorAll(".ctpg-cards > *"), function (c) { return !c.hidden && !c.classList.contains("ctpg-later"); });
+      Array.prototype.forEach.call(box.querySelectorAll("[data-ctpg-more-group], .dir-group"), function (g) {
+        var any = Array.prototype.some.call(g.querySelectorAll(".ctpg-cards > *, .dir-list > li"), function (c) { return !c.hidden && !c.classList.contains("ctpg-later"); });
         g.classList.toggle("ctpg-later", !any);
       });
     }
@@ -492,7 +507,7 @@
     }
 
     function measure() {
-      var grid = solo ? box : box.querySelector(".ctpg-cards");
+      var grid = solo ? box : isDir ? (box.querySelector(".dir-list--cols") || box.querySelector(".dir-list")) : box.querySelector(".ctpg-cards");
       if (!grid) return;
       var s = cols(grid) * ROWS;
       if (s === size) return;
