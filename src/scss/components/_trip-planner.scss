@@ -314,6 +314,17 @@
   .tp-pop-where .tp-pop-foot { display: none; }
 }
 
+// ── 960 and under: two columns, the first field (and with four, the last) full width ──
+@media (max-width: $ctpg-bp-tablet) {
+  .ctpg-home .tp {
+    .tp-fields,
+    .tp-fields[data-count] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tp-field[data-pos="1"],
+    .tp-fields[data-count="4"] .tp-field[data-pos="4"] { grid-column: 1 / -1; }
+    .tp-go { grid-column: 1 / -1; }
+  }
+}
+
 // ── Phone (680 and under) ────────────────────────────────
 @media (max-width: $ctpg-bp-phone) {
   // The headline fills the column at a size that keeps "theme park vacation." on one line
@@ -331,10 +342,7 @@
     .tp-type span::after { right: 24px; left: 24px; bottom: 4px; }
 
     .tp-fields,
-    .tp-fields[data-count] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 14px 16px 16px; }
-    // First field full width; with four fields the last (Who's going) too.
-    .tp-field[data-pos="1"],
-    .tp-fields[data-count="4"] .tp-field[data-pos="4"] { grid-column: 1 / -1; }
+    .tp-fields[data-count] { gap: 8px; padding: 14px 16px 16px; }
     .tp-box { height: 56px; padding: 0 12px; }
     .tp-chev { display: none; }
     .tp-box-input { padding-right: 12px; }

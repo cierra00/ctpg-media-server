@@ -606,7 +606,7 @@
     var wl = $("[data-tp-where-label]");
     if (wl) wl.textContent = k === "cruise" ? "Where to?" : "Where?";
     var q = $("#tp-q");
-    if (q) q.placeholder = k === "cruise" ? "Anywhere: a region, port, line or ship" : "Anywhere: a region, park, port, line or ship";
+    if (q) q.placeholder = k === "cruise" ? "Region, port, line or ship" : "Region, park, port, line or ship";
   }
 
   // ── Values shown in the fields ──
@@ -775,9 +775,9 @@
   document.addEventListener("click", function (e) {
     if (open && e.target.isConnected && !open.parentNode.contains(e.target)) close(false);
   });
-  // A panel closes once its field scrolls up under the header (desktop).
+  // A panel closes once the whole panel has scrolled up under the header (desktop).
   window.addEventListener("scroll", function () {
-    if (open && !phone.matches && open.parentNode.getBoundingClientRect().top < 90) close(false);
+    if (open && !phone.matches && open.getBoundingClientRect().bottom < 140) close(false);
   }, { passive: true });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && open) { e.preventDefault(); close(true); }
