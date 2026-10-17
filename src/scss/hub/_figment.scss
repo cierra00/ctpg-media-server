@@ -1920,3 +1920,78 @@ div.fig-list-card {
   .fig-tap { padding: 0 8px; }
 }
 .fig-sch-note { margin: 8px 0 0; font-size: 14px; color: var(--ctpg-slate); }
+
+// ── Figment | Settings tabs, Message queue (Oct 17, plan 42) ──
+// Cierra: "things like access and make a streamer.bot key should go in an admin/settings tab";
+// "lets also cleanup and improve the UI for message que".
+.fig-viewtabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: var(--ctpg-space-5);
+  border-bottom: 1px solid var(--ctpg-card-line);
+}
+.fig-viewtab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-bottom: -1px;
+  padding: 0 var(--ctpg-space-4);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--ctpg-slate);
+  font-size: 15px;
+  font-weight: var(--ctpg-weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  &[aria-selected="true"] { color: var(--ctpg-deep); border-bottom-color: var(--ctpg-deep); }
+  &:hover { color: var(--ctpg-deep); }
+}
+.fig-queue {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 0 var(--ctpg-space-3);
+  padding: 0;
+  list-style: none;
+}
+.fig-queue-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--ctpg-line);
+  border-radius: 12px;
+  &.is-next { border-color: var(--ctpg-status-quiet-text); background: var(--ctpg-status-quiet-bg); }
+}
+.fig-queue-num {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 28px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--ctpg-mist);
+  color: var(--ctpg-deep);
+  font-size: 13px;
+  font-weight: 700;
+  .is-next > & { background: var(--ctpg-status-quiet-text); color: var(--ctpg-white); }
+}
+.fig-queue-text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.fig-queue-msg { font-size: 15px; color: var(--ctpg-ink); overflow-wrap: anywhere; }
+.fig-queue-meta { font-size: 13px; color: var(--ctpg-slate); }
+.fig-queue-btn { flex: 0 0 auto; min-height: 36px; padding: 0 12px; font-size: 13px; }
+@media (max-width: 575.98px) {
+  .fig-queue-row { flex-wrap: wrap; }
+  .fig-queue-text { flex-basis: calc(100% - 46px); }   // Post next goes under the text on a phone
+  .fig-queue-btn { margin-left: 46px; }
+}
