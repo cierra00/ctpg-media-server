@@ -126,8 +126,6 @@
     try { slides = JSON.parse(hero.getAttribute("data-slides") || "[]"); } catch (e) { slides = []; }
     var bgs = hero.querySelectorAll(".hero-bg");
     var tabs = hero.querySelectorAll("[data-ctpg-slide]");
-    var title = hero.querySelector("[data-ctpg-hero-title]");
-    var copy = hero.querySelector("[data-ctpg-hero-copy]");
     var pause = hero.querySelector("[data-ctpg-pause]");
     var current = 0, timer = null;
 
@@ -138,10 +136,7 @@
         t.classList.toggle("active", n === i);
         t.setAttribute("aria-pressed", String(n === i));
       });
-      if (slides[i]) {
-        if (title) title.textContent = slides[i].title;
-        if (copy) copy.textContent = slides[i].copy;
-      }
+      // One fixed headline since Oct 17, 2026 (plans/44): only the photo changes.
     };
     var stop = function () {
       clearInterval(timer);
@@ -161,24 +156,6 @@
     if (pause) pause.addEventListener("click", function () { if (timer) stop(); else play(); });
     if (calm.matches) stop(); else play();
 
-    // Search scope tabs set the hidden scope field; prompt chips fill the box.
-    var field = hero.querySelector("[data-ctpg-scope-field]");
-    var input = hero.querySelector("[data-ctpg-hero-input]");
-    each("[data-ctpg-scope]", hero, function (b) {
-      b.addEventListener("click", function () {
-        each("[data-ctpg-scope]", hero, function (o) {
-          o.classList.toggle("active", o === b);
-          o.setAttribute("aria-pressed", String(o === b));
-        });
-        if (field) field.value = b.getAttribute("data-ctpg-scope");
-        if (input) input.focus();
-      });
-    });
-    each("[data-ctpg-prompt]", hero, function (b) {
-      b.addEventListener("click", function () {
-        if (input) { input.value = b.textContent.trim(); input.focus(); }
-      });
-    });
   }
 
   // Side-scrolling rails (topics, trips, destinations) with arrow buttons.
@@ -563,4 +540,397 @@
     var timer;
     window.addEventListener("resize", function () { clearTimeout(timer); timer = setTimeout(measure, 150); });
   });
+})();
+
+// Homepage trip planner (Cierra, Oct 17, 2026; plans/42-homepage-search-fields-research.md).
+// Trip type tabs show that type's fields in one row; each field opens a small panel (a sheet on
+// phones). "Find my trip" turns the answers into the results page address.
+(function () {
+  "use strict";
+  var form = document.querySelector("[data-ctpg-tp]");
+  if (!form) return;
+  var data = {};
+  try { data = JSON.parse(form.getAttribute("data-tp") || "{}"); } catch (e) { data = {}; }
+  var $ = function (sel, root) { return (root || form).querySelector(sel); };
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || form).querySelectorAll(sel)); };
+  var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var ORLANDO = ["port-canaveral", "miami", "fort-lauderdale", "tampa"];
+  var SOCAL = ["long-beach", "san-diego"];
+  var POPULAR = {
+    cruise: ["Caribbean", "Bahamas", "Alaska", "Mexican Riviera", "Mediterranean", "Port Canaveral (Orlando)", "Royal Caribbean International"],
+    unsure: ["Caribbean", "Walt Disney World", "Universal Orlando", "Disneyland", "Bahamas", "Alaska", "Port Canaveral (Orlando)"]
+  };
+  var s = {
+    type: "unsure", pick: null, months: [], tab: "months", from: "", to: "", adults: 2, kids: [],
+    nr: "", parks: [], comboPark: "wdw", days: 0, first: "parks", cnights: "6-9", port: ""
+  };
+  var open = null, opener = null;
+  var phone = window.matchMedia("(max-width: 680px)");
+  form.classList.add("tp-ready");
+
+  function typeKey() { return s.type || "unsure"; }
+
+  // ── Chips ──
+  // Built once per set of choices; later renders only update which are pressed (keeps focus).
+  function chips(box, items, isOn, onPick) {
+    var sig = items.map(function (it) { return it[0]; }).join("|");
+    if (box.getAttribute("data-sig") === sig) {
+      Array.prototype.forEach.call(box.children, function (b, i) { b.setAttribute("aria-pressed", String(isOn(items[i][0]))); });
+      box._pick = onPick;
+      return;
+    }
+    box.setAttribute("data-sig", sig);
+    box._pick = onPick;
+    box.innerHTML = "";
+    items.forEach(function (it) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "tp-chip";
+      b.textContent = it[1];
+      b.setAttribute("aria-pressed", String(isOn(it[0])));
+      b.addEventListener("click", function () { box._pick(it[0]); render(); });
+      box.appendChild(b);
+    });
+  }
+
+  // ── Fields shown for the trip type ──
+  function showFields() {
+    var k = typeKey(), n = 0;
+    $$("[data-tp-for]").forEach(function (f) {
+      var on = f.getAttribute("data-tp-for").split(" ").indexOf(k) > -1;
+      f.hidden = !on;
+      if (on) n++;
+      if (on) f.setAttribute("data-pos", String(n)); else f.removeAttribute("data-pos");
+    });
+    $("[data-tp-fields]").setAttribute("data-count", String(n));
+    var wl = $("[data-tp-where-label]");
+    if (wl) wl.textContent = k === "cruise" ? "Where to?" : "Where?";
+    var q = $("#tp-q");
+    if (q) q.placeholder = k === "cruise" ? "Anywhere: a region, port, line or ship" : "Anywhere: a region, park, port, line or ship";
+  }
+
+  // ── Values shown in the fields ──
+  function monthLabel(key) { var p = key.split("-"); return MONTHS[+p[1] - 1] + " " + p[0]; }
+  function dateLabel(v) { if (!v) return ""; var d = new Date(v + "T12:00:00"); return MONTHS[d.getMonth()] + " " + d.getDate(); }
+  function parkName(k) { return (data.parks || {})[k] || k; }
+  function setVal(key, text, empty) {
+    var el = $('[data-tp-val="' + key + '"]');
+    if (!el) return;
+    el.textContent = text;
+    el.classList.toggle("is-empty", !!empty);
+  }
+  function render() {
+    var sorted = s.months.slice().sort();
+    if (s.tab === "dates" && (s.from || s.to)) setVal("when", (dateLabel(s.from) || "Any day") + " to " + (dateLabel(s.to) || "any day"), false);
+    else if (!sorted.length) setVal("when", "Anytime", true);
+    else setVal("when", sorted.length <= 2 ? sorted.map(monthLabel).join(", ") : monthLabel(sorted[0]) + " + " + (sorted.length - 1) + " more", false);
+    var k = s.kids.length;
+    setVal("who", s.adults + (s.adults === 1 ? " adult" : " adults") + (k ? ", " + k + (k === 1 ? " kid" : " kids") : ""), false);
+    var nightsLabel = { "2-5": "2 to 5 nights", "6-9": "6 to 9 nights", "10-14": "10 to 14 nights", "15-0": "15+ nights" };
+    setVal("nights", s.nr ? nightsLabel[s.nr] : "Any length", !s.nr);
+    if (s.type === "cruise-and-park") setVal("park", parkName(s.comboPark), false);
+    else setVal("park", s.parks.length ? s.parks.map(parkName).join(", ") : "Any park", !s.parks.length);
+    setVal("days", s.days ? s.days + (s.days === 1 ? " park day" : " park days") : "Not sure yet", !s.days);
+    var pd = (s.days || 4) + (s.days === 1 ? " day" : " days");
+    setVal("combo", s.first === "parks" ? pd + " + cruise" : "Cruise + " + pd, false);
+    // Panels
+    $$("[data-tp-num]").forEach(function (o) {
+      var key = o.getAttribute("data-tp-num");
+      o.textContent = key === "days" ? String(s.days || 4) : key === "kids" ? String(s.kids.length) : String(s[key]);
+    });
+    $$("[data-tp-step]").forEach(function (b) {
+      var key = b.getAttribute("data-tp-step"), dir = +b.getAttribute("data-dir");
+      var v = key === "days" ? (s.days || 4) : key === "kids" ? s.kids.length : s.adults;
+      var lim = { adults: [1, 8], kids: [0, 6], days: [1, 10] }[key];
+      b.disabled = dir < 0 ? v <= lim[0] : v >= lim[1];
+    });
+    var mt = $("[data-tp-months]");
+    if (mt && mt.children.length) {
+      $$(".tp-chip", mt).forEach(function (b) { b.setAttribute("aria-pressed", String(s.months.indexOf(b.getAttribute("data-key")) > -1)); });
+    } else if (mt) {
+      var now = new Date(), y = now.getFullYear(), m = now.getMonth(), group = null;
+      for (var i = 0; i < 24; i++) {
+        if (!group || group.getAttribute("data-year") !== String(y)) {
+          group = document.createElement("div");
+          group.className = "tp-year";
+          group.setAttribute("data-year", String(y));
+          group.innerHTML = '<span class="tp-year-l">' + y + '</span><div class="tp-mgrid"></div>';
+          mt.appendChild(group);
+        }
+        (function (key, label, grid) {
+          var b = document.createElement("button");
+          b.type = "button";
+          b.className = "tp-chip";
+          b.textContent = label;
+          b.setAttribute("aria-label", label + " " + key.slice(0, 4));
+          b.setAttribute("data-key", key);
+          b.setAttribute("aria-pressed", String(s.months.indexOf(key) > -1));
+          b.addEventListener("click", function () {
+            var j = s.months.indexOf(key);
+            if (j > -1) s.months.splice(j, 1); else s.months.push(key);
+            render();
+          });
+          grid.appendChild(b);
+        })(y + "-" + ("0" + (m + 1)).slice(-2), MONTHS[m], group.querySelector(".tp-mgrid"));
+        m++;
+        if (m > 11) { m = 0; y++; }
+      }
+    }
+    var any = $("[data-tp-anytime]");
+    if (any) any.setAttribute("aria-pressed", String(!s.months.length));
+    $$("[data-tp-when-tab]").forEach(function (t) { t.setAttribute("aria-selected", String(t.getAttribute("data-tp-when-tab") === s.tab)); });
+    $$("[data-tp-when-pane]").forEach(function (p) { p.hidden = p.getAttribute("data-tp-when-pane") !== s.tab; });
+    var park = s.type === "theme-park";
+    $("[data-tp-park-hint]").hidden = !park;
+    chips($('[data-tp-chips="park"]'), Object.keys(data.parks || {}).map(function (k2) { return [k2, parkName(k2)]; }),
+      function (v) { return park ? s.parks.indexOf(v) > -1 : s.comboPark === v; },
+      function (v) {
+        if (park) { var j = s.parks.indexOf(v); if (j > -1) s.parks.splice(j, 1); else s.parks.push(v); }
+        else { s.comboPark = v; s.port = ""; }
+      });
+    chips($('[data-tp-chips="nights"]'), [["", "Any length"], ["2-5", "2 to 5"], ["6-9", "6 to 9"], ["10-14", "10 to 14"], ["15-0", "15+"]],
+      function (v) { return s.nr === v; }, function (v) { s.nr = v; });
+    chips($('[data-tp-chips="first"]'), [["parks", "Parks first"], ["cruise", "Cruise first"]],
+      function (v) { return s.first === v; }, function (v) { s.first = v; });
+    chips($('[data-tp-chips="cnights"]'), [["3-5", "3 to 5"], ["6-9", "6 to 9"], ["10-0", "10+"]],
+      function (v) { return s.cnights === v; }, function (v) { s.cnights = v; });
+    var sel = $("[data-tp-port]");
+    if (sel) {
+      var list = s.comboPark === "disneyland" ? SOCAL : ORLANDO;
+      if (list.indexOf(s.port) < 0) s.port = list[0];
+      sel.innerHTML = list.map(function (p) { return '<option value="' + p + '"' + (p === s.port ? " selected" : "") + ">" + ((data.ports || {})[p] || p) + "</option>"; }).join("");
+    }
+    var ages = $("[data-tp-ages]");
+    if (ages && ages.children.length !== s.kids.length) {
+      ages.innerHTML = "";
+      s.kids.forEach(function (age, i) {
+        var l = document.createElement("label");
+        var opts = '<option value="">Age</option><option value="0"' + (age === "0" ? " selected" : "") + ">Under 1</option>";
+        for (var a = 1; a <= 17; a++) opts += '<option value="' + a + '"' + (age === String(a) ? " selected" : "") + ">" + a + "</option>";
+        l.innerHTML = "<span>Kid " + (i + 1) + "</span><select>" + opts + "</select>";
+        l.querySelector("select").addEventListener("change", function (e) { s.kids[i] = e.target.value; });
+        ages.appendChild(l);
+      });
+    }
+    $("[data-tp-ages-hint]").hidden = !s.kids.length;
+    var park2 = s.type === "theme-park";
+    $("[data-tp-from-label]").textContent = park2 ? "Arrive" : "Leave on or after";
+    $("[data-tp-to-label]").textContent = park2 ? "Head home" : "Home by";
+  }
+
+  // ── Panels ──
+  function close(back) {
+    if (!open) return;
+    open.hidden = true;
+    var t = open.parentNode.querySelector("[aria-expanded]");
+    if (t) t.setAttribute("aria-expanded", "false");
+    open.parentNode.classList.remove("is-open");
+    document.documentElement.classList.remove("tp-sheet-open", "tp-open");
+    open = null;
+    if (back && opener) opener.focus();
+    opener = null;
+  }
+  function openPanel(field, trigger) {
+    var pop = $(".tp-pop", field);
+    if (!pop) return;
+    if (open === pop) { close(true); return; }
+    close(false);
+    pop.hidden = false;
+    open = pop;
+    opener = trigger;
+    field.classList.add("is-open");
+    document.documentElement.classList.add("tp-open");
+    trigger.setAttribute("aria-expanded", "true");
+    if (phone.matches && !field.classList.contains("tp-where")) document.documentElement.classList.add("tp-sheet-open");
+    // Keep the panel inside the box.
+    pop.style.left = "";
+    pop.style.right = "";
+    if (!phone.matches) {
+      var box = form.getBoundingClientRect(), r = pop.getBoundingClientRect();
+      if (r.right > box.right - 12) { pop.style.left = "auto"; pop.style.right = "0"; }
+    }
+    if (!field.classList.contains("tp-where")) {
+      var first = pop.querySelector("[aria-pressed='true'], button, select, input");
+      if (first) first.focus();
+    }
+  }
+  $$("[data-tp-field] .tp-box[aria-controls]").forEach(function (b) {
+    b.addEventListener("click", function () { openPanel(b.parentNode, b); });
+  });
+  form.addEventListener("click", function (e) {
+    var t = e.target.closest ? e.target.closest("[data-tp-close]") : null;
+    if (t) close(true);
+    var c = e.target.closest ? e.target.closest("[data-tp-clear]") : null;
+    if (c) {
+      var k = c.getAttribute("data-tp-clear");
+      if (k === "when") { s.months = []; s.from = s.to = ""; $("[data-tp-from]").value = ""; $("[data-tp-to]").value = ""; }
+      if (k === "who") { s.adults = 2; s.kids = []; }
+      if (k === "nights") s.nr = "";
+      if (k === "park") { s.parks = []; s.comboPark = "wdw"; }
+      if (k === "days") s.days = 0;
+      if (k === "combo") { s.days = 0; s.first = "parks"; s.cnights = "6-9"; s.port = ""; }
+      render();
+    }
+  });
+  document.addEventListener("click", function (e) {
+    if (open && e.target.isConnected && !open.parentNode.contains(e.target)) close(false);
+  });
+  // A panel closes once its field scrolls up under the header (desktop).
+  window.addEventListener("scroll", function () {
+    if (open && !phone.matches && open.parentNode.getBoundingClientRect().top < 90) close(false);
+  }, { passive: true });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && open) { e.preventDefault(); close(true); }
+  });
+
+  // ── Steppers, months, dates, port ──
+  $$("[data-tp-step]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var key = b.getAttribute("data-tp-step"), dir = +b.getAttribute("data-dir");
+      if (key === "adults") s.adults = Math.min(8, Math.max(1, s.adults + dir));
+      if (key === "kids") { if (dir > 0 && s.kids.length < 6) s.kids.push(""); if (dir < 0) s.kids.pop(); }
+      if (key === "days") s.days = Math.min(10, Math.max(1, (s.days || 4) + dir));
+      render();
+    });
+  });
+  $("[data-tp-anytime]").addEventListener("click", function () { s.months = []; render(); });
+  $$("[data-tp-when-tab]").forEach(function (t) {
+    t.addEventListener("click", function () { s.tab = t.getAttribute("data-tp-when-tab"); render(); });
+  });
+  var today = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  [["from", "[data-tp-from]"], ["to", "[data-tp-to]"]].forEach(function (p) {
+    var el = $(p[1]);
+    el.min = today;
+    el.addEventListener("change", function () {
+      s[p[0]] = el.value;
+      if (p[0] === "from") $("[data-tp-to]").min = el.value || today;
+      render();
+    });
+  });
+  $("[data-tp-port]").addEventListener("change", function (e) { s.port = e.target.value; });
+
+  // ── Trip type tabs ──
+  $$('input[name="style"]').forEach(function (r) {
+    r.addEventListener("change", function () {
+      s.type = r.value;
+      if (s.type === "cruise" && s.pick && s.pick[2] === "park") { s.pick = null; $("#tp-q").value = ""; }
+      close(false);
+      showFields();
+      render();
+    });
+  });
+
+  // ── Where: suggestions as you type ──
+  var q = $("#tp-q"), list = $("#tp-where-list"), whereField = $('[data-tp-field="where"]');
+  var where = (data.where || []), active = -1, shown = [];
+  function suggest() {
+    var k = typeKey(), text = q.value.trim().toLowerCase();
+    var pool = k === "cruise" ? where.filter(function (w) { return w[2] !== "park"; }) : where;
+    if (s.pick && q.value === s.pick[0]) text = "";
+    if (!text) {
+      shown = (POPULAR[k] || POPULAR.unsure).map(function (l) { return pool.filter(function (w) { return w[0] === l; })[0]; }).filter(Boolean);
+    } else {
+      var starts = [], has = [];
+      pool.forEach(function (w) {
+        var l = w[0].toLowerCase();
+        if (l.indexOf(text) === 0) starts.push(w);
+        else if (l.indexOf(text) > -1 || (" " + l).indexOf(" " + text) > -1) has.push(w);
+      });
+      shown = starts.concat(has).slice(0, 8);
+    }
+    $("[data-tp-where-heading]").textContent = text ? "Matches" : "Popular";
+    var none = $("[data-tp-where-none]");
+    none.hidden = !!shown.length || !text;
+    if (!shown.length && text) none.textContent = "No exact match. I'll search trip ideas for “" + q.value.trim() + "”.";
+    list.innerHTML = "";
+    active = -1;
+    shown.forEach(function (w, i) {
+      var li = document.createElement("li");
+      li.id = "tp-opt-" + i;
+      li.setAttribute("role", "option");
+      li.className = "tp-opt";
+      li.innerHTML = '<span class="tp-opt-l"></span><span class="tp-tag tp-tag-' + w[1].toLowerCase() + '"></span>';
+      li.querySelector(".tp-opt-l").textContent = w[0] + (w[4] ? " · " + w[4] : "");
+      li.querySelector(".tp-tag").textContent = w[1];
+      li.addEventListener("mousedown", function (e) { e.preventDefault(); choose(w); });
+      list.appendChild(li);
+    });
+    q.removeAttribute("aria-activedescendant");
+  }
+  function choose(w) {
+    s.pick = w;
+    q.value = w[0];
+    if (s.type === "" && w[1] !== "Region") {
+      var to = w[2] === "park" ? "theme-park" : "cruise";
+      $('input[name="style"][value="' + to + '"]').checked = true;
+      s.type = to;
+      if (to === "theme-park") s.parks = [w[3]];
+      showFields();
+    }
+    close(false);
+    render();
+  }
+  function openWhere() {
+    if (open !== $(".tp-pop", whereField)) openPanel(whereField, q);
+    suggest();
+    q.setAttribute("aria-expanded", "true");
+  }
+  q.addEventListener("focus", openWhere);
+  q.addEventListener("input", function () {
+    if (s.pick && q.value !== s.pick[0]) s.pick = null;
+    openWhere();
+  });
+  q.addEventListener("keydown", function (e) {
+    if (!shown.length) return;
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      if (!open) openWhere();
+      active = (active + (e.key === "ArrowDown" ? 1 : shown.length - 1)) % shown.length;
+      $$(".tp-opt", list).forEach(function (o, i) { o.classList.toggle("is-active", i === active); });
+      q.setAttribute("aria-activedescendant", "tp-opt-" + active);
+    } else if (e.key === "Enter" && active > -1 && open) {
+      e.preventDefault();
+      choose(shown[active]);
+    }
+  });
+  var origClose = close;
+  close = function (back) {
+    if (open === $(".tp-pop", whereField)) q.setAttribute("aria-expanded", "false");
+    origClose(back);
+  };
+
+  // ── Find my trip ──
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var p = new URLSearchParams(), t = s.type;
+    if (t) p.set("style", t);
+    if (t === "cruise" || t === "") {
+      if (s.pick && q.value === s.pick[0]) p.set(s.pick[2], s.pick[3]);
+      else if (q.value.trim()) p.set("q", q.value.trim());
+    }
+    if (s.tab === "dates" && (s.from || s.to)) { if (s.from) p.set("from", s.from); if (s.to) p.set("to", s.to); }
+    else if (s.months.length) p.set("when", s.months.slice().sort().join(","));
+    if (t === "cruise" && s.nr) p.set("nr", s.nr);
+    if (t === "theme-park") {
+      if (s.parks.length) p.set("park", s.parks.join(","));
+      if (s.days) p.set("days", String(s.days));
+    }
+    if (t === "cruise-and-park") {
+      p.set("park", s.comboPark);
+      p.set("first", s.first);
+      p.set("days", String(s.days || 4));
+      p.set("nr", s.cnights);
+      p.set("port", s.port);
+    }
+    p.set("adults", String(s.adults));
+    if (s.kids.length) {
+      p.set("kids", String(s.kids.length));
+      var ages = s.kids.filter(function (a) { return a !== ""; });
+      if (ages.length === s.kids.length) p.set("ages", ages.join(","));
+    }
+    window.location.assign(form.action + (form.action.indexOf("?") > -1 ? "&" : "?") + p.toString());
+  });
+
+  showFields();
+  render();
 })();

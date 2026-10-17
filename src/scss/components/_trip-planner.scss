@@ -1,0 +1,378 @@
+// =========================================================
+// Homepage trip planner (Cierra, Oct 17, 2026; plans/42 and 44)
+// The hero search box: trip type tabs, one row of fields for that type, a small panel under
+// each field (a sheet from the bottom on phones). Same height as the search box it replaced,
+// so the hero photo still shows under it at the fold.
+// =========================================================
+
+// Panels hang below the hero: the hero no longer clips (its photos do), and it sits above the
+// Latest row and the sections after it.
+.ctpg-home .hero { z-index: 3; overflow: visible; }
+.ctpg-home .hero-backgrounds { overflow: hidden; }
+.ctpg-home .hero-inner { z-index: 4; }
+// While a panel is open the hero sits above the sticky "On this page" bar (z-index 40).
+.tp-open .ctpg-home .hero { z-index: 45; }
+
+.ctpg-home .hero-copy {
+  .eyebrow span { white-space: nowrap; }
+  h1 { text-wrap: balance; }
+  > p:last-child { text-wrap: pretty; }
+}
+
+.ctpg-home .tp {
+  // Tabs: real radio buttons drawn like the old scope tabs.
+  .tp-types { display: flex; }
+
+  .tp-type {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    margin: 0;
+    cursor: pointer;
+
+    input { position: absolute; opacity: 0; pointer-events: none; }
+
+    span {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 14px;
+      color: var(--ctpg-slate);
+      font-family: var(--ctpg-font-label);
+      font-weight: var(--ctpg-weight-label-heavy);
+      font-size: 12px;
+      text-transform: uppercase;
+      white-space: nowrap;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 13px;
+        bottom: -1px;
+        left: 13px;
+        height: 2px;
+        background: transparent;
+      }
+    }
+
+    @media (hover: hover) { &:hover span { color: var(--ctpg-deep); } }
+    input:checked + span { color: var(--ctpg-navy); }
+    input:checked + span::after { background: var(--ctpg-coral); }
+    input:focus-visible + span { outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color); outline-offset: -3px; }
+  }
+
+  // One row of fields; the column plan follows how many fields the type has.
+  .tp-fields {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.55fr 1fr 1fr 150px;
+    gap: 9px;
+    padding: 18px 20px 20px;
+
+    &[data-count="4"] { grid-template-columns: 1.25fr 1fr 1fr 1fr 150px; }
+    &[data-count="2"] { grid-template-columns: 1.5fr 1fr 150px; }
+  }
+
+  &:not(.tp-ready) .tp-needs-js { display: none; }
+
+  .tp-field { position: relative; min-width: 0; }
+  .tp-field[hidden] { display: none; }
+
+  .tp-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+    width: 100%;
+    height: 62px;
+    margin: 0;
+    padding: 0 34px 0 16px;
+    border: 1px solid var(--ctpg-field-line);
+    background: var(--ctpg-white);
+    color: var(--ctpg-ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    &:focus-visible, &:focus-within { outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color); outline-offset: 0; }
+  }
+  .tp-box-input { padding-right: 16px; cursor: text; }
+  .is-open > .tp-box { outline: var(--ctpg-focus-width) solid var(--ctpg-focus-color); outline-offset: 0; }
+
+  .tp-label {
+    color: var(--ctpg-coral-text);
+    font-family: var(--ctpg-font-label);
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .tp-val, .tp-box input {
+    overflow: hidden;
+    color: var(--ctpg-ink);
+    font-size: var(--ctpg-field-font-size);
+    line-height: 22px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .tp-val.is-empty { color: var(--ctpg-slate); }
+
+  .tp-box input {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+
+    &::placeholder { color: var(--ctpg-slate); opacity: 1; }
+  }
+
+  .tp-chev { position: absolute; top: 50%; right: 12px; margin-top: -8px; color: var(--ctpg-slate); }
+
+  .tp-go {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    height: 62px;
+    border: 0;
+    background: var(--ctpg-coral-text);
+    color: var(--ctpg-white);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: 13px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .45);
+    cursor: pointer;
+
+    @media (hover: hover) { &:hover { background: var(--ctpg-deep); } }
+  }
+
+  // Panels
+  .tp-pop {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 30;
+    width: max-content;
+    min-width: 100%;
+    max-width: min(640px, calc(100vw - 32px));
+    padding: 16px 18px;
+    border: 1px solid var(--ctpg-card-line);
+    background: var(--ctpg-white);
+    color: var(--ctpg-ink);
+    box-shadow: var(--ctpg-shadow-menu);
+    text-align: left;
+
+    &[hidden] { display: none; }
+  }
+  .tp-pop-where { width: 520px; }
+  .tp-pop-when { width: 620px; }
+  .tp-pop-who, .tp-pop-combo { width: 400px; }
+  .tp-pop-park, .tp-pop-nights { width: 380px; }
+  .tp-pop-days { width: 340px; }
+
+  .tp-pop-head { display: flex; align-items: center; justify-content: space-between; margin: -4px 0 8px; }
+  .tp-pop-title, .tp-pop-sub {
+    margin: 0;
+    color: var(--ctpg-deep);
+    font-family: var(--ctpg-font-label);
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .tp-pop-sub { margin: 14px 0 8px; font-size: 12px; }
+  .tp-pop-body > .tp-pop-sub:first-child { margin-top: 0; }
+  .tp-x { display: none; width: 44px; height: 44px; margin-right: -10px; border: 0; background: transparent; color: var(--ctpg-deep); font-size: 26px; line-height: 1; cursor: pointer; }
+
+  .tp-pop-h { margin: 0 0 6px; color: var(--ctpg-slate); font-family: var(--ctpg-font-label); font-weight: 700; font-size: 12px; }
+  .tp-sugg { margin: 0; padding: 0; list-style: none; }
+  .tp-opt {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 42px;
+    padding: 0 10px;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover, &.is-active { background: var(--ctpg-mist); }
+  }
+  .tp-opt-l { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .tp-tag { flex: 0 0 auto; padding: 3px 9px; border-radius: var(--ctpg-radius-badge); font-family: var(--ctpg-font-label); font-weight: 600; font-size: 12px; line-height: 1.3; }
+  .tp-tag-region { background: #e6f2f9; color: #005a8f; }
+  .tp-tag-park { background: #fdeceb; color: #a82a2a; }
+  .tp-tag-port { background: #e8f6f5; color: #1f6b66; }
+  .tp-tag-line { background: var(--ctpg-mist); color: var(--ctpg-navy); }
+  .tp-tag-ship { background: #fff6d6; color: #6b5600; }
+  .tp-pop-note { margin: 8px 10px 0; color: var(--ctpg-slate); font-size: 14px; }
+  .tp-pop-tip { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--ctpg-line); color: var(--ctpg-slate); font-size: 14px; }
+  .tp-pop-tip b { color: var(--ctpg-ink); font-weight: 600; }
+
+  .tp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tp-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 13px;
+    border: 1px solid var(--ctpg-card-line);
+    border-radius: var(--ctpg-radius-chip);
+    background: var(--ctpg-white);
+    color: var(--ctpg-navy);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+
+    @media (hover: hover) { &:hover { border-color: var(--ctpg-coral-text); color: var(--ctpg-coral-text); } }
+    &[aria-pressed="true"] { border-color: var(--ctpg-deep); background: var(--ctpg-deep); color: var(--ctpg-white); }
+  }
+
+  .tp-tabs { display: flex; gap: 4px; margin-bottom: 12px; border-bottom: 1px solid var(--ctpg-line); }
+  .tp-tabs button {
+    min-height: 44px;
+    padding: 0 14px;
+    border: 0;
+    background: transparent;
+    color: var(--ctpg-slate);
+    font-family: var(--ctpg-font-label);
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+
+    &[aria-selected="true"] { color: var(--ctpg-deep); box-shadow: inset 0 -2px 0 var(--ctpg-coral); }
+  }
+  .tp-year { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 10px; align-items: start; margin-top: 8px; }
+  .tp-year-l { padding-top: 10px; color: var(--ctpg-deep); font-family: var(--ctpg-font-label); font-weight: 700; font-size: 13px; }
+  .tp-mgrid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+  .tp-mgrid .tp-chip { padding: 0 6px; }
+  .tp-hint { margin: 10px 0 0; color: var(--ctpg-slate); font-size: 13px; }
+  .tp-hint[hidden], [data-tp-when-pane][hidden] { display: none; }
+
+  .tp-dates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .tp-dates label, .tp-select, .tp-ages label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    color: var(--ctpg-deep);
+    font-family: var(--ctpg-font-label);
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .tp-dates input, .tp-select select, .tp-ages select {
+    min-height: 44px;
+    padding: 0 10px;
+    border: 1px solid var(--ctpg-field-line);
+    background: var(--ctpg-white);
+    color: var(--ctpg-ink);
+    font-family: var(--ctpg-font-body);
+    font-weight: 400;
+    font-size: var(--ctpg-field-font-size);
+  }
+  .tp-select { margin-top: 14px; }
+
+  .tp-step-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 58px; border-bottom: 1px solid var(--ctpg-line); }
+  .tp-step-l { font-weight: 600; font-size: 16px; }
+  .tp-step-l small { display: block; color: var(--ctpg-slate); font-weight: 400; font-size: 13px; }
+  .tp-stepper { display: flex; align-items: center; gap: 14px; }
+  .tp-stepper output { min-width: 20px; text-align: center; font-weight: 600; font-size: 17px; }
+  .tp-sbtn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--ctpg-field-line);
+    border-radius: 50%;
+    background: var(--ctpg-white);
+    color: var(--ctpg-deep);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+
+    &:disabled { border-color: var(--ctpg-line); color: #a9b4bc; cursor: default; }
+  }
+  .tp-ages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+  .tp-ages:empty { display: none; }
+
+  .tp-pop-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+  .tp-clear { padding: 10px 0; border: 0; background: transparent; color: var(--ctpg-link); font-weight: 600; font-size: 14px; text-decoration: underline; cursor: pointer; }
+  .tp-done {
+    min-height: 44px;
+    padding: 0 22px;
+    border: 0;
+    background: var(--ctpg-deep);
+    color: var(--ctpg-white);
+    font-family: var(--ctpg-font-label);
+    font-weight: var(--ctpg-weight-label-heavy);
+    font-size: 13px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .tp-pop-where .tp-pop-foot { display: none; }
+}
+
+// ── Phone (680 and under) ────────────────────────────────
+@media (max-width: $ctpg-bp-phone) {
+  // The headline fills the column at a size that keeps "theme park vacation." on one line
+  // (390 wide: 38px, two lines; checked Oct 17, 2026).
+  .ctpg-home .hero-copy h1 { max-width: none; font-size: min(38px, calc((100vw - 44px) / 9)); }
+
+  .ctpg-home .tp {
+    .search-box-top { display: block; padding: 18px 16px 0; }
+    .tp-types {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 10px;
+    }
+    .tp-type span { justify-content: center; width: 100%; padding: 8px 4px; }
+    .tp-type span::after { right: 24px; left: 24px; bottom: 4px; }
+
+    .tp-fields,
+    .tp-fields[data-count] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 14px 16px 16px; }
+    // First field full width; with four fields the last (Who's going) too.
+    .tp-field[data-pos="1"],
+    .tp-fields[data-count="4"] .tp-field[data-pos="4"] { grid-column: 1 / -1; }
+    .tp-box { height: 56px; padding: 0 12px; }
+    .tp-chev { display: none; }
+    .tp-box-input { padding-right: 12px; }
+    .tp-go { grid-column: 1 / -1; height: 50px; }
+
+    // Panels become a sheet from the bottom of the screen.
+    .tp-pop:not(.tp-pop-where) {
+      position: fixed;
+      top: auto;
+      right: 0;
+      bottom: 0;
+      left: 0 !important;
+      z-index: 1000;
+      width: auto;
+      max-width: none;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 16px 20px 20px;
+      border: 0;
+      border-radius: 18px 18px 0 0;
+      box-shadow: 0 -12px 40px rgba(0, 0, 0, .35);
+    }
+    .tp-pop-where { width: auto; right: 0; max-width: none; }
+    .tp-x { display: inline-flex; align-items: center; justify-content: center; }
+    .tp-pop-head { margin-bottom: 4px; }
+    .tp-pop-title { font-family: var(--ctpg-font-serif); font-size: 22px; }
+    .tp-mgrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .tp-pop-foot { position: sticky; bottom: -20px; margin: 16px -20px -20px; padding: 12px 20px 20px; border-top: 1px solid var(--ctpg-line); background: var(--ctpg-white); }
+    .tp-done { flex: 1; margin-left: 16px; }
+  }
+
+  // Dim the page behind a sheet.
+  // Inside the hero (which sits above the page while a panel is open), under its content.
+  .tp-sheet-open .ctpg-home .hero::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 3;
+    background: rgba(16, 26, 36, .6);
+  }
+}
