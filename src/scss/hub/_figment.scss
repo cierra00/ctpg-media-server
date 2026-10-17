@@ -2046,3 +2046,8 @@ div.fig-list-card {
   font-size: 14px;
   color: var(--ctpg-coral-text);
 }
+
+// A list scheduled more than once (Oct 17, 3:25 PM; Cierra: "schedule multiple lists or the same list
+// multiple times. don't make the ui messy"): its other times sit under the list name in the Schedule box
+.fig-sch-also { margin: 0 0 var(--ctpg-space-3); font-size: 13px; color: var(--ctpg-slate); text-wrap: pretty; }
+.fig-sch-also-t { white-space: nowrap; }
