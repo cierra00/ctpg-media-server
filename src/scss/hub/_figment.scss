@@ -1606,3 +1606,317 @@ div.fig-list-card {
 // Wrapping (Cierra, Oct 13: "you have to be careful with the word wrapping"): help lines that
 // changed with the Link menu end on a full phrase, never a word left alone.
 .fig-help, .fig-msgs-head span, .fig-people-note, .fig-move p, .fig-fold-head p { text-wrap: pretty; }
+
+// ── Posting control (Oct 17, plan 42) ────────────────────
+// Cierra: "I say let's do that as long as we can turn the messages on we can turn them off and
+// we can refresh them". One card: on/off and Refresh, Posting now (a menu: Use now, Schedule
+// Sat 7:30 AM, Other time...), the lock, Up next and Coming up. Replaces the dark hero, the
+// Active list card and the 5 schedule slots (their styles above are no longer used by the Hub).
+.fig-post {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ctpg-space-5);
+  padding: var(--ctpg-space-6);
+  margin-bottom: var(--ctpg-space-6);
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: var(--fig-radius);
+  box-shadow: var(--ctpg-shadow-card);
+}
+.fig-post-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ctpg-space-3) var(--ctpg-space-4);
+}
+.fig-post-switches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ctpg-space-3);
+}
+.fig-post-hint { font-size: 14px; color: var(--ctpg-slate); }
+.fig-onoff {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 18px 0 7px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ctpg-status-quiet-text);
+  color: var(--ctpg-white);
+  font-size: 15px;
+  font-weight: var(--ctpg-weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--ctpg-motion-fast);
+  .fig-onoff-knob {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--ctpg-white);
+  }
+  &[aria-pressed="false"] {
+    background: var(--ctpg-mist);
+    color: var(--ctpg-ink);
+    box-shadow: inset 0 0 0 1px var(--ctpg-field-line);
+    .fig-onoff-knob { background: var(--ctpg-slate); }
+  }
+  &:disabled { opacity: .6; cursor: default; }
+}
+.fig-bot {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ctpg-slate);
+  .fig-bot-dot {
+    flex: 0 0 auto;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ctpg-field-line);
+  }
+  &[data-state="ok"] .fig-bot-dot { background: var(--ctpg-aqua); box-shadow: 0 0 0 3px rgba(78, 205, 196, .3); }
+  &[data-state="live"] { color: var(--ctpg-ink); font-weight: var(--ctpg-weight-semibold); }
+  &[data-state="live"] .fig-bot-dot { background: var(--ctpg-coral); box-shadow: 0 0 0 3px rgba(255, 94, 94, .25); }
+}
+.fig-post-label {
+  display: block;
+  margin-bottom: var(--ctpg-space-2);
+  font-size: 13px;
+  font-weight: var(--ctpg-weight-label);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ctpg-slate);
+}
+.fig-post-row {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--ctpg-space-3);
+}
+.fig-pick {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ctpg-space-4);
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 560px;
+  min-height: 56px;
+  padding: 8px 18px;
+  border: 2px solid var(--ctpg-deep);
+  border-radius: var(--fig-radius-s);
+  background: var(--ctpg-white);
+  color: var(--ctpg-deep);
+  font-size: 19px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  .fig-pick-name { min-width: 0; overflow-wrap: anywhere; }
+  &:disabled { cursor: default; border-color: var(--ctpg-card-line); opacity: 1; }
+}
+.fig-lockbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--ctpg-card-line);
+  flex: 0 0 auto;
+  border-radius: var(--fig-radius-s);
+  background: var(--ctpg-white);
+  color: var(--ctpg-slate);
+  font-size: 20px;
+  cursor: pointer;
+  &[aria-pressed="true"] { background: var(--ctpg-deep); border-color: var(--ctpg-deep); color: var(--ctpg-white); }
+}
+.fig-pick-menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  width: min(100%, 560px);
+  max-height: 70vh;
+  overflow: auto;
+  padding: 8px;
+  background: var(--ctpg-white);
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: 14px;
+  box-shadow: var(--ctpg-shadow-menu);
+}
+.fig-pick-head {
+  display: block;
+  padding: 10px 12px 6px;
+  font-size: 13px;
+  font-weight: var(--ctpg-weight-label);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ctpg-slate);
+}
+.fig-pick-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 12px;
+  border-radius: 10px;
+  &.is-now { background: var(--ctpg-status-quiet-bg); }
+}
+.fig-pick-title { font-size: 16px; font-weight: 700; overflow-wrap: anywhere; }
+.fig-pick-sub {
+  font-size: 13px;
+  color: var(--ctpg-slate);
+  strong { color: var(--ctpg-status-quiet-text); }
+}
+.fig-pick-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.fig-pick-foot { margin: 4px 4px 0; padding: 8px 8px 0; border-top: 1px solid var(--ctpg-line); }
+.fig-act {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: 10px;
+  background: var(--ctpg-white);
+  color: var(--ctpg-deep);
+  font-size: 14px;
+  font-weight: var(--ctpg-weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  &.is-dark { background: var(--ctpg-deep); border-color: var(--ctpg-deep); color: var(--ctpg-white); }
+  &.is-quick { border-color: var(--ctpg-status-quiet-text); color: var(--ctpg-status-quiet-text); }
+  &.is-danger { color: var(--ctpg-coral-text); }
+  &:disabled { opacity: .55; cursor: default; }
+}
+.fig-linkbtn {
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--ctpg-link);
+  font-weight: var(--ctpg-weight-semibold);
+  text-decoration: underline;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.fig-post-next { margin: var(--ctpg-space-3) 0 0; font-size: 15px; color: var(--ctpg-ink); }
+.fig-post-up {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px var(--ctpg-space-2);
+  padding-top: var(--ctpg-space-4);
+  border-top: 1px solid var(--ctpg-line);
+  font-size: 15px;
+  .fig-up-label { font-weight: var(--ctpg-weight-semibold); }
+  .fig-up-all { margin-left: auto; }
+}
+.fig-coming {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ctpg-space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fig-coming-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--ctpg-line);
+  border-radius: 12px;
+  &.is-active { border-color: var(--ctpg-status-quiet-text); background: var(--ctpg-status-quiet-bg); }
+}
+.fig-coming-date {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  background: var(--ctpg-deep);
+  color: var(--ctpg-white);
+  line-height: 1.05;
+  small { font-size: 11px; font-weight: var(--ctpg-weight-semibold); letter-spacing: .06em; }
+  b { font-size: 19px; }
+}
+.fig-coming-text {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  strong { overflow-wrap: anywhere; }
+  span { font-size: 14px; color: var(--ctpg-slate); }
+}
+.fig-coming-acts { display: flex; flex-wrap: wrap; gap: 6px; flex: 1 1 100%; justify-content: flex-end; }
+@media (max-width: 575.98px) {
+  .fig-post { padding: var(--ctpg-space-4); }
+  .fig-pick { font-size: 17px; }
+  .fig-post-hint { display: none; }   // the buttons' tooltips and How it works say the same
+  .fig-post-up .fig-up-all { margin-left: 0; }
+  .fig-coming-acts { justify-content: flex-start; }
+}
+
+// Schedule box (a modal): one-tap Saturday, then Day, Starts and Stops as tap choices
+.fig-sch-quick {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 16px;
+  border: 2px solid var(--ctpg-status-quiet-text);
+  border-radius: 12px;
+  background: var(--ctpg-status-quiet-bg);
+  color: var(--ctpg-deep);
+  font-size: 16px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  span { font-size: 14px; color: var(--ctpg-status-quiet-text); white-space: nowrap; }
+}
+.fig-sch-group {
+  margin: var(--ctpg-space-4) 0 0;
+  padding: 0;
+  border: 0;
+  legend { float: none; width: auto; margin-bottom: 8px; padding: 0; font-size: 14px; font-weight: 700; }
+}
+.fig-tapchips { display: flex; flex-wrap: wrap; gap: 8px; }
+.fig-tap {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--ctpg-field-line);
+  border-radius: 10px;
+  background: var(--ctpg-white);
+  color: var(--ctpg-deep);
+  font-size: 15px;
+  font-weight: var(--ctpg-weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  &[aria-pressed="true"] { background: var(--ctpg-deep); border-color: var(--ctpg-deep); color: var(--ctpg-white); }
+}
+.fig-sch-other { max-width: 220px; margin-top: 8px; }
+@media (max-width: 399.98px) {
+  .fig-pick { padding: 8px 12px; font-size: 16px; }
+  .fig-lockbtn { width: 48px; height: 48px; }
+  .fig-coming-date { display: none; }   // the day is in the text; the name gets the room
+}
+@media (max-width: 575.98px) {
+  // even rows on a phone instead of one button left alone on a line
+  .fig-tapchips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #fig-sch-starts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #fig-sch-stops > :first-child { grid-column: 1 / -1; }
+  .fig-tap { padding: 0 8px; }
+}
+.fig-sch-note { margin: 8px 0 0; font-size: 14px; color: var(--ctpg-slate); }
