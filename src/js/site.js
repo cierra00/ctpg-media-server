@@ -931,6 +931,50 @@
     window.location.assign(form.action + (form.action.indexOf("?") > -1 ? "&" : "?") + p.toString());
   });
 
+  // Edit search (Oct 17, 2026): the results page sends its answers back in the address.
+  (function () {
+    var u = new URLSearchParams(window.location.search);
+    if (!u.toString()) return;
+    var list = function (k) { return (u.get(k) || "").split(",").filter(function (v) { return v !== ""; }); };
+    var style = u.get("style");
+    if (style !== null) {
+      var r = $('input[name="style"][value="' + style.replace(/[^a-z-]/g, "") + '"]');
+      if (r) { r.checked = true; s.type = r.value; }
+    }
+    if (s.type === "cruise" || s.type === "") {
+      ["dest", "port", "line", "ship", "park"].some(function (k) {
+        var v = u.get(k);
+        var w = v && where.filter(function (x) { return x[2] === k && x[3] === v.split(",")[0]; })[0];
+        if (w) { s.pick = w; q.value = w[0]; }
+        return !!w;
+      });
+      if (!s.pick && u.get("q")) q.value = u.get("q");
+    }
+    if (s.type === "theme-park") s.parks = list("park").filter(function (k) { return (data.parks || {})[k]; });
+    if (s.type === "cruise-and-park") {
+      if ((data.parks || {})[list("park")[0]]) s.comboPark = list("park")[0];
+      if (u.get("first") === "cruise") s.first = "cruise";
+      if (["3-5", "6-9", "10-0"].indexOf(u.get("nr")) > -1) s.cnights = u.get("nr");
+      if ((data.ports || {})[u.get("port")]) s.port = u.get("port");
+    }
+    if (s.type === "cruise" && ["2-5", "6-9", "10-14", "15-0"].indexOf(u.get("nr")) > -1) s.nr = u.get("nr");
+    var days = parseInt(u.get("days"), 10);
+    if (days >= 1 && days <= 10) s.days = days;
+    s.months = list("when").filter(function (m) { return /^20\d\d-(0[1-9]|1[0-2])$/.test(m); });
+    if (u.get("from") || u.get("to")) {
+      s.tab = "dates";
+      s.from = u.get("from") || "";
+      s.to = u.get("to") || "";
+      $("[data-tp-from]").value = s.from;
+      $("[data-tp-to]").value = s.to;
+    }
+    var adults = parseInt(u.get("adults"), 10);
+    if (adults >= 1 && adults <= 8) s.adults = adults;
+    var ages = list("ages"), kids = Math.min(6, parseInt(u.get("kids"), 10) || ages.length);
+    s.kids = [];
+    for (var i = 0; i < kids; i++) s.kids.push(ages[i] !== undefined ? ages[i] : "");
+  })();
+
   showFields();
   render();
 })();

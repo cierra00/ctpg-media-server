@@ -384,3 +384,95 @@
     background: rgba(16, 26, 36, .6);
   }
 }
+
+
+// =========================================================
+// Results page additions (Oct 17, 2026): answer chips that remove themselves, the Where /
+// Leaving from / Cruise line / Length / Stops at filters, and the lowest fare by month.
+// =========================================================
+.trip-answer-x {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 6px 10px 6px 12px;
+  color: var(--ctpg-navy);
+  text-decoration: none;
+
+  svg { flex: 0 0 14px; color: var(--ctpg-slate); }
+
+  @media (hover: hover) { &:hover { border-color: var(--ctpg-coral-text); color: var(--ctpg-coral-text); } }
+  &:hover svg { color: inherit; }
+}
+
+.trip-refine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin: 18px 0 8px;
+
+  .trip-field { flex: 1 1 170px; max-width: 280px; min-width: 0; margin: 0; }
+  .trip-field select { width: 100%; min-width: 0; }
+  .trip-submit { min-height: 48px; margin: 0; }
+}
+
+.trip-months {
+  margin: 22px 0 6px;
+
+  ul {
+    display: flex;
+    gap: 6px;
+    margin: 0;
+    padding: 0 0 6px;
+    overflow-x: auto;
+    list-style: none;
+    overscroll-behavior-inline: contain;
+  }
+
+  li { flex: 1 0 auto; }
+}
+.trip-months-h {
+  margin: 0 0 8px;
+  color: var(--ctpg-navy);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.trip-month {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 90px;
+  min-height: 58px;
+  padding: 8px 12px;
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: var(--ctpg-radius-badge);
+  background: var(--ctpg-white);
+  color: var(--ctpg-navy);
+  text-decoration: none;
+
+  b { font-weight: 600; font-size: 14px; }
+  span { color: var(--ctpg-slate); font-size: 12px; }
+
+  @media (hover: hover) { &:hover { border-color: var(--ctpg-coral-text); } }
+  &.is-on { border-color: var(--ctpg-deep); background: var(--ctpg-deep); color: var(--ctpg-white); }
+  &.is-on span { color: #e6edf2; }
+  &.is-none { border-style: dashed; color: var(--ctpg-slate); }
+}
+
+@media (max-width: $ctpg-bp-phone) {
+  .trip-refine {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+
+    .trip-field { max-width: none; }
+    .trip-field:first-of-type { grid-column: 1 / -1; }
+    .trip-submit { grid-column: 1 / -1; width: 100%; }
+  }
+}
