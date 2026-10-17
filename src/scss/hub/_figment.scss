@@ -1995,3 +1995,54 @@ div.fig-list-card {
   .fig-queue-text { flex-basis: calc(100% - 46px); }   // Post next goes under the text on a phone
   .fig-queue-btn { margin-left: 46px; }
 }
+
+// ── List editor: message and link side by side, Link for every message, spreadsheet upload (Oct 17, plan 42) ──
+// Cierra: "lets see if we can optimize the list itself entering in the list choosing the links.
+// I would also like a bulk upload to where we can upload a spreadsheet."
+.fig-msg-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 280px);
+  gap: 8px 12px;
+  align-items: start;
+  .fig-link { flex: none; flex-direction: column; align-items: stretch; gap: 4px; }
+  .fig-link .fig-select { flex: none; width: 100%; max-width: none; min-height: 44px; }
+}
+@media (min-width: 768px) {
+  // the menu sits beside the message; its first choice says what it is, so the word Link is for screen readers
+  .fig-msg-main .fig-link-label {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+}
+@media (max-width: 767.98px) {
+  .fig-msg-main { grid-template-columns: minmax(0, 1fr); }
+  .fig-msg-main .fig-link { flex-direction: row; flex-wrap: wrap; align-items: center; }
+  .fig-msg-main .fig-link .fig-select { flex: 1 1 200px; width: auto; }
+}
+.fig-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 16px;
+  margin: 8px 0 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--ctpg-line);
+  border-radius: 12px;
+  background: var(--ctpg-paper);
+}
+.fig-tools-all { display: flex; flex: 1 1 320px; flex-direction: column; gap: 6px; min-width: 0; }
+.fig-tools-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  .fig-select { flex: 1 1 200px; min-width: 0; max-width: 360px; min-height: 40px; padding: 0 10px; font-size: 15px; }
+}
+.fig-tools-add { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.fig-up-problems {
+  max-height: 200px;
+  overflow: auto;
+  margin: 0 0 12px;
+  padding-left: 18px;
+  font-size: 14px;
+  color: var(--ctpg-coral-text);
+}
