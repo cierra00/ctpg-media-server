@@ -7,6 +7,8 @@
 #panel-offers, #panel-signups {
   --an-radius: 16px;
   --an-radius-s: 12px;
+  --fig-radius: 16px;
+  --fig-radius-s: 12px;
   color: var(--ctpg-ink);
 }
 
@@ -195,10 +197,14 @@
   .of-ed-grid { grid-template-columns: minmax(0, 1fr); }
   .of-preview { position: static; }
 }
-@media (max-width: 1199.98px) { #of-table, #su-table { @include an-cards; } }
+@media (max-width: 1199.98px) { #su-table { @include an-cards; } }
+@media (max-width: 767.98px) { #of-table { @include an-cards; } }
 @media (max-width: 991.98px) { #of-sources { @include an-cards; } }
+@media (max-width: 767.98px) {
+  #of-table td[data-label="Actions"] { grid-column: 1 / -1; justify-content: flex-start; &::before { display: none; } }
+}
 @media (max-width: 1199.98px) {
-  #of-table td[data-label="Actions"], #su-table td[data-label="Details"] { grid-column: 1 / -1; justify-content: flex-start; &::before { display: none; } }
+  #su-table td[data-label="Details"] { grid-column: 1 / -1; justify-content: flex-start; &::before { display: none; } }
   #su-table .su-detail { display: block; }
   #su-table .su-detail > td { grid-column: 1 / -1; display: block; &::before { display: none; } }
   .of-acts { justify-content: flex-start; }
@@ -210,3 +216,252 @@
   .su-export-row .an-seg button { flex: 1; }
   .su-export-row .an-seg { display: flex; }
 }
+
+// =========================================================
+// Simpler Offer pages (plan 42, Oct 17, 2026; Cierra: "Do it!").
+// List: 3 numbers, one row per page with a second line and a ⋯ menu; chat sources fold closed.
+// Editor: name on top, three tabs (Sign-up page, Thank-you page, Settings for this page), the
+// preview beside; on narrow screens Edit / Preview switches between them.
+// =========================================================
+.of-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+// Pages table rows
+.of-pg-top { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.of-name-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: var(--ctpg-weight-semibold);
+  color: var(--ctpg-deep);
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  &:hover { text-decoration-color: currentColor; }
+  &:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 2px; border-radius: 4px; }
+}
+.of-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 14px;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--ctpg-slate);
+}
+#of-table td { vertical-align: top; }
+#of-table td[data-label="Actions"] { white-space: nowrap; }
+.of-acts { flex-wrap: nowrap; }
+.of-more-btn { min-width: 36px; justify-content: center; padding: 0 8px; }
+
+// The ⋯ menu (fixed, so the table's scroll box can't cut it off)
+.of-menu {
+  position: fixed;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  min-width: 190px;
+  padding: 6px;
+  border: 1px solid var(--ctpg-line);
+  border-radius: 12px;
+  background: var(--ctpg-white);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .14);
+  &.hidden { display: none; }
+}
+.of-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font-size: 14px;
+  color: var(--ctpg-ink);
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  &:hover, &:focus-visible { background: var(--ctpg-mist); outline: none; }
+  &.is-danger { color: var(--ctpg-coral-text); }
+}
+
+// "Which chat messages sent them": closed by default
+.of-fold {
+  > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ctpg-space-3);
+    min-height: 44px;
+    list-style: none;
+    cursor: pointer;
+    &::-webkit-details-marker { display: none; }
+    h2 { margin: 0; font-size: 18px; }
+    &::after { content: "\F282"; font-family: bootstrap-icons; color: var(--ctpg-slate); transition: transform .15s; }
+    &:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 2px; border-radius: 8px; }
+  }
+  &[open] > summary { margin-bottom: var(--ctpg-space-3); &::after { transform: rotate(180deg); } }
+}
+.of-fold-hint { margin-left: auto; font-size: 13px; color: var(--ctpg-slate); white-space: nowrap; }
+
+// Editor
+.of-name-f { max-width: 520px; margin-bottom: var(--ctpg-space-3); }
+.of-ed-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--ctpg-space-2) var(--ctpg-space-3);
+  margin-bottom: var(--ctpg-space-4);
+}
+.of-edtabs { flex: 1 1 auto; min-width: 0; margin-bottom: 0; overflow-x: auto; scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+.of-edtabs .fig-viewtab { gap: 0; padding: 0 var(--ctpg-space-3); }
+.of-edtabs .fig-viewtab:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: -3px; }
+.of-mode { display: none; }
+.of-tabpane { display: flex; flex-direction: column; gap: var(--ctpg-space-4); min-width: 0; &.hidden { display: none; } }
+.of-note {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--ctpg-paper);
+  font-size: 14px;
+  color: var(--ctpg-ink);
+  &.hidden { display: none; }
+  i { color: var(--ctpg-deep); }
+}
+.of-photo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ctpg-space-2) var(--ctpg-space-3);
+  .an-help { margin: 0; }
+  img { width: 160px; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; background: var(--ctpg-mist); }
+}
+.of-photo-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.of-var-add { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; &:empty { display: none; } .an-select { min-height: 32px; } }
+.of-var-remove { align-self: flex-start; }
+
+// Photo picker
+.of-media-dialog { max-width: 760px; width: calc(100% - 32px); }
+.of-media-q { width: 100%; min-width: 0; margin-bottom: var(--ctpg-space-3); }
+.of-media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--ctpg-space-2);
+  max-height: 55vh;
+  margin: 0 0 var(--ctpg-space-3);
+  padding: 2px;
+  overflow-y: auto;
+  list-style: none;
+}
+.of-media-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  padding: 4px;
+  border: 1px solid var(--ctpg-line);
+  border-radius: 10px;
+  background: var(--ctpg-white);
+  font-size: 12px;
+  color: var(--ctpg-ink);
+  text-align: left;
+  cursor: pointer;
+  img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; background: var(--ctpg-mist); }
+  span { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  &:hover { border-color: var(--ctpg-deep); }
+  &:focus-visible { outline: 3px solid var(--ctpg-deep); outline-offset: 1px; }
+}
+
+// Figment Settings: what new pages start with
+.of-def-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--ctpg-space-3);
+  .of-def-wide { grid-column: 1 / -1; }
+  .an-alert { margin: 0; }
+}
+.of-def-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 767.98px) { .of-def-form { grid-template-columns: minmax(0, 1fr); } }
+
+// Narrow screens: Edit / Preview instead of the preview far below the form
+@media (max-width: 1279.98px) {
+  .of-mode { display: inline-flex; }
+  .of-ed-grid[data-mode="form"] .of-preview { display: none; }
+  .of-ed-grid[data-mode="preview"] .of-form { display: none; }
+}
+// The table becomes cards on phones only now (5 columns fit down to tablet width)
+@media (max-width: 767.98px) {
+  #of-table tr { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #of-table td[data-label="Visits"], #of-table td[data-label="Sign-ups"], #of-table td[data-label="Rate"] { flex-direction: column; align-items: flex-start; text-align: left; gap: 0; }
+}
+@media (max-width: 575.98px) {
+  .of-ed-bar { flex-direction: column; align-items: stretch; }
+  .of-mode { align-self: flex-start; }
+}
+
+// =========================================================
+// Same look as the Figment tab (Oct 17, 3:07 PM; Cierra: "make it consistant with the figment pages
+// in styles"): Figment section head, pill buttons, fold cards, editor card, Figment field sizes.
+// =========================================================
+.of-head { margin-bottom: var(--ctpg-space-4); }
+.of-head .fig-head-tools { align-items: center; }
+.of-period { flex: 0 0 auto; width: auto; min-width: 0; max-width: none; min-height: 44px; }
+#panel-offers .an-kpi { border-color: var(--ctpg-card-line); border-radius: var(--fig-radius-s); }
+#panel-offers .an-kpis { margin-bottom: var(--ctpg-space-4); }
+.of-list-card {
+  margin-bottom: var(--ctpg-space-3);
+  padding: var(--ctpg-space-2) var(--ctpg-space-5);
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: var(--fig-radius);
+  background: var(--ctpg-white);
+  #of-table { margin: 0; }
+  #of-table tbody tr:last-child td { border-bottom: 0; }
+}
+.of-editor { margin: 0 0 var(--ctpg-space-4); border-left: 1px solid var(--ctpg-card-line); }
+.of-editor .fig-editor-head h2 { overflow-wrap: anywhere; }
+.of-ed-body .an-alert { margin-bottom: var(--ctpg-space-4); }
+.of-acts { align-items: center; }
+#of-src-fold .table-responsive { margin: 0; }
+
+// Fields the size of Figment's (48px boxes, 12px corners, 16px words, deep labels)
+#panel-offers, #of-defaults-card {
+  .of-f .an-label { font-size: 14px; font-weight: var(--ctpg-weight-semibold); color: var(--ctpg-deep); }
+  .of-f .an-search, .of-f .an-select {
+    min-height: 48px;
+    border-color: var(--ctpg-field-line);
+    border-radius: var(--fig-radius-s);
+    font-size: 16px;
+  }
+  .of-f textarea.an-search { min-height: 72px; padding: 10px 12px; }
+  .of-slug { border-radius: var(--fig-radius-s); .an-search { min-height: 46px; border-radius: 0; } }
+  .of-group { border-color: var(--ctpg-card-line); border-radius: var(--fig-radius-s); legend { font-weight: var(--ctpg-weight-label); } }
+  .of-variant { border-color: var(--ctpg-card-line); border-radius: var(--fig-radius-s); }
+}
+
+// Tabs on phones: smaller, and the editor's three share the width (a long one wraps to two lines)
+@media (max-width: 575.98px) {
+  .fig-viewtabs { gap: 0; }
+  .fig-viewtab { gap: 6px; padding: 0 10px; font-size: 14px; }
+  .fig-viewtab > .bi { display: none; }
+  .of-edtabs .fig-viewtab { flex: 1 1 0; justify-content: center; padding: 4px 6px; white-space: normal; line-height: 1.2; text-align: center; }
+  .of-head .fig-head-tools { width: 100%; }
+  .of-period { flex: 1 1 auto; }
+  .of-list-card { padding: 4px var(--ctpg-space-4); }
+  .of-editor .fig-editor-head, .of-ed-body { padding-left: var(--ctpg-space-4); padding-right: var(--ctpg-space-4); }
+}
+// Text boxes grow with their words (no hidden lines on phones)
+#panel-offers textarea.an-search, #of-defaults-card textarea.an-search { field-sizing: content; max-height: 320px; }
+@media (max-width: 575.98px) {
+  .of-tab-long { display: none; }
+  .of-slug-pre { white-space: normal; overflow-wrap: anywhere; }
+  #panel-offers .of-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ctpg-space-2); > .an-kpi:last-child:nth-child(odd) { grid-column: auto; } }
+  .of-kpis .an-kpi { padding: 10px 12px; }
+  .of-kpis .an-kpi-value { font-size: 22px; }
+  .of-kpis .an-kpi-sub { display: none; }
+}
+#of-table th { white-space: nowrap; }
