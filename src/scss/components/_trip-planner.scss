@@ -417,6 +417,27 @@
   .trip-submit { min-height: 48px; margin: 0; }
 }
 
+// Must-haves (ship features) as checkbox chips, on the line under the selects, with Update.
+.trip-has {
+  display: flex;
+  flex: 1 1 60%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  min-width: 0;
+
+  .trip-choice span { min-height: 44px; padding: 8px 14px; font-size: 14px; }
+}
+.trip-has-h {
+  margin-right: 4px;
+  color: var(--ctpg-navy);
+  font-family: var(--ctpg-font-label);
+  font-weight: var(--ctpg-weight-label);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
 .trip-months {
   margin: 22px 0 6px;
 
@@ -473,6 +494,8 @@
 
     .trip-field { max-width: none; }
     .trip-field:first-of-type { grid-column: 1 / -1; }
+    .trip-has { grid-column: 1 / -1; }
+    .trip-has-h { flex: 1 0 100%; }
     .trip-submit { grid-column: 1 / -1; width: 100%; }
   }
 }
