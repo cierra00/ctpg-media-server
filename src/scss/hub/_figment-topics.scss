@@ -1,0 +1,252 @@
+// =========================================================
+// Studio Hub: Figment > Topics (plan 45, Oct 18, 2026)
+// Cierra: "lets setup something in the studio where I can select and approve topics and forbid others. This is
+// park based, and time based."; "we need test mode so it will similate ride times if the park is closed and
+// locations"; "I don't want figment to say too much too often, but I do want it to be effective and not scare
+// or offend anyone". Uses only --ctpg-* tokens. Rule colors use the wait-time status tokens:
+// quiet = Can bring up, moderate = Only if asked, busy = Never mention.
+// =========================================================
+
+// Four tabs (Figment, Offer pages, Topics, Settings) fit in two rows of two on phones
+@media (max-width: 559.98px) {
+  .fig-viewtabs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .fig-viewtab { justify-content: center; padding: 0 var(--ctpg-space-2); font-size: 14px; }
+}
+
+.ft-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--ctpg-space-3) var(--ctpg-space-5);
+  margin-bottom: var(--ctpg-space-4);
+  h2 { margin: 0 0 4px; font-size: 22px; font-weight: var(--ctpg-weight-label); color: var(--ctpg-deep); }
+  p { margin: 0; max-width: 640px; font-size: 15px; color: var(--ctpg-slate); }
+}
+
+// Right now: the park, its local time and what's on
+.ft-now {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ctpg-space-3);
+  margin-bottom: var(--ctpg-space-4);
+  padding: var(--ctpg-space-4) var(--ctpg-space-5);
+  border-radius: var(--fig-radius-s);
+  background: linear-gradient(135deg, var(--ctpg-deep), var(--ctpg-night));
+  color: var(--ctpg-white);
+}
+.ft-now-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ctpg-space-2) var(--ctpg-space-4);
+}
+.ft-now-where { font-size: 13px; font-weight: var(--ctpg-weight-label); letter-spacing: .06em; text-transform: uppercase; color: var(--ctpg-white-80); }
+.ft-now-src { font-size: 13px; color: var(--ctpg-white-72); }
+.ft-now-pick {
+  display: flex;
+  align-items: center;
+  gap: var(--ctpg-space-2);
+  font-size: 13px;
+  color: var(--ctpg-white-80);
+  select { min-height: 36px; max-width: 220px; border-radius: 10px; border: 0; padding: 0 8px; font: inherit; font-size: 14px; color: var(--ctpg-ink); background: var(--ctpg-white); }
+}
+.ft-chips { display: flex; flex-wrap: wrap; gap: var(--ctpg-space-2); }
+// On the dark strip the status colors sit on white, so they read the same as in the list
+.ft-now .ft-rule {
+  &.is-bring_up { background: linear-gradient(var(--ctpg-status-quiet-bg), var(--ctpg-status-quiet-bg)), var(--ctpg-white); }
+  &.is-if_asked { background: linear-gradient(var(--ctpg-status-moderate-bg), var(--ctpg-status-moderate-bg)), var(--ctpg-white); }
+  &.is-never { background: linear-gradient(var(--ctpg-status-busy-bg), var(--ctpg-status-busy-bg)), var(--ctpg-white); }
+}
+
+// Rule chips
+.ft-rule {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: var(--ctpg-weight-label);
+  line-height: 1.3;
+  &.is-bring_up { background: var(--ctpg-status-quiet-bg); color: var(--ctpg-status-quiet-text); }
+  &.is-if_asked { background: var(--ctpg-status-moderate-bg); color: var(--ctpg-status-moderate-text); }
+  &.is-never { background: var(--ctpg-status-busy-bg); color: var(--ctpg-status-busy-text); }
+}
+
+// The rules
+.ft-rules {
+  margin: 0 0 var(--ctpg-space-3);
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: var(--fig-radius-s);
+  background: var(--ctpg-white);
+  overflow: hidden;
+}
+.ft-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr) minmax(0, 1.4fr) minmax(0, 2.2fr) 44px;
+  gap: var(--ctpg-space-3);
+  align-items: center;
+  padding: var(--ctpg-space-3) var(--ctpg-space-5);
+  border-top: 1px solid var(--ctpg-line);
+  &:first-child { border-top: 0; }
+  &.is-off { opacity: .6; }
+  > .ft-rule { justify-self: start; }
+}
+.ft-row-head {
+  font-size: 12px;
+  font-weight: var(--ctpg-weight-label);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ctpg-slate);
+  background: var(--ctpg-paper);
+}
+.ft-topic { font-weight: var(--ctpg-weight-label); font-size: 16px; overflow-wrap: anywhere; }
+.ft-cell { font-size: 15px; color: var(--ctpg-ink); overflow-wrap: anywhere; }
+.ft-cell-label { display: none; }
+.ft-more {
+  position: relative;
+  justify-self: end;
+}
+.ft-more-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: 10px;
+  background: var(--ctpg-white);
+  color: var(--ctpg-deep);
+  font-size: 18px;
+  cursor: pointer;
+  &:hover { border-color: var(--ctpg-slate); }
+}
+.ft-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 4px);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  min-width: 170px;
+  padding: 6px;
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: 12px;
+  background: var(--ctpg-white);
+  box-shadow: var(--ctpg-shadow-menu);
+  button {
+    min-height: 44px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    text-align: left;
+    font: inherit;
+    font-size: 15px;
+    color: var(--ctpg-ink);
+    cursor: pointer;
+    &:hover { background: var(--ctpg-hub-info-bg); }
+    &.is-danger { color: var(--ctpg-coral-text); }
+  }
+}
+.ft-empty { padding: var(--ctpg-space-5); font-size: 15px; color: var(--ctpg-slate); }
+.ft-note { margin: 0 0 var(--ctpg-space-4); font-size: 14px; color: var(--ctpg-slate); }
+.ft-safe { margin: 0; padding-left: 20px; font-size: 14px; color: var(--ctpg-ink); li { margin: 2px 0; } }
+
+// Forms in the cards and the rule window
+.ft-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ctpg-space-3) var(--ctpg-space-4);
+  margin-bottom: var(--ctpg-space-4);
+}
+.ft-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: var(--ctpg-weight-semibold);
+  color: var(--ctpg-ink);
+  .fig-input, select.fig-input { width: 100%; }
+  &.is-wide { grid-column: 1 / -1; }
+}
+.ft-hint { font-size: 13px; font-weight: var(--ctpg-weight-regular); color: var(--ctpg-slate); }
+.ft-choices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ctpg-space-2);
+  margin: 0 0 var(--ctpg-space-4);
+  padding: 0;
+  border: 0;
+  legend { margin-bottom: 6px; font-size: 14px; font-weight: var(--ctpg-weight-semibold); }
+}
+.ft-choice {
+  display: flex;
+  gap: var(--ctpg-space-3);
+  align-items: flex-start;
+  padding: var(--ctpg-space-3);
+  border: 1px solid var(--ctpg-card-line);
+  border-radius: 12px;
+  cursor: pointer;
+  input { width: 18px; height: 18px; margin-top: 2px; flex: none; }
+  strong { display: block; font-size: 15px; }
+  span { font-size: 14px; color: var(--ctpg-slate); }
+  &:has(input:checked) { border-color: var(--ctpg-deep); background: var(--ctpg-hub-info-bg); }
+}
+.ft-actions { display: flex; flex-wrap: wrap; gap: var(--ctpg-space-2); align-items: center; }
+
+// Test mode
+.ft-test-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ctpg-space-3);
+  margin-bottom: var(--ctpg-space-4);
+  padding: var(--ctpg-space-3) var(--ctpg-space-4);
+  border-radius: 12px;
+  background: var(--ctpg-status-moderate-bg);
+  color: var(--ctpg-status-moderate-text);
+  strong { display: block; font-size: 15px; }
+  span { font-size: 14px; }
+}
+.ft-try-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ctpg-space-2);
+  align-items: flex-end;
+  margin-bottom: var(--ctpg-space-3);
+  .ft-field { flex: 1 1 260px; }
+}
+.ft-out {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--ctpg-space-3);
+  padding: var(--ctpg-space-3) var(--ctpg-space-4);
+  border-radius: 12px;
+  background: var(--ctpg-paper);
+  p { margin: 0; font-size: 16px; line-height: 1.5; overflow-wrap: anywhere; }
+}
+.ft-out-label { font-size: 12px; font-weight: var(--ctpg-weight-label); letter-spacing: .06em; text-transform: uppercase; color: var(--ctpg-slate); }
+.ft-facts { margin: 0; padding-left: 20px; font-size: 14px; color: var(--ctpg-ink); li { margin: 2px 0; overflow-wrap: anywhere; } }
+
+// Phones: each rule becomes a small card
+@media (max-width: 760px) {
+  .ft-row-head { display: none; }
+  .ft-row {
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 6px var(--ctpg-space-3);
+    padding: var(--ctpg-space-3) var(--ctpg-space-4);
+    > .ft-topic { grid-column: 1; grid-row: 1; }
+    > .ft-more { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
+    > .ft-rule, > .ft-cell { grid-column: 1; }
+  }
+  .ft-cell-label { display: inline; color: var(--ctpg-slate); }
+  .ft-grid { grid-template-columns: minmax(0, 1fr); }
+  .ft-now { padding: var(--ctpg-space-4); }
+}
