@@ -465,3 +465,8 @@
   .of-kpis .an-kpi-sub { display: none; }
 }
 #of-table th { white-space: nowrap; }
+
+// Analytics, Offer pages tab (Oct 17): its tables become cards on narrow screens, like the chat tables
+@media (max-width: 991.98px) { #an-of-pages, #an-of-sources { @include an-cards; } }
+#an-of-pages td:first-child .of-addr { font-size: 13px; }
+
